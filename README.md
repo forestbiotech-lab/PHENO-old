@@ -47,10 +47,10 @@ Once all dependencies by nodejs have been installed you can start the server in 
 ##Testing
 
 To test that this is working you can try:
-'''url
+```url
 localhost:3000/brapi/v1/brapi
 localhost:3000/brapi/v1/investigation/investigationID
-'''
+```
 
 The first should get you a hello world
 The second extracts the data from investigation database where investigaionID is the varible in the url path
