@@ -5,11 +5,10 @@ var router = express.Router();
 
 
 /* GET study listing. */
-router.get('/investigation', function(req, res, next) {
-  console.log("In route api.");
+router.get('/brapi', function(req, res, next) {
   res.send('HELLO WORLD');
 });
-router.get('/brapi', function(req, res, next) {
+router.get('/investigation', function(req, res, next) {
   req.getConnection(function(err,connection){
   	if(err) return next(err);
   	connection.query('SELECT * FROM Investigation',
