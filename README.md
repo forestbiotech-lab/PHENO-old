@@ -41,9 +41,16 @@ Once all dependencies by nodejs have been installed you can start the server in 
  * db_user
  * db_port
  * db_password
- * db_database 
-
+ * db_database
  in the env.process variable for connection to database.
 
+##Testing
 
+To test that this is working you can try:
+'''url
+localhost:3000/brapi/v1/brapi
+localhost:3000/brapi/v1/investigation/investigationID
+'''
 
+The first should get you a hello world
+The second extracts the data from investigation database where investigaionID is the varible in the url path
