@@ -23,14 +23,27 @@ Figure 1 - Database scheme being used for testing.
 ##How to install
 
 To install this use must have nodejs and npm installed on your system.
-Once you have nodejs and npm install simply clone this repro and run:: 
+Once you have nodejs and npm install simply clone this repro and run:
 ```bash
     npm install 
 ```
 
 in the main directory.
 
-You should set up the varibles: db_host,db_user,_db_port,db_password,db_database in the env.process variable for connection to database.
+Once all dependencies by nodejs have been installed you can start the server in dev mode by running:
+```bash
+    DEBUG=brapi:* npm start 
+```
+
+### Database connection 
+ To connecto the the mysql database you should set up the varibles: 
+ *db_host
+ *db_user
+ *db_port
+ *db_password
+ *db_database 
+
+ in the env.process variable for connection to database.
 
 
 
