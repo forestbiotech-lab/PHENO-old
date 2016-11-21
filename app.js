@@ -1,19 +1,39 @@
+//Local parameters
+require('./.env');
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mysql = require('mysql');
+var connection = require('express-myconnection')
 
+
+// Routes
+var api = require('./routes/api');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var study = require('./routes/study');
 
 var app = express();
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+//Connection parameters
+var DBparams={
+		host: process.env.DB_HOST,
+		user: process.env.DB_USER,
+		password: process.env.DB_PASSWORD,
+		port: process.env.DB_PORT, //port mysql
+		database: process.env.DB_DATABASE
+	};
+app.use(
+	connection(mysql,DBparams,'request')
+);
+console.log(DBparams);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -23,7 +43,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.use('/brapi/v1', api);
 app.use('/users', users);
 app.use('/study', study);
 
