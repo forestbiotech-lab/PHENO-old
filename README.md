@@ -37,11 +37,11 @@ Once all dependencies by nodejs have been installed you can start the server in 
 
 ### Database connection 
  To connecto the the mysql database you should set up the varibles: 
- *db_host
- *db_user
- *db_port
- *db_password
- *db_database 
+ * db_host
+ * db_user
+ * db_port
+ * db_password
+ * db_database 
 
  in the env.process variable for connection to database.
 
