@@ -54,3 +54,9 @@ localhost:3000/brapi/v1/investigation/investigationID
 
 The first should get you a hello world
 The second extracts the data from investigation database where investigaionID is the varible in the url path
+
+
+##Pagination (TODO)
+
+If the response is a single record that doesn't require pagination, then the value for the "pagination" key is the javascript reserved word 'NULL'. When the results are paginated, the pagination object contains the keys "pageSize", "currentPage", "totalCount", "totalPages". The first page will be page 0 (zero).
+
