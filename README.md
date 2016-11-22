@@ -9,7 +9,9 @@ Routes are done through [express](http://expressjs.com/)
 [express-myconnection](https://www.npmjs.com/package/express-myconnection) is used to connecto the the mysql database defined in the DBparams.
 
 
-####No auth yet.* Needs https configuration
+####No auth yet.* Needs https configuration as well
+ OAuth 2.0 authentication provided by [express-oauth-server](https://www.npmjs.com/package/express-oauth-server)
+ Being implemented in branch: OAuth20
  Auth will be done by creating RSA keys for the client and server authentications. 
  After auth has been acheived a token will be generated from the private key to maintain the connection.
 
@@ -30,7 +32,7 @@ Once you have nodejs and npm install simply clone this repro and run:
 
 in the main directory.
 
-Once all dependencies by nodejs have been installed you can start the server in dev mode by running:
+Once all dependencies by nodejs have been installed you can start the server in dev mode by running, :
 ```bash
     DEBUG=brapi:* npm start 
 ```
@@ -60,3 +62,6 @@ The second extracts the data from investigation database where investigaionID is
 
 If the response is a single record that doesn't require pagination, then the value for the "pagination" key is the javascript reserved word 'NULL'. When the results are paginated, the pagination object contains the keys "pageSize", "currentPage", "totalCount", "totalPages". The first page will be page 0 (zero).
 
+
+##Specs to be implemented for Studies
+https://github.com/plantbreeding/API/tree/master/Specification/Studies

@@ -50,6 +50,12 @@ router.get('/investigation/:investigationID', function(req, res, next) {
   });
   //res.json('{  "name": "brapi",  "version": "0.0.0",  "private": true,  "scripts": {    "start": "node ./bin/www"  },  "dependencies": {    "body-parser": "~1.15.2",    "cookie-parser": "~1.4.3",    "debug": "~2.2.0",    "express": "~4.14.0",    "jade": "~1.11.0",    "jstransformer": "^1.0.0",    "morgan": "~1.7.0",    "pug": "^2.0.0-beta6",    "serve-favicon": "~2.3.0"  }}');
 });
+router.get('/authentication', function(req, res, next) {
+   	//This this method safe enough? More sanitation? 
+  	res.sendStatus(501);
+});
+
+
 //Others
 router.get('/*', function(req, res, next) {
   console.log("In route api.");
