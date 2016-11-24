@@ -16,26 +16,26 @@ Routes are done through [express](http://expressjs.com/)
  After auth has been acheived an access token will be generated to be used with the resource server.
  This way if someone discovers your access token it will be soon invalidated.
 
-...+--------+                                           +---------------+
-...|        |--(A)------- Authorization Grant --------->|               |
-...|        |                                           |               |
-...|        |<-(B)----------- Access Token -------------|               |
-...|        |               & Refresh Token             |               |
-...|        |                                           |               |
-...|        |                            +----------+   |               |
-...|        |--(C)---- Access Token ---->|          |   |               |
-...|        |                            |          |   |               |
-...|        |<-(D)- Protected Resource --| Resource |   | Authorization |
-...| Client |                            |  Server  |   |     Server    |
-...|        |--(E)---- Access Token ---->|          |   |               |
-...|        |                            |          |   |               |
-...|        |<-(F)- Invalid Token Error -|          |   |               |
-...|        |                            +----------+   |               |
-...|        |                                           |               |
-...|        |--(G)----------- Refresh Token ----------->|               |
-...|        |                                           |               |
-...|        |<-(H)----------- Access Token -------------|               |
-...+--------+           & Optional Refresh Token        +---------------+
+<br>+--------+                                           +---------------+
+<br>|        |--(A)------- Authorization Grant --------->|               |
+<br>|        |                                           |               |
+<br>|        |<-(B)----------- Access Token -------------|               |
+<br>|        |               & Refresh Token             |               |
+<br>|        |                                           |               |
+<br>|        |                            +----------+   |               |
+<br>|        |--(C)---- Access Token ---->|          |   |               |
+<br>|        |                            |          |   |               |
+<br>|        |<-(D)- Protected Resource --| Resource |   | Authorization |
+<br>| Client |                            |  Server  |   |     Server    |
+<br>|        |--(E)---- Access Token ---->|          |   |               |
+<br>|        |                            |          |   |               |
+<br>|        |<-(F)- Invalid Token Error -|          |   |               |
+<br>|        |                            +----------+   |               |
+<br>|        |                                           |               |
+<br>|        |--(G)----------- Refresh Token ----------->|               |
+<br>|        |                                           |               |
+<br>|        |<-(H)----------- Access Token -------------|               |
+<br>+--------+           & Optional Refresh Token        +---------------+
 
 
 
