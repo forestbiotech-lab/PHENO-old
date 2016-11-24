@@ -38,3 +38,4 @@ jspm_packages
 
 #Local varibles
 .env
+config.js
