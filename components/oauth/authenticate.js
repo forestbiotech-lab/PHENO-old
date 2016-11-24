@@ -6,10 +6,6 @@ var oauthServer = require('oauth2-server');
 var Request = oauthServer.Request;
 var Response = oauthServer.Response;
 var db = require('./sqldb')
-var config = require('../../config');
-if(config.db === 'mongo'){
-  db = require('./mongodb')
-}
 var oauth = require('./oauth')
 
 module.exports = function(options){
