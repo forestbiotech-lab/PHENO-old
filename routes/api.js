@@ -1,7 +1,12 @@
 var express = require('express');
 var router = express.Router();
-//var sanitizer = require('sanitizer');
-//var erValidator = require('express-request-validator');
+var bodyParser = require('body-parser');
+var authenticate = require('./../components/oauth/authenticate')
+
+
+
+
+
 
 router.get('/', function(req, res, next) {
   res.send('HELLO WORLD');
@@ -21,7 +26,6 @@ router.get('/investigation/all', function(req, res, next) {
       return res.status(200).json(result);
   	});
   });
-  //res.json('{  "name": "brapi",  "version": "0.0.0",  "private": true,  "scripts": {    "start": "node ./bin/www"  },  "dependencies": {    "body-parser": "~1.15.2",    "cookie-parser": "~1.4.3",    "debug": "~2.2.0",    "express": "~4.14.0",    "jade": "~1.11.0",    "jstransformer": "^1.0.0",    "morgan": "~1.7.0",    "pug": "^2.0.0-beta6",    "serve-favicon": "~2.3.0"  }}');
 });
 preOutput=function(sqlRes){
 	//Must set results per page
@@ -48,11 +52,11 @@ router.get('/investigation/:investigationID', function(req, res, next) {
       return res.status(200).json(preOutput(result));
   	});
   });
-  //res.json('{  "name": "brapi",  "version": "0.0.0",  "private": true,  "scripts": {    "start": "node ./bin/www"  },  "dependencies": {    "body-parser": "~1.15.2",    "cookie-parser": "~1.4.3",    "debug": "~2.2.0",    "express": "~4.14.0",    "jade": "~1.11.0",    "jstransformer": "^1.0.0",    "morgan": "~1.7.0",    "pug": "^2.0.0-beta6",    "serve-favicon": "~2.3.0"  }}');
 });
-router.get('/authentication', function(req, res, next) {
+router.get('/authentication', authenticate(), function(req, res, next) {
+
    	//This this method safe enough? More sanitation? 
-  	res.sendStatus(501);
+  	res.sendStatus(200);
 });
 
 

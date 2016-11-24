@@ -10,10 +10,33 @@ Routes are done through [express](http://expressjs.com/)
 
 
 ####No auth yet.* Needs https configuration as well
- OAuth 2.0 authentication provided by [express-oauth-server](https://www.npmjs.com/package/express-oauth-server)
+ OAuth 2.0 authentication provided by [oauth2-server](https://www.npmjs.com/package/oauth2-server)
  Being implemented in branch: OAuth20
- Auth will be done by creating RSA keys for the client and server authentications. 
- After auth has been acheived a token will be generated from the private key to maintain the connection.
+ Auth will be done by sending a auth grant to authorization server 
+ After auth has been acheived an access token will be generated to be used with the resource server.
+ This way if someone discovers your access token it will be soon invalidated.
+
+...  +--------+                                           +---------------+
+...  |        |--(A)------- Authorization Grant --------->|               |
+...  |        |                                           |               |
+...  |        |<-(B)----------- Access Token -------------|               |
+...  |        |               & Refresh Token             |               |
+...  |        |                                           |               |
+...  |        |                            +----------+   |               |
+...  |        |--(C)---- Access Token ---->|          |   |               |
+...  |        |                            |          |   |               |
+...  |        |<-(D)- Protected Resource --| Resource |   | Authorization |
+...  | Client |                            |  Server  |   |     Server    |
+...  |        |--(E)---- Access Token ---->|          |   |               |
+...  |        |                            |          |   |               |
+...  |        |<-(F)- Invalid Token Error -|          |   |               |
+...  |        |                            +----------+   |               |
+...  |        |                                           |               |
+...  |        |--(G)----------- Refresh Token ----------->|               |
+...  |        |                                           |               |
+...  |        |<-(H)----------- Access Token -------------|               |
+...  +--------+           & Optional Refresh Token        +---------------+
+
 
 
 Default database scheme being used is fig. 1 while official db architecture isn't done.

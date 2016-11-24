@@ -22,7 +22,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-//Connection parameters
+//Database connection parameters
+//Move to other place. Should be done with callbacks
 var DBparams={
 		host: process.env.DB_HOST,
 		user: process.env.DB_USER,
@@ -33,6 +34,7 @@ var DBparams={
 app.use(
 	connection(mysql,DBparams,'request')
 );
+//Show connection info
 console.log(DBparams);
 
 // uncomment after placing your favicon in /public
@@ -47,6 +49,7 @@ app.use('/brapi/v1', api);
 app.use('/', index);
 app.use('/users', users);
 app.use('/study', study);
+
 
 
 // catch 404 and forward to error handler
