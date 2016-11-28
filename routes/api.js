@@ -2,14 +2,19 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var authenticate = require('./../components/oauth/authenticate')
+var authorize = require('./../components/oauth/authorize')
 
 
 
 
-
+router.get('/refresh', authorize(), function(req,res,next){ 
+  res.send('Hello world');
+  
+});
 
 router.get('/', function(req, res, next) {
   res.send('HELLO WORLD');
+  req.redirect("/kkk");
 });
 
 /* GET study listing. */
@@ -55,7 +60,6 @@ router.get('/investigation/:investigationID', function(req, res, next) {
 });
 router.get('/authentication', authenticate(), function(req, res, next) {
 
-   	//This this method safe enough? More sanitation? 
   	res.sendStatus(200);
 });
 
