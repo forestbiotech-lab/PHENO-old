@@ -16,6 +16,7 @@ Routes are done through [express](http://expressjs.com/)
  After auth has been acheived an access token will be generated to be used with the resource server.
  This way if someone discovers your access token it will be soon invalidated.
 
+
 +--------+                                           +---------------+<br>
 |        |--(A)------- Authorization Grant --------->|               |<br>
 |        |                                           |               |<br>
@@ -37,12 +38,13 @@ Routes are done through [express](http://expressjs.com/)
 |        |<-(H)----------- Access Token -------------|               |<br>
 +--------+           & Optional Refresh Token        +---------------+<br>
 
+Figure 1 - OAuth sceme.
 
 
-Default database scheme being used is fig. 1 while official db architecture isn't done.
+Default database scheme being used is fig. 2 while official db architecture isn't done.
 
 <img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/DataBaseMiappe.png"/>
-Figure 1 - Database scheme being used for testing.
+Figure 2 - Database scheme being used for testing.
 
 
 ##How to install
