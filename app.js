@@ -13,6 +13,7 @@ var connection = require('express-myconnection')
 
 // Routes
 var api = require('./routes/api');
+var noauth = require('./routes/noauth');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var study = require('./routes/study');
@@ -46,6 +47,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/brapi/v1', api);
+app.use('/noauth/brapi/v1', noauth);
 app.use('/', index);
 app.use('/users', users);
 app.use('/study', study);

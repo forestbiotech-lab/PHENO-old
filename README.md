@@ -8,8 +8,14 @@ Routes are done through [express](http://expressjs.com/)
 
 [express-myconnection](https://www.npmjs.com/package/express-myconnection) is used to connecto the the mysql database defined in the DBparams.
 
+####Attention!
+User database isn't being saved with hashed passwords yet.
+Raw data in data base.
+There is no method for adding users yet either.
+This will employ some hashing along with variable salting. Like creation time.
 
-####Authentication.* Needs https configuration as well
+
+##Authentication (Needs https configuration)
  OAuth 2.0 authentication provided by [oauth2-server](https://www.npmjs.com/package/oauth2-server)
  Being implemented in branch: OAuth20
  Auth will be done by sending a auth grant to authorization server 
@@ -73,14 +79,33 @@ Once all dependencies by nodejs have been installed you can start the server in 
 
 ##Testing
 
-To test that this is working you can try:
-```url
+To test that this is working you can try using a access_token:
+```url 
 localhost:3000/brapi/v1/brapi
 localhost:3000/brapi/v1/investigation/investigationID
+``` 
+
+Getting tokens urls
+```url
+localhost:3000/brapi/v1/token
+localhost:3000/brapi/v1/authenticate
 ```
+
+No auth example
+```url 
+localhost:3000/noauth/brapi/v1/investigation/investigationID
+```
+
+
+####Two versions
+Auth and no auth
 
 The first should get you a hello world
 The second extracts the data from investigation database where investigaionID is the varible in the url path
+
+
+##Auth server should be seperated from Resource server (TODO)
+By this I mean even if it's the same resource the db privlages should be limited to read the access_token table and any other that is necessary. No write permission. "To much?"
 
 
 ##Pagination (TODO)
