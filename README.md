@@ -8,11 +8,21 @@ Routes are done through [express](http://expressjs.com/)
 
 [express-myconnection](https://www.npmjs.com/package/express-myconnection) is used to connecto the the mysql database defined in the DBparams.
 
-####Attention!
-User database isn't being saved with hashed passwords yet.
-Raw data in data base.
-There is no method for adding users yet either.
-This will employ some hashing along with variable salting. Like creation time.
+##How to install
+
+To install this use must have nodejs and npm installed on your system.
+Once you have nodejs and npm install simply clone this repro and run:
+```bash
+    npm install 
+```
+
+in the main directory.
+
+Once all dependencies by nodejs have been installed you can start the server in dev mode by running, :
+```bash
+    DEBUG=brapi:* npm start 
+```
+
 
 
 ##Authentication (Needs https configuration)
@@ -46,27 +56,21 @@ This will employ some hashing along with variable salting. Like creation time.
 
 Figure 1 - OAuth sceme.
 
+####Attention!
+User database isn't being saved with hashed passwords yet.
+Raw data in data base.
+There is no method for adding users yet either.
+This will employ some hashing along with variable salting string like creation time datetime stamp.
 
+
+
+##Databases
 Default database scheme being used is fig. 2 while official db architecture isn't done.
 
 <img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/DataBaseMiappe.png"/>
 Figure 2 - Database scheme being used for testing.
 
-
-##How to install
-
-To install this use must have nodejs and npm installed on your system.
-Once you have nodejs and npm install simply clone this repro and run:
-```bash
-    npm install 
-```
-
-in the main directory.
-
-Once all dependencies by nodejs have been installed you can start the server in dev mode by running, :
-```bash
-    DEBUG=brapi:* npm start 
-```
+Refer to mysql directory to get creation scripts.
 
 ### Database connection 
  To connecto the the mysql database you should set up the varibles: 
@@ -76,6 +80,10 @@ Once all dependencies by nodejs have been installed you can start the server in 
  * db_password
  * db_database
  in the env.process variable for connection to database.
+
+auth database parameters
+ config_auth.js (Auth server)
+ config_res.js (Resourse Server)
 
 ##Testing
 

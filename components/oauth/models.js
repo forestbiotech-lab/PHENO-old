@@ -117,7 +117,7 @@ function revokeToken(token) {
 }
 
 
-function saveToken(token, client, user) {
+function saveToken(token, client, user) { 
   return Promise.all([
       OAuthAccessToken.create({
         access_token: token.accessToken,
