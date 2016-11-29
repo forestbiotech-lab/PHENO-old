@@ -10,6 +10,19 @@ var sqldb = require('./sqldb');
 //var OAuthAccessToken = sqldb.OAuthAccessToken;
 //var OAuthAuthorizationCode = sqldb.OAuthAuthorizationCode;
 //var OAuthRefreshToken = sqldb.OAuthRefreshToken;
+var Investigation = sqldb.Investigation;
+
+function getInvestigation(investigationID){
+  return Investigation
+  .findAll({
+    where: {investigationID: investigationID},
+  })
+  .catch(function(err){
+    console.log("getInvestigation - Err: ")
+  });
+
+}
+
 
 function getAccessToken(bearerToken) {
   return OAuthAccessToken
