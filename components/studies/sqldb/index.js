@@ -14,7 +14,7 @@ var db = {
     config_brapi.sql
   )
 };
-
+db.Investigation=db.sequelize.import('./Investigation');
 //db.OAuthAccessToken = db.sequelize.import('./OAuthAccessToken');
 //db.OAuthAuthorizationCode = db.sequelize.import('./OAuthAuthorizationCode');
 //db.OAuthClient = db.sequelize.import('./OAuthClient');

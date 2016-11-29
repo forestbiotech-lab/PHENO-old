@@ -13,16 +13,16 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: true,
     },
-    TitleOfInvestigation:DataTypes.TEXT(tiny),
-    DescriptionOfInvestigation:DataTypes.TEXT(long),
+    TitleOfInvestigation:DataTypes.TEXT,
+    DescriptionOfInvestigation:DataTypes.TEXT,
     SubmissionDate: DataTypes.DATE,
     PublicReleaseDate: DataTypes.DATE,
     AssociatedPublications: DataTypes.STRING,
     DataSubmitterContact: DataTypes.STRING,
     DataSubmitterID: DataTypes.STRING,
-    ReplicatationHierarchy: DataTypes.STRING
+    ReplicationHierarchy: DataTypes.STRING
   }, {
-    tableName: 'oauth_access_tokens',
+    tableName: 'Investigation',
     timestamps: false,
     underscored: true,
     classMethods: {
@@ -31,5 +31,5 @@ module.exports = function(sequelize, DataTypes) {
     },
   });
 
-  return OAuthAccessToken;
+  return Investigation;
 };

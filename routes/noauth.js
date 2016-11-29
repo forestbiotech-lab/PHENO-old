@@ -1,22 +1,28 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var authenticate = require('./../components/oauth/authenticate')
-var authorize = require('./../components/oauth/authorize')
+var study = require('./../components/studies/studyDetails');
 
-
-
-
-router.get('/refresh', authorize(), function(req,res,next){ 
-  res.send('Hello world');
-  
-});
 
 router.get('/', function(req, res, next) {
   res.send('HELLO WORLD');
-  req.redirect("/kkk");
+  req.redirect("/noavailable");
 });
-
+router.get('/studies/:studyDbID', function(req, res, next) {
+    var studyID=req.params.studyDbID;
+    study(studyID).then(function(Investigation){
+      //The send isn't sending the error but status is ok.
+      Investigation instanceof Error ? 
+      res.status(400).send(Investigation) : 
+      res.status(200).json(Investigation);
+    })
+    .catch(function(err){
+      console.log("getInvestigation - Err model not implemented: ");
+      res.status(err.status || 500);
+      res.render('error');
+    });
+      
+});
 /* GET study listing. */
 router.get('/brapi', function(req, res, next) {
   res.send('HELLO WORLD');
@@ -32,6 +38,8 @@ router.get('/investigation/all', function(req, res, next) {
   	});
   });
 });
+
+//Old method Can be removed
 preOutput=function(sqlRes){
 	//Must set results per page
 	//Set up limit on query
@@ -58,11 +66,6 @@ router.get('/investigation/:investigationID', function(req, res, next) {
   	});
   });
 });
-router.get('/authentication', authenticate(), function(req, res, next) {
-
-  	res.sendStatus(200);
-});
-
 
 //Others
 router.get('/*', function(req, res, next) {
@@ -70,8 +73,6 @@ router.get('/*', function(req, res, next) {
   res.sendStatus(501);
 });
 module.exports = router;
-
-//Database acess
 
 
 

@@ -30,8 +30,18 @@ router.get('/brapi', function(req, res, next) {
 
 router.get('/studies/:studyDbID', authenticate(), function(req, res, next) {
     var studyID=req.params.studyDbID;
-    var ouput= study();
-    res.json(output);  
+    study(studyID).then(function(Investigation){
+      //The send isn't sending the error but status is ok.
+      Investigation instanceof Error ? 
+      res.status(400).send(Investigation) : 
+      res.status(200).json(Investigation);
+    })
+    .catch(function(err){
+      console.log("getInvestigation - Err model not implemented: ");
+      res.status(err.status || 500);
+      res.render('error');
+    });
+      
 });
 router.get('/authentication', authenticate(), function(req, res, next) {
 

@@ -5,6 +5,20 @@ block content
   p Welcome to #{title}
   p This is the root page for the BrAPI implementation of the PT-Node.
   p Implemented calls:
-  span(style='margin-left:10px;background-color: grey;') brapi/v1/investigation/investigationID
+  span(style='margin-left:10px;background-color: grey;') http://#{host}brapi/v1/studies/studyDbID
+  p
+  p This call is auth protected. You need to send an access_token in headers ex:
+  span(style='margin-left:10px;background-color: grey;') curl -H 'authentication: Bearer <access_token>' http://#{host}/brapi/v1/studies/studyDbID
+  p 
+  p No auth version of the same call
+  span(style='margin-left:10px;background-color: grey;') http://#{host}/noauth/brapi/v1/studies/studyDbID
+  p
   p Auth (Soon)
-  span(style='margin-left:10px;background-color: grey;') brapi/v1/authentication
+  span(style='margin-left:10px;background-color: grey;') http://#{host}/brapi/v1/authentication
+  p Get tokens
+  span(style='margin-left:10px;background-color: grey;') http://#{host}/brapi/v1/token
+  p
+  p For more help refer to github readme:
+  p
+  .md !{readme}
+

@@ -12,15 +12,21 @@ var sqldb = require('./sqldb');
 //var OAuthRefreshToken = sqldb.OAuthRefreshToken;
 var Investigation = sqldb.Investigation;
 
+//Proof of concept
 function getInvestigation(investigationID){
   return Investigation
-  .findAll({
-    where: {investigationID: investigationID},
+  .findOne({
+    where: {investigationID: investigationID}
+  })
+  .then(function(Investigation){
+    //Remove useless stuff and send result only
+    var res=Investigation.dataValues
+    return res;
   })
   .catch(function(err){
-    console.log("getInvestigation - Err: ")
+    console.log("getInvestigation - Err: ");
+    return err;
   });
-
 }
 
 
@@ -259,6 +265,7 @@ module.exports = {
   //generateOAuthAccessToken, optional - used for jwt
   //generateAuthorizationCode, optional
   //generateOAuthRefreshToken, - optional
+  getInvestigation: getInvestigation,
   getAccessToken: getAccessToken,
   getAuthorizationCode: getAuthorizationCode, //getOAuthAuthorizationCode renamed to,
   getClient: getClient,
@@ -270,6 +277,6 @@ module.exports = {
   revokeToken: revokeToken,
   saveToken: saveToken,//saveOAuthAccessToken, renamed to
   saveAuthorizationCode: saveAuthorizationCode, //renamed saveOAuthAuthorizationCode,
-  verifyScope: validateScope,
+  verifyScope: validateScope
 }
 

@@ -13,6 +13,7 @@
     "express-myconnection": "^1.0.4",
     "jade": "~1.11.0",
     "jstransformer": "^1.0.0",
+    "marked": "^0.3.6",
     "morgan": "~1.7.0",
     "mysql": "^2.12.0",
     "oauth2-server": "^3.0.0-b2",
