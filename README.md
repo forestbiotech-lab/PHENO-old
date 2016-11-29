@@ -33,26 +33,7 @@ Once all dependencies by nodejs have been installed you can start the server in 
  This way if someone discovers your access token it will be soon invalidated.
 
 
-+--------+                                           +---------------+<br>
-|        |--(A)------- Authorization Grant --------->|               |<br>
-|        |                                           |               |<br>
-|        |<-(B)----------- Access Token -------------|               |<br>
-|        |               & Refresh Token             |               |<br>
-|        |                                           |               |<br>
-|        |                            +----------+   |               |<br>
-|        |--(C)---- Access Token ---->|          |   |               |<br>
-|        |                            |          |   |               |<br>
-|        |<-(D)- Protected Resource --| Resource |   | Authorization |<br>
-| Client |                            |  Server  |   |     Server    |<br>
-|        |--(E)---- Access Token ---->|          |   |               |<br>
-|        |                            |          |   |               |<br>
-|        |<-(F)- Invalid Token Error -|          |   |               |<br>
-|        |                            +----------+   |               |<br>
-|        |                                           |               |<br>
-|        |--(G)----------- Refresh Token ----------->|               |<br>
-|        |                                           |               |<br>
-|        |<-(H)----------- Access Token -------------|               |<br>
-+--------+           & Optional Refresh Token        +---------------+<br>
+<img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/OAuth20/images/auth.png"/>
 
 Figure 1 - OAuth sceme.
 

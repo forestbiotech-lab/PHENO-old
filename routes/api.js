@@ -4,21 +4,19 @@ var bodyParser = require('body-parser');
 var authenticate = require('./../components/oauth/authenticate');
 var authorize = require('./../components/oauth/authorize');
 var token = require('./../components/oauth/token');
-
+var study = require('./../components/studies/studyDetails');
 
 
 
 //Token
 router.post('/token',token(), function(req,res,next){
   res.send("Your in");
-
 })
 //Get auth code
 router.get('/authorize', authorize(), function(req,res,next){ 
   res.send('Hello world');
   
 });
-
 
 //Testing only
 router.get('/', function(req, res, next) {
@@ -30,7 +28,15 @@ router.get('/brapi', function(req, res, next) {
   res.send('HELLO WORLD');
 });
 
+router.get('/studies/:studyDbID', authenticate(), function(req, res, next) {
+    var studyID=req.params.studyDbID;
+    var ouput= study();
+    res.json(output);  
+});
+router.get('/authentication', authenticate(), function(req, res, next) {
 
+    res.sendStatus(200);
+});
 
 
 
