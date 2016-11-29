@@ -8,7 +8,7 @@ block content
   span(style='margin-left:10px;background-color: grey;') http://#{host}brapi/v1/studies/studyDbID
   p
   p This call is auth protected. You need to send an access_token in headers ex:
-  span(style='margin-left:10px;background-color: grey;') curl -H 'authentication: Bearer <access_token>' http://#{host}/brapi/v1/studies/studyDbID
+  span(style='margin-left:10px;background-color: grey;') curl -H 'authorization: Bearer <access_token>' http://#{host}/brapi/v1/studies/studyDbID
   p 
   p No auth version of the same call
   span(style='margin-left:10px;background-color: grey;') http://#{host}/noauth/brapi/v1/studies/studyDbID
