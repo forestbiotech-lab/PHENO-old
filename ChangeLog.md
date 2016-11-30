@@ -22,6 +22,11 @@ This is a summary of what has and will be implemented.
  
  -
 
+[Pagination](TODO)
+ -Function to address pagination
+ This is crutial when pageSize is set. Or if a limit is input automatically by server.
+ { offset: 5, limit: 5 } in findAll 
+ -Config with result limit of query results.
 
 [Send Mail](TODO)
  -Setup sendmail
@@ -31,6 +36,7 @@ This is a summary of what has and will be implemented.
  (Studies)
  -ListObservationLevels
  -ListSeasons
+ /brapi/v1/seasons?year=&pageSize=&page=
  -ListStudySummaries
  -ListStudyTypes
  -ObservationUnitDetails

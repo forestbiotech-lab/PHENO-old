@@ -10,6 +10,7 @@ module.exports = {
     dialect: 'mysql', // PostgreSQL, MySQL, MariaDB, SQLite and MSSQL See more: http://docs.sequelizejs.com/en/latest/
     logging: true,
     timezone: '+05:30',
+    limit: 1000  //Limit of result to get if findAll is used
   },
   mongo: {
     uri: 'mongodb://username:password@domain.mongolab.com:63439/tsc'
