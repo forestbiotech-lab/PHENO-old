@@ -21,13 +21,14 @@ function approveDomains(opts, certs, cb) {
     opts.domains = certs.altnames;
   }
   else {
-    opts.email = 'brunocosta@localhost';
+    opts.email = 'brunovasquescosta@gmail.com';
     opts.agreeTos = true;
+    opts.approveDomains= [ 'brapi.ddns.net','www.brapi.ddns.net' ];
   }
   // NOTE: you can also change other options such as `challengeType` and `challenge`
   opts.challengeType = 'http-01';
   opts.challenge = require('le-challenge-fs').create({});
-
+  
   cb(null, { options: opts, certs: certs });
 }
 
@@ -50,14 +51,11 @@ var options={
 var lex = lex.create(options);
 
 
-
-
-
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '80');
 app.set('port', port);
 
 /**
@@ -66,18 +64,16 @@ app.set('port', port);
 // handles acme-challenge and redirects to https
 var http_server=http.createServer(lex.middleware(require('redirect-https')()));
 
-http_server.listen(80, function () {
+http_server.listen(port, function () {
   console.log("Listening for ACME http-01 challenges on", this.address());
 });
 
 
-
-//var server = http.createServer(app);
 // handles your app
 var lex_server=https.createServer(lex.httpsOptions, lex.middleware(app))
 
-//var lex_server=letsencrypt.create(options);
-//var https_server = https.createServer(app);
+
+
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -141,7 +137,7 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = "192.168.1.7" || http_server.address();
+  var addr = process.env.address || http_server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
