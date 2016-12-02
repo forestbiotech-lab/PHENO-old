@@ -11,6 +11,9 @@ var sqldb = require('./sqldb');
 //var OAuthAuthorizationCode = sqldb.OAuthAuthorizationCode;
 //var OAuthRefreshToken = sqldb.OAuthRefreshToken;
 var Investigation = sqldb.Investigation;
+var Study=sqldb.Study;
+var GeneralMetadata=sqldb.GeneralMetadata;
+
 
 //Proof of concept
 function getInvestigation(investigationID){
@@ -27,6 +30,23 @@ function getInvestigation(investigationID){
     console.log("getInvestigation - Err: ");
     return err;
   });
+}
+
+//Implements the call listSeasons
+function getSeasons(options){
+  return GeneralMetadata
+  .findAll({
+    where:{Altitude: 89},
+    attributes: ['GeoLocation','Latitude']
+  }).then(function(GeneralMetadata){
+    return GeneralMetadata;
+  })
+  .catch(function(err){
+    debug("getSeasons - Err: " + err);
+    return err;
+  })
+
+
 }
 
 
@@ -266,6 +286,7 @@ module.exports = {
   //generateAuthorizationCode, optional
   //generateOAuthRefreshToken, - optional
   getInvestigation: getInvestigation,
+  getSeasons: getSeasons,
   getAccessToken: getAccessToken,
   getAuthorizationCode: getAuthorizationCode, //getOAuthAuthorizationCode renamed to,
   getClient: getClient,

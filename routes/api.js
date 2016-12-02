@@ -30,7 +30,7 @@ router.get('/brapi', function(req, res, next) {
 
 router.get('/studies/:studyDbID', authenticate(), function(req, res, next) {
     var studyID=req.params.studyDbID;
-    study(studyID).then(function(Investigation){
+    study('investigation',studyID).then(function(Investigation){
       //The send isn't sending the error but status is ok.
       Investigation instanceof Error ? 
       res.status(400).send(Investigation) : 
@@ -42,6 +42,18 @@ router.get('/studies/:studyDbID', authenticate(), function(req, res, next) {
       res.render('error');
     });
       
+});
+router.get('/seasons', authenticate(), function(req, res, next){
+  var options={
+    year: req.params.year || null ,
+    pageSize: req.params.pageSize || null,
+    page: req.params.page || null
+  }
+  study('seasons',options).then(function(GeneralMetadata){
+    console.log(GeneralMetadata);
+    res.status(200).send("Hello stranger");
+  })
+
 });
 router.get('/authentication', authenticate(), function(req, res, next) {
 

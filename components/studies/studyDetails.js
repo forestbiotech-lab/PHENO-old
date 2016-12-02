@@ -9,7 +9,8 @@ var models= require('./models');
 
 
 
-module.exports = function(options){
+module.exports = function(query,options){
   var options = options || {};
+  if(query=="seasons") return models.getSeasons(options); 
   return models.getInvestigation(options);
 }

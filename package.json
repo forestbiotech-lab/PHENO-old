@@ -13,6 +13,7 @@
     "express-myconnection": "^1.0.4",
     "jade": "~1.11.0",
     "jstransformer": "^1.0.0",
+    "letsencrypt-express": "^2.0.5",
     "marked": "^0.3.6",
     "morgan": "~1.7.0",
     "mysql": "^2.12.0",
