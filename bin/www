@@ -23,7 +23,7 @@ function approveDomains(opts, certs, cb) {
   else {
     opts.email = 'brunovasquescosta@gmail.com';
     opts.agreeTos = true;
-    opts.approveDomains= [ 'brapi.ddns.net','www.brapi.ddns.net' ];
+    opts.approveDomains= [ 'brapi.ddns.net','www.brapi.ddns.net','localhost' ];
   }
   // NOTE: you can also change other options such as `challengeType` and `challenge`
   opts.challengeType = 'http-01';
