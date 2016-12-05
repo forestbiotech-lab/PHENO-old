@@ -34,15 +34,16 @@ function getInvestigation(investigationID){
 
 //Implements the call listSeasons
 function getSeasons(options){
-  return GeneralMetadata
+  return Study
   .findAll({
     where:{Altitude: 89},
-    attributes: ['GeoLocation','Latitude']
+    attributes: ['GeoLocation','Latitude','StudyID'],
+    include: [GeneralMetadata]
   }).then(function(GeneralMetadata){
     return GeneralMetadata;
   })
   .catch(function(err){
-    debug("getSeasons - Err: " + err);
+    console.log("getSeasons - Err: " + err);
     return err;
   })
 

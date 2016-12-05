@@ -43,7 +43,7 @@ router.get('/studies/:studyDbID', authenticate(), function(req, res, next) {
     });
       
 });
-router.get('/seasons', authenticate(), function(req, res, next){
+router.get('/seasons', function(req, res, next){
   var options={
     year: req.params.year || null ,
     pageSize: req.params.pageSize || null,

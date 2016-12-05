@@ -57,7 +57,7 @@ var lex = lex.create(options);
 
 var port_http = normalizePort(process.env.PORT_HTTP || '80');
 var port_https = normalizePort(process.env.PORT_HTTPS || '443');
-app.set('port', port);
+//app.set('port', port_http);
 
 /**
  * Create HTTP server.
