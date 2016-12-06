@@ -1,8 +1,43 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  margin: 0px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin: 0px;
 }
-
-a {
+.header{
+    position:relative;
+    color:white;
+    background-color: #263238;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.26);
+    height:100px;
+}
+a{
   color: #00B7FF;
+}
+.menu{
+	position: relative; 
+	height:38px;
+	background-color: #EEEEEE;
+	border-bottom: 1px solid #e5e5e5;
+}
+.menu span.menuItem1{
+	position: absolute;
+    bottom: 0px;
+    padding: 10px;
+    font-weight: bold;
+    color: #8c8787;
+}
+.menu span.menuItem1.hover{
+	position: absolute;
+    bottom: 0px;
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+    background-color: #FE9050;
+}
+.content {
+	margin: 40px;
+    padding: 30px;
+    border: 1px solid rgba(204, 203, 203, 0.8);
+    border-radius: 3px;
+    background-color: white;
+    box-shadow: 0px 4px 5px black;
 }

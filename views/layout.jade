@@ -4,10 +4,13 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body(style="background: #f9f9f9;")
-    .header(style="position:relative;color:white;background-color: #263238;box-shadow: 0px 2px 5px rgba(0,0,0,0.26);height:100px;")   
+    .header   
       h1(style="margin:0px;margin-left:20px;position:absolute;bottom:10px;")= title
-    .menu(style="height:38px;background-color: #EEEEEE;border-bottom: 1px solid #e5e5e5;") 	
-    .content(style="margin:8px;padding:50px;")
+    .menu 
+      span.menuItem1 Login	
+    .content
       block content
-    
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+    script(src="/javascripts/actions.js")
+
 
