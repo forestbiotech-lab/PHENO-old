@@ -34,11 +34,11 @@ function getInvestigation(investigationID){
 
 //Implements the call listSeasons
 function getSeasons(options){
-  return Study
+  return GeneralMetadata
   .findAll({
     where:{Altitude: 89},
-    attributes: ['GeoLocation','Latitude','StudyID'],
-    include: [GeneralMetadata]
+    attributes: ['GeoLocation','Latitude'],
+    include: [Study]
   }).then(function(GeneralMetadata){
     return GeneralMetadata;
   })

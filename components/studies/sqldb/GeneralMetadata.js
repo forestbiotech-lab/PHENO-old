@@ -25,9 +25,11 @@ module.exports = function(sequelize, DataTypes) {
     underscored: true,
 
     classMethods: {
-      associate: function associate(models) {
-      //None
-      },
+      associate: function associate(models) {     
+        GeneralMetadata.belongsTo(models.Study, {
+          foreignKey: 'GeneralMetaDataID',
+        });
+      }
     },
   });
 
