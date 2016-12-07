@@ -3,87 +3,31 @@
 /**
  * Module dependencies.
  */
+
 var app = require('../app');
 var debug = require('debug')('brapi:server');
 var http = require('http');
-var https = require('https');
-var lex = require('letsencrypt-express');
-
-
-function approveDomains(opts, certs, cb) {
-  // This is where you check your database and associated
-  // email addresses with domains and agreements and such
-
-
-  // The domains being approved for the first time are listed in opts.domains
-  // Certs being renewed are listed in certs.altnames
-  if (certs) {
-    opts.domains = certs.altnames;
-  }
-  else {
-    opts.email = 'brunovasquescosta@gmail.com';
-    opts.agreeTos = true;
-    opts.approveDomains= [ 'brapi.ddns.net','www.brapi.ddns.net','localhost' ];
-  }
-  // NOTE: you can also change other options such as `challengeType` and `challenge`
-  opts.challengeType = 'http-01';
-  opts.challenge = require('le-challenge-fs').create({});
-  
-  cb(null, { options: opts, certs: certs });
-}
-
-
-
-
-var options={
-  server: 'https://acme-v01.api.letsencrypt.org/directory'
-
-, challenges: { 'http-01': require('le-challenge-fs').create({ webrootPath: '/tmp/acme-challenges' }) }
-, store: require('le-store-certbot').create({ webrootPath: '/tmp/acme-challenges' })
-
-// You probably wouldn't need to replace the default sni handler
-// See https://github.com/Daplie/le-sni-auto if you think you do
-//, sni: require('le-sni-auto').create({})
-
-, approveDomains: approveDomains
-}
-
-var lex = lex.create(options);
-
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port_http = normalizePort(process.env.PORT_HTTP || '80');
-var port_https = normalizePort(process.env.PORT_HTTPS || '443');
-//app.set('port', port_http);
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-// handles acme-challenge and redirects to https
-var http_server=http.createServer(lex.middleware(require('redirect-https')()));
 
-http_server.listen(port_http, function () {
-  console.log("Listening for ACME http-01 challenges on", this.address());
-});
-
-
-// handles your app
-var lex_server=https.createServer(lex.httpsOptions, lex.middleware(app))
-
-
-
+var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-lex_server.listen(port_https, function () {
-  console.log("Listening for ACME tls-sni-01 challenges and serve app on", this.address());
-});
-lex_server.on('error', onError);
-lex_server.on('listening', onListening);
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -138,7 +82,7 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = process.env.address || http_server.address();
+  var addr = server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;

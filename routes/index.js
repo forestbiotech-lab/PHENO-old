@@ -21,7 +21,9 @@ router.get('/', function(req, res, next) {
     getReadme().then(function(data){ 
   		res.render('index', { title: 'BrAPI - PT node',host: req.headers.host, readme: marked(data) });
     });
-  
+});  
+router.get('/login',function(req,res,next){
+  res.render('login');
 });
 
 module.exports = router;
