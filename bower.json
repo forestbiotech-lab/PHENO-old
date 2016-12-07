@@ -1,0 +1,24 @@
+{
+  "name": "brapi",
+  "description": "endpoint brapi PT node",
+  "main": "app.js",
+  "authors": [
+    "Bruno Costa <netbofia@hotmail.com>"
+  ],
+  "license": "GNU",
+  "keywords": [
+    "brapi"
+  ],
+  "homepage": "https://github.com/forestbiotech-lab/BrAPI",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
