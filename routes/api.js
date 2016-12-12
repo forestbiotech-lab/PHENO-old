@@ -15,7 +15,6 @@ router.post('/token',token(), function(req,res,next){
 //Get auth code
 router.get('/authorize', authorize(), function(req,res,next){ 
   res.send('Hello world');
-  
 });
 
 //Testing only
@@ -45,6 +44,7 @@ router.get('/studies/:studyDbID', authenticate(), function(req, res, next) {
 });
 router.get('/seasons', function(req, res, next){
   var options={
+    //Query not params
     year: req.params.year || null ,
     pageSize: req.params.pageSize || null,
     page: req.params.page || null

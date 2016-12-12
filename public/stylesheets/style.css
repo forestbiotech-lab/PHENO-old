@@ -9,6 +9,11 @@ body {
     box-shadow: 0px 2px 5px rgba(0,0,0,0.26);
     height:100px;
 }
+.header .tiny-logo-header{
+	position: absolute;
+    right: 30px;
+    bottom: 15px;
+}
 a{
   color: #00B7FF;
 }
