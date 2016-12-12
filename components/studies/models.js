@@ -13,7 +13,7 @@ var sqldb = require('./sqldb');
 var Investigation = sqldb.Investigation;
 var Study=sqldb.Study;
 var GeneralMetadata=sqldb.GeneralMetadata;
-
+var BioSource=sqldb.BioSource;
 
 //Proof of concept
 function getInvestigation(investigationID){
