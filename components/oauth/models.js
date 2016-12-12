@@ -59,6 +59,28 @@ function getClient(clientId, clientSecret) {
     });
 }
 
+function lookupUser(sub){
+  return User
+    .findOne({
+      where: {sub: sub},
+      attributes: ['id','username']
+    }).then(function(user){
+      return user;
+    }).catch(function(err){
+      console.log("lookupUser - Err:", err)
+    });
+}
+
+function saveUser(userOptions){
+  return User
+  .create(
+    userOptions
+    ).then(function(){
+      console.log('Done creating user!');
+    }).catch(function(err){
+      console.log("Create user - Err", err)
+    });
+}
 
 function getUser(username, password) {
   return User
@@ -249,6 +271,8 @@ module.exports = {
   getAuthorizationCode: getAuthorizationCode, //getOAuthAuthorizationCode renamed to,
   getClient: getClient,
   getRefreshToken: getRefreshToken,
+  lookupUser: lookupUser,
+  saveUser: saveUser,
   getUser: getUser,
   getUserFromClient: getUserFromClient,
   //grantTypeAllowed, Removed in oauth2-server 3.0
