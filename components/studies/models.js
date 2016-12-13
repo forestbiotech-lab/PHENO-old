@@ -15,7 +15,23 @@ var Study=sqldb.Study;
 var GeneralMetadata=sqldb.GeneralMetadata;
 var BioSource=sqldb.BioSource;
 
-//Proof of concept
+
+//getGermplasm call attributes
+function getGermplasm(attributes){
+  return BioSource
+  .findAll({
+    where: attributes
+  })
+  .then(function(BioSource){
+    //Do something with the result.
+    var res=""
+    return res;
+  })
+
+}
+
+
+//Proof of conceept
 function getInvestigation(investigationID){
   return Investigation
   .findOne({
@@ -294,6 +310,7 @@ module.exports = {
   getRefreshToken: getRefreshToken,
   getUser: getUser,
   getUserFromClient: getUserFromClient,
+  getGermplasm: getGermplasm,
   //grantTypeAllowed, Removed in oauth2-server 3.0
   revokeAuthorizationCode: revokeAuthorizationCode,
   revokeToken: revokeToken,

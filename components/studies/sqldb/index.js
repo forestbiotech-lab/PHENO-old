@@ -17,6 +17,7 @@ var db = {
 db.Investigation=db.sequelize.import('./Investigation');
 db.Study=db.sequelize.import('./Study');
 db.GeneralMetadata=db.sequelize.import('./GeneralMetadata');
+db.BioSource=db.sequelize.import('./BioSource')
 //db.OAuthAccessToken = db.sequelize.import('./OAuthAccessToken');
 //db.OAuthAuthorizationCode = db.sequelize.import('./OAuthAuthorizationCode');
 //db.OAuthClient = db.sequelize.import('./OAuthClient');

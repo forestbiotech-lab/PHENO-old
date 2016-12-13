@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
 
     classMethods: {
       associate: function associate(models) {     
-        GeneralMetadata.belongsTo(models.Study, {
+        BioSource.belongsTo(models.Study, {
           foreignKey: 'BioSourceID',
         });
       }

@@ -27,6 +27,13 @@ router.get('/brapi', function(req, res, next) {
   res.send('HELLO WORLD');
 });
 
+// /brapi/v1/germplasm-search?
+router.get('/germplasm-search', function(req, res, next){
+
+  res.status(200).json('{}');
+})
+
+
 router.get('/studies/:studyDbID', authenticate(), function(req, res, next) {
     var studyID=req.params.studyDbID;
     study('investigation',studyID).then(function(Investigation){
