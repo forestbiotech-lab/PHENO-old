@@ -5,7 +5,7 @@ var authenticate = require('./../components/oauth/authenticate');
 var authorize = require('./../components/oauth/authorize');
 var token = require('./../components/oauth/token');
 var study = require('./../components/studies/studyDetails');
-
+var germplasmCalls = require('./../components/studies/germplasmCalls');
 
 
 //Token
@@ -29,8 +29,29 @@ router.get('/brapi', function(req, res, next) {
 
 // /brapi/v1/germplasm-search?
 router.get('/germplasm-search', function(req, res, next){
-
-  res.status(200).json('{}');
+  var germplasmAtt=req.params;
+    germplasmCalls(germplasmAtt).then(function(germplasmRes){
+      //The send isn't sending the error but status is ok.
+      germplasmRes instanceof Error ? 
+      res.status(400).send("Error") : 
+      res.status(200).json({
+        "metadata": {
+            "status": null,
+            "datafiles": [],
+            "pagination": {
+                "pageSize": 10,
+                "currentPage": 1,
+                "totalCount": 2,
+                "totalPages": 1
+            }
+        },
+        "result":{}});
+        })
+    .catch(function(err){
+      console.log("germplasm-search - Err model not implemented: ");
+      res.status(err.status || 500);
+      res.render('error');
+    });
 })
 
 

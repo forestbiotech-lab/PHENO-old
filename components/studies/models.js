@@ -25,8 +25,13 @@ function getGermplasm(attributes){
   .then(function(BioSource){
     //Do something with the result.
     var res=""
+    console.log(BioSource);
     return res;
   })
+  .catch(function(err){
+    console.log("getGermplasm - Err: ");
+    return err;
+  });
 
 }
 
