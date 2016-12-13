@@ -16,7 +16,8 @@ module.exports = function(query,options){
   //overwriting each other now......
   if(query.instituteName) searchAttributes.Material_source={$like: query.instituteName+":%"};
   if(query.accessionNumber) searchAttributes.Material_source={$like: "%:"+query.accessionNumber};
-
+  console.log(searchAttributes);
+  console.log(query);
 
 
 

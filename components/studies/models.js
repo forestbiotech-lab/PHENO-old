@@ -20,12 +20,20 @@ var BioSource=sqldb.BioSource;
 function getGermplasm(attributes){
   return BioSource
   .findAll({
-    where: attributes
+    where: attributes/*{Material_source: {'$like':"ibet:%"}}*/ //attributes
   })
   .then(function(BioSource){
     //Do something with the result.
-    var res=""
-    console.log(BioSource);
+    console.log("Did search");
+    var res=[]
+    for(i=0;i<BioSource.length;i++){
+      if(BioSource[i].dataValues.Material_source){
+        var MaterialSource=BioSource[i].dataValues.Material_source.split(':');
+        BioSource[i].dataValues.instituteName=MaterialSource[0];
+        BioSource[i].dataValues.accessionNumber=MaterialSource[1];
+      } 
+      res.push(BioSource[i].dataValues);
+    }
     return res;
   })
   .catch(function(err){

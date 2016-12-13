@@ -29,29 +29,30 @@ router.get('/brapi', function(req, res, next) {
 
 // /brapi/v1/germplasm-search?
 router.get('/germplasm-search', function(req, res, next){
-  var germplasmAtt=req.params;
+  var germplasmAtt=req.query;
     germplasmCalls(germplasmAtt).then(function(germplasmRes){
       //The send isn't sending the error but status is ok.
+      console.log(germplasmRes);
       germplasmRes instanceof Error ? 
       res.status(400).send("Error") : 
       res.status(200).json({
         "metadata": {
-            "status": null,
+            "status": 200,
             "datafiles": [],
             "pagination": {
-                "pageSize": 10,
+                "pageSize": germplasmRes.length,
                 "currentPage": 1,
-                "totalCount": 2,
+                "totalCount": germplasmRes.length,
                 "totalPages": 1
             }
         },
-        "result":{}});
+        "result":{"data":germplasmRes}});
         })
-    .catch(function(err){
+/*    .catch(function(err){
       console.log("germplasm-search - Err model not implemented: ");
       res.status(err.status || 500);
-      res.render('error');
-    });
+      res.render(err);
+    })*/;
 })
 
 
