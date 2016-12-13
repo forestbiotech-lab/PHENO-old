@@ -31,10 +31,10 @@ function getGermplasm(attributes){
         var MaterialSource=BioSource[i].dataValues.Material_source.split(':');
         BioSource[i].dataValues.instituteName=MaterialSource[0];
         BioSource[i].dataValues.accessionNumber=MaterialSource[1];
-        BioSource[i].dataValues.germplasmDbID=BioSourceID;
-        BioSource[i].dataValues.germplasmName=Infraspecific_name.split(':')[1];
-        BioSource[i].dataValues.genus=Organism.split(' ')[0];
-        BioSource[i].dataValues.species=Organism.split(' ')[1];
+        BioSource[i].dataValues.germplasmDbID=BioSource[i].dataValues.BioSourceID;
+        BioSource[i].dataValues.germplasmName=BioSource[i].dataValues.Infraspecific_name.split(':')[1];
+        BioSource[i].dataValues.genus=BioSource[i].dataValues.Organism.split(' ')[0];
+        BioSource[i].dataValues.species=BioSource[i].dataValues.Organism.split(' ')[1];
 
 
       } 
