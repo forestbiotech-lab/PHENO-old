@@ -24,10 +24,10 @@ function getGermplasm(attributes){
   })
   .then(function(BioSource){
     //Do something with the result.
-    console.log("Did search");
     var res=[]
     for(i=0;i<BioSource.length;i++){
       if(BioSource[i].dataValues.Material_source){
+        //null values should be converted to "null" instead of ""
         var MaterialSource=BioSource[i].dataValues.Material_source.split(':');
         BioSource[i].dataValues.instituteName=MaterialSource[0];
         BioSource[i].dataValues.accessionNumber=MaterialSource[1];
