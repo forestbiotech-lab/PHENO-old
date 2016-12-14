@@ -31,7 +31,7 @@ function getGermplasm(attributes){
         var MaterialSource=BioSource[i].dataValues.Material_source.split(':');
         BioSource[i].dataValues.instituteName=MaterialSource[0];
         BioSource[i].dataValues.accessionNumber=MaterialSource[1];
-        BioSource[i].dataValues.germplasmDbId=BioSource[i].dataValues.BioSourceID+"brapiID";
+        BioSource[i].dataValues.germplasmDbId="BioSource:"+BioSource[i].dataValues.BioSourceID;
         BioSource[i].dataValues.germplasmName=BioSource[i].dataValues.Infraspecific_name.split(':')[1];
         BioSource[i].dataValues.genus=BioSource[i].dataValues.Organism.split(' ')[0];
         BioSource[i].dataValues.species=BioSource[i].dataValues.Organism.split(' ')[1];
@@ -66,27 +66,44 @@ function getInvestigation(investigationID){
     return err;
   });
 }
+
 function getStudies(attributes){
+  var attributes= attributes || {}
   return Study
   .findAll({
     where: attributes,
-    include:[GeneralMetadata,Investigation]
+    include:[GeneralMetadata,Investigation,BioSource]
   }).then(function(Study){
     //Renaming vars.
        var res=[]
     for(i=0;i<Study.length;i++){
-      //if(Study[i].dataValues.Material_source){
-        //null values should be converted to "null" instead of ""
-        /*var MaterialSource=Study[i].dataValues.Material_source.split(':');
-        Study[i].dataValues.instituteName=MaterialSource[0];
-        Study[i].dataValues.accessionNumber=MaterialSource[1];
-        Study[i].dataValues.germplasmDbId=Study[i].dataValues.StudyID+"brapiID";
-        Study[i].dataValues.germplasmName=Study[i].dataValues.Infraspecific_name.split(':')[1];
-        Study[i].dataValues.genus=Study[i].dataValues.Organism.split(' ')[0];
-        Study[i].dataValues.species=Study[i].dataValues.Organism.split(' ')[1];
-        */
-
-      //} 
+      if(Study[i].dataValues.GeneralMetadatum){
+        Study[i].dataValues.GeneralMetadatum=Study[i].dataValues.GeneralMetadatum.dataValues        
+      }
+      if(Study[i].dataValues.Investigation){
+        Study[i].dataValues.Investigation=Study[i].dataValues.Investigation.dataValues        
+      }else{
+        Study[i].dataValues.Investigation={}
+      }
+      Study[i].dataValues.studyDbId="STUDY:"+Study[i].dataValues.StudyID;
+      Study[i].dataValues.name=null;
+      Study[i].dataValues.trailDbId="INVESTIGATION:"+Study[i].dataValues.Investigation.InvestigationID || null;
+      Study[i].dataValues.tailName=Study[i].dataValues.Investigation.TitleOfInvestigation || null;
+      Study[i].dataValues.seasons=[];
+      Study[i].dataValues.locationDbId=null
+      Study[i].dataValues.locationName=Study[i].dataValues.GeneralMetadatum.ExperimentalSiteName || null;
+      Study[i].dataValues.programDbId=null;
+      Study[i].dataValues.startDate=Study[i].dataValues.GeneralMetadatum.startOfStudy || null;
+      Study[i].dataValues.endDate=Study[i].dataValues.GeneralMetadatum.endOfStudy || null;
+      Study[i].dataValues.studyType=null;
+      Study[i].dataValues.active= Study[i].dataValues.endDate ? true : false; 
+      Study[i].dataValues.additionalInfo={};
+      Study[i].dataValues.additionalInfo.germplasmDbIds=[];
+      console.log("sdfghjk sdfgh ")
+      console.log(Study[i].dataValues.BioSource.dataValues.BioSourceID)
+      //enter the associated biosamples
+      /*for(j=0;j<Study[i].dataValues.BioSource.dataValues.length;j++) */Study[i].dataValues.additionalInfo.germplasmDbIds.push("BioSource:"+Study[i].dataValues.BioSource.dataValues.BioSourceID);
+       
       res.push(Study[i].dataValues);
     }
     return res;

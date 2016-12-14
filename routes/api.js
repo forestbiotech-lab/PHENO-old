@@ -54,12 +54,12 @@ router.get('/germplasm-search', function(req, res, next){
     });
 })
 // /brapi/v1/studies-search?
-router.get('/studies_search', function(req, res, next){
+router.get('/studies-search', function(req, res, next){
   var studiesAttr=req.query;
-    studies(studiesAttr).then(function(studiesRes){
+    study("searchStudies",studiesAttr).then(function(studiesRes){
       //The send isn't sending the error but status is ok.
       console.log(studiesRes);
-      germplasmRes instanceof Error ? 
+      studiesRes instanceof Error ? 
       res.status(400).send("Error") : 
       res.status(200).json({
         "metadata": {

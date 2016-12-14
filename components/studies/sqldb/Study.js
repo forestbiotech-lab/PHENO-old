@@ -33,6 +33,10 @@ module.exports = function(sequelize, DataTypes) {
         Study.belongsTo(models.GeneralMetadata, {
           foreignKey: 'GeneralMetaDataID',
         });
+
+        Study.belongsTo(models.BioSource, {
+          foreignKey: 'StudyID',
+        });
       },
     },
   });
