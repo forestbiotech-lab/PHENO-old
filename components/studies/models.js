@@ -66,6 +66,33 @@ function getInvestigation(investigationID){
     return err;
   });
 }
+function getStudies(attributes){
+  return Study
+  .findAll({
+    where: attributes,
+    include:[GeneralMetadata,Investigation]
+  }).then(function(Study){
+    //Renaming vars.
+       var res=[]
+    for(i=0;i<Study.length;i++){
+      //if(Study[i].dataValues.Material_source){
+        //null values should be converted to "null" instead of ""
+        /*var MaterialSource=Study[i].dataValues.Material_source.split(':');
+        Study[i].dataValues.instituteName=MaterialSource[0];
+        Study[i].dataValues.accessionNumber=MaterialSource[1];
+        Study[i].dataValues.germplasmDbId=Study[i].dataValues.StudyID+"brapiID";
+        Study[i].dataValues.germplasmName=Study[i].dataValues.Infraspecific_name.split(':')[1];
+        Study[i].dataValues.genus=Study[i].dataValues.Organism.split(' ')[0];
+        Study[i].dataValues.species=Study[i].dataValues.Organism.split(' ')[1];
+        */
+
+      //} 
+      res.push(Study[i].dataValues);
+    }
+    return res;
+
+  })
+}
 
 //Implements the call listSeasons
 function getSeasons(options){
@@ -322,6 +349,7 @@ module.exports = {
   //generateAuthorizationCode, optional
   //generateOAuthRefreshToken, - optional
   getInvestigation: getInvestigation,
+  getStudies: getStudies,
   getSeasons: getSeasons,
   getAccessToken: getAccessToken,
   getAuthorizationCode: getAuthorizationCode, //getOAuthAuthorizationCode renamed to,

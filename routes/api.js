@@ -32,7 +32,6 @@ router.get('/germplasm-search', function(req, res, next){
   var germplasmAtt=req.query;
     germplasmCalls(germplasmAtt).then(function(germplasmRes){
       //The send isn't sending the error but status is ok.
-      console.log(germplasmRes);
       germplasmRes instanceof Error ? 
       res.status(400).send("Error") : 
       res.status(200).json({
@@ -41,20 +40,46 @@ router.get('/germplasm-search', function(req, res, next){
             "datafiles": [],
             "pagination": {
                 "pageSize": germplasmRes.length,
-                "currentPage": 1,
+                "currentPage": 0,
                 "totalCount": germplasmRes.length,
                 "totalPages": 1
             }
         },
         "result":{"data":germplasmRes}});
         })
-/*    .catch(function(err){
+    .catch(function(err){
       console.log("germplasm-search - Err model not implemented: ");
+      res.status(err.status || 500);
+      res.render(err);
+    });
+})
+// /brapi/v1/studies-search?
+router.get('/studies_search', function(req, res, next){
+  var studiesAttr=req.query;
+    studies(studiesAttr).then(function(studiesRes){
+      //The send isn't sending the error but status is ok.
+      console.log(studiesRes);
+      germplasmRes instanceof Error ? 
+      res.status(400).send("Error") : 
+      res.status(200).json({
+        "metadata": {
+            "status": 200,
+            "datafiles": [],
+            "pagination": {
+                "pageSize": studiesRes.length,
+                "currentPage": 0,
+                "totalCount": studiesRes.length,
+                "totalPages": 1
+            }
+        },
+        "result":{"data":studiesRes}});
+        })
+/*    .catch(function(err){
+      console.log("ŝtudies-search - Err model not implemented: ");
       res.status(err.status || 500);
       res.render(err);
     })*/;
 })
-
 
 router.get('/studies/:studyDbID', authenticate(), function(req, res, next) {
     var studyID=req.params.studyDbID;
