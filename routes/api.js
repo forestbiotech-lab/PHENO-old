@@ -19,7 +19,7 @@ router.get('/authorize', authorize(), function(req,res,next){
 
 //Testing only
 router.get('/', function(req, res, next) {
-  res.send('HELLO WORLD');
+  res.send('This is the temporary brapi endpoint for ELIXIR-PT');
   req.redirect("/kkk");
 });
 //
