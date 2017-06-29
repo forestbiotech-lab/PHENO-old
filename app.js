@@ -8,7 +8,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
-var connection = require('express-myconnection');
 var passport = require('passport');
 
 // Declaring Route files
@@ -23,21 +22,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-//Database connection parameters  
-//Move to other place. Should be done with callbacks
-var DBparams={
-		host: process.env.DB_HOST,
-		user: process.env.DB_USER,
-		password: process.env.DB_PASSWORD,
-		port: process.env.DB_PORT, //port mysql
-		database: process.env.DB_DATABASE
-};
-
-app.use(
-	connection(mysql,DBparams,'request')
-);
-//Show connection info
-console.log(DBparams);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -47,8 +31,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+//-------For oauth--------
 app.use(passport.initialize());
 app.use(passport.session());
+//-----End for oauth------
 
 //Routing to specific route files depending on the incomming url.
 
