@@ -11,7 +11,7 @@ var mysql = require('mysql');
 var connection = require('express-myconnection');
 var passport = require('passport');
 
-// Routes
+// Declaring Route files
 var api = require('./routes/api');
 var noauth = require('./routes/noauth');
 var index = require('./routes/index');
@@ -23,7 +23,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-//Database connection parameters
+//Database connection parameters  
 //Move to other place. Should be done with callbacks
 var DBparams={
 		host: process.env.DB_HOST,
@@ -31,7 +31,8 @@ var DBparams={
 		password: process.env.DB_PASSWORD,
 		port: process.env.DB_PORT, //port mysql
 		database: process.env.DB_DATABASE
-	};
+};
+
 app.use(
 	connection(mysql,DBparams,'request')
 );
@@ -49,12 +50,18 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveU
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Routing to specific route files depending on the incomming url.
+
+//the default in use
 app.use('/brapi/v1', api);
+
+///---------------------Testing routes------------------------
+//Experiment for no auth
 app.use('/noauth/brapi/v1', noauth);
 app.use('/', index);
 app.use('/users', users);
 app.use('/study', study);
-
+/// ------------------End testing routes----------------------
 
 
 // catch 404 and forward to error handler

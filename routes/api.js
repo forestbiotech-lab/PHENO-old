@@ -8,26 +8,8 @@ var study = require('./../components/studies/studyDetails');
 var germplasmCalls = require('./../components/studies/germplasmCalls');
 
 
-//Token
-router.post('/token',token(), function(req,res,next){
-  res.send("Your in");
-})
-//Get auth code
-router.get('/authorize', authorize(), function(req,res,next){ 
-  res.send('Hello world');
-});
 
-//Testing only
-router.get('/', function(req, res, next) {
-  res.send('HELLO WORLD');
-  req.redirect("/kkk");
-});
-//
-router.get('/brapi', function(req, res, next) {
-  res.send('HELLO WORLD');
-});
-
-// /brapi/v1/germplasm-search?
+// germplasm-search
 router.get('/germplasm-search', function(req, res, next){
   var germplasmAtt=req.query;
     germplasmCalls(germplasmAtt).then(function(germplasmRes){
@@ -55,7 +37,7 @@ router.get('/germplasm-search', function(req, res, next){
     })*/;
 })
 
-
+//The studies Call
 router.get('/studies/:studyDbID', authenticate(), function(req, res, next) {
     var studyID=req.params.studyDbID;
     study('investigation',studyID).then(function(Investigation){
@@ -71,6 +53,11 @@ router.get('/studies/:studyDbID', authenticate(), function(req, res, next) {
     });
       
 });
+
+
+
+
+//The seasons call
 router.get('/seasons', function(req, res, next){
   var options={
     //Query not params
@@ -84,11 +71,16 @@ router.get('/seasons', function(req, res, next){
   })
 
 });
+
+
+
 router.get('/authentication', authenticate(), function(req, res, next) {
 
     res.sendStatus(200);
 });
 
+//----------------------------Testing-----------------------------------
+// ---------------------Ignore Below -----------------------------------
 
 
 //Testing investigation
@@ -115,6 +107,8 @@ preOutput=function(sqlRes){
     output.metadata.datafiles=sqlRes;
     return output;
 };
+
+
 router.get('/investigation/:investigationID', function(req, res, next) {
   req.getConnection(function(err,connection){
     if(err) return next(err);
@@ -135,15 +129,32 @@ router.get('/authentication', authenticate(), function(req, res, next) {
 });
 
 
-//Others
+//Others test environments
 router.get('/*', function(req, res, next) {
   console.log("In route api.");
   res.sendStatus(501);
 });
+//Token
+router.post('/token',token(), function(req,res,next){
+  res.send("Your in");
+})
+//Get auth code
+router.get('/authorize', authorize(), function(req,res,next){ 
+  res.send('Hello world');
+});
+
+//Testing only
+router.get('/', function(req, res, next) {
+  res.send('HELLO WORLD');
+  req.redirect("/kkk");
+});
+//
+router.get('/brapi', function(req, res, next) {
+  res.send('HELLO WORLD');
+});
 
 module.exports = router;
 
-//Database acess
 
 
 
