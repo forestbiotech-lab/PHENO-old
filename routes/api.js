@@ -1,12 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
-var authenticate = require('./../components/oauth/authenticate');
-var authorize = require('./../components/oauth/authorize');
-var token = require('./../components/oauth/token');
+
+////------------Soon to be removed ----------------------------------------
 var study = require('./../components/studies/studyDetails');
 var germplasmCalls = require('./../components/studies/germplasmCalls');
-
+//-------------------End soon to be removed -------------------------------
 
 
 // germplasm-search
