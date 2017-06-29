@@ -9,3 +9,4 @@ brapi - Current implementation to current database schema.
 	exampleCall.js connection between the route and database
 	model perform the queries to the database
 	sqldb has files with the tables described.
+	index has the database configuration files

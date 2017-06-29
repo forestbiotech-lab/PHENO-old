@@ -50,7 +50,7 @@ function getGermplasm(attributes){
 }
 
 
-//Proof of conceept
+//Proof of concept
 function getInvestigation(investigationID){
   return Investigation
   .findOne({
