@@ -11,7 +11,7 @@ var models= require('./models');
 
 module.exports = function(query,options){
   var options = options || {};
-  //runs a model function with options.
-  //return models.[a function name](options); 
-  
+  console.log("Running ");
+  //Runs a model functions with options if they exist
+  return models.getGermplasm(options);
 }

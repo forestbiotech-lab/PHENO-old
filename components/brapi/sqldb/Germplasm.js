@@ -4,7 +4,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const BioSource = sequelize.define('Germplasm', {
+  const Germplasm = sequelize.define('Germplasm', {
     id: { //Foreign Key: Species | id ! Not implemented
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: true,
     },
     speciesId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(11),
       allowNull: false,
     },
     origin: { //Foreign Key Institution id ! Not implemented yet.
@@ -31,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: true,
     },
     germplasmPUI: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(100),
       allowNull: false,
       unique: true,
     }, 
@@ -50,39 +50,24 @@ module.exports = function(sequelize, DataTypes) {
     acquisitionDate: {
       type: DataTypes.DATE,
       allowNull: false,
-    }, 
-
-  
-  
-
-  
-  
-  
-    : DataTypes.STRING,
-    : DataTypes.DATE,
-    : DataTypes.STRING,
-    : DataTypes.STRING,
-    : DataTypes.STRING,
-    : DataTypes.STRING,
-    GL_Latitude: DataTypes.STRING,
-    GL_Longitude: DataTypes.STRING,
-    GL_Altitude: DataTypes.STRING
-    }, {
-    tableName: 'BioSource',
+    }
+  }, {
+    tableName: 'Germplasm',
     timestamps: false,
-    underscored: true,
+    underscored: false,
+
+/* Not implementing foreignKeys yet.
 
     classMethods: {
       associate: function associate(models) {     
-        BioSource.belongsTo(models.Study, {
-          foreignKey: 'BioSourceID',
+        Germplasm.belongsTo(models.[foreignTable], {
+          foreignKey: '',
         });
       }
-    },
+    },*/
   });
 
-  return BioSource;
+  return Germplasm;
 };
 
-  PRIMARY KEY (`id`)
-);
+ 
