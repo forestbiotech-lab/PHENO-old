@@ -19,10 +19,10 @@ var db = {
 
 
 //db tables
-db.Investigation=db.sequelize.import('./Investigation');
-db.Study=db.sequelize.import('./Study');
-db.GeneralMetadata=db.sequelize.import('./GeneralMetadata');
-db.BioSource=db.sequelize.import('./BioSource')
+db.Germplasm=db.sequelize.import('./Germplasm');
+// Early |db.Species=db.sequelize.import('./Species');
+// Early |db.GermplasmSynonym=db.sequelize.import('./GermplasmSynonym');
+// Early |db.Institution=db.sequelize.import('./Institution')
 
 Object.keys(db).forEach(function(modelName) {
   if ('associate' in db[modelName]) {
