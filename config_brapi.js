@@ -8,7 +8,7 @@ module.exports = {
     username: 'testing',
     password: 'test',
     dialect: 'mysql', // PostgreSQL, MySQL, MariaDB, SQLite and MSSQL See more: http://docs.sequelizejs.com/en/latest/
-    logging: true,
+    logging: false,
     timezone: '+05:30',
     limit: 1000  //Limit of result to get if findAll is used
   },
