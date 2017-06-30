@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 ////------------Soon to be removed ----------------------------------------
-var study = require('./../components/studies/studyDetails');
-var germplasmCalls = require('./../components/studies/germplasmCalls');
+var germplasmCalls = require('./../components/brapi/germplasmCalls');
 //-------------------End soon to be removed -------------------------------
 
 
@@ -36,7 +35,7 @@ router.get('/germplasm-search', function(req, res, next){
 })
 
 //The studies Call
-router.get('/studies/:studyDbID', authenticate(), function(req, res, next) {
+router.get('/studies/:studyDbID', function(req, res, next) {
     var studyID=req.params.studyDbID;
     study('investigation',studyID).then(function(Investigation){
       //The send isn't sending the error but status is ok.
