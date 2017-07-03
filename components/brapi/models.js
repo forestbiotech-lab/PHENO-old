@@ -22,10 +22,11 @@ function getGermplasm(attributes){
   .findAll({
     where: attributes/*{Material_source: {'$like':"ibet:%"}}*/ //attributes
   })
-  .then(function(BioSource){
+  .then(function(res){
     //Do something with the result.
     console.log("Did search");
-    var res=[]
+//    console.log(res[0]);
+    //var res=[]
     return res;
   })
   .catch(function(err){
