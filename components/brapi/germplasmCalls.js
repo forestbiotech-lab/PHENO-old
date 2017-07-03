@@ -35,7 +35,7 @@ module.exports = function(query,options){
           "datafiles": [],
           "pagination": {
             "pageSize": res.length,
-            "currentPage": 1,
+            "currentPage": query.page,
             "totalCount": res.length,
             "totalPages": 1
           }
