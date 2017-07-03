@@ -8,7 +8,7 @@ module.exports = {
     username: 'root',
     password: '',
     dialect: 'mysql', // PostgreSQL, MySQL, MariaDB, SQLite and MSSQL See more: http://docs.sequelizejs.com/en/latest/
-    logging: true,
+    logging: false,
     timezone: '+05:30',
   },
   mongo: {

@@ -9,7 +9,7 @@ module.exports = {
     username: 'brapi',
     password: '8AU%E%lg&75I',
     dialect: 'mysql', // PostgreSQL, MySQL, MariaDB, SQLite and MSSQL See more: http://docs.sequelizejs.com/en/latest/
-    logging: true,
+    logging: false,   //True starts to make it cry.
     timezone: '+05:30',
   },
   mongo: {
