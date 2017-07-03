@@ -19,8 +19,10 @@ var Germplasm=sqldb.Germplasm;
 
 function getGermplasm(attributes){
   return Germplasm
-  .findAll({
-    where: attributes/*{Material_source: {'$like':"ibet:%"}}*/ //attributes
+  .findAll({ 
+    offset:attributes.offset,
+    limit:attributes.pageSize,
+    where: {}, /*attributes/*{Material_source: {'$like':"ibet:%"}}*/ //attributes
   })
   .then(function(res){
     //Do something with the result.

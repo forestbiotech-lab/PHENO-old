@@ -10,7 +10,13 @@ var models= require('./models');
 
 module.exports = function(query,options){
     
-            
+  query.pageSize = query.pageSize || 1000         
+  query.page = query.page || 0 
+  
+  //Set the page to show
+  if (query.page > 0) 
+    query.offset= query.page * query.pageSize
+
   console.log(query)
   var options = options || {};
   //Runs a model function with options if they exist
