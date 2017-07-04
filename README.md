@@ -25,17 +25,22 @@ Once all dependencies by nodejs have been installed you can start the server in 
 
 
 
-## Authentication (Needs https configuration)
+
+---------------------------------------------------------------------
+
+
+## Authentication 
+(Needs https configuration, only for importing data. Not in use now)
  OAuth 2.0 authentication provided by [oauth2-server](https://www.npmjs.com/package/oauth2-server)
  Being implemented in branch: OAuth20
  Auth will be done by sending a auth grant to authorization server 
- After auth has been acheived an access token will be generated to be used with the resource server.
+ After auth has been achieved an access token will be generated to be used with the resource server.
  This way if someone discovers your access token it will be soon invalidated.
 
 
 <img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/OAuth20/images/auth.png"/>
 
-Figure 1 - OAuth sceme.
+Figure 1 - OAuth scheme.
 
 ####Attention!
 User database isn't being saved with hashed passwords yet.
@@ -54,7 +59,7 @@ Figure 2 - Database scheme being used for testing.
 Refer to mysql directory to get creation scripts.
 
 ### Database connection 
- To connecto the the mysql database you should set up the varibles: 
+ To connect to the the mysql database you should set up the variables: 
  * db_host
  * db_user
  * db_port
@@ -64,7 +69,7 @@ Refer to mysql directory to get creation scripts.
 
 auth database parameters
  config_auth.js (Auth server)
- config_res.js (Resourse Server)
+ config_res.js (Resource Server)
 
 ## Testing
 
@@ -90,11 +95,11 @@ localhost:3000/noauth/brapi/v1/investigation/investigationID
 Auth and no auth
 
 The first should get you a hello world
-The second extracts the data from investigation database where investigaionID is the varible in the url path
+The second extracts the data from investigation database where investigaionID is the variable in the url path
 
 
-## Auth server should be seperated from Resource server (TODO)
-By this I mean even if it's the same resource the db privlages should be limited to read the access_token table and any other that is necessary. No write permission. "To much?"
+## Auth server should be separated from Resource server (TODO)
+By this I mean even if it's the same resource the db privileges should be limited to read the access_token table and any other that is necessary. No write permission. "To much?"
 
 
 ## Pagination (TODO)
