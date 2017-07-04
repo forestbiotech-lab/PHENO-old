@@ -24,6 +24,7 @@ module.exports = function(query,options){
   //Now this promise will send the call and the logic of parsing the result will be set here.
   return new Promise(function(resolve,reject){
 
+    //Missing how to deal with rejections of the model. Function for rejection?
     models.getGermplasm(query).then(function(res){
       //console.log(res[0]);
 
@@ -52,7 +53,11 @@ module.exports = function(query,options){
         //Export query values to a array and re  
         for(i in res.rows){
           dataValues.push(res.rows[i].dataValues);
-    
+          console.log();
+          for (spKeys in res.rows[i].dataValues.Species.dataValues ){
+            dataValues[i][spKeys]=res.rows[i].dataValues.Species.dataValues[spKeys];
+          }
+          delete dataValues[i]['Species'],
           //Tricky if 0000-00-00 its a string and I have to do a replace. Else I do a date format.
           date=dataValues[i].acquisitionDate
           typeof date === "string" ? dataValues[i].acquisitionDate=date.replace(/-/g,"") : dataValues[i].acquisitionDate=dateFormat(new Date(date), "yyyymmdd");
