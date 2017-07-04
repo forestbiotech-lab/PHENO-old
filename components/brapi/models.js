@@ -19,20 +19,19 @@ var Germplasm=sqldb.Germplasm;
 
 function getGermplasm(attributes){
   return Germplasm
-  .findAll({ 
-    offset:attributes.offset,
-    limit:attributes.pageSize,
+  .findAndCountAll({ 
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize),
+    attributes: { exclude:['id'], include:[ ['id', 'germplasmDbId'], ['defaultDisplayName','germplasmName'] ]},
     where: {}, /*attributes/*{Material_source: {'$like':"ibet:%"}}*/ //attributes
   })
   .then(function(res){
     //Do something with the result.
     console.log("Did search");
-//    console.log(res[0]);
-    //var res=[]
     return res;
   })
   .catch(function(err){
-    console.log("getGermplasm - Err: ");
+    console.log("getGermplasm - Err: "+ err);
     return err;
   });
 
