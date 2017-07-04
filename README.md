@@ -6,7 +6,7 @@ This is a test implementation of BrAPI using [nodeJS](https://nodejs.org/) .
 
 Routes are done through [express](http://expressjs.com/)
 
-[express-myconnection](https://www.npmjs.com/package/express-myconnection) is used to connecto the the mysql database defined in the DBparams.
+[Squelize](http://docs.sequelizejs.com) is used to connect to the the mysql database defined in the config.js file.
 
 ## How to install
 
