@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: true,
     },
-    speciesId: {
+    speciesId: {  //Foreign Key species.
       type: DataTypes.INTEGER(11),
       allowNull: false,
     },
@@ -56,15 +56,15 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     underscored: false,
 
-/* Not implementing foreignKeys yet.
+// Not implementing foreignKeys yet.
 
     classMethods: {
       associate: function associate(models) {     
-        Germplasm.belongsTo(models.[foreignTable], {
-          foreignKey: '',
+        Germplasm.belongsTo(models.Species, {
+          foreignKey: 'speciesId',
         });
       }
-    },*/
+    },
   });
 
   return Germplasm;
