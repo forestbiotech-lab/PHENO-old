@@ -10,3 +10,12 @@ brapi - Current implementation to current database schema.
 	model perform the queries to the database
 	sqldb has files with the tables described.
 		index.js has the database configuration files and all the tables
+		foreignkeys: should be name with belongsTo in both associated tables. With the attribute that has a foreign key.::
+
+		    classMethods: {
+     		  associate: function associate(models) {     
+        		[ThisTable].belongsTo(models.[foreignTable], {
+          			foreignKey: '[attr form this table]',
+        	    });
+      		  }
+            },
