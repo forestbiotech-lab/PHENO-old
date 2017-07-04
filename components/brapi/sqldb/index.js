@@ -4,7 +4,7 @@
 
 /** https://github.com/dsquier/oauth2-server-php-mysql **/
 //This is the configuration file that has all the credentials
-var config_brapi = require('./../../../config_res');
+var config_brapi = require('./../../../config_brapi');
 var Sequelize = require('sequelize');
 
 //DB credentials
@@ -20,7 +20,7 @@ var db = {
 
 //db tables
 db.Germplasm=db.sequelize.import('./Germplasm');
-// Early |db.Species=db.sequelize.import('./Species');
+db.Species=db.sequelize.import('./Species');
 // Early |db.GermplasmSynonym=db.sequelize.import('./GermplasmSynonym');
 // Early |db.Institution=db.sequelize.import('./Institution')
 
