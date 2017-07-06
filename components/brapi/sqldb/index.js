@@ -21,8 +21,12 @@ var db = {
 //db tables
 db.Germplasm=db.sequelize.import('./Germplasm');
 db.Species=db.sequelize.import('./Species');
+db.Crop=db.sequelize.import('./Crop');
+db.GermplasmStorage=db.sequelize.import('./GermplasmStorage');
+db.Institution=db.sequelize.import('./Institution');
+
 // Early |db.GermplasmSynonym=db.sequelize.import('./GermplasmSynonym');
-// Early |db.Institution=db.sequelize.import('./Institution')
+//db.Crop.hasMany(db.Species, {foreignKey:'id'});  //Testing creating a join table
 
 Object.keys(db).forEach(function(modelName) {
   if ('associate' in db[modelName]) {
