@@ -11,13 +11,16 @@ var models= require('./models');
 
 module.exports = function(query,options){
     
-  query.pageSize = query.pageSize || 1000         
+  query.pageSize = query.pageSize || 1000     //The default in specs is 1000    
   query.page = query.page || 0 
   
   //Set the page to show
-  query.page > 0 ? query.offset= query.page * query.pageSize : query.offset=0
-
+  query.offset= query.page * query.pageSize;
+  query.germplasmName=query.germplasmName || ""
+  query.germplasmDbId=query.germplasmDbId || ""
+  query.germplasmPUI=query.germplasmPUI || ""
   var options = options || {};
+  console.log(query);
   //Runs a model function with options if they exist
 
 
@@ -26,7 +29,6 @@ module.exports = function(query,options){
 
     //Missing how to deal with rejections of the model. Function for rejection?
     models.getGermplasm(query).then(function(res){
-      //console.log(res[0]);
 
       //Logic to decide which is sent
       if(res instanceof Error){
@@ -50,18 +52,38 @@ module.exports = function(query,options){
         //If res isn't an error send the appropriate response
         let dataValues=[]
         
+
         //Export query values to a array and re  
         for(i in res.rows){
           dataValues.push(res.rows[i].dataValues);
-          console.log();
+
+          //This can be automated. Get keys from model?
+
+          //Merging Species keys into new array
           for (spKeys in res.rows[i].dataValues.Species.dataValues ){
             dataValues[i][spKeys]=res.rows[i].dataValues.Species.dataValues[spKeys];
           }
-          delete dataValues[i]['Species'],
+          delete dataValues[i]['Species'];
+
+          //Merging GermplasmStorage keys into new array
+          for (gsKeys in res.rows[i].dataValues.GermplasmStorage.dataValues ){
+            dataValues[i][gsKeys]=res.rows[i].dataValues.GermplasmStorage.dataValues[gsKeys];
+          }
+          delete dataValues[i]['GermplasmStorage'];
+
+          //Merging Crop keys in new array
+          for (cropKeys in dataValues[i].Crop.dataValues ){
+            dataValues[i][cropKeys]=dataValues[i].Crop.dataValues[cropKeys];
+          }
+          delete dataValues[i]['Crop'];
+
+          //Parse attributes from db
           //Tricky if 0000-00-00 its a string and I have to do a replace. Else I do a date format.
           date=dataValues[i].acquisitionDate
           typeof date === "string" ? dataValues[i].acquisitionDate=date.replace(/-/g,"") : dataValues[i].acquisitionDate=dateFormat(new Date(date), "yyyymmdd");
-    
+          dataValues[i].code=dataValues[i].code.split(';')
+
+
         }
         resolve({
           "metadata": {
@@ -86,11 +108,11 @@ module.exports = function(query,options){
     }).catch(function(err){
       reject({
           "metadata": {
-            "status": [{code:500,message:err}],  //Some other status?
+            "status": [{code:500,"message":err}],  //Some other status?
             "pagination": {
-              "pageSize": err.length,
+              "pageSize": err,//.length,
               "currentPage": query.page,  //This might produce errors if query var changes after promise resolves. Not sure if this is an issue.
-              "totalCount": err.length,
+              "totalCount": err,//.length,
               "totalPages": 1 //This must be calculated another call with the same attributes and no limit to count.
             }
           },
