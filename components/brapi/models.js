@@ -9,7 +9,9 @@ var sqldb = require('./sqldb');
 
 //tables
 var Germplasm=sqldb.Germplasm;
+var GermplasmStorage=sqldb.GermplasmStorage;
 var Species=sqldb.Species;
+var Crop=sqldb.Crop;
 //var Investigation = sqldb.Investigation;
 //var GeneralMetadata=sqldb.GeneralMetadata;
 //var =sqldb.;
@@ -23,14 +25,32 @@ function getGermplasm(attributes){
   .findAndCountAll({ 
     offset: parseInt(attributes.offset),
     limit: parseInt(attributes.pageSize),
-    attributes: { exclude:['id'], include:[['id', 'germplasmDbId'], ['defaultDisplayName','germplasmName'] ]},
-    include: [{model:Species}],
-    where: {}, /*attributes/*{Material_source: {'$like':"ibet:%"}}*/ //attributes
+    attributes: { exclude:['id','speciesId','origin'], include:[['id', 'germplasmDbId'], ['defaultDisplayName','germplasmName'] ]},
+    include: [{
+      model:Species,
+      attributes: {exclude:['id','cropId']},
+      include: [{
+        model:Crop,
+        attributes: {exclude:['id']},
+      }]
+    },{
+      model:GermplasmStorage,
+      attributes: {exclude:['germplasmId','id']} 
+    }],
+    //defaultDisplayName might not be the same as germplasmName in the future. !!!Possible code breaking  
+    where: { 
+      defaultDisplayName: {
+        '$like':attributes.germplasmName+"%" //Using like instead of exact search not sure this is the best option
+      },
+      id:{
+        '$like':attributes.germplasmDbId+"%" //Using like instead of exact search not sure this is the best option
+      }, /*attributes/*{Material_source: {'$like':"ibet:%"}}*/ //attributes      
+      germplasmPUI:{
+        '$like':attributes.germplasmPUI+"%" //Using like instead of exact search not sure this is the best option
+      }, /*attributes/*{Material_source: {'$like':"ibet:%"}}*/ //attributes
+    }
   })
   .then(function(res){
-    //Do something with the result.
-    //console.log("Did search");
-    //console.log(res.rows[0].$modelOptions);
     return res;
   })
   .catch(function(err){

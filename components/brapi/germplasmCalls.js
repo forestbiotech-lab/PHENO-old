@@ -77,6 +77,7 @@ module.exports = function(query,options){
           }
           delete dataValues[i]['Crop'];
 
+          //Should add if attributes exist To avoid errors. ! To consider.
           //Parse attributes from db
           //Tricky if 0000-00-00 its a string and I have to do a replace. Else I do a date format.
           date=dataValues[i].acquisitionDate
