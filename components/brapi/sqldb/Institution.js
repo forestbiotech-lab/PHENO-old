@@ -4,7 +4,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const SpeciesCrop = sequelize.define('SpeciesCrop', {
+  const Institution = sequelize.define('Institution', {
     id: { //Foreign Key: Species | id ! Not implemented
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     locationId: DataTypes.INTEGER(11),
   }, {
-    tableName: 'SpeciesCrop',
+    tableName: 'Institution',
     timestamps: false,
     underscored: false,
 
@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
 
    classMethods: {
       associate: function associate(models) {     
-        Species.belongsTo(models.Germplasm, {
+        Institution.belongsTo(models.Germplasm, {
           foreignKey: 'id',
           targetKey: 'origin',
         });
@@ -38,7 +38,7 @@ module.exports = function(sequelize, DataTypes) {
     },//*/
   });
 
-  return SpeciesCrop;
+  return Institution;
 };
 
  
