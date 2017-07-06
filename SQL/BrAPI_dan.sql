@@ -20,7 +20,7 @@ CREATE TABLE `Germplasm` (
 	`speciesId` INT NOT NULL,
 	`origin` INT(50) NOT NULL,
 	`defaultDisplayName` varchar(50) NOT NULL UNIQUE,
-	`assessionNumber` varchar(20) NOT NULL UNIQUE,
+	`accessionNumber` varchar(20) NOT NULL UNIQUE,
 	`germplasmPUI` varchar(100) NOT NULL UNIQUE, /** 50 was to short */
 	`pedigree` varchar(50) NOT NULL,
 	`seedSource` varchar(100) NOT NULL,

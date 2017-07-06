@@ -153,7 +153,7 @@ CREATE TABLE `Germplasm` (
   `speciesId` int(11) NOT NULL,
   `origin` int(50) NOT NULL,
   `defaultDisplayName` varchar(50) NOT NULL,
-  `assessionNumber` varchar(20) NOT NULL,
+  `accessionNumber` varchar(20) NOT NULL,
   `germplasmPUI` varchar(100) NOT NULL,
   `pedigree` varchar(50) NOT NULL,
   `seedSource` varchar(100) NOT NULL,
