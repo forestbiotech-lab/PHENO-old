@@ -65,6 +65,7 @@ module.exports = function(sequelize, DataTypes) {
         });
         Germplasm.belongsTo(models.GermplasmStorage, {
           foreignKey: 'id',
+          targetKey: 'germplasmId',
         });
         Germplasm.belongsTo(models.Institution, {
           foreignKey: 'origin',
