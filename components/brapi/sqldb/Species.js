@@ -5,14 +5,14 @@
 
 module.exports = function(sequelize, DataTypes) {
   const Species = sequelize.define('Species', {
-    id: { //Foreign Key: Species | id ! Not implemented
+    id: { //Foreign Key: Species | Not implemented to GenomeMap
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
       primaryKey: true,
       allowNull: false,
       unique: true,
     },
-    cropId: {  //foreignkey not implemented to id.Crop
+    cropId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
     },
@@ -35,7 +35,7 @@ module.exports = function(sequelize, DataTypes) {
     subtaxaAuthority: {
       type: DataTypes.STRING(50),
       allowNull: true,
-    }
+    },
   }, {
     tableName: 'Species',
     timestamps: false,
@@ -46,8 +46,12 @@ module.exports = function(sequelize, DataTypes) {
    classMethods: {
       associate: function associate(models) {     
         Species.belongsTo(models.Germplasm, {
-          foreignKey: 'id',
+          foreignKey: 'id',         //On species
+          targetKey: 'speciesId',   //foreign key on Germplasm
         });
+        Species.belongsTo(models.Crop, {
+          foreignKey: 'cropId',    // On Species
+        })
       }
     },//*/
   });
