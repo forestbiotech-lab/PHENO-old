@@ -1,11 +1,5 @@
-/*Created by D.F.
-http://dbdesigner.net/designer/schema/73762
-*/
-
-USE brapi_dan;
-
 CREATE TABLE `Species` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`cropId` INT NOT NULL,
 	`genus` varchar(50) NOT NULL,
 	`species` varchar(50) NOT NULL,
@@ -16,28 +10,29 @@ CREATE TABLE `Species` (
 );
 
 CREATE TABLE `Germplasm` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`speciesId` INT NOT NULL,
-	`origin` INT(50) NOT NULL,
+	`holdingInstitution` INT(50) NOT NULL,
 	`defaultDisplayName` varchar(50) NOT NULL UNIQUE,
 	`accessionNumber` varchar(20) NOT NULL UNIQUE,
-	`germplasmPUI` varchar(100) NOT NULL UNIQUE, /** 50 was to short */
+	`germplasmPUI` varchar(50) NOT NULL UNIQUE,
 	`pedigree` varchar(50) NOT NULL,
 	`seedSource` varchar(100) NOT NULL,
 	`biologicalStatusOfAccessionCode` varchar(50) NOT NULL,
 	`acquisitionDate` DATE NOT NULL,
+	`CountryOfOrigin` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `GermplasmSynonym` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`germplasmId` INT NOT NULL,
 	`synonym` varchar(50) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Institution` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`code` varchar(20) NOT NULL UNIQUE,
 	`name` varchar(100) NOT NULL UNIQUE,
 	`locationId` INT NOT NULL,
@@ -45,34 +40,34 @@ CREATE TABLE `Institution` (
 );
 
 CREATE TABLE `GermplasmStorage` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`code` varchar(20) NOT NULL,
 	`germplasmId` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `DonorInstitute` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`germplasmId` INT NOT NULL,
 	`instituteId` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `GermplasmParents` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`parent1Id` INT NOT NULL,
 	`parent2Id` INT,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Extract` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`germplasmId` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `AttributeCategory` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`code` varchar(20) NOT NULL UNIQUE,
 	`uri` varchar(100) NOT NULL UNIQUE,
 	`name` varchar(50) NOT NULL UNIQUE,
@@ -82,21 +77,21 @@ CREATE TABLE `AttributeCategory` (
 );
 
 CREATE TABLE `AttributeValue` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`attributeCategory` INT NOT NULL,
 	`value` varchar(100) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `GermplasmAttributeValue` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`germplasmId` INT NOT NULL,
 	`attributeValueId` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Marker` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(50) NOT NULL UNIQUE,
 	`linkageGroupId` INT NOT NULL,
 	`type` varchar(20) NOT NULL,
@@ -105,21 +100,21 @@ CREATE TABLE `Marker` (
 );
 
 CREATE TABLE `MarkerSynonym` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`markerId` INT NOT NULL,
 	`synonym` varchar(50) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `MarkerProfile` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`extract` INT NOT NULL,
 	`analysisMethod` varchar(50),
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `MarkerValue` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`markerId` INT NOT NULL,
 	`value` varchar(1) NOT NULL,
 	`isRef` BOOLEAN NOT NULL DEFAULT 'false',
@@ -127,14 +122,14 @@ CREATE TABLE `MarkerValue` (
 );
 
 CREATE TABLE `MarkerAnalysisMethods` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`markerId` INT NOT NULL,
 	`analysisMethod` varchar(50),
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `MarkerprofileValue` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`markerprofileId` INT NOT NULL,
 	`markervalue1Id` INT,
 	`markervalue2Id` INT,
@@ -142,13 +137,13 @@ CREATE TABLE `MarkerprofileValue` (
 );
 
 CREATE TABLE `Crop` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`commonCropName` varchar(50) NOT NULL UNIQUE,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Trial` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(50) NOT NULL UNIQUE,
 	`programId` INT NOT NULL,
 	`startDate` DATE NOT NULL,
@@ -157,7 +152,7 @@ CREATE TABLE `Trial` (
 );
 
 CREATE TABLE `Program` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(50) NOT NULL UNIQUE,
 	`abbreviation` varchar(10) NOT NULL UNIQUE,
 	`objective` TEXT NOT NULL,
@@ -166,7 +161,7 @@ CREATE TABLE `Program` (
 );
 
 CREATE TABLE `Person` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(100) NOT NULL,
 	`honorific` varchar(5) NOT NULL,
 	`role` varchar(50) NOT NULL,
@@ -177,19 +172,19 @@ CREATE TABLE `Person` (
 );
 
 CREATE TABLE `Location` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(100) NOT NULL UNIQUE,
 	`abbreviation` varchar(10) NOT NULL,
 	`locationType` varchar(50) NOT NULL,
-	`latitude` FLOAT NOT NULL,
-	`longitude` FLOAT NOT NULL,
+	`latitude` varchar(20) NOT NULL,
+	`longitude` varchar(20) NOT NULL,
 	`altitude` INT NOT NULL,
 	`country` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Study` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(50) NOT NULL UNIQUE,
 	`trialId` INT NOT NULL,
 	`locationId` INT NOT NULL,
@@ -199,28 +194,28 @@ CREATE TABLE `Study` (
 );
 
 CREATE TABLE `Season` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`season` varchar(20) NOT NULL,
 	`year` INT(4) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `StudyType` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(100) NOT NULL UNIQUE,
 	`description` TEXT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `StudySeason` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`studyId` INT NOT NULL,
 	`seasonId` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `StudyAdditionalInfo` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`studyId` INT NOT NULL,
 	`propertyName` varchar(50) NOT NULL,
 	`propertyValue` varchar(100) NOT NULL,
@@ -228,14 +223,14 @@ CREATE TABLE `StudyAdditionalInfo` (
 );
 
 CREATE TABLE `Country` (
-	`int` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(100) NOT NULL UNIQUE,
 	`code` varchar(3) NOT NULL UNIQUE,
-	PRIMARY KEY (`int`)
+	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `LocationAdditionalInfo` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`location` INT NOT NULL,
 	`propertyName` varchar(50) NOT NULL,
 	`propertyValue` varchar(100) NOT NULL,
@@ -243,14 +238,14 @@ CREATE TABLE `LocationAdditionalInfo` (
 );
 
 CREATE TABLE `StudyContact` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`studyId` INT NOT NULL,
 	`contact` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `ObservationVariable` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(50) NOT NULL UNIQUE,
 	`ontologyId` INT NOT NULL,
 	`growthStage` varchar(50) NOT NULL,
@@ -269,14 +264,14 @@ CREATE TABLE `ObservationVariable` (
 );
 
 CREATE TABLE `StudyObservationVariable` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`studyId` INT NOT NULL,
 	`observationVariableId` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Trait` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(100) NOT NULL UNIQUE,
 	`class` varchar(50) NOT NULL,
 	`description` TEXT NOT NULL,
@@ -289,7 +284,7 @@ CREATE TABLE `Trait` (
 );
 
 CREATE TABLE `Method` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(50) NOT NULL UNIQUE,
 	`class` varchar(50) NOT NULL UNIQUE,
 	`description` TEXT NOT NULL,
@@ -299,21 +294,21 @@ CREATE TABLE `Method` (
 );
 
 CREATE TABLE `Ontology` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`accession` varchar(10) NOT NULL,
 	`name` varchar(50) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `ObservationVariableSynonym` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`observationVariableId` INT NOT NULL,
 	`synonym` varchar(50) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Scale` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(50) NOT NULL UNIQUE,
 	`dataTypeId` INT NOT NULL,
 	`decimalPlaces` INT NOT NULL,
@@ -324,28 +319,28 @@ CREATE TABLE `Scale` (
 );
 
 CREATE TABLE `ContextOfUse` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`observationVariableId` INT NOT NULL,
 	`studyTypeId` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `TraitSynonym` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`traitId` INT NOT NULL,
 	`synonym` varchar(100) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `TraitAlternativeAbbreviation` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`traitId` INT NOT NULL,
 	`abbreviation` varchar(5) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `ScaleCategories` (
-	`int` INT NOT NULL,
+	`int` INT NOT NULL AUTO_INCREMENT,
 	`scaleId` INT NOT NULL,
 	`value` FLOAT,
 	`category` varchar(20) NOT NULL,
@@ -353,28 +348,28 @@ CREATE TABLE `ScaleCategories` (
 );
 
 CREATE TABLE `StudyGermplasm` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`studyId` INT NOT NULL,
 	`germplasmId` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `ObservationUnit` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(100) NOT NULL UNIQUE,
 	`locationId` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `StudyObservationUnit` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`studyId` INT NOT NULL,
 	`observationUnit` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Observation` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`observationVariable` INT NOT NULL,
 	`operator` INT NOT NULL,
 	`uploadedBy` INT NOT NULL,
@@ -387,7 +382,7 @@ CREATE TABLE `Observation` (
 );
 
 CREATE TABLE `StudyPlot` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`studyObservationUnitId` INT NOT NULL,
 	`germplasmId` INT NOT NULL,
 	`plotNumber` INT NOT NULL,
@@ -401,7 +396,7 @@ CREATE TABLE `StudyPlot` (
 );
 
 CREATE TABLE `StudyPlant` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`studyPlotId` INT NOT NULL,
 	`plantNumber` INT NOT NULL,
 	`blockNumber` INT NOT NULL,
@@ -411,33 +406,33 @@ CREATE TABLE `StudyPlant` (
 );
 
 CREATE TABLE `StudyTreatment` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`studyPlotId` INT NOT NULL,
 	`treatmentModalityId` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `TreatmentFactor` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`factor` varchar(50) NOT NULL UNIQUE,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `TreatmentModality` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`treatmentFactorId` INT NOT NULL,
 	`modality` varchar(100) NOT NULL UNIQUE,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `DataType` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`type` varchar(20) NOT NULL UNIQUE,
 	PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `GenomeMap` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`name` varchar(50) NOT NULL UNIQUE,
 	`speciesId` INT NOT NULL,
 	`type` varchar(20) NOT NULL,
@@ -450,7 +445,7 @@ CREATE TABLE `GenomeMap` (
 );
 
 CREATE TABLE `LinkageGroup` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`genomeMapId` INT NOT NULL,
 	`numberMarkers` INT NOT NULL,
 	`maxPosition` INT NOT NULL,
@@ -458,7 +453,7 @@ CREATE TABLE `LinkageGroup` (
 );
 
 CREATE TABLE `Sample` (
-	`id` INT NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`plantId` INT NOT NULL,
 	`takenBy` INT NOT NULL,
 	`sampleDate` DATE NOT NULL,
@@ -473,7 +468,11 @@ ALTER TABLE `Species` ADD CONSTRAINT `Species_fk0` FOREIGN KEY (`cropId`) REFERE
 
 ALTER TABLE `Germplasm` ADD CONSTRAINT `Germplasm_fk0` FOREIGN KEY (`speciesId`) REFERENCES `Species`(`id`);
 
-ALTER TABLE `Germplasm` ADD CONSTRAINT `Germplasm_fk1` FOREIGN KEY (`origin`) REFERENCES `Institution`(`id`);
+ALTER TABLE `Germplasm` ADD CONSTRAINT `Germplasm_fk1` FOREIGN KEY (`holdingInstitution`) REFERENCES `Institution`(`id`);
+
+ALTER TABLE `Germplasm` ADD CONSTRAINT `Germplasm_fk2` FOREIGN KEY (`pedigree`) REFERENCES `GermplasmParents`(`id`);
+
+ALTER TABLE `Germplasm` ADD CONSTRAINT `Germplasm_fk3` FOREIGN KEY (`CountryOfOrigin`) REFERENCES `Country`(`id`);
 
 ALTER TABLE `GermplasmSynonym` ADD CONSTRAINT `GermplasmSynonym_fk0` FOREIGN KEY (`germplasmId`) REFERENCES `Germplasm`(`id`);
 
@@ -521,7 +520,7 @@ ALTER TABLE `Program` ADD CONSTRAINT `Program_fk0` FOREIGN KEY (`leadPerson`) RE
 
 ALTER TABLE `Person` ADD CONSTRAINT `Person_fk0` FOREIGN KEY (`affiliation`) REFERENCES `Institution`(`id`);
 
-ALTER TABLE `Location` ADD CONSTRAINT `Location_fk0` FOREIGN KEY (`country`) REFERENCES `Country`(`int`);
+ALTER TABLE `Location` ADD CONSTRAINT `Location_fk0` FOREIGN KEY (`country`) REFERENCES `Country`(`id`);
 
 ALTER TABLE `Study` ADD CONSTRAINT `Study_fk0` FOREIGN KEY (`trialId`) REFERENCES `Trial`(`id`);
 
