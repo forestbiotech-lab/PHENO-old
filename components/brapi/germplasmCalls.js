@@ -77,12 +77,18 @@ module.exports = function(query,options){
           }
           delete dataValues[i]['Crop'];
 
+          //Merging Institution keys into new array
+          for (instKeys in res.rows[i].dataValues.Institution.dataValues ){
+            dataValues[i][instKeys]=res.rows[i].dataValues.Institution.dataValues[instKeys];
+          }
+          delete dataValues[i]['Institution'];
+
           //Should add if attributes exist To avoid errors. ! To consider.
           //Parse attributes from db
           //Tricky if 0000-00-00 its a string and I have to do a replace. Else I do a date format.
           date=dataValues[i].acquisitionDate
           typeof date === "string" ? dataValues[i].acquisitionDate=date.replace(/-/g,"") : dataValues[i].acquisitionDate=dateFormat(new Date(date), "yyyymmdd");
-          dataValues[i].code=dataValues[i].code.split(';')
+          dataValues[i].typeOfGermplasmStorageCode=dataValues[i].typeOfGermplasmStorageCode.split(';')
 
 
         }

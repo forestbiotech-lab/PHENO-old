@@ -12,8 +12,9 @@ var Germplasm=sqldb.Germplasm;
 var GermplasmStorage=sqldb.GermplasmStorage;
 var Species=sqldb.Species;
 var Crop=sqldb.Crop;
-//var Investigation = sqldb.Investigation;
-//var GeneralMetadata=sqldb.GeneralMetadata;
+var Institution = sqldb.Institution;
+var Country = sqldb.Country;
+var Location = sqldb.Location;
 //var =sqldb.;
 
 
@@ -35,7 +36,13 @@ function getGermplasm(attributes){
       }]
     },{
       model:GermplasmStorage,
-      attributes: {exclude:['germplasmId','id']} 
+      attributes: {exclude:['germplasmId','id','code'],include:[['code','typeOfGermplasmStorageCode']]} 
+    },{
+      model:Institution,
+      attributes: {exclude:['id','locationId','code','name'],include:[['code','instituteCode'],['name','instituteName']] },
+    },{
+      model:Country,
+      attributes:{exclude:['id','code','name'],include:[['code','countryOfOriginCode']]}
     }],
     //defaultDisplayName might not be the same as germplasmName in the future. !!!Possible code breaking  
     where: { 
