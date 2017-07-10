@@ -4,7 +4,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const Institution = sequelize.define('Institution', {
+  const Location = sequelize.define('Location', {
     id: { //Foreign Key: Location ! Not implemented
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
@@ -13,16 +13,15 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: true,
     },
-    code: {  //foreignkey not implemented to id.Crop
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-    },
-    name:{
-      type: DataTypes.STRING(50),
-    },
-    locationId: DataTypes.INTEGER(11),
+    name: DataTypes.STRING(50),
+    abbreviation: DataTypes.STRING(10),
+    locationType: DataTypes.STRING(50),
+    latitude: DataTypes.STRING(20),
+    longitude: DataTypes.STRING(20),
+    altitude: DataTypes.INTEGER,
+    country: DataTypes.INTEGER(11),
   }, {
-    tableName: 'Institution',
+    tableName: 'Location',
     timestamps: false,
     underscored: false,
 
@@ -30,19 +29,19 @@ module.exports = function(sequelize, DataTypes) {
 
    classMethods: {
       associate: function associate(models) {     
-        Institution.belongsTo(models.Germplasm, {
+        Location.belongsTo(models.Institution, {
           foreignKey: 'id',
-          targetKey: 'holdingInstitution',
+          targetKey: 'locationId',
         });
-        Institution.belongsTo(models.Location, {
-          foreignKey: 'locationId',
+       Location.belongsTo(models.Country, {
+          foreignKey: 'country',
           targetKey: 'id',
         });
       }
     },//*/
   });
 
-  return Institution;
+  return Location;
 };
 
  
