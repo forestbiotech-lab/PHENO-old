@@ -24,6 +24,7 @@ db.Species=db.sequelize.import('./Species');
 db.Crop=db.sequelize.import('./Crop');
 db.GermplasmStorage=db.sequelize.import('./GermplasmStorage');
 db.Institution=db.sequelize.import('./Institution');
+db.Country=db.sequelize.import('./Country');
 
 // Early |db.GermplasmSynonym=db.sequelize.import('./GermplasmSynonym');
 //db.Crop.hasMany(db.Species, {foreignKey:'id'});  //Testing creating a join table
