@@ -5,7 +5,7 @@
 
 module.exports = function(sequelize, DataTypes) {
   const Institution = sequelize.define('Institution', {
-    id: { //Foreign Key: Species | id ! Not implemented
+    id: { //Foreign Key: Location ! Not implemented
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
 //      field: 'GermplasmId',
@@ -32,7 +32,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function associate(models) {     
         Institution.belongsTo(models.Germplasm, {
           foreignKey: 'id',
-          targetKey: 'origin',
+          targetKey: 'holdingInstitution',
         });
       }
     },//*/

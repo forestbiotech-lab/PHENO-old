@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false,
     },
-    origin: { //Foreign Key to Institution id
+    holdingInstitution: { //Foreign Key to Institution id
       type: DataTypes.INTEGER(50),
       allowNull: false,
     },
@@ -50,6 +50,10 @@ module.exports = function(sequelize, DataTypes) {
     acquisitionDate: {
       type: DataTypes.DATE,
       allowNull: false,
+    },
+    countryOfOrigin: {
+      type: DataTypes.DATE,
+      allowNull: false,
     }
   }, {
     tableName: 'Germplasm',
@@ -68,9 +72,12 @@ module.exports = function(sequelize, DataTypes) {
           targetKey: 'germplasmId',
         });
         Germplasm.belongsTo(models.Institution, {
-          foreignKey: 'origin',
+          foreignKey: 'holdingInstitution',
         });
-       Germplasm.belongsToMany(models.Crop,{
+        Germplasm.belongsTo(models.Country, {
+          foreignKey: 'countryOfOrigin',
+        });
+        Germplasm.belongsToMany(models.Crop,{
           through: models.Species,
           foreignKey: 'id',     //on the species
         })
