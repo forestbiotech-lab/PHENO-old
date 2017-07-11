@@ -34,6 +34,19 @@ router.get('/crops', function(request, response, next){
 
 });
 
+/* List implemented calls
+* João Cardoso  - 11/07/2017 */
+router.get('calls', function (request, response, next){
+    cropCall(request.query).then(function (cropResponse) {
+        response.status(200).json(cropResponse);
+
+    }).catch(function (error) {
+        response.status(parseInt(error.metadata.status[0].code || 501)).json(error);
+    })
+
+});
+
+
 //The studies Call
 router.get('/studies/:studyDbID', function(req, res, next) {
     var studyID=req.params.studyDbID;

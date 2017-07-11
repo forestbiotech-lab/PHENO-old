@@ -15,6 +15,9 @@ var Crop=sqldb.Crop;
 var Institution = sqldb.Institution;
 var Country = sqldb.Country;
 var Location = sqldb.Location;
+var Calls = sqldb.Calls;
+var DataType = sqldb.DataType;
+var Methods = sqldb.Methods;
 //var =sqldb.;
 
 
@@ -80,6 +83,38 @@ function getCrops(attributes) {
     }).catch(function(err){
             console.log("getCrops - Err: "+ err);
             return err;
+    });
+}
+
+/* Created by João Cardoso - 11/07/2017
+ * List Implemented Calls Implementation - Fetches data from the Calls Table */
+function getImplementedCalls(attributes) {
+    return Calls.findAndCountAll({
+        offset: parseInt(attributes.offset),
+        limit: parseInt(attributes.pageSize),
+        attributes: {
+            exclude: ['id', 'callName', 'dataType', 'method'],
+            include: [['callName', 'call']]
+        },
+        include: [{
+            model: Methods,
+            attributes: {
+                exclude: ['id', 'method'],
+                include: [['method', 'methods']]
+            }
+        }, {
+            model: Methods,
+            attributes: {
+                exclude: ['id', 'dataType'],
+                include: [['dataType', 'dataTypes']]
+            }
+        }]
+
+    }).then(function(res){
+        return res;
+    }).catch(function(err){
+        console.log("Calls - Err: "+ err);
+        return err;
     });
 }
 
