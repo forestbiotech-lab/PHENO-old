@@ -8,6 +8,7 @@ Routes are done through [express](http://expressjs.com/)
 
 [Squelize](http://docs.sequelizejs.com) is used to connect to the the mysql database defined in the config.js file.
 
+
 ## How to install
 
 To install this use must have nodejs and npm installed on your system.
@@ -24,7 +25,7 @@ Once all dependencies by nodejs have been installed you can start the server in 
 ```
 
 
-
+## [Adding tables](https://github.com/forestbiotech-lab/BrAPI/tree/master/components)
 
 ---------------------------------------------------------------------
 
