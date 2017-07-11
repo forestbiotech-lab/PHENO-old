@@ -20,7 +20,7 @@ CREATE TABLE `Germplasm` (
 	`seedSource` varchar(100) NOT NULL,
 	`biologicalStatusOfAccessionCode` varchar(50) NOT NULL,
 	`acquisitionDate` DATE NOT NULL,
-	`CountryOfOrigin` INT NOT NULL,
+	`countryOfOrigin` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
@@ -464,6 +464,26 @@ CREATE TABLE `Sample` (
 	PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `Calls` (
+	`id` INT(11) NOT NULL,
+	`callName` varchar(50) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `Methods` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`callId` INT(11) NOT NULL,
+	`method` varchar(30) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `DataTypes` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`callId` INT(11) NOT NULL,
+	`dataType` varchar(30) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
 ALTER TABLE `Species` ADD CONSTRAINT `Species_fk0` FOREIGN KEY (`cropId`) REFERENCES `Crop`(`id`);
 
 ALTER TABLE `Germplasm` ADD CONSTRAINT `Germplasm_fk0` FOREIGN KEY (`speciesId`) REFERENCES `Species`(`id`);
@@ -472,7 +492,7 @@ ALTER TABLE `Germplasm` ADD CONSTRAINT `Germplasm_fk1` FOREIGN KEY (`holdingInst
 
 ALTER TABLE `Germplasm` ADD CONSTRAINT `Germplasm_fk2` FOREIGN KEY (`pedigree`) REFERENCES `GermplasmParents`(`id`);
 
-ALTER TABLE `Germplasm` ADD CONSTRAINT `Germplasm_fk3` FOREIGN KEY (`CountryOfOrigin`) REFERENCES `Country`(`id`);
+ALTER TABLE `Germplasm` ADD CONSTRAINT `Germplasm_fk3` FOREIGN KEY (`countryOfOrigin`) REFERENCES `Country`(`id`);
 
 ALTER TABLE `GermplasmSynonym` ADD CONSTRAINT `GermplasmSynonym_fk0` FOREIGN KEY (`germplasmId`) REFERENCES `Germplasm`(`id`);
 
@@ -614,3 +634,6 @@ ALTER TABLE `Sample` ADD CONSTRAINT `Sample_fk1` FOREIGN KEY (`takenBy`) REFEREN
 
 ALTER TABLE `Sample` ADD CONSTRAINT `Sample_fk2` FOREIGN KEY (`seasonId`) REFERENCES `Season`(`id`);
 
+ALTER TABLE `Methods` ADD CONSTRAINT `Methods_fk0` FOREIGN KEY (`callId`) REFERENCES `Calls`(`id`);
+
+ALTER TABLE `DataTypes` ADD CONSTRAINT `DataTypes_fk0` FOREIGN KEY (`callId`) REFERENCES `Calls`(`id`);
