@@ -19,16 +19,17 @@ module.exports = function (query) {
         models.getCrops(query).then(function (response) {
 
             /* Error response */
-            if (!(res instanceof Error)) {
+            if (!(response instanceof Error)) {
                 /* Create the response according to the API */
                 var databaseValues = [];
                 /* The variable where the database values will be stored */
 
                 /* Filling the database values */
-                for (valueKey in result.rows) {
-                    databaseValues.push(result.rows[valueKey].dataValues)
+                for (valueKey in response.rows) {
+                    databaseValues.push(response.rows[valueKey].dataValues.commonCropName)
                 }
 
+                //Send fulfilled promise
                 resolve({
                     "metadata": {
                         "status": [{code: 500, message: response}],
@@ -37,7 +38,7 @@ module.exports = function (query) {
                             "pageSize": response.rows.length,
                             "currentPage": query.page,  //This might produce errors if query var changes after promise resolves. Not sure if this is an issue.
                             "totalCount": response.count,
-                            "totalPages": Math.ceil(result.count / query.pageSize) /* Calculates the number of pages */
+                            "totalPages": Math.ceil(response.count / query.pageSize) /* Calculates the number of pages */
                         }
                     },
                     "result": {

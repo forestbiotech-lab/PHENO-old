@@ -20,7 +20,6 @@ module.exports = function(query,options){
   query.germplasmDbId=query.germplasmDbId || ""
   query.germplasmPUI=query.germplasmPUI || ""
   var options = options || {};
-  console.log(query);
   //Runs a model function with options if they exist
 
 

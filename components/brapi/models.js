@@ -70,7 +70,7 @@ function getGermplasm(attributes){
 /* Created by João Cardoso - 11/07/2017
  * Crop Call Implementation - Fetches data from the Crop Table */
 function getCrops(attributes) {
-    return crop.findAndCountAll({
+    return Crop.findAndCountAll({
         offset: parseInt(attributes.offset),
         limit: parseInt(attributes.pageSize),
         attributes: { exclude:['id']}
