@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-////------------Soon to be removed ----------------------------------------
+////------------ Call Declaration Galore ----------------------------------
 var germplasmCalls = require('./../components/brapi/germplasmCalls');
+var cropCall = require('./../components/brapi/cropCall');
 //-------------------End soon to be removed -------------------------------
 
 
@@ -21,6 +22,18 @@ router.get('/germplasm-search', function(req, res, next){
   
 });
 
+/* List supported crops */
+/* João Cardoso - 11/07/2017 */
+router.get('/crops', function(request, response, next){
+  cropCall(request.query).then(function (cropResponse) {
+    response.status(200).json(cropResponse);
+
+  }).catch(function (error) {
+    response.status(parseInt(error.metadata.status[0].code || 501)).json(error);
+  })
+
+});
+
 //The studies Call
 router.get('/studies/:studyDbID', function(req, res, next) {
     var studyID=req.params.studyDbID;
@@ -37,9 +50,6 @@ router.get('/studies/:studyDbID', function(req, res, next) {
     });
       
 });
-
-
-
 
 //The seasons call
 router.get('/seasons', function(req, res, next){

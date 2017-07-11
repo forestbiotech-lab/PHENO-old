@@ -67,11 +67,27 @@ function getGermplasm(attributes){
 
 }
 
+/* Created by João Cardoso - 11/07/2017
+ * Crop Call Implementation - Fetches data from the Crop Table */
+function getCrops(attributes) {
+    return crop.findAndCountAll({
+        offset: parseInt(attributes.offset),
+        limit: parseInt(attributes.pageSize),
+        attributes: { exclude:['id']}
+
+    }).then(function(res){
+            return res;
+    }).catch(function(err){
+            console.log("getCrops - Err: "+ err);
+            return err;
+    });
+}
 
 module.exports = {
   //Add all query functions for export below
   //name a function to run one of the functions above
-  getGermplasm: getGermplasm,
+    getGermplasm: getGermplasm,
+    getCrops: getCrops,
 
 }
 
