@@ -4,7 +4,7 @@
 
 var dateFormat = require('dateformat');
 var models= require('./models');
-
+var fmtFunc= require('./formatingFunctions');
 
 
 
@@ -32,21 +32,9 @@ module.exports = function(query,options){
       //Logic to decide which is sent
       if(res instanceof Error){
         //Send the error in the status send rejection to promise
-        reject({
-          "metadata": {
-            "status": [{code:500,message:res}],
-            "datafiles": [],
-            "pagination": {
-              "pageSize": res.rows.length,
-              "currentPage": query.page,  //This might produce errors if query var changes after promise resolves. Not sure if this is an issue.
-              "totalCount": res.count,
-              "totalPages": 1 //This must be calculated another call with the same attributes and no limit to count.
-            }
-          },
-          "result":{
-            "data": null
-          }
-        });
+        //Args:queryData,pagination,code,message
+        reject( fmtFunc.generateJSON(null,null,400,res) );
+ 
       }else{
         //If res isn't an error send the appropriate response
         let dataValues=[]
@@ -91,41 +79,21 @@ module.exports = function(query,options){
 
 
         }
-        resolve({
-          "metadata": {
-            "status": [{code:200,message:{}}],
-            "datafiles": [],
-            "pagination": {
-              "pageSize": res.rows.length,
-              "currentPage": query.page,  //This might produce errors if query var changes after promise resolves. Not sure if this is an issue.
-              "totalCount": res.count,
-              "totalPages": Math.ceil(res.count/query.pageSize) //This must be calculated another call with the same attributes and no limit to count.
-            }
-          },
-          "result":{
-            "data": dataValues
-          }
-        });
+  
+        //Generate pagination details
+        var pagination=fmtFunc.generatePagination(res,query);
+
+        //Args:queryData,pagination,code,message
+        resolve(fmtFunc.generateJSON(dataValues,pagination,200,null));
 
       //end else
       }
 
     //end then
     }).catch(function(err){
-      reject({
-          "metadata": {
-            "status": [{code:500,"message":err}],  //Some other status?
-            "pagination": {
-              "pageSize": err,//.length,
-              "currentPage": query.page,  //This might produce errors if query var changes after promise resolves. Not sure if this is an issue.
-              "totalCount": err,//.length,
-              "totalPages": 1 //This must be calculated another call with the same attributes and no limit to count.
-            }
-          },
-          "result":{
-            "data": null
-          }
-        })
+
+      //queryData,pagination,code,message
+      reject( fmtFunc.generateJSON(null,null,500,err) );        
     });
         
   })
