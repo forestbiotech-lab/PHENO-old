@@ -4,7 +4,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-    const Calls = sequelize.define('Calls', {
+    const DataTypes_table = sequelize.define('DataTypes_table', {
         id: { //Foreign Key: Species | and Obs table
             type: DataTypes.INTEGER(11),
             autoIncrement: true,
@@ -12,9 +12,10 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             unique: true
         },
-        callName: DataTypes.STRING(50),
+        callId: DataTypes.INTEGER(11),
+        dataType: DataTypes.STRING(30),
     },{
-        tableName: 'Calls',
+        tableName: 'DataTypes',
         timestamps: false,
         underscored: false,
 
@@ -22,18 +23,13 @@ module.exports = function(sequelize, DataTypes) {
 
         classMethods: {
             associate: function associate(models) {
-                Calls.belongsTo(models.Methods, {
-                    foreignKey: 'id',  //on Methods
-                    targetKey: 'callId',
-                });
-                Calls.belongsTo(models.DataTypes, {
-                    foreignKey: 'id',  //on DataType
-                    targetKey: 'callId',
+                DataTypes_table.belongsTo(models.Calls, {
+                    foreignKey: 'callId',  //on Calls
+                    targetKey: 'id'
                 });
             }
         }
     });
 
-    return Calls;
+    return DataTypes_table;
 };
- 

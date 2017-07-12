@@ -4,7 +4,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-    const Calls = sequelize.define('Methods', {
+    const Methods = sequelize.define('Methods', {
         id: { //Foreign Key: Species | and Obs table
             type: DataTypes.INTEGER(11),
             autoIncrement: true,
@@ -12,7 +12,8 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             unique: true
         },
-        method: DataTypes.INTEGER(11)
+        callId: DataTypes.INTEGER(11),
+        method: DataTypes.STRING(30),
     },{
         tableName: 'Methods',
         timestamps: false,
@@ -22,9 +23,9 @@ module.exports = function(sequelize, DataTypes) {
 
         classMethods: {
             associate: function associate(models) {
-                Calls.belongsTo(models.Calls, {
-                    foreignKey: 'id',  //on Calls
-                    targetKey: 'method'
+                Methods.belongsTo(models.Calls, {
+                    foreignKey: 'callId',  //on Calls
+                    targetKey: 'id'
                 });
             }
         }
