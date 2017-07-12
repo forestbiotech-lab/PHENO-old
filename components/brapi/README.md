@@ -43,16 +43,16 @@ Note: If you are transforming the model result it should be promisified.
 
 queryData Object - The squelize response Object
 pagination Object 
-	- Object withh the pagination details Should have 4 keys pageSize,currentPage,totalCount, totalPages or the Object should be null 
+- Object withh the pagination details Should have 4 keys pageSize,currentPage,totalCount, totalPages or the Object should be null 
 code Int 
-	- The number of the http status response message Object containing the message associated with the error produced or null
+- The number of the http status response message Object containing the message associated with the error produced or null
  
  
 ###### Generate the pagination details for the outgoing JSON
 res Object 
-	- the query response
+- the query response
 query Object 
-	- The query arguments in the http request
+- The query arguments in the http request
 
 Usage:
 	var fmtFunc=require('./formatingFunctions');
