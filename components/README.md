@@ -75,6 +75,3 @@ Create a file with the table name in the appropriate schema directory:
 	Add table in //db tables section
 	db.[TableName]=db.sequelize.import('./[TableName]');
 
-#### In Componentes/[schema]/models.js
-	Add table in //tables
-	var [TableName] = sqldb.[TableName];
