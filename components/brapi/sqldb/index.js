@@ -3,6 +3,7 @@
  */
 
 /** https://github.com/dsquier/oauth2-server-php-mysql **/
+
 //This is the configuration file that has all the credentials
 var config_brapi = require('./../../../config_brapi');
 var Sequelize = require('sequelize');
@@ -18,7 +19,7 @@ var db = {
 };
 
 
-//db tables
+//db tables  //Do this for all Keys in Object requeire(dir that start with capital letters)
 db.Germplasm=db.sequelize.import('./Germplasm');
 db.Species=db.sequelize.import('./Species');
 db.Crop=db.sequelize.import('./Crop');
@@ -31,8 +32,6 @@ db.Methods=db.sequelize.import('./Methods');
 db.DataTypes=db.sequelize.import('./DataTypes');
 
 
-// Early |db.GermplasmSynonym=db.sequelize.import('./GermplasmSynonym');
-//db.Crop.hasMany(db.Species, {foreignKey:'id'});  //Testing creating a join table
 
 Object.keys(db).forEach(function(modelName) {
   if ('associate' in db[modelName]) {
