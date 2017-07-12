@@ -18,7 +18,6 @@ makeCall: germplasmCalls,
 //germplasm-search
 router.get('/germplasm-search', function(req, res, next){
   germplasmCalls(req.query).then(function(germplasmRes){
-    ss=klkl.lklkls.lklklk;
     res.status(200).json(germplasmRes);
   }).catch(function(err){
     var statusCode;
