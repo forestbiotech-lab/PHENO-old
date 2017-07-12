@@ -39,13 +39,13 @@ module.exports = function (query) {
             } else {
                 //Send the error in the status send rejection to promise
                 //Args:queryData,pagination,code,message
-                reject( fmtFunc.generateJSON(null,null,400,res) );
+                reject( fmtFunc.generateJSON(null,null,400,res.name+" : "+res.message) );
                 
             }
         }).catch(function(err){
            
           //queryData,pagination,code,message
-          reject( fmtFunc.generateJSON(null,null,500,err) );        
+          reject( fmtFunc.generateJSON(null,null,500,err.name+" : "+err.message) );        
 
         });
 

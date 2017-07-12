@@ -39,7 +39,7 @@ module.exports = function(query){
 	  if(res instanceof Error){ //Send the error in the status send rejection to promise
 
 	  	//Args:queryData,pagination,code,message
-		reject( fmtFunc.generateJSON(null,null,400,res) );
+		reject( fmtFunc.generateJSON(null,null,400,res.name+" : "+res.message) );
 
 	  }else{
 		//If res isn't an error send the appropriate response
@@ -69,9 +69,9 @@ module.exports = function(query){
 
 	//end then
 	}).catch(function(err){ ///In this case there was an internal server error
-	  console.log(err)
+	  
 	  //queryData,pagination,code,message
-	  reject( fmtFunc.generateJSON(null,null,500,err) );        
+	  reject( fmtFunc.generateJSON(null,null,500,err.name+" : "+err.message) );        
 
 	})
   });	
