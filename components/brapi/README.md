@@ -41,12 +41,14 @@ Note: If you are transforming the model result it should be promisified.
 
 ###### Generate the outgoing JSON
 
-queryData Object - The squelize response Object
+queryData Object 
+- The squelize response Object
 pagination Object 
 - Object withh the pagination details Should have 4 keys pageSize,currentPage,totalCount, totalPages or the Object should be null 
 code Int 
 - The number of the http status response message Object containing the message associated with the error produced or null
- 
+message Object
+- An objecto with the error details 
  
 ###### Generate the pagination details for the outgoing JSON
 res Object 
