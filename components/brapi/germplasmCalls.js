@@ -36,45 +36,98 @@ module.exports = function(query,options){
  
       }else{
         //If res isn't an error send the appropriate response
-        let dataValues=[]
+        var databaseValues={}
         
-
+        var germplasm={
+          /**/"germplasmDbId": "",
+          /**/"defaultDisplayName": "",
+          /**/"accessionNumber": "",
+          /**/"germplasmName": "",
+          /**/"germplasmPUI": "",
+          "pedigree": "",
+          /**/"germplasmSeedSource": "",
+          /**/"synonyms": [ ],
+          /**/"commonCropName": "",
+          /**/"instituteCode": "",
+          /**/"instituteName": "",
+          /**/"biologicalStatusOfAccessionCode": null,
+          /**/"countryOfOriginCode": "",
+          /**/"typeOfGermplasmStorageCode": [],
+          /**/"genus": "",
+          /**/"species": "",
+          /**/"taxonIds": [],
+          /**/"speciesAuthority": "",
+          /**/"subtaxa": "",
+          /**/"subtaxaAuthority": "",
+          "donors": [],
+          /**/"acquisitionDate": ""
+        }
+                 
         //Export query values to a array and re  
         for(i in res.rows){
-          dataValues.push(res.rows[i].dataValues);
 
-          //This can be automated. Get keys from model?
-
-          //Merging Species keys into new array
-          for (spKeys in res.rows[i].dataValues.Species.dataValues ){
-            dataValues[i][spKeys]=res.rows[i].dataValues.Species.dataValues[spKeys];
+          //Check if germplasm is not in databaseValues create it
+          var dataValues = res.rows[i].dataValues
+          var germplasmDbId=dataValues.germplasmDbId;
+    
+          if(Object.keys(databaseValues).indexOf(String(germplasmDbId)) == -1){ 
+            databaseValues[germplasmDbId]={synonyms:[],typeOfGermplasmStorageCode:[],donors:[]};
+            databaseValues[germplasmDbId]['germplasmDbId']=germplasmDbId;
           }
-          delete dataValues[i]['Species'];
-
-          //Merging GermplasmStorage keys into new array
-          for (gsKeys in res.rows[i].dataValues.GermplasmStorage.dataValues ){
-            dataValues[i][gsKeys]=res.rows[i].dataValues.GermplasmStorage.dataValues[gsKeys];
-          }
-          delete dataValues[i]['GermplasmStorage'];
-
-          //Merging Crop keys in new array
-          for (cropKeys in dataValues[i].Crop.dataValues ){
-            dataValues[i][cropKeys]=dataValues[i].Crop.dataValues[cropKeys];
-          }
-          delete dataValues[i]['Crop'];
-
-          //Merging Institution keys into new array
-          for (instKeys in res.rows[i].dataValues.Institution.dataValues ){
-            dataValues[i][instKeys]=res.rows[i].dataValues.Institution.dataValues[instKeys];
-          }
-          delete dataValues[i]['Institution'];
+          //Species
+          databaseValues[germplasmDbId]['genus']=dataValues.Species.dataValues.genus;
+          databaseValues[germplasmDbId]['species']=dataValues.Species.dataValues.species;
+          databaseValues[germplasmDbId]['taxonIds']=dataValues.Species.dataValues.taxonIds;
+          databaseValues[germplasmDbId]['speciesAuthority']=dataValues.Species.dataValues.speciesAuthority;
+          databaseValues[germplasmDbId]['subtaxa']=dataValues.Species.dataValues.subtaxa;
+          databaseValues[germplasmDbId]['subtaxaAuthority']=dataValues.Species.dataValues.subtaxaAuthority;
+          //Institution
+          databaseValues[germplasmDbId]['instituteName']=dataValues.Institution.dataValues.instituteName;
+          databaseValues[germplasmDbId]['instituteCode']=dataValues.Institution.dataValues.instituteCode;
+          //Germplasm
+          databaseValues[germplasmDbId].defaultDisplayName=dataValues.defaultDisplayName;
+          databaseValues[germplasmDbId].accessionNumber=dataValues.accessionNumber;
+          databaseValues[germplasmDbId].germplasmName=dataValues.germplasmName;
+          databaseValues[germplasmDbId].germplasmPUI=dataValues.germplasmPUI;
+          databaseValues[germplasmDbId].germplasmSeedSource=dataValues.germplasmSeedSource;
+          databaseValues[germplasmDbId].biologicalStatusOfAccessionCode=dataValues.biologicalStatusOfAccessionCode;
 
           //Should add if attributes exist To avoid errors. ! To consider.
           //Parse attributes from db
           //Tricky if 0000-00-00 its a string and I have to do a replace. Else I do a date format.
-          date=dataValues[i].acquisitionDate
-          typeof date === "string" ? dataValues[i].acquisitionDate=date.replace(/-/g,"") : dataValues[i].acquisitionDate=dateFormat(new Date(date), "yyyymmdd");
-          dataValues[i].typeOfGermplasmStorageCode=dataValues[i].typeOfGermplasmStorageCode.split(';')
+          var date=dataValues.acquisitionDate;
+          typeof date === "string" ? databaseValues[germplasmDbId].acquisitionDate=date.replace(/-/g,"") : databaseValues[germplasmDbId].acquisitionDate=dateFormat(new Date(date), "yyyymmdd");
+          
+          //Country
+          databaseValues[germplasmDbId].countryOfOriginCode=dataValues.Country.dataValues.countryOfOriginCode;
+          //Crop
+          databaseValues[germplasmDbId].commonCropName=dataValues.Species.dataValues.Crop.dataValues.commonCropName;
+          //GermplasmStorage
+          try{
+            if(databaseValues[germplasmDbId].typeOfGermplasmStorageCode.indexOf(dataValues.GermplasmStorage.dataValues.typeOfGermplasmStorageCode)==-1){
+              databaseValues[germplasmDbId].typeOfGermplasmStorageCode.push(dataValues.GermplasmStorage.dataValues.typeOfGermplasmStorageCode);          
+            }
+          }catch(err){
+            databaseValues[germplasmDbId].typeOfGermplasmStorageCode=[]  
+          }
+          //GermplasmSynonym
+          
+          try{
+            if(databaseValues[germplasmDbId].synonyms.indexOf(dataValues.GermplasmSynonym.dataValues.synonym)==-1){
+              databaseValues[germplasmDbId].synonyms.push(dataValues.GermplasmSynonym.dataValues.synonym);          
+            }
+          }
+          catch(err){
+            databaseValues[germplasmDbId].synonyms=[]  
+          }
+          //Same type as above.
+          //DonorInstitute
+          //To many foreignKey for now //push scheme
+          //Pedigree no push though for this one.
+          //The cross between parent accessions. if not null.
+          
+  
+          
 
 
         }
@@ -83,13 +136,14 @@ module.exports = function(query,options){
         var pagination=fmtFunc.generatePagination(res,query);
 
         //Args:queryData,pagination,code,message
-        resolve(fmtFunc.generateJSON(dataValues,pagination,200,null));
+        resolve(fmtFunc.generateJSON(databaseValues,pagination,200,null));
 
       //end else
       }
 
     //end then
     }).catch(function(err){
+      console.log(err)
       //queryData,pagination,code,message
       reject( fmtFunc.generateJSON(null,null,500,err.name+" : "+err.message) );        
     });
