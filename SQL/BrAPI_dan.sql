@@ -16,6 +16,7 @@ CREATE TABLE `Germplasm` (
 	`defaultDisplayName` varchar(50) NOT NULL UNIQUE,
 	`accessionNumber` varchar(20) NOT NULL UNIQUE,
 	`germplasmPUI` varchar(50) NOT NULL UNIQUE,
+	`pedigree` varchar(50) NOT NULL UNIQUE,
 	`seedSource` varchar(100) NOT NULL,
 	`biologicalStatusOfAccessionCode` varchar(50) NOT NULL,
 	`acquisitionDate` DATE NOT NULL,
