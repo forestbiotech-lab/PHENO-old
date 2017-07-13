@@ -44,25 +44,39 @@ module.exports = function(query){
 	  }else{
 		//If res isn't an error send the appropriate response
 
-		//Adjust output JSON
-		var databaseValues=[]
 		
-		//Export query values to a array and re  
+		//Merge similar calls
+		var databaseValues={}
 		for(valueKey in res.rows){
-		  databaseValues.push(res.rows[valueKey].dataValues);
-		
-		  for(method in res.rows[valueKey].Method.dataValues){
-			databaseValues[valueKey].methods=res.rows[valueKey].Method.dataValues	
-		  }
-		  delete databaseValues[valueKey].Method
+		  try{
 
+		  	if(databaseValues[res.rows[valueKey].dataValues.callName].dataTypes.indexOf(res.rows[valueKey].DataTypes_table.dataValues.dataType) == -1 ){
+		  		databaseValues[res.rows[valueKey].dataValues.callName].dataTypes.push(res.rows[valueKey].DataTypes_table.dataValues.dataType);		
+			}  
+			//Check if value exists if not add it.
+		  	if(databaseValues[res.rows[valueKey].dataValues.callName].methods.indexOf(res.rows[valueKey].Method.dataValues.method) == -1 ){
+		  		databaseValues[res.rows[valueKey].dataValues.callName].methods.push(res.rows[valueKey].Method.dataValues.method);		
+		  	}
+		  }
+		  catch(err){
+		  	//If call hasn't been add create it
+		  	databaseValues[res.rows[valueKey].dataValues.callName]={call:res.rows[valueKey].dataValues.callName,dataTypes:[],methods:[]};						
+		  	databaseValues[res.rows[valueKey].dataValues.callName].dataTypes.push(res.rows[valueKey].DataTypes_table.dataValues.dataType);		
+		  	databaseValues[res.rows[valueKey].dataValues.callName].methods.push(res.rows[valueKey].Method.dataValues.method);		
+		  }
+
+		}
+		//Get sub-level and place it inside an array
+		var data=[];
+		for(call in databaseValues){
+			data.push(databaseValues[call])
 		}
 
 		//Generate pagination details
 		var pagination=fmtFunc.generatePagination(res,query);
 
 		//Args:queryData,pagination,code,message
-		resolve(fmtFunc.generateJSON(databaseValues,pagination,200,null));
+		resolve(fmtFunc.generateJSON(data,pagination,200,null));
  
 	  //end else
 	  }

@@ -79,20 +79,17 @@ function getImplementedCalls(attributes) {
         offset: parseInt(attributes.offset),
         limit: parseInt(attributes.pageSize),
         attributes: {
-            exclude: ['id', 'callName'],
-            include: [['callName', 'call']]
+            exclude: ['id'],
         },
         include: [{
             model: db.Methods,
             attributes: {
-                exclude: ['id','callId','method'],
-                include: [['method','methods']]
+                exclude: ['id','callId'],
             }
         },{
             model: db.DataTypes,
             attributes: {
-                exclude: ['id',"callId",'dataType'],
-                include: [['dataType','dataTypes']]
+                exclude: ['id',"callId"],
             }
         }]
 
