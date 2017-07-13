@@ -15,9 +15,6 @@ var fmtFunc= require('./formatingFunctions')
 
 
 
-
-
-
 module.exports = function(query){
 	
   query.page = query.page || 0 
@@ -90,4 +87,3 @@ module.exports = function(query){
 	})
   });	
 };
-
