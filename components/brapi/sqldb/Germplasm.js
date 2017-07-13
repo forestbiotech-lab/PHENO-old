@@ -81,6 +81,14 @@ module.exports = function(sequelize, DataTypes) {
           through: models.Species,
           foreignKey: 'id',     //on the species
         })
+        Germplasm.belongsTo(models.GermplasmSynonym,{
+          foreignKey: 'id',     //on Germplasm
+          targetKey: 'germplasmId',
+        })
+        Germplasm.belongsTo(models.GermplasmParents,{
+          foreignKey: 'id',     //on Germplasm
+          targetKey: 'childId',
+        })
       }
     },
   });
