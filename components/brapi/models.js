@@ -3,7 +3,7 @@
  */
 
 
-//Tables folder
+//Calls Index to load sql tables
 var db = require('./sqldb');
 
 
@@ -14,7 +14,7 @@ function getGermplasm(attributes){
   .findAndCountAll({ 
     offset: parseInt(attributes.offset),
     limit: parseInt(attributes.pageSize),
-    attributes: { exclude:['id','speciesId','origin'], include:[['id', 'germplasmDbId'], ['defaultDisplayName','germplasmName'] ]},
+    attributes: { exclude:['id','speciesId','origin','holdingInstitution','seedSource'], include:[['id', 'germplasmDbId'], ['defaultDisplayName','germplasmName'],['seedSource','gerplasmSeedSource'] ]},
     include: [{
       model:db.Species,
       attributes: {exclude:['id','cropId']},
@@ -24,13 +24,21 @@ function getGermplasm(attributes){
       }]
     },{
       model:db.GermplasmStorage,
-      attributes: {exclude:['germplasmId','id','code'],include:[['code','typeOfGermplasmStorageCode']]} 
+      attributes: {exclude:['germplasmId','id','code'],include:[['code','typeOfGermplasmStorageCode']]}, 
     },{
       model:db.Institution,
       attributes: {exclude:['id','locationId','code','name'],include:[['code','instituteCode'],['name','instituteName']] },
     },{
       model:db.Country,
-      attributes:{exclude:['id','code','name'],include:[['code','countryOfOriginCode']]}
+      attributes:{exclude:['id','code','name'],include:[['code','countryOfOriginCode']]},
+    },{
+      model:db.GermplasmSynonym,
+      attributes:{exclude:['id','germplasmId']},
+    },{
+      model:db.GermplasmParents,
+      include:[{
+        model:db.Germplasm,
+      }]
     }],
     //defaultDisplayName might not be the same as germplasmName in the future. !!!Possible code breaking  
     where: { 
