@@ -7,7 +7,8 @@
 //This is the configuration file that has all the credentials
 var config_brapi = require('./../../../config_brapi');
 var Sequelize = require('sequelize');
-
+var glob = require('glob');
+var path = require('path');
 //DB credentials
 var db = {
   sequelize: new Sequelize(
@@ -20,18 +21,14 @@ var db = {
 
 
 //db tables  //Do this for all Keys in Object requeire(dir that start with capital letters)
-db.Germplasm=db.sequelize.import('./Germplasm');
-db.Species=db.sequelize.import('./Species');
-db.Crop=db.sequelize.import('./Crop');
-db.GermplasmStorage=db.sequelize.import('./GermplasmStorage');
-db.Institution=db.sequelize.import('./Institution');
-db.Country=db.sequelize.import('./Country');
-db.Location=db.sequelize.import('./Location');
-db.Calls=db.sequelize.import('./Calls');
-db.Methods=db.sequelize.import('./Methods');
-db.DataTypes=db.sequelize.import('./DataTypes');
 
-
+//Get all file names in this directory that start with a capital letter and have a Java script extension.
+//This may be bad for performance 
+var tables=glob.sync(__dirname+'/'+'!([a-z]*.js|*.[^j][^s]*|.gitignore)')
+for( index in tables){
+	var table=path.basename(tables[index],'.js');
+	db[table]=db.sequelize.import('./'+table);
+}
 
 Object.keys(db).forEach(function(modelName) {
   if ('associate' in db[modelName]) {
