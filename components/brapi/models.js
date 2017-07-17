@@ -37,7 +37,11 @@ function getGermplasm(attributes){
     },{
       model:db.GermplasmParents,
       include:[{
-        model:db.Germplasm,
+        model:db.GermplasmParent1,
+        attributes:{exclude:['id','species','holdingInstitution','defaultDisplayName','germplasmPUI','seedSource','biologicalStatusOfAccessionCode','acquisitionDate','countryOfOrigin']}
+      },{
+        model:db.GermplasmParent2,
+        attributes:{exclude:['id','species','holdingInstitution','defaultDisplayName','germplasmPUI','seedSource','biologicalStatusOfAccessionCode','acquisitionDate','countryOfOrigin']}
       }]
     }],
     //defaultDisplayName might not be the same as germplasmName in the future. !!!Possible code breaking  

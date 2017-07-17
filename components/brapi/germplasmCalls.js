@@ -111,7 +111,6 @@ module.exports = function(query,options){
             databaseValues[germplasmDbId].typeOfGermplasmStorageCode=[]  
           }
           //GermplasmSynonym
-          
           try{
             if(databaseValues[germplasmDbId].synonyms.indexOf(dataValues.GermplasmSynonym.dataValues.synonym)==-1){
               databaseValues[germplasmDbId].synonyms.push(dataValues.GermplasmSynonym.dataValues.synonym);          
@@ -120,18 +119,26 @@ module.exports = function(query,options){
           catch(err){
             databaseValues[germplasmDbId].synonyms=[]  
           }
+          
           //Same type as above.
           //DonorInstitute
           //To many foreignKey for now //push scheme
           //Pedigree no push though for this one.
           //The cross between parent accessions. if not null.
-          
+          try{
+            var mother=dataValues.GermplasmParent.dataValues.GermplasmParent1.dataValues.accessionNumber;
+            var father=dataValues.GermplasmParent.dataValues.GermplasmParent2.dataValues.accessionNumber;
+            databaseValues[germplasmDbId].pedigree=mother+' / '+father;
+          }
+          catch(err){
+            databaseValues[germplasmDbId].pedigree=dataValues.pedigree;  
+          }
   
           
 
 
         }
-  
+        console.log(dataValues);
         //Generate pagination details
         var pagination=fmtFunc.generatePagination(res,query);
 

@@ -23,13 +23,13 @@ module.exports = function(sequelize, DataTypes) {
 
    classMethods: {
       associate: function associate(models) {     
-        GermplasmParents.belongsTo(models.Germplasm, {
+        GermplasmParents.belongsTo(models.GermplasmParent1, {
           foreignKey: 'parent1Id',  //On GermplasmParents
         })
-        GermplasmParents.belongsTo(models.Germplasm, {
+        GermplasmParents.belongsTo(models.GermplasmParent2, {
           foreignKey: 'parent2Id',  //On GermplasmParents
         })
-        GermplasmParents.belongsTo(models.Germplasm, {//Repeated só this one is the one performed. Create a model for each parent.
+        GermplasmParents.belongsTo(models.Germplasm, {//Repeated so this one is the one performed. Create a model for each parent.
           foreignKey: 'childId',  //On GermplasmParents
         })
       }
