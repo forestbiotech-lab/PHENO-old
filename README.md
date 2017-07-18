@@ -24,6 +24,49 @@ Once all dependencies by nodejs have been installed you can start the server in 
     DEBUG=brapi:* npm start 
 ```
 
+## Setup database
+
+This will guide you through installing the mysql server and the database as well as populating it with the test data.
+```bash
+	sudo apt-get update
+	sudo apt-get install mysql-server
+	sudo mysql_secure_installation
+	//Setup a new user and permissions
+	//...
+
+	mysql -p -u [user] -D [database] < [pathToProject]/SQL/BrAPI_dan.sql //this will install the empty database
+
+	//or
+
+	mysql -p -u [user] -D [database] < [pathToProject]/SQL/TESTdata/sql_dump_[date].sql //this will install the latest db dump	
+ 
+```
+
+## Using the database 
+
+Configure config_brapi.js or whatever file is setup in components/[schema]/sqldb/index.js
+```javascript
+	module.exports = {
+	  sql: {
+	  	host: '[hostIfNotLocal]',
+	    database: '[theDBtoUse]',
+	    username: '[yourUsernaem]',
+	    password: '[yourPassword]',
+	    dialect: 'mysql', // PostgreSQL, MySQL, MariaDB, SQLite and MSSQL See more: http://docs.sequelizejs.com/en/latest/
+	    logging: console.log,
+	    timezone: '+05:30',
+	    limit: 1000  //Limit of result to get if findAll is used
+	  },
+	  mongo: {
+	    uri: ''
+	  },
+	  seedDB:false,
+	  seedMongoDB:false,
+	  seedDBForce:true,
+	  db:'sql' // mongo,sql if you want to use any SQL change dialect above in sql config
+	}
+```
+Note: Create a user with limited privileges to query only the necessary tables.
 
 ## [Adding tables](https://github.com/forestbiotech-lab/BrAPI/tree/master/components)
 
