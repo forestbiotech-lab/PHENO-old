@@ -22,7 +22,7 @@ function generatePagination(res,query){
 	res instanceof Error ? result=null : result={ pageSize: parseInt(query.pageSize) ,
 			  currentPage: parseInt(query.page),  //This might produce errors if query var changes after promise resolves. Not sure if this is an issue.
 			  totalCount: res.count,
-			  totalPages: Math.ceil(res.count/pageSize) //This must be calculated another call with the same attributes and no limit to count.
+			  totalPages: Math.ceil(res.count/query.pageSize) //This must be calculated another call with the same attributes and no limit to count.
 			}		
 	return result;
 }
