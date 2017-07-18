@@ -13,7 +13,7 @@ function getGermplasm(attributes){
   return db.Germplasm
   .findAndCountAll({ 
     offset: parseInt(attributes.offset),
-    limit: parseInt(attributes.pageSize),
+    limit: parseInt(attributes.pageSize)+1,
     attributes: { exclude:['id','speciesId','origin','holdingInstitution','seedSource'], include:[['id', 'germplasmDbId'], ['defaultDisplayName','germplasmName'],['seedSource','gerplasmSeedSource'] ]},
     include: [{
       model:db.Species,
@@ -43,6 +43,13 @@ function getGermplasm(attributes){
         model:db.GermplasmParent2,
         attributes:{exclude:['id','species','holdingInstitution','defaultDisplayName','germplasmPUI','seedSource','biologicalStatusOfAccessionCode','acquisitionDate','countryOfOrigin']}
       }]
+    },{
+        model:db.DonorInstitute,
+        include:[{
+          model:db.Institution,
+        },{
+          model:db.DonorGermplasm,
+        }]
     }],
     //defaultDisplayName might not be the same as germplasmName in the future. !!!Possible code breaking  
     where: { 
@@ -73,7 +80,7 @@ function getCrops(attributes) {
     return db.Crop
     .findAndCountAll({
         offset: parseInt(attributes.offset),
-        limit: parseInt(attributes.pageSize),
+        limit: parseInt(attributes.pageSize)+1,
         attributes: { exclude:['id']}
     }).then(function(res){
             return res;
@@ -89,7 +96,7 @@ function getImplementedCalls(attributes) {
     return db.Calls
     .findAndCountAll({
         offset: parseInt(attributes.offset),
-        limit: parseInt(attributes.pageSize),
+        limit: parseInt(attributes.pageSize)+1,
         attributes: {
             exclude: ['id'],
         },
