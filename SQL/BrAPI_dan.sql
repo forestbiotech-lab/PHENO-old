@@ -49,6 +49,7 @@ CREATE TABLE `GermplasmStorage` (
 CREATE TABLE `DonorInstitute` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`germplasmId` INT NOT NULL,
+	`donorGermplasmId` INT NOT NULL,	
 	`instituteId` INT NOT NULL,
 	PRIMARY KEY (`id`)
 );
@@ -503,6 +504,8 @@ ALTER TABLE `DonorInstitute` ADD CONSTRAINT `DonorInstitute_fk0` FOREIGN KEY (`g
 
 ALTER TABLE `DonorInstitute` ADD CONSTRAINT `DonorInstitute_fk1` FOREIGN KEY (`instituteId`) REFERENCES `Institution`(`id`);
 
+ALTER TABLE `DonorInstitute` ADD CONSTRAINT `DonorInstitute_fk2` FOREIGN KEY (`DonorGermplasmId`) REFERENCES `Germplasm`(`id`);
+
 ALTER TABLE `GermplasmParents` ADD CONSTRAINT `GermplasmParents_fk0` FOREIGN KEY (`parent1Id`) REFERENCES `Germplasm`(`id`);
 
 ALTER TABLE `GermplasmParents` ADD CONSTRAINT `GermplasmParents_fk1` FOREIGN KEY (`parent2Id`) REFERENCES `Germplasm`(`id`);
@@ -638,4 +641,3 @@ ALTER TABLE `Sample` ADD CONSTRAINT `Sample_fk2` FOREIGN KEY (`seasonId`) REFERE
 ALTER TABLE `Methods` ADD CONSTRAINT `Methods_fk0` FOREIGN KEY (`callId`) REFERENCES `Calls`(`id`);
 
 ALTER TABLE `DataTypes` ADD CONSTRAINT `DataTypes_fk0` FOREIGN KEY (`callId`) REFERENCES `Calls`(`id`);
-
