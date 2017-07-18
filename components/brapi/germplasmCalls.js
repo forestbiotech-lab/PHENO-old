@@ -44,7 +44,7 @@ module.exports = function(query,options){
           /**/"accessionNumber": "",
           /**/"germplasmName": "",
           /**/"germplasmPUI": "",
-          "pedigree": "",
+          /**/"pedigree": "",
           /**/"germplasmSeedSource": "",
           /**/"synonyms": [ ],
           /**/"commonCropName": "",
@@ -55,11 +55,11 @@ module.exports = function(query,options){
           /**/"typeOfGermplasmStorageCode": [],
           /**/"genus": "",
           /**/"species": "",
-          /**/"taxonIds": [],
+          "taxonIds": [],
           /**/"speciesAuthority": "",
           /**/"subtaxa": "",
           /**/"subtaxaAuthority": "",
-          "donors": [],
+          /**/"donors": [],
           /**/"acquisitionDate": ""
         }
                  
@@ -71,7 +71,7 @@ module.exports = function(query,options){
           var germplasmDbId=dataValues.germplasmDbId;
     
           if(Object.keys(databaseValues).indexOf(String(germplasmDbId)) == -1){ 
-            databaseValues[germplasmDbId]={synonyms:[],typeOfGermplasmStorageCode:[],donors:[]};
+            databaseValues[germplasmDbId]={synonyms:[],typeOfGermplasmStorageCode:[],donors:[],donorsObj:{}};
             databaseValues[germplasmDbId]['germplasmDbId']=germplasmDbId;
           }
           //Species
@@ -122,15 +122,37 @@ module.exports = function(query,options){
           
           //Same type as above.
           //DonorInstitute
+          try{
+              var donorAccessionNumber=dataValues.DonorInstitute.dataValues.DonorGermplasm.dataValues.accessionNumber;
+              var donorInstituteCode=dataValues.DonorInstitute.dataValues.Institution.dataValues.code;
+              var germplasmPUI=dataValues.DonorInstitute.dataValues.DonorGermplasm.dataValues.germplasmPUI;
+              //mix them together to generate a unique key for testing.
+              var mixKey=donorAccessionNumber+donorInstituteCode+germplasmPUI;
+            if(Object.keys(databaseValues[germplasmDbId].donorsObj).indexOf(mixKey)==-1){
+              //I have to create an Object identifier that will allow to identify if donor has already been introduced. Must cycle at the end to restructure object
+              databaseValues[germplasmDbId].donorsObj[mixKey]={
+                "donorAccessionNumber":donorAccessionNumber,
+                "donorInstituteCode":donorInstituteCode,
+                "germplasmPUI":germplasmPUI,
+              };          
+            }
+          }
+          catch(err){
+            //Most likely cause of error is that no donors exist since foreign key constraints ensure if there is a donor it should all be filled.
+            databaseValues[germplasmDbId].donors=[]  
+          }
+
+
           //To many foreignKey for now //push scheme
           //Pedigree no push though for this one.
-          //The cross between parent accessions. if not null.
           try{
+            //The cross between parent accessions. if foreignkeys exist.
             var mother=dataValues.GermplasmParent.dataValues.GermplasmParent1.dataValues.accessionNumber;
             var father=dataValues.GermplasmParent.dataValues.GermplasmParent2.dataValues.accessionNumber;
             databaseValues[germplasmDbId].pedigree=mother+' / '+father;
           }
           catch(err){
+            //Fall back to string in germplasm
             databaseValues[germplasmDbId].pedigree=dataValues.pedigree;  
           }
   
@@ -138,12 +160,21 @@ module.exports = function(query,options){
 
 
         }
+        var data=[]
+        //Restructure object into array 
+        for(germplasm in databaseValues){
+          for (donor in databaseValues[germplasm].donorsObj){
+            databaseValues[germplasm].donors.push(databaseValues[germplasm].donorsObj[donor])
+          }
+          delete databaseValues[germplasm].donorsObj
+          data.push(databaseValues[germplasm])
+        }
         console.log(dataValues);
         //Generate pagination details
         var pagination=fmtFunc.generatePagination(res,query);
 
         //Args:queryData,pagination,code,message
-        resolve(fmtFunc.generateJSON(databaseValues,pagination,200,null));
+        resolve(fmtFunc.generateJSON(data,pagination,200,null));
 
       //end else
       }
