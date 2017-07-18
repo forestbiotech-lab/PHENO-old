@@ -13,7 +13,7 @@ var passport = require('passport');
 // Declaring Route files
 var api = require('./routes/api');
 //var noauth = require('./routes/noauth');
-//var index = require('./routes/index');
+var index = require('./routes/index');
 //var users = require('./routes/users');
 //var study = require('./routes/study');
 
@@ -44,7 +44,7 @@ app.use('/brapi/v1', api);
 ///---------------------Testing routes------------------------
 //Experiment for no auth
 //app.use('/noauth/brapi/v1', noauth);
-//app.use('/', index);
+app.use('/', index);
 //app.use('/users', users);
 //app.use('/study', study);
 /// ------------------End testing routes----------------------

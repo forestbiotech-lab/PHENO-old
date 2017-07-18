@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 var marked = require('marked');
 var fs=require('fs');
-var elixirAuth = require('./../components/oauth/elixir-oauth');
+//var elixirAuth = require('./../components/oauth/elixir-oauth');
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	//Promissify function
+  //Promissify function
 	function getReadme(){
   		return new Promise(
   	  		function(resolve,reject){
@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
   		res.render('index', { title: 'BrAPI - PT node',host: req.headers.host, readme: marked(data) });
     });
 });  
-router.get('/login',function(req,res,next){
+/*router.get('/login',function(req,res,next){
   res.render('login');
 });
 //Remove was for testing
@@ -47,7 +47,7 @@ router.get('/callback1',function(req,res,next){
   console.log(req.query);
   res.send('200');
 });
-
+*/
 //To manage the client permissions
 router.get('/elixirManage',function(req,res,next){
   res.render('/elixir-manage')
