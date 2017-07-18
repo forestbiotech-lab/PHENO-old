@@ -31,14 +31,14 @@ This will guide you through installing the mysql server and the database as well
 	sudo apt-get update
 	sudo apt-get install mysql-server
 	sudo mysql_secure_installation
-	//Setup a new user and permissions
-	//...
+	#Setup a new user and permissions
+	#...
 
-	mysql -p -u [user] -D [database] < [pathToProject]/SQL/BrAPI_dan.sql //this will install the empty database
+	mysql -p -u [user] -D [database] < [pathToProject]/SQL/BrAPI_dan.sql #this will install the empty database
 
-	//or
+	#or
 
-	mysql -p -u [user] -D [database] < [pathToProject]/SQL/TESTdata/sql_dump_[date].sql //this will install the latest db dump	
+	mysql -p -u [user] -D [database] < [pathToProject]/SQL/TESTdata/sql_dump_[date].sql #this will install the latest db dump	
  
 ```
 
