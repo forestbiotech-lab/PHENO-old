@@ -4,7 +4,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const Germplasm = sequelize.define('Germplasm', {
+  const DonorGermplasm = sequelize.define('DonorGermplasm', {
     id: { //Foreign Key: for a couple of tables: Not implemented
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
@@ -64,41 +64,16 @@ module.exports = function(sequelize, DataTypes) {
 
     classMethods: {
       associate: function associate(models) {     
-        Germplasm.belongsTo(models.Species, {
-          foreignKey: 'speciesId',
-        });
-        Germplasm.belongsTo(models.GermplasmStorage, {
+        DonorGermplasm.belongsTo(models.DonorInstitute, {
           foreignKey: 'id',
-          targetKey: 'germplasmId',
+          targetKey: 'donorGermplasmId',
         });
-        Germplasm.belongsTo(models.Institution, {
-          foreignKey: 'holdingInstitution',
-        });
-        Germplasm.belongsTo(models.Country, {
-          foreignKey: 'countryOfOrigin',
-        });
-        Germplasm.belongsToMany(models.Crop,{
-          through: models.Species,
-          foreignKey: 'id',     //on the species
-        })
-        Germplasm.belongsTo(models.GermplasmSynonym,{
-          foreignKey: 'id',     //on Germplasm
-          targetKey: 'germplasmId',
-        })
-        Germplasm.belongsTo(models.GermplasmParents,{
-          foreignKey: 'id',     //on Germplasm
-          targetKey: 'childId',
-        })
-        Germplasm.belongsTo(models.DonorInstitute,{
-          foreignKey: 'id',
-          targetKey: 'germplasmId',
-        })
       }
     },
   });
   
 
-  return Germplasm;
+  return DonorGermplasm;
 };
 
  
