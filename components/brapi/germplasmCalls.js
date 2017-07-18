@@ -169,7 +169,7 @@ module.exports = function(query,options){
           delete databaseValues[germplasm].donorsObj
           data.push(databaseValues[germplasm])
         }
-        console.log(dataValues);
+
         //Generate pagination details
         var pagination=fmtFunc.generatePagination(res,query);
 
@@ -181,7 +181,7 @@ module.exports = function(query,options){
 
     //end then
     }).catch(function(err){
-      console.log(err)
+
       //queryData,pagination,code,message
       reject( fmtFunc.generateJSON(null,null,500,err.name+" : "+err.message) );        
     });
