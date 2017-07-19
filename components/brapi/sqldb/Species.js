@@ -36,6 +36,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(50),
       allowNull: true,
     },
+    NCBItaxonId: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+    },
   }, {
     tableName: 'Species',
     timestamps: false,

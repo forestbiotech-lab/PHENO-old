@@ -71,7 +71,7 @@ module.exports = function(query,options){
           var germplasmDbId=dataValues.germplasmDbId;
     
           if(Object.keys(databaseValues).indexOf(String(germplasmDbId)) == -1){ 
-            databaseValues[germplasmDbId]={synonyms:[],typeOfGermplasmStorageCode:[],donors:[],donorsObj:{}};
+            databaseValues[germplasmDbId]={synonyms:[],typeOfGermplasmStorageCode:[],donors:[],donorsObj:{},taxonIds:[]};
             databaseValues[germplasmDbId]['germplasmDbId']=germplasmDbId;
           }
           //Species
@@ -81,6 +81,9 @@ module.exports = function(query,options){
           databaseValues[germplasmDbId]['speciesAuthority']=dataValues.Species.dataValues.speciesAuthority;
           databaseValues[germplasmDbId]['subtaxa']=dataValues.Species.dataValues.subtaxa;
           databaseValues[germplasmDbId]['subtaxaAuthority']=dataValues.Species.dataValues.subtaxaAuthority;
+          //Will produce undefined if id isn't in DB
+          databaseValues[germplasmDbId]['taxonIds']=[{'ncbiTaxon':'http://purl.obolibrary.org/obo/NCBITaxon_'+dataValues.Species.dataValues.NCBItaxonId}];
+    
           //Institution
           databaseValues[germplasmDbId]['instituteName']=dataValues.Institution.dataValues.instituteName;
           databaseValues[germplasmDbId]['instituteCode']=dataValues.Institution.dataValues.instituteCode;
