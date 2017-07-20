@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h2 Welcome to #{title}
+  h5 This is the root page for the BrAPI v1 implementation of the PT-Node.
+  P
+  p Current Implemented calls are:
+  p
+  p
+  each call in calls
+    h4 #{call.call} Call:
+    p 
+    strong Data types: 
+    |#{call.dataTypes} 
+    strong Methods: 
+    |#{call.methods}
+    - urlCall="https:\/\/"+host+"/brapi/v1/"+call.call
+    p
+    span(style='margin-left:10px;background-color:#ece7e7;color:#1e1e1f;font-size:larger;') url: 
+        a(href=urlCall)
+          strong #{urlCall}
+    p
+    p
+  p  
+  p For more help refer to github readme:
+  p
+  .md !{readme}
+

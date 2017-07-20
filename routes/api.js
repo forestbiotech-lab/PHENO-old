@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+var marked = require('marked');
+var fs=require('fs');
+
 ////------------ Call Declaration Galore ----------------------------------
 var germplasmCalls = require('./../components/brapi/germplasmCalls');
 var cropCall = require('./../components/brapi/cropCall');
@@ -13,6 +16,39 @@ getCalls=[{
 uri:"/germplasm-search",
 makeCall: germplasmCalls,
 }]
+
+
+
+
+/* GET home page. Set it to the list of implemented calls README*/
+router.get('/', function(req, res, next) {
+  //Promissify function
+  function getReadme(){
+      return new Promise(
+          function(resolve,reject){
+          fs.readFile('routes/README.md' , function(err,data){
+            if(err) reject(Error(err)); 
+            resolve(data.toString());
+            })
+          }
+        )   
+    }
+    //Get README data and render page.
+    getReadme().then(function(data){ 
+      listImplementedCalls(req.query).then(function (callsResponse) {
+        res.render('brapiV1', { title: 'BrAPI - PT node',host: req.headers.host, readme: marked(data), 'calls':callsResponse.result.data });
+      }).catch(function (err) {
+        var statusCode;
+        try{
+          statusCode=err.metadata.status[0].code;
+        }
+        catch(error){
+          statusCode=500;
+        }
+        res.status(statusCode).json(err);
+      })
+    });
+});  
 
 
 //germplasm-search
@@ -30,7 +66,27 @@ router.get('/germplasm-search', function(req, res, next){
     res.status(statusCode).json(err);
   })
 });
-//germplasm-search
+//germplasm
+router.get('/germplasm/:id', function(req, res, next){
+  console.log(req.query)
+  console.log(req.params.id)
+  var query=req.query
+  query.germplasmDbId=req.params.id
+  germplasmCalls(req.query).then(function(germplasmRes){
+    res.status(200).json(germplasmRes);
+  }).catch(function(err){
+    var statusCode;
+    try{
+      statusCode=err.metadata.status[0].code;
+    }
+    catch(error){
+      statusCode=500;
+    }
+    res.status(statusCode).json(err);
+  })
+});
+
+//germplasm-search POST
 router.post('/germplasm-search', function(req, res, next){
   console.log(req.body);
   germplasmCalls(req.body).then(function(germplasmRes){
@@ -46,6 +102,9 @@ router.post('/germplasm-search', function(req, res, next){
     res.status(statusCode).json(err);
   })
 });
+
+
+
 
 /* List supported crops */
 /* João Cardoso - 11/07/2017 */
