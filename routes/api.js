@@ -30,7 +30,22 @@ router.get('/germplasm-search', function(req, res, next){
     res.status(statusCode).json(err);
   })
 });
-
+//germplasm-search
+router.post('/germplasm-search', function(req, res, next){
+  console.log(req.body);
+  germplasmCalls(req.body).then(function(germplasmRes){
+    res.status(200).json(germplasmRes);
+  }).catch(function(err){
+    var statusCode;
+    try{
+      statusCode=err.metadata.status[0].code;
+    }
+    catch(error){
+      statusCode=500;
+    }
+    res.status(statusCode).json(err);
+  })
+});
 
 /* List supported crops */
 /* João Cardoso - 11/07/2017 */
