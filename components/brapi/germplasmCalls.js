@@ -16,9 +16,39 @@ module.exports = function(query,options){
   
   //Set the page to show
   query.offset= query.page * query.pageSize;
-  query.germplasmName=query.germplasmName || ""
-  query.germplasmDbId=query.germplasmDbId || ""
-  query.germplasmPUI=query.germplasmPUI || ""
+  query.where={}
+
+  if(typeof query.germplasmName == "string"){
+    query.germplasmName=[query.germplasmName]
+
+  }else if(typeof query.germplasmName == "object"){
+    query.germplasmName=query.germplasmName || ""
+  }
+  if(query.germplasmName){
+    query.where.defaultDisplayName={'$in':query.germplasmName}
+  }
+  //germplasmDbId
+  if(typeof query.germplasmDbId == "string"){
+    query.germplasmDbId=[query.germplasmDbId]
+
+  }else if(typeof query.germplasmDbId == "object"){
+    query.germplasmDbId=query.germplasmDbId || ""
+  }
+  if(query.germplasmDbId){
+    query.where.id={'$in':query.germplasmDbId}
+  }
+  //germplasmPUI
+  if(typeof query.germplasmPUI == "string"){
+    query.germplasmPUI=[query.germplasmPUI]
+
+  }else if(typeof query.germplasmPUI == "object"){
+    query.germplasmPUI=query.germplasmPUI || ""
+  }
+  if(query.germplasmPUI){
+    query.where.germplasmPUI={'$in':query.germplasmPUI}
+  }
+
+
   var options = options || {};
   //Runs a model function with options if they exist
 
@@ -55,7 +85,7 @@ module.exports = function(query,options){
           /**/"typeOfGermplasmStorageCode": [],
           /**/"genus": "",
           /**/"species": "",
-          "taxonIds": [],
+          /**/"taxonIds": [],
           /**/"speciesAuthority": "",
           /**/"subtaxa": "",
           /**/"subtaxaAuthority": "",

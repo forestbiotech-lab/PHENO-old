@@ -52,17 +52,7 @@ function getGermplasm(attributes){
         }]
     }],
     //defaultDisplayName might not be the same as germplasmName in the future. !!!Possible code breaking  
-    where: { 
-      defaultDisplayName: {
-        '$like':attributes.germplasmName+"%" //Using like instead of exact search not sure this is the best option
-      },
-      id:{
-        '$like':attributes.germplasmDbId+"%" //Using like instead of exact search not sure this is the best option
-      }, /*attributes/*{Material_source: {'$like':"ibet:%"}}*/ //attributes      
-      germplasmPUI:{
-        '$like':attributes.germplasmPUI+"%" //Using like instead of exact search not sure this is the best option
-      }, /*attributes/*{Material_source: {'$like':"ibet:%"}}*/ //attributes
-    }
+    where: attributes.where,
   })
   .then(function(res){
     return res;
