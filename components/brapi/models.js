@@ -64,6 +64,7 @@ function getGermplasm(attributes){
 
 }
 
+
 /* Created by João Cardoso - 11/07/2017
  * Crop Call Implementation - Fetches data from the Crop Table */
 function getCrops(attributes) {
@@ -99,8 +100,9 @@ function getImplementedCalls(attributes) {
             model: db.DataTypes,
             attributes: {
                 exclude: ['id',"callId"],
-            }
-        }]
+            },
+            where: attributes.where
+        }],
 
     }).then(function(res){
         return res;

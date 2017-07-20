@@ -22,7 +22,8 @@ module.exports = function(query){
   
   //Set the page to show
   query.offset= query.page * query.pageSize;
-  query.dataType=query.dataType || ""
+
+  query.dataType ? query.where={'dataType':query.dataType} : query.where={}
 
     
 
