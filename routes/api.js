@@ -8,6 +8,7 @@ var fs=require('fs');
 var germplasmCalls = require('./../components/brapi/germplasmCalls');
 var cropCall = require('./../components/brapi/cropCall');
 var listImplementedCalls = require('./../components/brapi/listImplementedCalls');
+var germplasmPedigree = require('./../components/brapi/getGermplasmPedigree');
 //------------------- End  -------------------------------
 
 
@@ -68,11 +69,9 @@ router.get('/germplasm-search', function(req, res, next){
 });
 //germplasm
 router.get('/germplasm/:id', function(req, res, next){
-  console.log(req.query)
-  console.log(req.params.id)
-  var query=req.query
-  query.germplasmDbId=req.params.id
-  germplasmCalls(req.query).then(function(germplasmRes){
+  var query=req.query;
+  query.germplasmDbId=req.params.id;
+  germplasmCalls(query).then(function(germplasmRes){
     res.status(200).json(germplasmRes);
   }).catch(function(err){
     var statusCode;
@@ -86,9 +85,27 @@ router.get('/germplasm/:id', function(req, res, next){
   })
 });
 
+//GermplasmPedigree
+router.get('/germplasm/:id/pedigree',function(req,res,next){
+  var query=req.query;
+  query.germplasmDbId=req.params.id
+  console.log(query);
+  germplasmPedigree(query).then(function(germPedigreeRes){
+    res.status(200).json(germPedigreeRes);
+  }).catch(function(err){
+    var statusCode;
+    try{
+      statusCode=err.metadata.status[0].code;
+    }
+    catch(error){
+      statusCode=500;
+    }
+    res.status(statusCode).json(err);  
+  })
+});
+
 //germplasm-search POST
 router.post('/germplasm-search', function(req, res, next){
-  console.log(req.body);
   germplasmCalls(req.body).then(function(germplasmRes){
     res.status(200).json(germplasmRes);
   }).catch(function(err){
@@ -144,13 +161,6 @@ router.get('/calls', function (req, res, next){
 
 });
 
-
-//The studies Call
-router.get('/studies/:studyDbID', function(req, res, next) {
-    var studyID=req.params.studyDbID;
-    res.status(err.status || 500);
-    res.render('error');      
-});
 
 
 module.exports = router;

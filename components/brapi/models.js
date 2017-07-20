@@ -64,6 +64,38 @@ function getGermplasm(attributes){
 
 }
 
+//getGermplasm call attributes
+//DB call. "where" is used to set up lookup filters 
+function getGermPedigree(attributes){
+  return db.Germplasm
+  .findAndCountAll({ 
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+    attributes: { exclude:['id','speciesId','origin','holdingInstitution','seedSource'], include:[['id', 'germplasmDbId'], ['defaultDisplayName','germplasmName'],['seedSource','gerplasmSeedSource'] ]},
+    include: [{
+      model:db.GermplasmParents,
+      include:[{
+        model:db.GermplasmParent1,
+        attributes:{exclude:['id','species','holdingInstitution','defaultDisplayName','germplasmPUI','seedSource','biologicalStatusOfAccessionCode','acquisitionDate','countryOfOrigin']}
+      },{
+        model:db.GermplasmParent2,
+        attributes:{exclude:['id','species','holdingInstitution','defaultDisplayName','germplasmPUI','seedSource','biologicalStatusOfAccessionCode','acquisitionDate','countryOfOrigin']}
+      }]
+    }],
+    //defaultDisplayName might not be the same as germplasmName in the future. !!!Possible code breaking  
+    where: attributes.where,
+  })
+  .then(function(res){
+    return res;
+  })
+  .catch(function(err){
+    console.log("getGermPedigree - Err: "+ err);
+    return err;
+  });
+
+}
+
+
 
 /* Created by João Cardoso - 11/07/2017
  * Crop Call Implementation - Fetches data from the Crop Table */
@@ -118,5 +150,6 @@ module.exports = {
     getGermplasm: getGermplasm,
     getCrops: getCrops,
     getImplementedCalls: getImplementedCalls,
+    getGermPedigree: getGermplasm,
 }
 
