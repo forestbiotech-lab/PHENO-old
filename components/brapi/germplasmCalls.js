@@ -18,6 +18,7 @@ module.exports = function(query,options){
   query.offset= query.page * query.pageSize;
   query.where={}
 
+  //Set up WHERE depending query parameters.
   if(typeof query.germplasmName == "string"){
     query.germplasmName=[query.germplasmName]
 
@@ -68,30 +69,6 @@ module.exports = function(query,options){
         //If res isn't an error send the appropriate response
         var databaseValues={}
         
-        var germplasm={
-          /**/"germplasmDbId": "",
-          /**/"defaultDisplayName": "",
-          /**/"accessionNumber": "",
-          /**/"germplasmName": "",
-          /**/"germplasmPUI": "",
-          /**/"pedigree": "",
-          /**/"germplasmSeedSource": "",
-          /**/"synonyms": [ ],
-          /**/"commonCropName": "",
-          /**/"instituteCode": "",
-          /**/"instituteName": "",
-          /**/"biologicalStatusOfAccessionCode": null,
-          /**/"countryOfOriginCode": "",
-          /**/"typeOfGermplasmStorageCode": [],
-          /**/"genus": "",
-          /**/"species": "",
-          /**/"taxonIds": [],
-          /**/"speciesAuthority": "",
-          /**/"subtaxa": "",
-          /**/"subtaxaAuthority": "",
-          /**/"donors": [],
-          /**/"acquisitionDate": ""
-        }
                  
         //Export query values to a array and re  
         for(i in res.rows){
