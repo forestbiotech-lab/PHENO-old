@@ -9,16 +9,15 @@ var germplasmCalls = require('./../components/brapi/germplasmCalls');
 var cropCall = require('./../components/brapi/cropCall');
 var listImplementedCalls = require('./../components/brapi/listImplementedCalls');
 var germplasmPedigree = require('./../components/brapi/getGermplasmPedigree');
+var phenotypesCall = require('./../components/brapi/phenotypesCall');
 //------------------- End  -------------------------------
 
 
-//Test itrating through this 
+//Test itrating through this  NOT IMPLEMENTED YET
 getCalls=[{
 uri:"/germplasm-search",
 makeCall: germplasmCalls,
 }]
-
-
 
 
 /* GET home page. Set it to the list of implemented calls README*/
@@ -89,7 +88,6 @@ router.get('/germplasm/:id', function(req, res, next){
 router.get('/germplasm/:id/pedigree',function(req,res,next){
   var query=req.query;
   query.germplasmDbId=req.params.id
-  console.log(query);
   germplasmPedigree(query).then(function(germPedigreeRes){
     res.status(200).json(germPedigreeRes);
   }).catch(function(err){
@@ -103,24 +101,6 @@ router.get('/germplasm/:id/pedigree',function(req,res,next){
     res.status(statusCode).json(err);  
   })
 });
-
-//germplasm-search POST
-router.post('/germplasm-search', function(req, res, next){
-  germplasmCalls(req.body).then(function(germplasmRes){
-    res.status(200).json(germplasmRes);
-  }).catch(function(err){
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);
-  })
-});
-
-
 
 
 /* List supported crops */
@@ -141,6 +121,40 @@ router.get('/crops', function(request, response, next){
   })
 
 });
+
+
+//germplasm-search POST
+router.post('/germplasm-search', function(req, res, next){
+  germplasmCalls(req.body).then(function(germplasmRes){
+    res.status(200).json(germplasmRes);
+  }).catch(function(err){
+    var statusCode;
+    try{
+      statusCode=err.metadata.status[0].code;
+    }
+    catch(error){
+      statusCode=500;
+    }
+    res.status(statusCode).json(err);
+  })
+});
+
+//phenotypes-search POST
+router.post('/phenotypes-search', function(req, res, next){
+  germplasmCalls(req.body).then(function(phenotypesRes){
+    res.status(200).json(phenotypesRes);
+  }).catch(function(err){
+    var statusCode;
+    try{
+      statusCode=err.metadata.status[0].code;
+    }
+    catch(error){
+      statusCode=500;
+    }
+    res.status(statusCode).json(err);
+  })
+});
+
 
 /*  João Cardoso  - 11/07/2017 
  *  List implemented calls 
