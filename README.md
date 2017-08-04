@@ -1,4 +1,4 @@
-Plant breading API (BrAPI)
+Plant breeding API (BrAPI)
 ==========================
 
 
