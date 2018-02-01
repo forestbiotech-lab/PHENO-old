@@ -17,7 +17,7 @@ values=$(
 
 )
 
-query="INSERT INTO $table (id,$attributes) (${values});"
+query="INSERT INTO $table ($attributes) VALUES (${values});"
 echo $query
 
 mysql -u root -D brapi_dan -pkoolkool -e "$query"

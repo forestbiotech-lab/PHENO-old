@@ -1,9 +1,8 @@
-Location		
+Person		
 id	integer	auto
-name	varchar(100)	Instituto de Tecnologia Química e Biológica
-abbreviation	varchar(10)	ITQB
-locationType	varchar(50)	Institution
-latitude	varchar(20)	38.696 N
-longitude	varchar(20)	-9.322 W
-altitude	integer	46
-country	integer	620
+name	varchar(100)	M. Margarida Oliveira
+honorific	varchar(5)	Dra.
+role	varchar(50)	Principal Investigator
+email	varchar(50)	mmolive@itqb.unl.pt
+orcid	varchar(50)	NULL
+affiliation	integer	1
