@@ -386,7 +386,6 @@ CREATE TABLE `Observation` (
 CREATE TABLE `StudyPlot` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`studyObservationUnitId` INT NOT NULL,
-	`germplasmId` INT NOT NULL,
 	`plotNumber` INT NOT NULL,
 	`blockNumber` INT NOT NULL,
 	`X` INT NOT NULL,
@@ -401,6 +400,7 @@ CREATE TABLE `StudyPlant` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`studyPlotId` INT NOT NULL,
 	`plantNumber` INT NOT NULL,
+	`germplasmId` INT NOT NULL,
 	`blockNumber` INT NOT NULL,
 	`X` INT NOT NULL,
 	`Y` INT NOT NULL,
@@ -483,6 +483,14 @@ CREATE TABLE `DataTypes` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`callId` INT(11) NOT NULL,
 	`dataType` VARCHAR(30) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `ObservationUnitXRef` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`observationUnitId` INT NOT NULL,
+	`source` VARCHAR(255) NOT NULL,
+	`xref` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
@@ -618,9 +626,9 @@ ALTER TABLE `Observation` ADD CONSTRAINT `Observation_fk4` FOREIGN KEY (`studyPl
 
 ALTER TABLE `StudyPlot` ADD CONSTRAINT `StudyPlot_fk0` FOREIGN KEY (`studyObservationUnitId`) REFERENCES `StudyObservationUnit`(`id`);
 
-ALTER TABLE `StudyPlot` ADD CONSTRAINT `StudyPlot_fk1` FOREIGN KEY (`germplasmId`) REFERENCES `Germplasm`(`id`);
-
 ALTER TABLE `StudyPlant` ADD CONSTRAINT `StudyPlant_fk0` FOREIGN KEY (`studyPlotId`) REFERENCES `StudyPlot`(`id`);
+
+ALTER TABLE `StudyPlant` ADD CONSTRAINT `StudyPlant_fk1` FOREIGN KEY (`germplasmId`) REFERENCES `Germplasm`(`id`);
 
 ALTER TABLE `StudyTreatment` ADD CONSTRAINT `StudyTreatment_fk0` FOREIGN KEY (`studyPlotId`) REFERENCES `StudyPlot`(`id`);
 
