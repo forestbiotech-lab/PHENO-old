@@ -10,6 +10,7 @@ var cropCall = require('./../components/brapi/cropCall');
 var listImplementedCalls = require('./../components/brapi/listImplementedCalls');
 var germplasmPedigree = require('./../components/brapi/getGermplasmPedigree');
 var phenotypesCall = require('./../components/brapi/phenotypesCall');
+var studyGermplsmDetailsCall = require('./../components/brapi/studyGermplsmDetailsCall');
 //------------------- End  -------------------------------
 
 
@@ -175,6 +176,24 @@ router.get('/calls', function (req, res, next){
 
 });
 
+
+//studyGermplasmDetails
+router.get('/studies/:studyDbId/germplasm', function(req, res, next){
+  var query=req.query;
+  query.studyDbId=req.params.studyDbId
+  studyGermplsmDetailsCall(req.query).then(function(studyGermplasmDetailsCallRes){
+    res.status(200).json(studyGermplasmDetailsCallRes);
+  }).catch(function(err){
+    var statusCode;
+    try{
+      statusCode=err.metadata.status[0].code;
+    }
+    catch(error){
+      statusCode=500;
+    }
+    res.status(statusCode).json(err);
+  })
+});
 
 
 module.exports = router;

@@ -182,7 +182,7 @@ module.exports = function(query,options){
 
         //Generate pagination details
         var pagination=fmtFunc.generatePagination(res,query);
-
+        console.log(pagination);
         //Args:queryData,pagination,code,message
         resolve(fmtFunc.generateJSON(data,pagination,200,null));
 

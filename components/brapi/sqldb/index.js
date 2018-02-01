@@ -5,7 +5,7 @@
 /** https://github.com/dsquier/oauth2-server-php-mysql **/
 
 //This is the configuration file that has all the credentials
-var config_brapi = require('./../../../config_res');
+var config_brapi = require('./../../../config_brapi');
 var Sequelize = require('sequelize');
 var glob = require('glob');
 var path = require('path');
