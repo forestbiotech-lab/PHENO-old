@@ -1127,7 +1127,7 @@ DROP TABLE IF EXISTS `Study`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Study` (
-  `id` int(11) NOT NULL AUTO_INCREMENT=1,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `trialId` int(11) NOT NULL,
   `locationId` int(11) NOT NULL,
