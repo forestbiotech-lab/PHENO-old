@@ -80,7 +80,7 @@ CREATE TABLE `Calls` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `callName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +89,7 @@ CREATE TABLE `Calls` (
 
 LOCK TABLES `Calls` WRITE;
 /*!40000 ALTER TABLE `Calls` DISABLE KEYS */;
-INSERT INTO `Calls` VALUES (1,'germplasm-search'),(2,'crops'),(3,'calls'),(4,'germplasm/{id}'),(5,'germplasm/{id}/pedigree');
+INSERT INTO `Calls` VALUES (1,'germplasm-search'),(2,'crops'),(3,'calls'),(4,'germplasm/{id}'),(5,'germplasm/{id}/pedigree'),(6,'studies-search'),(7,'studies/{studyDbId}/germplasm');
 /*!40000 ALTER TABLE `Calls` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,7 +209,7 @@ CREATE TABLE `DataTypes` (
   `callId` int(11) NOT NULL,
   `dataType` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +218,7 @@ CREATE TABLE `DataTypes` (
 
 LOCK TABLES `DataTypes` WRITE;
 /*!40000 ALTER TABLE `DataTypes` DISABLE KEYS */;
-INSERT INTO `DataTypes` VALUES (1,1,'JSON'),(2,2,'JSON'),(3,3,'JSON'),(4,4,'JSON'),(5,5,'JSON');
+INSERT INTO `DataTypes` VALUES (1,1,'JSON'),(2,2,'JSON'),(3,3,'JSON'),(4,4,'JSON'),(5,5,'JSON'),(6,6,'JSON'),(7,7,'JSON');
 /*!40000 ALTER TABLE `DataTypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -705,7 +705,7 @@ CREATE TABLE `Methods` (
   `callId` int(11) NOT NULL,
   `method` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -714,7 +714,7 @@ CREATE TABLE `Methods` (
 
 LOCK TABLES `Methods` WRITE;
 /*!40000 ALTER TABLE `Methods` DISABLE KEYS */;
-INSERT INTO `Methods` VALUES (1,1,'GET'),(2,2,'GET'),(3,3,'GET'),(4,1,'POST'),(5,4,'GET'),(6,5,'GET');
+INSERT INTO `Methods` VALUES (1,1,'GET'),(2,2,'GET'),(3,3,'GET'),(4,1,'POST'),(5,4,'GET'),(6,5,'GET'),(7,6,'GET'),(8,6,'POST'),(9,7,'GET');
 /*!40000 ALTER TABLE `Methods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1612,4 +1612,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-02 13:16:59
+-- Dump completed on 2018-02-02 15:15:27
