@@ -20,4 +20,4 @@ values=$(
 query="INSERT INTO $table ($attributes) VALUES (${values});"
 echo $query
 
-mysql -u root -D brapi_dan -pkoolkool -e "$query"
+mysql -u testing -D brapi_dan -ptest -e "$query"
