@@ -11,6 +11,7 @@ var listImplementedCalls = require('./../components/brapi/listImplementedCalls')
 var germplasmPedigree = require('./../components/brapi/getGermplasmPedigree');
 var phenotypesCall = require('./../components/brapi/phenotypesCall');
 var studyGermplsmDetailsCall = require('./../components/brapi/studyGermplsmDetailsCall');
+var studiesSearchCall = require('./../components/brapi/studiesSearchCall');
 //------------------- End  -------------------------------
 
 
@@ -176,6 +177,23 @@ router.get('/calls', function (req, res, next){
 
 });
 
+
+//study-search
+router.get('/studies-search',function(req,res,next){
+  var query=req.query;
+  studiesSearchCall(query).then(function(studiesSearchCallRes){
+    res.status(200).json(studiesSearchCallRes);
+  }).catch(function(err){
+    var statusCode;
+    try{
+      statusCode=err.metadata.status[0].code;
+    }
+    catch(error){
+      statusCode=500;
+    }
+    res.status(statusCode).json(err);
+  })
+});
 
 //studyGermplasmDetails
 router.get('/studies/:studyDbId/germplasm', function(req, res, next){

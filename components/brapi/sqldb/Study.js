@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
             unique: true
         },
         name: DataTypes.STRING(50),
-        trailId: DataTypes.INTEGER(11),
+        trialId: DataTypes.INTEGER(11),
         locationId: DataTypes.INTEGER(11),
         type: DataTypes.INTEGER(11),
         active: DataTypes.BOOLEAN(11),

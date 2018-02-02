@@ -97,6 +97,39 @@ function getGermPedigree(attributes){
 
 //getStudyGermplasmDetails call attributes
 //DB call. "where" is used to set up lookup filters 
+function getStudiesSearch(attributes){
+  return db.Study
+  .findAndCountAll({ 
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+
+    attributes: { include:[["id","studyDbId"],["locationId","locationDbId"]]},
+    //attributes: { exclude:['id','speciesId','origin','holdingInstitution','seedSource'], include:[['id', 'germplasmDbId'], ['defaultDisplayName','germplasmName'],['seedSource','gerplasmSeedSource'] ]},
+//    include: [{
+//      model:db.Germplasm,
+//      attributes:{exclude:['id','speciesId','holdingInstitution','biologicalStatusOfAccessionCode','acquisitionDate','countryOfOrigin'],include:[['defaultDisplayName','germplasmName']]}, //Exclude and rename
+//      include: [{
+//        model:db.GermplasmSynonym,
+//      }]
+//    }],
+
+
+    //defaultDisplayName might not be the same as germplasmName in the future. !!!Possible code breaking  
+    where: attributes.where,
+  })
+  .then(function(res){
+    return res;
+  })
+  .catch(function(err){
+    console.log("getStudyGermplasmDetails - Err: "+ err);
+    return err;
+  });
+
+}
+
+
+//getStudyGermplasmDetails call attributes
+//DB call. "where" is used to set up lookup filters 
 function getStudyGermplasmDetails(attributes){
   return db.StudyGermplasm
   .findAndCountAll({ 
@@ -181,6 +214,7 @@ module.exports = {
     getCrops: getCrops,
     getImplementedCalls: getImplementedCalls,
     getGermPedigree: getGermplasm, //Is this on purpose? I guess it's not fully implemented yet
+    getStudiesSearch: getStudiesSearch,
     getStudyGermplasmDetails: getStudyGermplasmDetails,
 }
 

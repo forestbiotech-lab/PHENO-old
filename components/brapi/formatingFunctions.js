@@ -46,7 +46,11 @@ function generateJSON(queryData,pagination,code,message){
 	var result='';
 	queryData==null ? result=null : result={data:queryData};
 	//Allows extra parameters before data to be set in the call processing
-	queryData.data != null ? result=queryData : result=result
+	try{
+		queryData.data != null ? result=queryData : result=result
+	}catch(err){
+		console.log("No queryData");
+	}
 	//pagination not null and Page requested bigger than total.
 	if(pagination != null && pagination.currentPage > pagination.totalPages ){
 		message="Bad request: requested page number is greater than the total number of pages";
