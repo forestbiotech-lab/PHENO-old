@@ -33,7 +33,7 @@ CREATE TABLE `AttributeCategory` (
   UNIQUE KEY `code` (`code`),
   UNIQUE KEY `uri` (`uri`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -334,7 +334,7 @@ CREATE TABLE `Germplasm` (
   CONSTRAINT `Germplasm_fk0` FOREIGN KEY (`speciesId`) REFERENCES `Species` (`id`),
   CONSTRAINT `Germplasm_fk1` FOREIGN KEY (`holdingInstitution`) REFERENCES `Institution` (`id`),
   CONSTRAINT `Germplasm_fk3` FOREIGN KEY (`countryOfOrigin`) REFERENCES `Country` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=57;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -466,7 +466,7 @@ CREATE TABLE `Institution` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -475,7 +475,7 @@ CREATE TABLE `Institution` (
 
 LOCK TABLES `Institution` WRITE;
 /*!40000 ALTER TABLE `Institution` DISABLE KEYS */;
-INSERT INTO `Institution` VALUES (0,'PHL001','International Rice Research Institute',0);
+INSERT INTO `Institution` VALUES (0,'PHL001','International Rice Research Institute',1),(1,'NULL','ITQB',2);
 /*!40000 ALTER TABLE `Institution` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -553,7 +553,7 @@ CREATE TABLE `LocationAdditionalInfo` (
   PRIMARY KEY (`id`),
   KEY `LocationAdditionalInfo_fk0` (`location`),
   CONSTRAINT `LocationAdditionalInfo_fk0` FOREIGN KEY (`location`) REFERENCES `Location` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -746,7 +746,7 @@ CREATE TABLE `Observation` (
   CONSTRAINT `Observation_fk2` FOREIGN KEY (`uploadedBy`) REFERENCES `Person` (`id`),
   CONSTRAINT `Observation_fk3` FOREIGN KEY (`studyPlotId`) REFERENCES `StudyPlot` (`id`),
   CONSTRAINT `Observation_fk4` FOREIGN KEY (`studyPlantId`) REFERENCES `StudyPlant` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci, AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -773,7 +773,7 @@ CREATE TABLE `ObservationUnit` (
   UNIQUE KEY `name` (`name`),
   KEY `ObservationUnit_fk0` (`locationId`),
   CONSTRAINT `ObservationUnit_fk0` FOREIGN KEY (`locationId`) REFERENCES `Location` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -800,7 +800,7 @@ CREATE TABLE `ObservationUnitXRef` (
   PRIMARY KEY (`id`),
   KEY `ObservationUnitXRef_fk0` (`observationUnitId`),
   CONSTRAINT `ObservationUnitXRef_fk0` FOREIGN KEY (`observationUnitId`) REFERENCES `ObservationUnit` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -847,7 +847,7 @@ CREATE TABLE `ObservationVariable` (
   CONSTRAINT `ObservationVariable_fk2` FOREIGN KEY (`scientist`) REFERENCES `Person` (`id`),
   CONSTRAINT `ObservationVariable_fk3` FOREIGN KEY (`crop`) REFERENCES `Crop` (`id`),
   CONSTRAINT `ObservationVariable_fk4` FOREIGN KEY (`traitId`) REFERENCES `Trait` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -873,7 +873,7 @@ CREATE TABLE `ObservationVariableSynonym` (
   PRIMARY KEY (`id`),
   KEY `ObservationVariableSynonym_fk0` (`observationVariableId`),
   CONSTRAINT `ObservationVariableSynonym_fk0` FOREIGN KEY (`observationVariableId`) REFERENCES `ObservationVariable` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -897,7 +897,7 @@ CREATE TABLE `Ontology` (
   `accession` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -928,7 +928,7 @@ CREATE TABLE `Person` (
   UNIQUE KEY `email` (`email`),
   KEY `Person_fk0` (`affiliation`),
   CONSTRAINT `Person_fk0` FOREIGN KEY (`affiliation`) REFERENCES `Institution` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -937,6 +937,7 @@ CREATE TABLE `Person` (
 
 LOCK TABLES `Person` WRITE;
 /*!40000 ALTER TABLE `Person` DISABLE KEYS */;
+INSERT INTO `Person` VALUES (1,'M. Margarida Oliveira','Dra.','Principal Investigator','mmolive@itqb.unl.pt','NULL',1);
 /*!40000 ALTER TABLE `Person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -958,7 +959,7 @@ CREATE TABLE `Program` (
   UNIQUE KEY `abbreviation` (`abbreviation`),
   KEY `Program_fk0` (`leadPerson`),
   CONSTRAINT `Program_fk0` FOREIGN KEY (`leadPerson`) REFERENCES `Person` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -967,6 +968,7 @@ CREATE TABLE `Program` (
 
 LOCK TABLES `Program` WRITE;
 /*!40000 ALTER TABLE `Program` DISABLE KEYS */;
+INSERT INTO `Program` VALUES (1,'New allelic variants found in key rice salt-tolera','NULL','Testing Salt stress physiological traits in rice.',1);
 /*!40000 ALTER TABLE `Program` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -993,7 +995,7 @@ CREATE TABLE `Sample` (
   CONSTRAINT `Sample_fk0` FOREIGN KEY (`plantId`) REFERENCES `StudyPlant` (`id`),
   CONSTRAINT `Sample_fk1` FOREIGN KEY (`takenBy`) REFERENCES `Person` (`id`),
   CONSTRAINT `Sample_fk2` FOREIGN KEY (`seasonId`) REFERENCES `Season` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1024,7 +1026,7 @@ CREATE TABLE `Scale` (
   UNIQUE KEY `name` (`name`),
   KEY `Scale_fk0` (`dataTypeId`),
   CONSTRAINT `Scale_fk0` FOREIGN KEY (`dataTypeId`) REFERENCES `DataType` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1051,7 +1053,7 @@ CREATE TABLE `ScaleCategories` (
   PRIMARY KEY (`int`),
   KEY `ScaleCategories_fk0` (`scaleId`),
   CONSTRAINT `ScaleCategories_fk0` FOREIGN KEY (`scaleId`) REFERENCES `Scale` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1075,7 +1077,7 @@ CREATE TABLE `Season` (
   `season` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `year` int(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1084,6 +1086,7 @@ CREATE TABLE `Season` (
 
 LOCK TABLES `Season` WRITE;
 /*!40000 ALTER TABLE `Season` DISABLE KEYS */;
+INSERT INTO `Season` VALUES (1,'Cool dry',2011);
 /*!40000 ALTER TABLE `Season` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1106,7 +1109,7 @@ CREATE TABLE `Species` (
   PRIMARY KEY (`id`),
   KEY `Species_fk0` (`cropId`),
   CONSTRAINT `Species_fk0` FOREIGN KEY (`cropId`) REFERENCES `Crop` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1, AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1141,7 +1144,7 @@ CREATE TABLE `Study` (
   CONSTRAINT `Study_fk0` FOREIGN KEY (`trialId`) REFERENCES `Trial` (`id`),
   CONSTRAINT `Study_fk1` FOREIGN KEY (`locationId`) REFERENCES `Location` (`id`),
   CONSTRAINT `Study_fk2` FOREIGN KEY (`type`) REFERENCES `StudyType` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1150,6 +1153,7 @@ CREATE TABLE `Study` (
 
 LOCK TABLES `Study` WRITE;
 /*!40000 ALTER TABLE `Study` DISABLE KEYS */;
+INSERT INTO `Study` VALUES (1,'Phenotyping in salt stress',1,1,1,0);
 /*!40000 ALTER TABLE `Study` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1168,7 +1172,7 @@ CREATE TABLE `StudyAdditionalInfo` (
   PRIMARY KEY (`id`),
   KEY `StudyAdditionalInfo_fk0` (`studyId`),
   CONSTRAINT `StudyAdditionalInfo_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1196,7 +1200,7 @@ CREATE TABLE `StudyContact` (
   KEY `StudyContact_fk1` (`contact`),
   CONSTRAINT `StudyContact_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study` (`id`),
   CONSTRAINT `StudyContact_fk1` FOREIGN KEY (`contact`) REFERENCES `Person` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1223,7 +1227,7 @@ CREATE TABLE `StudyGermplasm` (
   KEY `StudyGermplasm_fk0` (`studyId`),
   KEY `StudyGermplasm_fk1` (`germplasmId`),
   CONSTRAINT `StudyGermplasm_fk1` FOREIGN KEY (`germplasmId`) REFERENCES `Germplasm` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=55;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1252,7 +1256,7 @@ CREATE TABLE `StudyObservationUnit` (
   KEY `StudyObservationUnit_fk1` (`observationUnit`),
   CONSTRAINT `StudyObservationUnit_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study` (`id`),
   CONSTRAINT `StudyObservationUnit_fk1` FOREIGN KEY (`observationUnit`) REFERENCES `ObservationUnit` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1280,7 +1284,7 @@ CREATE TABLE `StudyObservationVariable` (
   KEY `StudyObservationVariable_fk1` (`observationVariableId`),
   CONSTRAINT `StudyObservationVariable_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study` (`id`),
   CONSTRAINT `StudyObservationVariable_fk1` FOREIGN KEY (`observationVariableId`) REFERENCES `ObservationVariable` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1310,7 +1314,7 @@ CREATE TABLE `StudyPlant` (
   PRIMARY KEY (`id`),
   KEY `StudyPlant_fk1` (`germplasmId`),
   CONSTRAINT `StudyPlant_fk1` FOREIGN KEY (`germplasmId`) REFERENCES `Germplasm` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1340,7 +1344,7 @@ CREATE TABLE `StudyPlot` (
   `plantingDate` date NOT NULL,
   `harvestDate` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1368,7 +1372,7 @@ CREATE TABLE `StudySeason` (
   KEY `StudySeason_fk1` (`seasonId`),
   CONSTRAINT `StudySeason_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study` (`id`),
   CONSTRAINT `StudySeason_fk1` FOREIGN KEY (`seasonId`) REFERENCES `Season` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1377,6 +1381,7 @@ CREATE TABLE `StudySeason` (
 
 LOCK TABLES `StudySeason` WRITE;
 /*!40000 ALTER TABLE `StudySeason` DISABLE KEYS */;
+INSERT INTO `StudySeason` VALUES (1,1,1);
 /*!40000 ALTER TABLE `StudySeason` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1396,7 +1401,7 @@ CREATE TABLE `StudyTreatment` (
   KEY `StudyTreatment_fk1` (`treatmentModalityId`),
   CONSTRAINT `StudyTreatment_fk0` FOREIGN KEY (`studyPlotId`) REFERENCES `StudyPlot` (`id`),
   CONSTRAINT `StudyTreatment_fk1` FOREIGN KEY (`treatmentModalityId`) REFERENCES `TreatmentModality` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1421,7 +1426,7 @@ CREATE TABLE `StudyType` (
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1430,6 +1435,7 @@ CREATE TABLE `StudyType` (
 
 LOCK TABLES `StudyType` WRITE;
 /*!40000 ALTER TABLE `StudyType` DISABLE KEYS */;
+INSERT INTO `StudyType` VALUES (1,'Green house','29ºC/22ºC Day/Night with 70% relative humidity, Split plot design with 11 genotypes per tray and 16 plants per genotype. In the control tray no salt was added.');
 /*!40000 ALTER TABLE `StudyType` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1452,7 +1458,7 @@ CREATE TABLE `Trait` (
   `xref` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1478,7 +1484,7 @@ CREATE TABLE `TraitAlternativeAbbreviation` (
   PRIMARY KEY (`id`),
   KEY `TraitAlternativeAbbreviation_fk0` (`traitId`),
   CONSTRAINT `TraitAlternativeAbbreviation_fk0` FOREIGN KEY (`traitId`) REFERENCES `Trait` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1504,7 +1510,7 @@ CREATE TABLE `TraitSynonym` (
   PRIMARY KEY (`id`),
   KEY `TraitSynonym_fk0` (`traitId`),
   CONSTRAINT `TraitSynonym_fk0` FOREIGN KEY (`traitId`) REFERENCES `Trait` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1528,7 +1534,7 @@ CREATE TABLE `TreatmentFactor` (
   `factor` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `factor` (`factor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1555,7 +1561,7 @@ CREATE TABLE `TreatmentModality` (
   UNIQUE KEY `modality` (`modality`),
   KEY `TreatmentModality_fk0` (`treatmentFactorId`),
   CONSTRAINT `TreatmentModality_fk0` FOREIGN KEY (`treatmentFactorId`) REFERENCES `TreatmentFactor` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1584,7 +1590,7 @@ CREATE TABLE `Trial` (
   UNIQUE KEY `name` (`name`),
   KEY `Trial_fk0` (`programId`),
   CONSTRAINT `Trial_fk0` FOREIGN KEY (`programId`) REFERENCES `Program` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1593,6 +1599,7 @@ CREATE TABLE `Trial` (
 
 LOCK TABLES `Trial` WRITE;
 /*!40000 ALTER TABLE `Trial` DISABLE KEYS */;
+INSERT INTO `Trial` VALUES (1,'Phenotyping in salt stress',1,'2011-11-01','2011-11-21');
 /*!40000 ALTER TABLE `Trial` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1605,4 +1612,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-01 21:00:57
+-- Dump completed on 2018-02-02 13:16:59
