@@ -1,8 +1,4 @@
-Person		
+StudySeason		
 id	integer	auto
-name	varchar(100)	M. Margarida Oliveira
-honorific	varchar(5)	Dra.
-role	varchar(50)	Principal Investigator
-email	varchar(50)	mmolive@itqb.unl.pt
-orcid	varchar(50)	NULL
-affiliation	integer	1
+studyId	integer	1
+seasonId	integer	1

@@ -6,7 +6,7 @@ attributes=$(awk -F "\t" '{if( NR>2 ){printf $1","}}' tableValues.tsv | sed -r "
 values=$(
   awk -F "\t" '{
   	if( NR>2){
-  		match($2, "varchar");
+  		match($2, "varchar|text|date");
 		if(RLENGTH>-1){
 			printf "\""$3"\","
 		}else{
