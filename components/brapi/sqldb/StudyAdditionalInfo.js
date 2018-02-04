@@ -5,7 +5,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const Trial = sequelize.define('Trial', {
+  const StudyAdditionalInfo = sequelize.define('StudyAdditionalInfo', {
     id: { 
       type: DataTypes.INTEGER(11),
       autoIncrement: true,
@@ -13,28 +13,23 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: true,
     },
-    name: DataTypes.STRING(50),
-    programId: DataTypes.INTEGER(11),
-    startDate: DataTypes.DATE,
-    endDate: DataTypes.DATE,
+    studyId: DataTypes.INTEGER(11),
+    propertyName: DataTypes.STRING(50),
+    propertyValue: DataTypes.STRING(100),
   }, {
-    tableName: 'Trial',
+    tableName: 'StudyAdditionalInfo',
     timestamps: false,
     underscored: false,
 
    classMethods: {
       associate: function associate(models) {    
-        Trial.belongsTo(models.Program, {
-          foreignKey: 'programId',              //on Trial
+        StudyAdditionalInfo.belongsTo(models.Study, {
+          foreignKey: 'studyId',              //on StudyAdditionalInfo
           targetKey: 'id',  //foreign key  
-        });
-        Trial.belongsTo(models.Study, {
-            foreignKey: 'id',
-            targetKey: 'trialId',
-        });
+        }); 
       }
-    },//*/
+    },
   });
 
-  return Trial;
+  return StudyAdditionalInfo;
 };

@@ -37,6 +37,10 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'country',
           targetKey: 'id',
         });
+        Location.belongsTo(models.Study, {
+          foreignKey: 'id',              //on Location
+          targetKey: 'locationId',  //foreign key  
+        });        
       }
     },//*/
   });

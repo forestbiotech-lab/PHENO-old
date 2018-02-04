@@ -29,11 +29,11 @@ module.exports = function(sequelize, DataTypes) {
           targetKey: 'id',  //foreign key  
         });*/
         Program.belongsTo(models.Trial, {
-          foreignKey: 'programId',              //on Program
-          targetKey: 'id',  //foreign key  
+          foreignKey: 'id',              //on Program
+          targetKey: 'programId',  //foreign key  
         }); 
       }
-    },//*/
+    },
   });
 
   return Program;
