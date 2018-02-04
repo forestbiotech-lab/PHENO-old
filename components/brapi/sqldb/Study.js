@@ -30,6 +30,10 @@ module.exports = function(sequelize, DataTypes) {
                     foreignKey: 'id',       //on this table
                     targetKey: 'studyId',  
                 });
+                Study.belongsTo(models.Trial, {
+                    foreignKey: 'trialId',
+                    targetKey: 'id'
+                });
 /*                Study.belongsTo(models.ObservationVariable, {
                     foreignKey: 'observationVaribleId',  //on this table
                     targetKey: 'id'
