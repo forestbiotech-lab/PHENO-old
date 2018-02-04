@@ -9,7 +9,7 @@
 
 import re
 from operator import itemgetter
-table="Program"
+table="Study"
 sqlFile="/home/brunocosta/Downloads/git/BrAPI/SQL/LATEST_dump.sql"
 
 
@@ -75,8 +75,10 @@ result+="""  }, {
 
 ###Add ForeignKeys
 for  direction, foreignKey, FKtable, targetKey in foreignKeys:
-  fk={'table': table, 'foreignKey': foreignKey, 'FKtable': FKtable, 'targetKey':targetKey} 
-
+  if(direction=="OUT"):
+    fk={'table': table, 'foreignKey': foreignKey, 'FKtable': FKtable, 'targetKey':targetKey} 
+  else:
+    fk={'table': table, 'targetKey': foreignKey, 'FKtable': FKtable, 'foreignKey':targetKey}     
   result+="""
         %(table)s.belongsTo(models.%(FKtable)s, {
           foreignKey: '%(foreignKey)s',              //on %(table)s
@@ -84,7 +86,7 @@ for  direction, foreignKey, FKtable, targetKey in foreignKeys:
         });""" % fk
 result+=""" 
       }
-    },//*/
+    },
   });
 
   return %(table)s;
