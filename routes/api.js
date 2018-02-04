@@ -141,6 +141,7 @@ router.post('/germplasm-search', function(req, res, next){
   })
 });
 
+
 //phenotypes-search POST
 router.post('/phenotypes-search', function(req, res, next){
   germplasmCalls(req.body).then(function(phenotypesRes){
@@ -194,6 +195,24 @@ router.get('/studies-search',function(req,res,next){
     res.status(statusCode).json(err);
   })
 });
+
+//study-search
+router.post('/studies-search',function(req,res,next){
+  var query=req.body;
+  studiesSearchCall(query).then(function(studiesSearchCallRes){
+    res.status(200).json(studiesSearchCallRes);
+  }).catch(function(err){
+    var statusCode;
+    try{
+      statusCode=err.metadata.status[0].code;
+    }
+    catch(error){
+      statusCode=500;
+    }
+    res.status(statusCode).json(err);
+  })
+});
+
 
 //studyGermplasmDetails
 router.get('/studies/:studyDbId/germplasm', function(req, res, next){
