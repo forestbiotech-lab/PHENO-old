@@ -17,38 +17,93 @@ module.exports = function(query,options){
   //Set the page to show
   query.offset= query.page * query.pageSize;
   query.where={}
+  query.where.study={}
+  query.where.studyType={}
+  query.where.trial={}
+  query.where.studySeason={}
+  query.where.studyGermplasm={}
 
   //Set up WHERE depending query parameters.
-  if(typeof query.germplasmName == "string"){
-    query.germplasmName=[query.germplasmName]
+  //Studytype
+  if(typeof query.studyType == "string"){
+    query.studyType=[query.studyType]
+  }else if(typeof query.studyType == "object"){
+    query.studyType=query.studyType || ""
+  }
+  if(query.studyType){
+    query.where.studyType.name={'$in':query.studyType};
+  }
 
-  }else if(typeof query.germplasmName == "object"){
-    query.germplasmName=query.germplasmName || ""
+  //Program
+  if(typeof query.programDbId == "string"){
+    query.programDbId=[query.programDbId]
+  }else if(typeof query.programDbId == "object"){
+    query.programDbId=query.programDbId || ""
   }
-  if(query.germplasmName){
-    query.where.defaultDisplayName={'$in':query.germplasmName}
+  if(query.programDbId){
+    query.where.trial.programId={'$in':query.programDbId};
+  }  
+
+  //LocationDbId
+  if(typeof query.locationDbId == "string"){
+    query.locationDbId=[query.locationDbId]
+  }else if(typeof query.locationDbId == "object"){
+    query.locationDbId=query.locationDbId || ""
   }
-  //germplasmDbId
+  if(query.locationDbId){
+    query.where.study.locationId={'$in':query.locationDbId};
+  }
+
+  //LocationDbId
+  if(typeof query.seasonDbId == "string"){
+    query.seasonDbId=[query.seasonDbId]
+  }else if(typeof query.seasonDbId == "object"){
+    query.seasonDbId=query.seasonDbId || ""
+  }
+  if(query.seasonDbId){
+    query.where.studySeason.seasonId={'$in':query.seasonDbId};
+  }
+
+  //TrialDbId
+  if(typeof query.trialDbId == "string"){
+    query.trialDbId=[query.trialDbId]
+  }else if(typeof query.trialDbId == "object"){
+    query.trialDbId=query.trialDbId || ""
+  }
+  if(query.trialDbId){
+    query.where.study.trialId={'$in':query.trialDbId};
+  }
+
+  //GermplasmDbId
   if(typeof query.germplasmDbId == "string"){
     query.germplasmDbId=[query.germplasmDbId]
-
   }else if(typeof query.germplasmDbId == "object"){
     query.germplasmDbId=query.germplasmDbId || ""
   }
   if(query.germplasmDbId){
-    query.where.id={'$in':query.germplasmDbId}
-  }
-  //germplasmPUI
-  if(typeof query.germplasmPUI == "string"){
-    query.germplasmPUI=[query.germplasmPUI]
-
-  }else if(typeof query.germplasmPUI == "object"){
-    query.germplasmPUI=query.germplasmPUI || ""
-  }
-  if(query.germplasmPUI){
-    query.where.germplasmPUI={'$in':query.germplasmPUI}
+    query.where.studyGermplasm.germplasmId={'$in':query.germplasmDbId};
   }
 
+  //Active.
+  if(typeof query.active == "string"){
+    query.active=query.active.toLowerCase();
+  }else if(typeof query.active == "object"){
+    query.active=query.active.toLowerCase() || ""
+  }
+  if(query.active){
+    if(query.active=="true"){
+      query.active=1
+    }
+    if(query.active=="false"){
+      query.active=0;
+    }
+
+    query.where.study.active=query.active;
+  }
+
+
+
+  console.log(query)
 
   var options = options || {};
   //Runs a model function with options if they exist
@@ -71,14 +126,14 @@ module.exports = function(query,options){
         
         //Export query values to a array and re  
         for(i in res.rows){
-          console.log(res.rows); 
+
           //Check if germplasm is not in databaseValues create it
           var dataValues = res.rows[i].dataValues
           var studyDbId=dataValues.studyDbId;
 
           //Used to secure duplicate rows because of arrays.
           if(Object.keys(databaseValues).indexOf(String(studyDbId)) == -1){ 
-            databaseValues[studyDbId]={taxonIds:[]};
+            databaseValues[studyDbId]={"seasons":[],"additionalInfo":{}};
             databaseValues[studyDbId]['studyDbId']=studyDbId;
           }
 
@@ -89,114 +144,46 @@ module.exports = function(query,options){
           databaseValues[studyDbId]['locationDbId']=dataValues.locationDbId;
           databaseValues[studyDbId]['active']=dataValues.active;
 
-
-        } 
       
-  /*
-          //Species
-          databaseValues[germplasmDbId]['genus']=dataValues.Species.dataValues.genus;
-          databaseValues[germplasmDbId]['species']=dataValues.Species.dataValues.species;
-          databaseValues[germplasmDbId]['taxonIds']=dataValues.Species.dataValues.taxonIds;
-          databaseValues[germplasmDbId]['speciesAuthority']=dataValues.Species.dataValues.speciesAuthority;
-          databaseValues[germplasmDbId]['subtaxa']=dataValues.Species.dataValues.subtaxa;
-          databaseValues[germplasmDbId]['subtaxaAuthority']=dataValues.Species.dataValues.subtaxaAuthority;
-          //Will produce undefined if id isn't in DB
-          databaseValues[germplasmDbId]['taxonIds']=[{'ncbiTaxon':'http://purl.obolibrary.org/obo/NCBITaxon_'+dataValues.Species.dataValues.NCBItaxonId}];
-    
-          //Institution
-          databaseValues[germplasmDbId]['instituteName']=dataValues.Institution.dataValues.instituteName;
-          databaseValues[germplasmDbId]['instituteCode']=dataValues.Institution.dataValues.instituteCode;
-          //Germplasm
-          databaseValues[germplasmDbId].defaultDisplayName=dataValues.defaultDisplayName;
-          databaseValues[germplasmDbId].accessionNumber=dataValues.accessionNumber;
-          databaseValues[germplasmDbId].germplasmName=dataValues.germplasmName;
-          databaseValues[germplasmDbId].germplasmPUI=dataValues.germplasmPUI;
-          databaseValues[germplasmDbId].germplasmSeedSource=dataValues.germplasmSeedSource;
-          databaseValues[germplasmDbId].biologicalStatusOfAccessionCode=dataValues.biologicalStatusOfAccessionCode;
+          //Trial
+          databaseValues[studyDbId]['trialName']=dataValues.Trial.dataValues.trialName;
+          var startDate=dataValues.Trial.dataValues.startDate;
+          var endDate=dataValues.Trial.dataValues.endDate;
+          typeof date === "string" ? startDate=startDate.replace(/-/g,"") : startDate=dateFormat(new Date(startDate), "yyyy-mm-dd");
+          typeof date === "string" ? endDate=endDate.replace(/-/g,"") : endDate=dateFormat(new Date(endDate), "yyyy-mm-dd");
+          databaseValues[studyDbId]['startDate']=startDate;
+          databaseValues[studyDbId]['endDate']=endDate;
+          databaseValues[studyDbId]['programDbId']=dataValues.Trial.dataValues.programId;
 
-          //Should add if attributes exist To avoid errors. ! To consider.
-          //Parse attributes from db
-          //Tricky if 0000-00-00 its a string and I have to do a replace. Else I do a date format.
-          var date=dataValues.acquisitionDate;
-          typeof date === "string" ? databaseValues[germplasmDbId].acquisitionDate=date.replace(/-/g,"") : databaseValues[germplasmDbId].acquisitionDate=dateFormat(new Date(date), "yyyymmdd");
-          
-          //Country
-          databaseValues[germplasmDbId].countryOfOriginCode=dataValues.Country.dataValues.countryOfOriginCode;
-          //Crop
-          databaseValues[germplasmDbId].commonCropName=dataValues.Species.dataValues.Crop.dataValues.commonCropName;
-          //GermplasmStorage
+          //Program 
+          databaseValues[studyDbId]['programName']=dataValues.Trial.dataValues.Program.dataValues.name;
+
+          //StudyType
+          databaseValues[studyDbId]['studyType']=dataValues.StudyType.dataValues.name;
+          //databaseValues[studyDbId]['subtaxaAuthority']=dataValues.Trial.dataValues.subtaxaAuthority;
+
+          //Season
+          var seasonDataValues=dataValues.StudySeason.dataValues.Season.dataValues;
+          databaseValues[studyDbId]['seasons'].push(seasonDataValues.year+" "+seasonDataValues.season);
+
+          //StudyAddionalInfo
           try{
-            if(databaseValues[germplasmDbId].typeOfGermplasmStorageCode.indexOf(dataValues.GermplasmStorage.dataValues.typeOfGermplasmStorageCode)==-1){
-              databaseValues[germplasmDbId].typeOfGermplasmStorageCode.push(dataValues.GermplasmStorage.dataValues.typeOfGermplasmStorageCode);          
-            }
-          }catch(err){
-            databaseValues[germplasmDbId].typeOfGermplasmStorageCode=[]  
-          }
-          //GermplasmSynonym
-          try{
-            if(databaseValues[germplasmDbId].synonyms.indexOf(dataValues.GermplasmSynonym.dataValues.synonym)==-1){
-              databaseValues[germplasmDbId].synonyms.push(dataValues.GermplasmSynonym.dataValues.synonym);          
-            }
-          }
-          catch(err){
-            databaseValues[germplasmDbId].synonyms=[]  
-          }
-          
-          //Same type as above.
-          //DonorInstitute
-          try{
-              var donorAccessionNumber=dataValues.DonorInstitute.dataValues.DonorGermplasm.dataValues.accessionNumber;
-              var donorInstituteCode=dataValues.DonorInstitute.dataValues.Institution.dataValues.code;
-              var germplasmPUI=dataValues.DonorInstitute.dataValues.DonorGermplasm.dataValues.germplasmPUI;
-              //mix them together to generate a unique key for testing.
-              var mixKey=donorAccessionNumber+donorInstituteCode+germplasmPUI;
-            if(Object.keys(databaseValues[germplasmDbId].donorsObj).indexOf(mixKey)==-1){
-              //I have to create an Object identifier that will allow to identify if donor has already been introduced. Must cycle at the end to restructure object
-              databaseValues[germplasmDbId].donorsObj[mixKey]={
-                "donorAccessionNumber":donorAccessionNumber,
-                "donorInstituteCode":donorInstituteCode,
-                "germplasmPUI":germplasmPUI,
-              };          
-            }
-          }
-          catch(err){
-            //Most likely cause of error is that no donors exist since foreign key constraints ensure if there is a donor it should all be filled.
-            databaseValues[germplasmDbId].donors=[]  
-          }
-
-
-          //To many foreignKey for now //push scheme
-          //Pedigree no push though for this one.
-          try{
-            //The cross between parent accessions. if foreignkeys exist.
-            var mother=dataValues.GermplasmParent.dataValues.GermplasmParent1.dataValues.accessionNumber;
-            var father=dataValues.GermplasmParent.dataValues.GermplasmParent2.dataValues.accessionNumber;
-            databaseValues[germplasmDbId].pedigree=mother+' / '+father;
-          }
-          catch(err){
-            //Fall back to string in germplasm
-            databaseValues[germplasmDbId].pedigree=dataValues.pedigree;  
-          }
-  
-          
-
-
-        }
-*/
+            var additionalInfoDataValues=dataValues.StudyAdditionalInfo.dataValues;
+            databaseValues[studyDbId]['additionalInfo'][additionalInfoDataValues.propertyName]=additionalInfoDataValues.propertyValue;
+          }catch(Err){
+            //console.log(Err);
+          }  
+        } 
+ 
         var data=[]
         //Restructure object into array 
         for(study in databaseValues){
-/*
-          for (donor in databaseValues[germplasm].donorsObj){
-            databaseValues[germplasm].donors.push(databaseValues[germplasm].donorsObj[donor])
-          }
-          delete databaseValues[germplasm].donorsObj
-*/
+
           data.push(databaseValues[study]);
         }
         //Generate pagination details
         var pagination=fmtFunc.generatePagination(res,query);
-        console.log(data);
+
         //Args:queryData,pagination,code,message
         resolve(fmtFunc.generateJSON(data,pagination,200,null));
 

@@ -104,18 +104,31 @@ function getStudiesSearch(attributes){
     limit: parseInt(attributes.pageSize)+1,
 
     attributes: { include:[["id","studyDbId"],["locationId","locationDbId"]]},
-    //attributes: { exclude:['id','speciesId','origin','holdingInstitution','seedSource'], include:[['id', 'germplasmDbId'], ['defaultDisplayName','germplasmName'],['seedSource','gerplasmSeedSource'] ]},
-//    include: [{
-//      model:db.Germplasm,
-//      attributes:{exclude:['id','speciesId','holdingInstitution','biologicalStatusOfAccessionCode','acquisitionDate','countryOfOrigin'],include:[['defaultDisplayName','germplasmName']]}, //Exclude and rename
-//      include: [{
-//        model:db.GermplasmSynonym,
-//      }]
-//    }],
 
-
+    include: [{
+      model:db.Trial,
+      attributes:{include:[['name','trialName']]}, //Exclude and rename
+      include: [{
+        model:db.Program,
+      }],
+      where: attributes.where.trial
+    },{
+      model:db.StudyType,
+      where: attributes.where.studyType
+      },{
+        model:db.StudySeason,
+        include: [{
+          model:db.Season
+        }],
+        where:attributes.where.studySeason
+      },{
+      model:db.StudyAdditionalInfo,  
+    },{
+      model:db.StudyGermplasm,
+      where:attributes.where.studyGermplasm
+    }],
     //defaultDisplayName might not be the same as germplasmName in the future. !!!Possible code breaking  
-    where: attributes.where,
+    where: attributes.where.study,
   })
   .then(function(res){
     return res;
@@ -143,6 +156,11 @@ function getStudyGermplasmDetails(attributes){
       attributes:{exclude:['id','speciesId','holdingInstitution','biologicalStatusOfAccessionCode','acquisitionDate','countryOfOrigin'],include:[['defaultDisplayName','germplasmName']]}, //Exclude and rename
       include: [{
         model:db.GermplasmSynonym,
+      }]
+    },{
+      model:db.Study,
+      include:[{
+        model:db.Trial
       }]
     }],
 
