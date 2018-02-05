@@ -138,7 +138,6 @@ module.exports = function(query,options){
           //study
           databaseValues[studyDbId]['name']=dataValues.name;
           databaseValues[studyDbId]['trialId']=dataValues.trialId;
-          databaseValues[studyDbId]['locationDbId']=dataValues.locationDbId;
           databaseValues[studyDbId]['active']=dataValues.active;
 
       
@@ -159,7 +158,10 @@ module.exports = function(query,options){
           databaseValues[studyDbId]['studyType']=dataValues.StudyType.dataValues.name;
 
           //Location
+          databaseValues[studyDbId]['locationDbId']=dataValues.locationDbId;
+          databaseValues[studyDbId]['locationName']=dataValues.Location.dataValues.name;
           //name!!!!!!!!!!!!!!!
+          
 
           //Season
           var seasonDataValues=dataValues.StudySeason.dataValues.Season.dataValues;
@@ -175,7 +177,7 @@ module.exports = function(query,options){
             //console.log(Err);
           }  
         } 
- 
+
         var data=[]
         //Restructure object into array 
         for(study in databaseValues){

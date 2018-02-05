@@ -128,6 +128,8 @@ function getStudiesSearch(attributes){
     },{
       model:db.StudyGermplasm,
       where:attributes.where.studyGermplasm
+    },{
+      model:db.Location,
     }],
     //defaultDisplayName might not be the same as germplasmName in the future. !!!Possible code breaking  
     where: attributes.where.study,
