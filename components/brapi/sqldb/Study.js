@@ -45,11 +45,11 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'id',              //on Study
           targetKey: 'studyId',  //foreign key  
         });
-/*        Study.belongsTo(models.StudyContact, {
+       Study.belongsTo(models.StudyContact, {
           foreignKey: 'id',              //on Study
           targetKey: 'studyId',  //foreign key  
         });
-        Study.belongsTo(models.StudyObservationUnit, {
+/*         Study.belongsTo(models.StudyObservationUnit, {
           foreignKey: 'id',              //on Study
           targetKey: 'studyId',  //foreign key  
         });

@@ -33,6 +33,10 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'id',
           targetKey: 'countryOfOrigin',
         });
+        Country.belongsTo(models.Location, {
+          foreignKey: 'id',
+          targetKey: 'country',
+        });
       }
     },//*/
   });

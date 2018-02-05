@@ -38,6 +38,10 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'locationId',
           targetKey: 'id',
         });
+        Institution.belongsTo(models.Person, {
+          foreignKey: 'id',              //on Institution
+          targetKey: 'affiliation',  //foreign key  
+        }); 
       }
     },//*/
   });
