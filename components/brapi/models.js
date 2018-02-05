@@ -6,6 +6,8 @@
 //Calls Index to load sql tables
 var db = require('./sqldb');
 
+//Break up this file into domains once it gets to big.
+
 
 //getGermplasm call attributes
 //DB call. "where" is used to set up lookup filters 
@@ -140,6 +142,62 @@ function getStudiesSearch(attributes){
 
 }
 
+//getStudyDetails call attributes
+//DB call. "where" is used to set up lookup filters 
+function getStudyDetails(attributes){
+  return db.Study
+  .findAndCountAll({ 
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+
+    attributes: { include:[["id","studyDbId"],["locationId","locationDbId"]]},
+
+    include: [{
+      model:db.Trial,
+      attributes:{include:[['name','trialName']]}, //Exclude and rename
+      include: [{
+        model:db.Program,
+      }],
+    },{
+      model:db.StudyType,
+    },{
+      model:db.StudySeason,
+      include: [{
+        model:db.Season
+      }],
+    },{
+      model:db.StudyAdditionalInfo,  
+    },{
+      model:db.Location,
+      include: [{
+        model:db.Country,
+      },{
+        model:db.Institution,
+      },{
+        model:db.LocationAdditionalInfo
+      }],
+    },{
+      model:db.StudyContact,
+      include: [{
+        model:db.Person,
+        include: [{
+          model: db.Institution,
+        }]
+      }],
+    }],
+
+    //defaultDisplayName might not be the same as germplasmName in the future. !!!Possible code breaking  
+    where: attributes.where,
+  })
+  .then(function(res){
+    return res;
+  })
+  .catch(function(err){
+    console.log("getStudyGermplasmDetails - Err: "+ err);
+    return err;
+  });
+
+}
 
 //getStudyGermplasmDetails call attributes
 //DB call. "where" is used to set up lookup filters 
@@ -233,6 +291,7 @@ module.exports = {
     getImplementedCalls: getImplementedCalls,
     getGermPedigree: getGermplasm, //Is this on purpose? I guess it's not fully implemented yet
     getStudiesSearch: getStudiesSearch,
+    getStudyDetails: getStudyDetails,
     getStudyGermplasmDetails: getStudyGermplasmDetails,
 }
 

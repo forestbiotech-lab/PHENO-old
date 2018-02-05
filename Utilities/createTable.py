@@ -9,7 +9,7 @@
 
 import re
 from operator import itemgetter
-table="Study"
+table="Institution"
 sqlFile="/home/brunocosta/Downloads/git/BrAPI/SQL/LATEST_dump.sql"
 
 

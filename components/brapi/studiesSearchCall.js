@@ -157,7 +157,9 @@ module.exports = function(query,options){
 
           //StudyType
           databaseValues[studyDbId]['studyType']=dataValues.StudyType.dataValues.name;
-          //databaseValues[studyDbId]['subtaxaAuthority']=dataValues.Trial.dataValues.subtaxaAuthority;
+
+          //Location
+          //name!!!!!!!!!!!!!!!
 
           //Season
           var seasonDataValues=dataValues.StudySeason.dataValues.Season.dataValues;

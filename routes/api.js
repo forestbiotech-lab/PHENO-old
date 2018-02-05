@@ -12,7 +12,7 @@ var germplasmPedigree = require('./../components/brapi/getGermplasmPedigree');
 var phenotypesCall = require('./../components/brapi/phenotypesCall');
 var studyGermplsmDetailsCall = require('./../components/brapi/studyGermplsmDetailsCall');
 var studiesSearchCall = require('./../components/brapi/studiesSearchCall');
-var studiesDetailsCall = require('./../components/brapi/studyDetailsCall');
+var studyDetailsCall = require('./../components/brapi/studyDetailsCall');
 //------------------- End  -------------------------------
 
 
@@ -220,7 +220,7 @@ router.get('/studies/:studyDbId', function(req, res, next){
   var query=req.query;
   query.studyDbId=req.params.studyDbId
   studyDetailsCall(req.query).then(function(studyDetailsCallRes){
-    res.status(200).json(studyGermplasmCallRes);
+    res.status(200).json(studyDetailsCallRes);
   }).catch(function(err){
     var statusCode;
     try{
