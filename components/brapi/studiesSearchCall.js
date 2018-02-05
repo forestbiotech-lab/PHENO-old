@@ -102,9 +102,6 @@ module.exports = function(query,options){
   }
 
 
-
-  console.log(query)
-
   var options = options || {};
   //Runs a model function with options if they exist
 
