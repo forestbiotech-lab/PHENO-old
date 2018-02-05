@@ -1226,7 +1226,7 @@ CREATE TABLE `StudyGermplasm` (
   PRIMARY KEY (`id`),
   KEY `StudyGermplasm_fk0` (`studyId`),
   KEY `StudyGermplasm_fk1` (`germplasmId`),
-  CONSTRAINT `StudyGermplasm_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study`(`id`);
+  CONSTRAINT `StudyGermplasm_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study`(`id`),
   CONSTRAINT `StudyGermplasm_fk1` FOREIGN KEY (`germplasmId`) REFERENCES `Germplasm` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
