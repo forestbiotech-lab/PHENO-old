@@ -80,7 +80,7 @@ CREATE TABLE `Calls` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `callName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +89,7 @@ CREATE TABLE `Calls` (
 
 LOCK TABLES `Calls` WRITE;
 /*!40000 ALTER TABLE `Calls` DISABLE KEYS */;
-INSERT INTO `Calls` VALUES (1,'germplasm-search'),(2,'crops'),(3,'calls'),(4,'germplasm/{id}'),(5,'germplasm/{id}/pedigree'),(6,'studies-search'),(7,'studies/{studyDbId}/germplasm');
+INSERT INTO `Calls` VALUES (1,'germplasm-search'),(2,'crops'),(3,'calls'),(4,'germplasm/{id}'),(5,'germplasm/{id}/pedigree'),(6,'studies-search'),(7,'studies/{studyDbId}/germplasm'),(8,'studies/{studyDbId}');
 /*!40000 ALTER TABLE `Calls` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,7 +209,7 @@ CREATE TABLE `DataTypes` (
   `callId` int(11) NOT NULL,
   `dataType` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +218,7 @@ CREATE TABLE `DataTypes` (
 
 LOCK TABLES `DataTypes` WRITE;
 /*!40000 ALTER TABLE `DataTypes` DISABLE KEYS */;
-INSERT INTO `DataTypes` VALUES (1,1,'JSON'),(2,2,'JSON'),(3,3,'JSON'),(4,4,'JSON'),(5,5,'JSON'),(6,6,'JSON'),(7,7,'JSON');
+INSERT INTO `DataTypes` VALUES (1,1,'JSON'),(2,2,'JSON'),(3,3,'JSON'),(4,4,'JSON'),(5,5,'JSON'),(6,6,'JSON'),(7,7,'JSON'),(8,8,'JSON');
 /*!40000 ALTER TABLE `DataTypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -553,7 +553,7 @@ CREATE TABLE `LocationAdditionalInfo` (
   PRIMARY KEY (`id`),
   KEY `LocationAdditionalInfo_fk0` (`location`),
   CONSTRAINT `LocationAdditionalInfo_fk0` FOREIGN KEY (`location`) REFERENCES `Location` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -562,6 +562,7 @@ CREATE TABLE `LocationAdditionalInfo` (
 
 LOCK TABLES `LocationAdditionalInfo` WRITE;
 /*!40000 ALTER TABLE `LocationAdditionalInfo` DISABLE KEYS */;
+INSERT INTO `LocationAdditionalInfo` VALUES (1,1,'RainFall','21ppm');
 /*!40000 ALTER TABLE `LocationAdditionalInfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -705,7 +706,7 @@ CREATE TABLE `Methods` (
   `callId` int(11) NOT NULL,
   `method` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -714,7 +715,7 @@ CREATE TABLE `Methods` (
 
 LOCK TABLES `Methods` WRITE;
 /*!40000 ALTER TABLE `Methods` DISABLE KEYS */;
-INSERT INTO `Methods` VALUES (1,1,'GET'),(2,2,'GET'),(3,3,'GET'),(4,1,'POST'),(5,4,'GET'),(6,5,'GET'),(7,6,'GET'),(8,6,'POST'),(9,7,'GET');
+INSERT INTO `Methods` VALUES (1,1,'GET'),(2,2,'GET'),(3,3,'GET'),(4,1,'POST'),(5,4,'GET'),(6,5,'GET'),(7,6,'GET'),(8,6,'POST'),(9,7,'GET'),(10,8,'GET');
 /*!40000 ALTER TABLE `Methods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1172,7 +1173,7 @@ CREATE TABLE `StudyAdditionalInfo` (
   PRIMARY KEY (`id`),
   KEY `StudyAdditionalInfo_fk0` (`studyId`),
   CONSTRAINT `StudyAdditionalInfo_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1181,6 +1182,7 @@ CREATE TABLE `StudyAdditionalInfo` (
 
 LOCK TABLES `StudyAdditionalInfo` WRITE;
 /*!40000 ALTER TABLE `StudyAdditionalInfo` DISABLE KEYS */;
+INSERT INTO `StudyAdditionalInfo` VALUES (1,1,'Articlue','Nature');
 /*!40000 ALTER TABLE `StudyAdditionalInfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1200,7 +1202,7 @@ CREATE TABLE `StudyContact` (
   KEY `StudyContact_fk1` (`contact`),
   CONSTRAINT `StudyContact_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study` (`id`),
   CONSTRAINT `StudyContact_fk1` FOREIGN KEY (`contact`) REFERENCES `Person` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1209,6 +1211,7 @@ CREATE TABLE `StudyContact` (
 
 LOCK TABLES `StudyContact` WRITE;
 /*!40000 ALTER TABLE `StudyContact` DISABLE KEYS */;
+INSERT INTO `StudyContact` VALUES (1,1,1);
 /*!40000 ALTER TABLE `StudyContact` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1226,7 +1229,7 @@ CREATE TABLE `StudyGermplasm` (
   PRIMARY KEY (`id`),
   KEY `StudyGermplasm_fk0` (`studyId`),
   KEY `StudyGermplasm_fk1` (`germplasmId`),
-  CONSTRAINT `StudyGermplasm_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study`(`id`),
+  CONSTRAINT `StudyGermplasm_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study` (`id`),
   CONSTRAINT `StudyGermplasm_fk1` FOREIGN KEY (`germplasmId`) REFERENCES `Germplasm` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1613,4 +1616,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-04 20:09:27
+-- Dump completed on 2018-02-05 23:56:15
