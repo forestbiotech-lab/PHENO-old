@@ -12,10 +12,11 @@ var germplasmPedigree = require('./../components/brapi/getGermplasmPedigree');
 var phenotypesCall = require('./../components/brapi/phenotypesCall');
 var studyGermplsmDetailsCall = require('./../components/brapi/studyGermplsmDetailsCall');
 var studiesSearchCall = require('./../components/brapi/studiesSearchCall');
+var studiesDetailsCall = require('./../components/brapi/studyDetailsCall');
 //------------------- End  -------------------------------
 
 
-//Test itrating through this  NOT IMPLEMENTED YET
+//Test iterating through this  NOT IMPLEMENTED YET
 getCalls=[{
 uri:"/germplasm-search",
 makeCall: germplasmCalls,
@@ -68,6 +69,7 @@ router.get('/germplasm-search', function(req, res, next){
     res.status(statusCode).json(err);
   })
 });
+
 //germplasm
 router.get('/germplasm/:id', function(req, res, next){
   var query=req.query;
@@ -201,6 +203,24 @@ router.post('/studies-search',function(req,res,next){
   var query=req.body;
   studiesSearchCall(query).then(function(studiesSearchCallRes){
     res.status(200).json(studiesSearchCallRes);
+  }).catch(function(err){
+    var statusCode;
+    try{
+      statusCode=err.metadata.status[0].code;
+    }
+    catch(error){
+      statusCode=500;
+    }
+    res.status(statusCode).json(err);
+  })
+});
+
+//studyDetails
+router.get('/studies/:studyDbId', function(req, res, next){
+  var query=req.query;
+  query.studyDbId=req.params.studyDbId
+  studyDetailsCall(req.query).then(function(studyDetailsCallRes){
+    res.status(200).json(studyGermplasmCallRes);
   }).catch(function(err){
     var statusCode;
     try{
