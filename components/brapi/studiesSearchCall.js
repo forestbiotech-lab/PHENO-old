@@ -123,9 +123,9 @@ module.exports = function(query,options){
       }else{
         //If res isn't an error send the appropriate response
         var databaseValues={}
-        
         //Export query values to a array and re  
         for(i in res.rows){
+          
 
           //Check if germplasm is not in databaseValues create it
           var dataValues = res.rows[i].dataValues
@@ -164,8 +164,10 @@ module.exports = function(query,options){
 
           //Season
           var seasonDataValues=dataValues.StudySeason.dataValues.Season.dataValues;
-          databaseValues[studyDbId]['seasons'].push(seasonDataValues.year+" "+seasonDataValues.season);
-
+          var season=seasonDataValues.year+" "+seasonDataValues.season
+          if(databaseValues[studyDbId]['seasons'].indexOf(season) == -1){ 
+            databaseValues[studyDbId]['seasons'].push(season);
+          }  
           //StudyAddionalInfo
           try{
             var additionalInfoDataValues=dataValues.StudyAdditionalInfo.dataValues;
