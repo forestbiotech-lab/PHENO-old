@@ -120,9 +120,7 @@ module.exports = function(query,options){
           databaseValues[studyDbId]['contacts'][contactDbId]={}
           databaseValues[studyDbId]['contacts'][contactDbId]['contactDbId']=(String (contactDbId));
           databaseValues[studyDbId]['contacts'][contactDbId]['name']=dataValues.StudyContact.dataValues.Person.dataValues.name;
-          console.log(dataValues.StudyContact.dataValues.Person.dataValues)
           databaseValues[studyDbId]['contacts'][contactDbId]['instituteName']=dataValues.StudyContact.dataValues.Person.dataValues.Institution.dataValues.name;
-          console.log(databaseValues[studyDbId]['contacts'][contactDbId])
           databaseValues[studyDbId]['contacts'][contactDbId]['email']=dataValues.StudyContact.dataValues.Person.dataValues.email;
           databaseValues[studyDbId]['contacts'][contactDbId]['type']=dataValues.StudyContact.dataValues.Person.dataValues.role;
           databaseValues[studyDbId]['contacts'][contactDbId]['orcid']=dataValues.StudyContact.dataValues.Person.dataValues.orcid;
@@ -141,16 +139,18 @@ module.exports = function(query,options){
         var metadata=[]
         //Restructure object into array 
         for(study in databaseValues){
-          var contacts=[]
-          for( contact in databaseValues[study]['contacts']){
-            contacts.push(databaseValues[study]['contacts'][contact])
-          }
-          databaseValues[study]['contacts']=contacts
-          metadata.push(databaseValues[study]);
+            var contacts=[]
+            for( contact in databaseValues[study]['contacts']){
+              contacts.push(databaseValues[study]['contacts'][contact])
+            }
+            databaseValues[study]['contacts']=contacts
+            metadata.push(databaseValues[study]);
+
         }
         //Generate pagination details
         var pagination=fmtFunc.generatePagination(res,query);
-
+        console.log(metadata[0]);
+        var metadata=metadata[0];
         metadata.data="";
         //Args:queryData,pagination,code,message
         resolve(fmtFunc.generateJSON(metadata,pagination,200,null));
