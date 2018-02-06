@@ -138,7 +138,7 @@ module.exports = function(query,options){
 
         } 
  
-        var data=[]
+        var metadata=[]
         //Restructure object into array 
         for(study in databaseValues){
           var contacts=[]
@@ -146,13 +146,14 @@ module.exports = function(query,options){
             contacts.push(databaseValues[study]['contacts'][contact])
           }
           databaseValues[study]['contacts']=contacts
-          data.push(databaseValues[study]);
+          metadata.push(databaseValues[study]);
         }
         //Generate pagination details
         var pagination=fmtFunc.generatePagination(res,query);
 
+        metadata.data="";
         //Args:queryData,pagination,code,message
-        resolve(fmtFunc.generateJSON(data,pagination,200,null));
+        resolve(fmtFunc.generateJSON(metadata,pagination,200,null));
 
       //end else
       }
