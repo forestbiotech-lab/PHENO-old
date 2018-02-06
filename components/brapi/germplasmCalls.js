@@ -84,11 +84,13 @@ module.exports = function(query,options){
           //Species
           databaseValues[germplasmDbId]['genus']=dataValues.Species.dataValues.genus;
           databaseValues[germplasmDbId]['species']=dataValues.Species.dataValues.species;
+          databaseValues[germplasmDbId]['taxonIds']=dataValues.Species.dataValues.taxonIds;
           databaseValues[germplasmDbId]['speciesAuthority']=dataValues.Species.dataValues.speciesAuthority;
           databaseValues[germplasmDbId]['subtaxa']=dataValues.Species.dataValues.subtaxa;
           databaseValues[germplasmDbId]['subtaxaAuthority']=dataValues.Species.dataValues.subtaxaAuthority;
           //Will produce undefined if id isn't in DB
-          databaseValues[germplasmDbId]['taxonIds']=[{'ncbiTaxon':'http://purl.obolibrary.org/obo/NCBITaxon_'+dataValues.Species.dataValues.NCBItaxonId}];
+          //Attention hardcoded stuff
+          databaseValues[germplasmDbId]['taxonIds']=[{"sourceName":"ncbiTaxon",'taxonId':'http://purl.obolibrary.org/obo/NCBITaxon_'+dataValues.Species.dataValues.NCBItaxonId}];
     
           //Institution
           databaseValues[germplasmDbId]['instituteName']=dataValues.Institution.dataValues.instituteName;
