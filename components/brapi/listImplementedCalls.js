@@ -48,8 +48,8 @@ module.exports = function(query){
 		for(valueKey in res.rows){
 		  try{
 
-		  	if(databaseValues[res.rows[valueKey].dataValues.callName].dataTypes.indexOf(res.rows[valueKey].DataTypes_table.dataValues.dataType) == -1 ){
-		  		databaseValues[res.rows[valueKey].dataValues.callName].dataTypes.push(res.rows[valueKey].DataTypes_table.dataValues.dataType);		
+		  	if(databaseValues[res.rows[valueKey].dataValues.callName].datatypes.indexOf(res.rows[valueKey].DataTypes_table.dataValues.dataType) == -1 ){
+		  		databaseValues[res.rows[valueKey].dataValues.callName].datatypes.push(res.rows[valueKey].DataTypes_table.dataValues.dataType);		
 			}  
 			//Check if value exists if not add it.
 		  	if(databaseValues[res.rows[valueKey].dataValues.callName].methods.indexOf(res.rows[valueKey].Method.dataValues.method) == -1 ){
@@ -59,7 +59,7 @@ module.exports = function(query){
 		  catch(err){
 		  	//If call hasn't been add create it
 		  	databaseValues[res.rows[valueKey].dataValues.callName]={call:res.rows[valueKey].dataValues.callName,dataTypes:[],methods:[]};						
-		  	databaseValues[res.rows[valueKey].dataValues.callName].dataTypes.push(res.rows[valueKey].DataTypes_table.dataValues.dataType);		
+		  	databaseValues[res.rows[valueKey].dataValues.callName].datatypes.push(res.rows[valueKey].DataTypes_table.dataValues.dataType);		
 		  	databaseValues[res.rows[valueKey].dataValues.callName].methods.push(res.rows[valueKey].Method.dataValues.method);		
 		  }
 
