@@ -104,8 +104,8 @@ module.exports = function(query,options){
           databaseValues[studyDbId]['location']['countryName']=dataValues.Location.dataValues.Country.dataValues.name;
           databaseValues[studyDbId]['location']['instituteName']=dataValues.Location.dataValues.Institution.dataValues.name;
           databaseValues[studyDbId]['location']['instituteAddress']="!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-          databaseValues[studyDbId]['location']['latitude']=dataValues.Location.dataValues.latitude;
-          databaseValues[studyDbId]['location']['longitude']=dataValues.Location.dataValues.longitude;
+          databaseValues[studyDbId]['location']['latitude']=parseFloat(dataValues.Location.dataValues.latitude);
+          databaseValues[studyDbId]['location']['longitude']=parseFloat(dataValues.Location.dataValues.longitude);
           databaseValues[studyDbId]['location']['altitude']=dataValues.Location.dataValues.altitude;
           databaseValues[studyDbId]['location']['studyDescription']=dataValues.Location.dataValues.studyDescription;
           //LocationAddionalInfo //Trye because there might not be any

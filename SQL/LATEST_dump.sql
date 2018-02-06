@@ -534,7 +534,7 @@ CREATE TABLE `Location` (
 
 LOCK TABLES `Location` WRITE;
 /*!40000 ALTER TABLE `Location` DISABLE KEYS */;
-INSERT INTO `Location` VALUES (1,'IRRI, Pili Drive, University of the Philippines Los Baños, Los Baños, 4030 Laguna, Filipinas','IRRI','University','14°10\'53\'\'N','121°15\'59\'\'E',16,608),(2,'Instituto de Tecnologia Química e Biológica','ITQB','Institution','38.696 N','-9.322 W',46,620);
+INSERT INTO `Location` VALUES (1,'IRRI, Pili Drive, University of the Philippines Los Baños, Los Baños, 4030 Laguna, Filipinas','IRRI','University','14.18138889','121.26638889',16,608),(2,'Instituto de Tecnologia Química e Biológica','ITQB','Institution','38.696','-9.322',46,620);
 /*!40000 ALTER TABLE `Location` ENABLE KEYS */;
 UNLOCK TABLES;
 
