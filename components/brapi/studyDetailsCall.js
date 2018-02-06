@@ -118,7 +118,7 @@ module.exports = function(query,options){
           var contactDbId=dataValues.StudyContact.dataValues.id;
           
           databaseValues[studyDbId]['contacts'][contactDbId]={}
-          databaseValues[studyDbId]['contacts'][contactDbId]['contactDbId']=(String (ContactDbId));
+          databaseValues[studyDbId]['contacts'][contactDbId]['contactDbId']=(String (contactDbId));
           databaseValues[studyDbId]['contacts'][contactDbId]['name']=dataValues.StudyContact.dataValues.Person.dataValues.name;
           console.log(dataValues.StudyContact.dataValues.Person.dataValues)
           databaseValues[studyDbId]['contacts'][contactDbId]['instituteName']=dataValues.StudyContact.dataValues.Person.dataValues.Institution.dataValues.name;
