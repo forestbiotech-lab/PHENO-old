@@ -61,8 +61,8 @@ function generateJSON(queryData,pagination,code,message){
 	return {
 		metadata: {
 			status: [{
-				message:message,
-				code:code,
+				message:(String (message)),
+				code:(String (code)),
 			}],
 			datafiles: [],
 			pagination: pagination,
