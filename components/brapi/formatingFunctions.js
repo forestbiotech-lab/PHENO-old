@@ -42,7 +42,7 @@ function generatePagination(res,query){
 function generateJSON(queryData,pagination,code,message){
 
 	//null message
-	var message = message || null;
+	var message = message || "OK";
 	var result='';
 	queryData==null ? result=null : result={data:queryData};
 	//Allows extra parameters before data to be set in the call processing
