@@ -131,14 +131,14 @@ module.exports = function(query,options){
           //Used to secure duplicate rows because of arrays.
           if(Object.keys(databaseValues).indexOf(String(studyDbId)) == -1){ 
             databaseValues[studyDbId]={"seasons":[],"additionalInfo":{}};
-            databaseValues[studyDbId]['studyDbId']=studyDbId;
+            databaseValues[studyDbId]['studyDbId']=(String (studyDbId));
           }
 
 
           //study
           databaseValues[studyDbId]['name']=dataValues.name;
-          databaseValues[studyDbId]['trialId']=dataValues.trialId;
           databaseValues[studyDbId]['active']=dataValues.active;
+          databaseValues[studyDbId]['trialDbId']=(String (dataValues.trialId));
 
       
           //Trial
@@ -149,7 +149,7 @@ module.exports = function(query,options){
           typeof date === "string" ? endDate=endDate.replace(/-/g,"") : endDate=dateFormat(new Date(endDate), "yyyy-mm-dd");
           databaseValues[studyDbId]['startDate']=startDate;
           databaseValues[studyDbId]['endDate']=endDate;
-          databaseValues[studyDbId]['programDbId']=dataValues.Trial.dataValues.programId;
+          databaseValues[studyDbId]['programDbId']=(String (dataValues.Trial.dataValues.programId));
 
           //Program 
           databaseValues[studyDbId]['programName']=dataValues.Trial.dataValues.Program.dataValues.name;
@@ -158,7 +158,7 @@ module.exports = function(query,options){
           databaseValues[studyDbId]['studyType']=dataValues.StudyType.dataValues.name;
 
           //Location
-          databaseValues[studyDbId]['locationDbId']=dataValues.locationDbId;
+          databaseValues[studyDbId]['locationDbId']=(String (dataValues.locationDbId));
           databaseValues[studyDbId]['locationName']=dataValues.Location.dataValues.name;
           //name!!!!!!!!!!!!!!!
           

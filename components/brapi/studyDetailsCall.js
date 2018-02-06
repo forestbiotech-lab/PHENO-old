@@ -66,7 +66,7 @@ module.exports = function(query,options){
           //Push events need to ensure value being push don't exist already
           if(Object.keys(databaseValues).indexOf(String(studyDbId)) == -1){ 
             databaseValues[studyDbId]={"seasons":[],"location":{"additionalInfo":{}},"contacts":{},"additionalInfo":{}};
-            databaseValues[studyDbId]['studyDbId']=studyDbId;
+            databaseValues[studyDbId]['studyDbId']=(String(studyDbId));
           }
 
           //study
@@ -84,7 +84,7 @@ module.exports = function(query,options){
           }  
 
           //Trial
-          databaseValues[studyDbId]['trialId']=dataValues.trialId;
+          databaseValues[studyDbId]['trialDbId']=(String (dataValues.trialId));
           databaseValues[studyDbId]['trialName']=dataValues.Trial.dataValues.trialName;
           var startDate=dataValues.Trial.dataValues.startDate;
           var endDate=dataValues.Trial.dataValues.endDate;
@@ -97,10 +97,10 @@ module.exports = function(query,options){
           databaseValues[studyDbId]['license']="";
 
           //Location
-          databaseValues[studyDbId]['location']['locationDbId']=dataValues.locationDbId;
+          databaseValues[studyDbId]['location']['locationDbId']=(String(dataValues.locationDbId));
           databaseValues[studyDbId]['location']['name']=dataValues.Location.dataValues.name;
           databaseValues[studyDbId]['location']['abbreviation']=dataValues.Location.dataValues.abbreviation;
-          databaseValues[studyDbId]['location']['countryCode']=dataValues.Location.dataValues.Country.dataValues.code;
+          databaseValues[studyDbId]['location']['countryCode']=(String (dataValues.Location.dataValues.Country.dataValues.code));
           databaseValues[studyDbId]['location']['countryName']=dataValues.Location.dataValues.Country.dataValues.name;
           databaseValues[studyDbId]['location']['instituteName']=dataValues.Location.dataValues.Institution.dataValues.name;
           databaseValues[studyDbId]['location']['instituteAddress']="!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -118,7 +118,7 @@ module.exports = function(query,options){
           var contactDbId=dataValues.StudyContact.dataValues.id;
           
           databaseValues[studyDbId]['contacts'][contactDbId]={}
-          databaseValues[studyDbId]['contacts'][contactDbId]['contactDbId']=contactDbId;
+          databaseValues[studyDbId]['contacts'][contactDbId]['contactDbId']=(String (ContactDbId));
           databaseValues[studyDbId]['contacts'][contactDbId]['name']=dataValues.StudyContact.dataValues.Person.dataValues.name;
           console.log(dataValues.StudyContact.dataValues.Person.dataValues)
           databaseValues[studyDbId]['contacts'][contactDbId]['instituteName']=dataValues.StudyContact.dataValues.Person.dataValues.Institution.dataValues.name;
