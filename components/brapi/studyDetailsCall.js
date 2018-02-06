@@ -151,7 +151,7 @@ module.exports = function(query,options){
         var pagination=fmtFunc.generatePagination(res,query);
         console.log(metadata[0]);
         var metadata=metadata[0];
-        metadata.data="";
+        metadata.data="metadataOnlyRemoveData";
         //Args:queryData,pagination,code,message
         resolve(fmtFunc.generateJSON(metadata,pagination,200,null));
 

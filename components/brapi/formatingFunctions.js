@@ -48,6 +48,7 @@ function generateJSON(queryData,pagination,code,message){
 	//Allows extra parameters before data to be set in the call processing
 	try{
 		queryData.data != null ? result=queryData : result=result
+		queryData.data == "metadataOnlyRemoveData" ? delete queryData.data : test=1
 	}catch(err){
 		console.log("No queryData");
 	}
