@@ -79,12 +79,11 @@ module.exports = function(query,options){
     
           if(Object.keys(databaseValues).indexOf(String(germplasmDbId)) == -1){ 
             databaseValues[germplasmDbId]={synonyms:[],typeOfGermplasmStorageCode:[],donors:[],donorsObj:{},taxonIds:[]};
-            databaseValues[germplasmDbId]['germplasmDbId']=germplasmDbId;
+            databaseValues[germplasmDbId]['germplasmDbId']=(String (germplasmDbId));
           }
           //Species
           databaseValues[germplasmDbId]['genus']=dataValues.Species.dataValues.genus;
           databaseValues[germplasmDbId]['species']=dataValues.Species.dataValues.species;
-          databaseValues[germplasmDbId]['taxonIds']=dataValues.Species.dataValues.taxonIds;
           databaseValues[germplasmDbId]['speciesAuthority']=dataValues.Species.dataValues.speciesAuthority;
           databaseValues[germplasmDbId]['subtaxa']=dataValues.Species.dataValues.subtaxa;
           databaseValues[germplasmDbId]['subtaxaAuthority']=dataValues.Species.dataValues.subtaxaAuthority;
