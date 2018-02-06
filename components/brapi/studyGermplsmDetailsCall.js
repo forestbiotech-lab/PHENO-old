@@ -96,7 +96,7 @@ module.exports = function(query,options){
         //Args:queryData,pagination,code,message
         var result={
           studyDbId: query.studyDbId[0],
-          trailName: res.rows[0].dataValues.Study.dataValues.Trial.dataValues.name, //Might be null.
+          trialName: res.rows[0].dataValues.Study.dataValues.Trial.dataValues.name, //Might be null.
           data:data
           }
         resolve(fmtFunc.generateJSON(result,pagination,200,null));
