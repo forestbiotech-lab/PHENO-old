@@ -137,7 +137,7 @@ module.exports = function(query,options){
 
           //study
           databaseValues[studyDbId]['name']=dataValues.name;
-          databaseValues[studyDbId]['active']=dataValues.active;
+          databaseValues[studyDbId]['active']=(String (dataValues.active));
           databaseValues[studyDbId]['trialDbId']=(String (dataValues.trialId));
 
       

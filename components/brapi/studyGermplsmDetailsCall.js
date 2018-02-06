@@ -59,7 +59,7 @@ module.exports = function(query,options){
           var germplasmDbId=dataValues.germplasmId;
           if(Object.keys(databaseValues).indexOf(String(germplasmDbId)) == -1){ 
             databaseValues[germplasmDbId]={synonyms:[]};
-            databaseValues[germplasmDbId]['germplasmDbId']=germplasmDbId;
+            databaseValues[germplasmDbId]['germplasmDbId']=(String (germplasmDbId));
           }
           //Species
           //databaseValues[germplasmDbId]['genus']=dataValues.Species.dataValues.genus;

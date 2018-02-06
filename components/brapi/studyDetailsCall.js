@@ -93,7 +93,7 @@ module.exports = function(query,options){
           databaseValues[studyDbId]['startDate']=startDate;
           databaseValues[studyDbId]['endDate']=endDate;
 
-          databaseValues[studyDbId]['active']=dataValues.active;
+          databaseValues[studyDbId]['active']=(String (dataValues.active));
           databaseValues[studyDbId]['license']="";
 
           //Location
