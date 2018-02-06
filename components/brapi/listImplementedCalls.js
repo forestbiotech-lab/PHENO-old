@@ -58,7 +58,7 @@ module.exports = function(query){
 		  }
 		  catch(err){
 		  	//If call hasn't been add create it
-		  	databaseValues[res.rows[valueKey].dataValues.callName]={call:res.rows[valueKey].dataValues.callName,dataTypes:[],methods:[]};						
+		  	databaseValues[res.rows[valueKey].dataValues.callName]={call:res.rows[valueKey].dataValues.callName,datatypes:[],methods:[]};						
 		  	databaseValues[res.rows[valueKey].dataValues.callName].datatypes.push(res.rows[valueKey].DataTypes_table.dataValues.dataType);		
 		  	databaseValues[res.rows[valueKey].dataValues.callName].methods.push(res.rows[valueKey].Method.dataValues.method);		
 		  }
