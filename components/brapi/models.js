@@ -138,7 +138,7 @@ function getStudiesSearch(attributes){
     return res;
   })
   .catch(function(err){
-    console.log("getStudyGermplasmDetails - Err: "+ err);
+    console.log("getStudySearch - Err: "+ err);
     return err;
   });
 
@@ -195,7 +195,7 @@ function getStudyDetails(attributes){
     return res;
   })
   .catch(function(err){
-    console.log("getStudyGermplasmDetails - Err: "+ err);
+    console.log("getStudyDetails - Err: "+ err);
     return err;
   });
 
@@ -280,8 +280,32 @@ function getImplementedCalls(attributes) {
     }).then(function(res){
         return res;
     }).catch(function(err){
-        console.log("Calls - Err: "+ err);
+        console.log("getImplementedCalls - Err: "+ err);
         return err;
+    });
+}
+
+//Get programs
+function getPrograms(attributes) {
+    return db.Program
+    .findAndCountAll({
+        offset: parseInt(attributes.offset),
+        limit: parseInt(attributes.pageSize)+1,
+        attributes: { 
+          exclude:['id'],
+          include:[
+            ["id","programDbId"]
+          ]
+        },
+        include: [
+          {model:db.Person}
+        ],
+        where:attributes.where
+    }).then(function(res){
+            return res;
+    }).catch(function(err){
+            console.log("getPrograms - Err: "+ err);
+            return err;
     });
 }
 
@@ -295,5 +319,6 @@ module.exports = {
     getStudiesSearch: getStudiesSearch,
     getStudyDetails: getStudyDetails,
     getStudyGermplasmDetails: getStudyGermplasmDetails,
+    getPrograms: getPrograms,
 }
 

@@ -13,6 +13,8 @@ var phenotypesCall = require('./../components/brapi/phenotypesCall');
 var studyGermplsmDetailsCall = require('./../components/brapi/studyGermplsmDetailsCall');
 var studiesSearchCall = require('./../components/brapi/studiesSearchCall');
 var studyDetailsCall = require('./../components/brapi/studyDetailsCall');
+var programsCall = require('./../components/brapi/programsCall');
+
 //------------------- End  -------------------------------
 
 
@@ -252,5 +254,38 @@ router.get('/studies/:studyDbId/germplasm', function(req, res, next){
   })
 });
 
+//list programs
+router.get('/programs', function(req, res, next){
+  var query=req.query;
+  programsCall(req.query).then(function(programsCallRes){
+    res.status(200).json(programsCallRes);
+  }).catch(function(err){
+    var statusCode;
+    try{
+      statusCode=err.metadata.status[0].code;
+    }
+    catch(error){
+      statusCode=500;
+    }
+    res.status(statusCode).json(err);
+  })
+});
+
+//list programs
+router.post('/programs-search', function(req, res, next){
+  var query=req.body;
+  programsCall(req.query).then(function(programsCallRes){
+    res.status(200).json(programsCallRes);
+  }).catch(function(err){
+    var statusCode;
+    try{
+      statusCode=err.metadata.status[0].code;
+    }
+    catch(error){
+      statusCode=500;
+    }
+    res.status(statusCode).json(err);
+  })
+});
 
 module.exports = router;
