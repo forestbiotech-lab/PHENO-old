@@ -78,7 +78,7 @@ module.exports = function(query,options){
           var germplasmDbId=dataValues.germplasmDbId;
     
           if(Object.keys(databaseValues).indexOf(String(germplasmDbId)) == -1){ 
-            databaseValues[germplasmDbId]={synonyms:[],typeOfGermplasmStorageCode:[],donors:[],donorsObj:{},taxonIds:[]};
+            databaseValues[germplasmDbId]={'germplasmDbId':"",synonyms:[],typeOfGermplasmStorageCode:[],donors:[],donorsObj:{},taxonIds:[]};
             databaseValues[germplasmDbId]['germplasmDbId']=(String (germplasmDbId));
           }
           //Species
@@ -123,6 +123,7 @@ module.exports = function(query,options){
           }
           //GermplasmSynonym
           try{
+
             if(databaseValues[germplasmDbId].synonyms.indexOf(dataValues.GermplasmSynonym.dataValues.synonym)==-1){
               databaseValues[germplasmDbId].synonyms.push(dataValues.GermplasmSynonym.dataValues.synonym);          
             }

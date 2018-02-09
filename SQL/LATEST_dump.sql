@@ -435,11 +435,11 @@ DROP TABLE IF EXISTS `GermplasmSynonym`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `GermplasmSynonym` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `germplasmId` int(11) NOT NULL,
   `synonym` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -774,7 +774,7 @@ CREATE TABLE `ObservationUnit` (
   UNIQUE KEY `name` (`name`),
   KEY `ObservationUnit_fk0` (`locationId`),
   CONSTRAINT `ObservationUnit_fk0` FOREIGN KEY (`locationId`) REFERENCES `Location` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -783,6 +783,7 @@ CREATE TABLE `ObservationUnit` (
 
 LOCK TABLES `ObservationUnit` WRITE;
 /*!40000 ALTER TABLE `ObservationUnit` DISABLE KEYS */;
+INSERT INTO `ObservationUnit` VALUES (1,'Whole Plant',1),(2,'Shoot',1),(3,'Root',1);
 /*!40000 ALTER TABLE `ObservationUnit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1309,6 +1310,7 @@ DROP TABLE IF EXISTS `StudyPlant`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `StudyPlant` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `studyObservationUnitId` int(11) DEFAULT NULL,
   `studyPlotId` int(11) NOT NULL,
   `plantNumber` int(11) NOT NULL,
   `germplasmId` int(11) NOT NULL,
@@ -1339,7 +1341,7 @@ DROP TABLE IF EXISTS `StudyPlot`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `StudyPlot` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `studyObservationUnitId` int(11) NOT NULL,
+  `studyObservationUnitId` int(11) DEFAULT NULL,
   `plotNumber` int(11) NOT NULL,
   `blockNumber` int(11) NOT NULL,
   `X` int(11) NOT NULL,
@@ -1348,7 +1350,7 @@ CREATE TABLE `StudyPlot` (
   `plantingDate` date NOT NULL,
   `harvestDate` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1357,6 +1359,7 @@ CREATE TABLE `StudyPlot` (
 
 LOCK TABLES `StudyPlot` WRITE;
 /*!40000 ALTER TABLE `StudyPlot` DISABLE KEYS */;
+INSERT INTO `StudyPlot` VALUES (1,NULL,1,1,1,1,1,'2011-11-01','2011-11-20'),(2,NULL,2,1,2,1,1,'2011-11-01','2011-11-20'),(3,NULL,3,1,3,1,1,'2011-11-01','2011-11-20'),(4,NULL,4,1,4,1,1,'2011-11-01','2011-11-20'),(5,NULL,5,1,5,1,1,'2011-11-01','2011-11-20'),(6,NULL,6,1,6,1,1,'2011-11-01','2011-11-20'),(7,NULL,7,1,7,1,1,'2011-11-01','2011-11-20'),(8,NULL,8,1,1,2,2,'2011-11-01','2011-11-20'),(9,NULL,9,1,2,2,2,'2011-11-01','2011-11-20'),(10,NULL,10,1,3,2,2,'2011-11-01','2011-11-20'),(11,NULL,11,1,4,2,2,'2011-11-01','2011-11-20'),(12,NULL,12,1,5,2,2,'2011-11-01','2011-11-20'),(13,NULL,13,1,6,2,2,'2011-11-01','2011-11-20'),(14,NULL,14,1,7,2,2,'2011-11-01','2011-11-20');
 /*!40000 ALTER TABLE `StudyPlot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1376,7 +1379,7 @@ CREATE TABLE `StudySeason` (
   KEY `StudySeason_fk1` (`seasonId`),
   CONSTRAINT `StudySeason_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study` (`id`),
   CONSTRAINT `StudySeason_fk1` FOREIGN KEY (`seasonId`) REFERENCES `Season` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1385,7 +1388,7 @@ CREATE TABLE `StudySeason` (
 
 LOCK TABLES `StudySeason` WRITE;
 /*!40000 ALTER TABLE `StudySeason` DISABLE KEYS */;
-INSERT INTO `StudySeason` VALUES (1,1,1);
+INSERT INTO `StudySeason` VALUES (1,1,1),(2,1,1);
 /*!40000 ALTER TABLE `StudySeason` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1538,7 +1541,7 @@ CREATE TABLE `TreatmentFactor` (
   `factor` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `factor` (`factor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1547,6 +1550,7 @@ CREATE TABLE `TreatmentFactor` (
 
 LOCK TABLES `TreatmentFactor` WRITE;
 /*!40000 ALTER TABLE `TreatmentFactor` DISABLE KEYS */;
+INSERT INTO `TreatmentFactor` VALUES (1,'Salt Treatment (NaCl)');
 /*!40000 ALTER TABLE `TreatmentFactor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1565,7 +1569,7 @@ CREATE TABLE `TreatmentModality` (
   UNIQUE KEY `modality` (`modality`),
   KEY `TreatmentModality_fk0` (`treatmentFactorId`),
   CONSTRAINT `TreatmentModality_fk0` FOREIGN KEY (`treatmentFactorId`) REFERENCES `TreatmentFactor` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1574,6 +1578,7 @@ CREATE TABLE `TreatmentModality` (
 
 LOCK TABLES `TreatmentModality` WRITE;
 /*!40000 ALTER TABLE `TreatmentModality` DISABLE KEYS */;
+INSERT INTO `TreatmentModality` VALUES (2,1,'None'),(3,1,'6g/L NaCl');
 /*!40000 ALTER TABLE `TreatmentModality` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1616,4 +1621,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-06 18:00:20
+-- Dump completed on 2018-02-07 20:02:10
