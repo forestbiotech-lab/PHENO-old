@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.1.30-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.31-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: brapi_dan
 -- ------------------------------------------------------
--- Server version	10.1.30-MariaDB
+-- Server version	10.1.31-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -696,6 +696,35 @@ LOCK TABLES `MarkerprofileValue` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Method`
+--
+
+DROP TABLE IF EXISTS `Method`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Method` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `class` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `formula` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reference` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `class` (`class`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Method`
+--
+
+LOCK TABLES `Method` WRITE;
+/*!40000 ALTER TABLE `Method` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Method` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Methods`
 --
 
@@ -835,8 +864,8 @@ CREATE TABLE `ObservationVariable` (
   `language` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL,
   `crop` int(11) NOT NULL,
   `traitId` int(11) NOT NULL,
-  `methodId` binary(1) NOT NULL,
-  `scaleId` binary(1) NOT NULL,
+  `methodId` int(11) NOT NULL,
+  `scaleId` int(11) NOT NULL,
   `defaultValue` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
@@ -845,11 +874,15 @@ CREATE TABLE `ObservationVariable` (
   KEY `ObservationVariable_fk2` (`scientist`),
   KEY `ObservationVariable_fk3` (`crop`),
   KEY `ObservationVariable_fk4` (`traitId`),
+  KEY `ObservationVariable_fk5` (`methodId`),
+  KEY `ObservationVariable_fk6` (`scaleId`),
   CONSTRAINT `ObservationVariable_fk0` FOREIGN KEY (`ontologyId`) REFERENCES `Ontology` (`id`),
   CONSTRAINT `ObservationVariable_fk1` FOREIGN KEY (`institution`) REFERENCES `Institution` (`id`),
   CONSTRAINT `ObservationVariable_fk2` FOREIGN KEY (`scientist`) REFERENCES `Person` (`id`),
   CONSTRAINT `ObservationVariable_fk3` FOREIGN KEY (`crop`) REFERENCES `Crop` (`id`),
-  CONSTRAINT `ObservationVariable_fk4` FOREIGN KEY (`traitId`) REFERENCES `Trait` (`id`)
+  CONSTRAINT `ObservationVariable_fk4` FOREIGN KEY (`traitId`) REFERENCES `Trait` (`id`),
+  CONSTRAINT `ObservationVariable_fk5` FOREIGN KEY (`methodId`) REFERENCES `Method` (`id`),
+  CONSTRAINT `ObservationVariable_fk6` FOREIGN KEY (`scaleId`) REFERENCES `Scale` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -900,7 +933,7 @@ CREATE TABLE `Ontology` (
   `accession` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -909,6 +942,7 @@ CREATE TABLE `Ontology` (
 
 LOCK TABLES `Ontology` WRITE;
 /*!40000 ALTER TABLE `Ontology` DISABLE KEYS */;
+INSERT INTO `Ontology` VALUES (1,'http://agr','Rice Ontology'),(2,'http://pur','Trait Ontology');
 /*!40000 ALTER TABLE `Ontology` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1624,4 +1658,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-09 11:47:36
+-- Dump completed on 2018-04-06 17:31:38
