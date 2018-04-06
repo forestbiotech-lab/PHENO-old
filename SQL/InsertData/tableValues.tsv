@@ -1,9 +1,7 @@
-StudyPlant		
-id	integer	Total=528
-studyObservationUnitId	integer	NULL
-studyPlotId	integer	#88,1{8..13}
-plantNumber	integer	#1,1{585..1112}
-germplasmId	integer	#8,1{58,21,30,31,32,33,34,42,43,44,45,58,21,45,46,47,48,49,50,51,52,53,58,21,54,55,56,2,10,11,12,13,15,58,21,17,18,19,20,22,23,24,25,26,58,21,27,28,29,36,37,38,39,40,41,58,21,7,4,5,6,9,3,8,58,1}
-blockNumber	integer	2
-X	integer	#1,66{1..8}
-Y	integer	#8,6{1..11}
+Method		
+id	integer	auto
+name	varchar(50)	Image analysis - Root length using WinRhizo in SITIS platform
+class	varchar(50)	Measurement
+description	text	Scan roots from soil depths of 0-45 cm using CI-600 scanner system associated with the WinRhizo software and calculate root length based on WinRHIZO image analysis. WinRHIZO uses a non-statistical method to calculate total root length from a one pixel thinned image by multiplying the number of pixels by pixel size.
+formula	varchar(50)	NULL
+reference	varchar(50)	Regent Instruments, Win/MacRHIZO V 5.0A Userãs Guide, Regent Instruments, Québec, QC, 2001

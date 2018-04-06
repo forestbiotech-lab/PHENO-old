@@ -23,7 +23,7 @@ values=$(
 query="INSERT INTO $table ($attributes) VALUES (${values});"
 
 
-regex="#[0-9]*,[0-9]*\{[0-9a-zA-Z.,/ @\-]*\}" 
+regex="#[0-9]*,[0-9]*\{[0-9a-zA-Z.,/ @\-\_]*\}" 
 
 #Spaces exchanged for @
 varList=($(echo $query | sed "s: :\@:g" | grep -Eo "${regex}"))
