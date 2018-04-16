@@ -703,13 +703,14 @@ DROP TABLE IF EXISTS `Method`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Method` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `class` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `formula` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reference` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `class` (`class`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -863,9 +864,9 @@ CREATE TABLE `ObservationVariable` (
   `date` date NOT NULL,
   `language` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL,
   `crop` int(11) NOT NULL,
-  `traitId` int(11) NOT NULL,
-  `methodId` int(11) NOT NULL,
-  `scaleId` int(11) NOT NULL,
+  `traitId` varchar(40) NOT NULL,
+  `methodId` varchar(40) NOT NULL,
+  `scaleId` varchar(40) NOT NULL,
   `defaultValue` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
@@ -1052,7 +1053,7 @@ DROP TABLE IF EXISTS `Scale`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Scale` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(40) NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dataTypeId` int(11) NOT NULL,
   `decimalPlaces` int(11) NOT NULL,
@@ -1061,6 +1062,7 @@ CREATE TABLE `Scale` (
   `max` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `id` (`name`),
   KEY `Scale_fk0` (`dataTypeId`),
   CONSTRAINT `Scale_fk0` FOREIGN KEY (`dataTypeId`) REFERENCES `DataType` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1084,7 +1086,7 @@ DROP TABLE IF EXISTS `ScaleCategories`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ScaleCategories` (
   `int` int(11) NOT NULL AUTO_INCREMENT,
-  `scaleId` int(11) NOT NULL,
+  `scaleId` varchar(40) NOT NULL,
   `value` float DEFAULT NULL,
   `category` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`int`),
@@ -1491,7 +1493,7 @@ DROP TABLE IF EXISTS `Trait`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Trait` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `class` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1501,6 +1503,7 @@ CREATE TABLE `Trait` (
   `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `xref` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1523,7 +1526,7 @@ DROP TABLE IF EXISTS `TraitAlternativeAbbreviation`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `TraitAlternativeAbbreviation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `traitId` int(11) NOT NULL,
+  `traitId` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `abbreviation` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `TraitAlternativeAbbreviation_fk0` (`traitId`),
@@ -1549,7 +1552,7 @@ DROP TABLE IF EXISTS `TraitSynonym`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `TraitSynonym` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `traitId` int(11) NOT NULL,
+  `traitId` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `synonym` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `TraitSynonym_fk0` (`traitId`),
