@@ -9,7 +9,7 @@ This is an implementation of BrAPI using [nodeJS](https://nodejs.org/). It is be
 
 <a href="https://nodejs.org/" target="_blank"><img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/nodejs_logo.jpg" height="40px"/></a> implementation which is JavaScript run-time environment.
 
-<a href="http://expressjs.com/" target="_blank"><img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/express_logo.png" height="30px"/></a> is used as the web Framework to structure the routes.
+<a href="http://expressjs.com/" target="_blank"><img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/express_logo.png" height="30px"/></a> is used as the web Framework to routes the calls.
 
 <a href="http://docs.sequelizejs.com" target="_blank"><img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/sequelize_logo.png" height="30px"/></a> a promise-base ORM is used to connect to the database defined in the config.js file.
 
