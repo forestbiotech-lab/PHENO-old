@@ -1,7 +1,5 @@
-Plant breeding API (BrAPI)
-==========================
+<img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/brapi_logo.png" height="50px"/> Plant breeding API
 
-<img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/brapi_logo.png" height="50px"/>
 This is an implementation of BrAPI using [nodeJS](https://nodejs.org/). It is being developed by the Portuguese Node within ELIXIR-EXCELERATE context. 
 
 
