@@ -11,8 +11,9 @@ This is an implementation of BrAPI using [nodeJS](https://nodejs.org/). It is be
 
 <a href="http://expressjs.com/" target="_blank"><img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/express_logo.png" height="30px"/></a> is used as the web Framework to structure the routes.
 
+<a href="http://docs.sequelizejs.com" target="_blank"><img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/sequelize_logo.png" height="30px"/></a> a promise-base ORM is used to connect to the database defined in the config.js file.
 
-[Squelize](http://docs.sequelizejs.com) is used to connect to the the mysql database defined in the config.js file.
+MySQL Database
 
 ## Getting things running
 
