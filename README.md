@@ -1,21 +1,22 @@
 Plant breeding API (BrAPI)
 ==========================
 
-<img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/brapi_logo.png" width="100%"/>
+<img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/brapi_logo.png" height="50px"/>
 This is an implementation of BrAPI using [nodeJS](https://nodejs.org/). It is being developed by the Portuguese Node within ELIXIR-EXCELERATE context. 
 
 
 ## Overview
 
-Implementation done in <img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/nodejs_logo.png" width="100%"/> JavaScript run-time environment
+<a href="https://nodejs.org/" target="_blank"><img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/nodejs_logo.jpg" height="40px"/></a> implementation which is JavaScript run-time environment.
 
+<a href="http://expressjs.com/" target="_blank"><img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/express_logo.png" height="30px"/></a> is used as the web Framework to structure the routes.
 
-Routes are done through [express](http://expressjs.com/)
 
 [Squelize](http://docs.sequelizejs.com) is used to connect to the the mysql database defined in the config.js file.
 
+## Getting things running
 
-## How to install
+### How to install
 
 To install this use must have nodejs and npm installed on your system.
 Once you have nodejs and npm install simply clone this repro and run:
@@ -25,12 +26,7 @@ Once you have nodejs and npm install simply clone this repro and run:
 
 in the main directory.
 
-Once all dependencies by nodejs have been installed you can start the server in dev mode by running, :
-```bash
-    DEBUG=brapi:* npm start 
-```
-
-## Setup database
+### Setup database
 
 This will guide you through installing the mysql server and the database as well as populating it with the test data.
 ```bash
@@ -47,6 +43,18 @@ This will guide you through installing the mysql server and the database as well
 	mysql -p -u [user] -D [database] < [pathToProject]/SQL/TESTdata/sql_dump_[date].sql #this will install the latest db dump	
  
 ```
+
+
+## How to run
+
+Production vs Development
+
+Once all dependencies by nodejs have been installed you can start the server in dev mode by running, :
+```bash
+    DEBUG=brapi:* npm start 
+```
+
+
 
 ## Using the database 
 
@@ -82,7 +90,8 @@ Note: Create a user with limited privileges to query only the necessary tables.
 ##Databases
 Default database scheme being used is fig. 2 while official db architecture isn't done.
 
-<img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/DataBaseMiappe.png" width="100%"/>
+<img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/BrAPI%20data%20model.png" width="100%"/>
+
 Figure 2 - Database scheme being used for testing.
 
 Refer to mysql directory to get creation scripts.
