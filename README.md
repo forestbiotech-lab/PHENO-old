@@ -1,11 +1,11 @@
 <img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/brapi_logo.png" height="50px"/> Plant breeding API
 
-This is an implementation of BrAPI using [nodeJS](https://nodejs.org/). It is being developed by the Portuguese Node within ELIXIR-EXCELERATE context. 
+This is an implementation of [BrAPI](https://brapi.org/) using [nodeJS](https://nodejs.org/). It is being developed by the Portuguese Node within the context of ELIXIR-EXCELERATE. 
 
 
 ## Overview
 
-<a href="https://nodejs.org/" target="_blank"><img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/nodejs_logo.jpg" height="40px"/></a> implementation which is JavaScript run-time environment.
+<a href="https://nodejs.org/" target="_blank"><img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/nodejs_logo.jpg" height="40px"/></a> implementation which is a JavaScript run-time environment.
 
 <a href="http://expressjs.com/" target="_blank"><img src="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/images/express_logo.png" height="30px"/></a> is used as the web Framework to routes the calls.
 
