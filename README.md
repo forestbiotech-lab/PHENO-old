@@ -26,9 +26,9 @@ The following sections detail all the necessary steps to get this project runnin
 To install this project you must have [nodeJS and npm](https://nodejs.org/en/download/package-manager/) installed on your system.
 Once you have nodejs/node and npm available on your system, simply clone this repro and get all the necessary packages:
 ```bash
-	git clone https://github.com/forestbiotech-lab/BrAPI.git #Clone repository
-	cd BrAPI #Enter directory
-    npm install #Install all the necessary node packages
+	$ git clone https://github.com/forestbiotech-lab/BrAPI.git #Clone repository
+	$ cd BrAPI #Enter directory
+    $ npm install #Install all the necessary node packages
 ```
 
 
@@ -38,35 +38,21 @@ This will guide you through installing the mySQL server. Once you have your mySQ
 
 ```bash
 	#Details for ubuntu
-	sudo apt-get update
-	sudo apt-get install mysql-server
-	sudo mysql_secure_installation
+	$ sudo apt-get update
+	$sudo apt-get install mysql-server
+	$ sudo mysql_secure_installation
 	#Setup a new user and permissions
 	#...
 
-	mysql -p -u [user] -D [database] < [pathToProject]/SQL/BrAPI_dan.sql #this will install the empty database
+	$ mysql -p -u [user] -D [database] < [pathToProject]/SQL/BrAPI_dan.sql #this will  install the empty database
 
 	#or
 
-	mysql -p -u [user] -D [database] < [pathToProject]/SQL/LATEST_dump.sql #this will install the latest db dump	
+	$ mysql -p -u [user] -D [database] < [pathToProject]/SQL/LATEST_dump.sql #this will install the latest db dump	
  
 ```
 
-
-## How to run
-
-Production vs Development
-
-Once all dependencies by nodejs have been installed you can start the server in dev mode by running, :
-```bash
-    DEBUG=brapi:* npm start 
-```
-
-It will running on localhost:8080
-
-
-## Using the database 
-
+###### Database credentials
 Configure config_brapi.js or whatever file is setup in components/[schema]/sqldb/index.js
 ```javascript
 	module.exports = {
@@ -89,9 +75,35 @@ Configure config_brapi.js or whatever file is setup in components/[schema]/sqldb
 	  db:'sql' // mongo,sql if you want to use any SQL change dialect above in sql config
 	}
 ```
-Note: Create a user with limited privileges to query only the necessary tables.
+**Note**: Create a user with limited privileges, enable query only to necessary tables and local access only.
 
-## [Adding tables](https://github.com/forestbiotech-lab/BrAPI/tree/master/components)
+##### [Adding tables](https://github.com/forestbiotech-lab/BrAPI/tree/master/components)
+
+## How to run
+Once all dependencies by nodejs have been installed you can start the server in developer mode by running, :
+```bash
+    $ DEBUG=brapi:* npm start 
+```
+
+It should spin up a web server available on localhost: http://127.0.0.1:3000/
+
+You can define alternate address and port with the vars: 
+- port
+- address
+
+```bash
+    $ address=192.168.1.100 port=3333 DEBUG=brapi:* npm start 
+```
+
+
+##### Production vs Development
+If you what to run the Web Server with external access, consider using the production webserver. It will spin up a secure Web Server instead. Change the vars **email** and **domains** in: 
+* PathToBrAPI/bin/www
+
+then run with the mode variable set to PRODUCTION:
+```bash
+    $ mode=PRODUCTION DEBUG=brapi:* npm start 
+```
 
 
 ---------------------------------------------------------------------
@@ -111,6 +123,6 @@ Refer to SQL directory to get creation scripts.
 Currently this implementation is focused on getting the [ELIXIR-Excelerate mandatory calls](https://wiki.brapi.org/index.php/Elixir_Excelerate_phenotyping_data_discovery) up and working. But will soon implement all the calls in the [specification](https://github.com/plantbreeding/API/tree/master/Specification/). 
 
 ## Pagination (TODO)
-#### This section has not been updated
+###### This section has not been updated
 If the response is a single record that doesn't require pagination, then the value for the "pagination" key is the javascript reserved word 'NULL'. When the results are paginated, the pagination object contains the keys "pageSize", "currentPage", "totalCount", "totalPages". The first page will be page 0 (zero).
 
