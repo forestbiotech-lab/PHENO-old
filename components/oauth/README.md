@@ -28,3 +28,23 @@ The second extracts the data from investigation database where investigaionID is
 
 ## Auth server should be separated from Resource server (TODO)
 By this I mean even if it's the same resource the db privileges should be limited to read the access_token table and any other that is necessary. No write permission. "To much?"
+
+
+## Testing
+To test that this is working you can try using a access_token:
+```url 
+localhost:3000/brapi/v1/brapi
+localhost:3000/brapi/v1/investigation/investigationID
+``` 
+
+Getting tokens urls
+```url
+localhost:3000/brapi/v1/token
+localhost:3000/brapi/v1/authenticate
+```
+
+No auth example
+```url 
+localhost:3000/noauth/brapi/v1/investigation/investigationID
+```
+
