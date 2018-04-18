@@ -1,6 +1,3 @@
-//Local parameters
-require('./.env');
-
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -9,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var passport = require('passport');
+var fs = require('fs');
 
 // Declaring Route files
 var api = require('./routes/api');
@@ -16,6 +14,10 @@ var api = require('./routes/api');
 var index = require('./routes/index');
 //var users = require('./routes/users');
 //var study = require('./routes/study');
+
+// redirect stdout / stderr
+if (process.env.mode=="PRODUCTION") process.__defineGetter__('stdout', function() { return fs.createWriteStream('/var/log/brapiServer.log', {flags:'a'}) })
+
 
 var app = express();
 // view engine setup
@@ -25,7 +27,9 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+if (process.env.mode=="PRODUCTION") process.env.log="combined"
+
+app.use(logger(process.env.LOG || 'dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
