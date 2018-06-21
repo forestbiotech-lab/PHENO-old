@@ -273,7 +273,7 @@ CREATE TABLE `StudyObservationVariable` (
 );
 
 CREATE TABLE `Trait` (
-	`id` INT NOT NULL AUTO_INCREMENT,
+	`id` varchar(40) NOT NULL,
 	`name` varchar(100) NOT NULL UNIQUE,
 	`class` varchar(50) NOT NULL,
 	`description` TEXT NOT NULL,
@@ -286,7 +286,7 @@ CREATE TABLE `Trait` (
 );
 
 CREATE TABLE `Method` (
-	`id` INT NOT NULL AUTO_INCREMENT,
+	`id` varchar(40) NOT NULL UNIQUE,
 	`name` varchar(50) NOT NULL UNIQUE,
 	`class` varchar(50) NOT NULL UNIQUE,
 	`description` TEXT NOT NULL,
@@ -310,7 +310,7 @@ CREATE TABLE `ObservationVariableSynonym` (
 );
 
 CREATE TABLE `Scale` (
-	`id` INT NOT NULL AUTO_INCREMENT,
+	`id` VARCHAR(40) NOT NULL,
 	`name` varchar(50) NOT NULL UNIQUE,
 	`dataTypeId` INT NOT NULL,
 	`decimalPlaces` INT NOT NULL,
@@ -324,6 +324,7 @@ CREATE TABLE `ContextOfUse` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`observationVariableId` INT NOT NULL,
 	`studyTypeId` INT NOT NULL,
+	`description` TEXT NOT NULL,
 	PRIMARY KEY (`id`)
 );
 
@@ -372,7 +373,7 @@ CREATE TABLE `StudyObservationUnit` (
 
 CREATE TABLE `Observation` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`observationVariable` INT NOT NULL,
+	`observationVariableId` INT NOT NULL,
 	`operator` INT NOT NULL,
 	`uploadedBy` INT NOT NULL,
 	`plantLevel` BOOLEAN NOT NULL,
@@ -614,7 +615,7 @@ ALTER TABLE `StudyObservationUnit` ADD CONSTRAINT `StudyObservationUnit_fk0` FOR
 
 ALTER TABLE `StudyObservationUnit` ADD CONSTRAINT `StudyObservationUnit_fk1` FOREIGN KEY (`observationUnit`) REFERENCES `ObservationUnit`(`id`);
 
-ALTER TABLE `Observation` ADD CONSTRAINT `Observation_fk0` FOREIGN KEY (`observationVariable`) REFERENCES `ObservationVariable`(`id`);
+ALTER TABLE `Observation` ADD CONSTRAINT `Observation_fk0` FOREIGN KEY (`observationVariableId`) REFERENCES `ObservationVariable`(`id`);
 
 ALTER TABLE `Observation` ADD CONSTRAINT `Observation_fk1` FOREIGN KEY (`operator`) REFERENCES `Person`(`id`);
 

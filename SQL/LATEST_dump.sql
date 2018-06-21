@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.1.31-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.34-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: brapi_dan
 -- ------------------------------------------------------
--- Server version	10.1.31-MariaDB
+-- Server version	10.1.33-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -101,9 +101,10 @@ DROP TABLE IF EXISTS `ContextOfUse`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ContextOfUse` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `observationVariableId` int(11) NOT NULL,
   `studyTypeId` int(11) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `ContextOfUse_fk0` (`observationVariableId`),
   KEY `ContextOfUse_fk1` (`studyTypeId`),
@@ -181,11 +182,11 @@ DROP TABLE IF EXISTS `DataType`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `DataType` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,6 +195,7 @@ CREATE TABLE `DataType` (
 
 LOCK TABLES `DataType` WRITE;
 /*!40000 ALTER TABLE `DataType` DISABLE KEYS */;
+INSERT INTO `DataType` VALUES (1,'float');
 /*!40000 ALTER TABLE `DataType` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -461,13 +463,13 @@ DROP TABLE IF EXISTS `Institution`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Institution` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(20) NOT NULL,
+  `code` varchar(20) DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `locationId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -476,7 +478,7 @@ CREATE TABLE `Institution` (
 
 LOCK TABLES `Institution` WRITE;
 /*!40000 ALTER TABLE `Institution` DISABLE KEYS */;
-INSERT INTO `Institution` VALUES (0,'PHL001','International Rice Research Institute',1),(1,'NULL','ITQB',2),(2,'USA029','National Small Grains Germplasm Research Facility',3),(3,'BEN089','Africa Rice Center',4);
+INSERT INTO `Institution` VALUES (1,NULL,'ITQB',2),(2,'USA029','National Small Grains Germplasm Research Facility',3),(3,'BEN089','Africa Rice Center',4),(4,'PHL001','International Rice Research Institute',1),(5,NULL,'iBET',2);
 /*!40000 ALTER TABLE `Institution` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -703,17 +705,17 @@ DROP TABLE IF EXISTS `Method`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Method` (
-  `id` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(15) NOT NULL AUTO_INCREMENT,
+  `methodId` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
   `class` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `formula` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `reference` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reference` varchar(254) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `name` (`name`),
   UNIQUE KEY `class` (`class`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -722,6 +724,7 @@ CREATE TABLE `Method` (
 
 LOCK TABLES `Method` WRITE;
 /*!40000 ALTER TABLE `Method` DISABLE KEYS */;
+INSERT INTO `Method` VALUES (1,'CO_320:0001226','Image analysis - Root length using WinRhizo in SITIS platform','Measurement','Scan roots from soil depths of 0-45 cm using CI-600 scanner system associated with the WinRhizo software and calculate root length based on WinRHIZO image analysis. WinRHIZO uses a non-statistical method to calculate total root length from a one pixel thinned image by multiplying the number of pixels by pixel size.','NULL','Regent Instruments, Win/MacRHIZO V 5.0A Userãs Guide, Regent Instruments, Québec, QC, 2001');
 /*!40000 ALTER TABLE `Method` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -759,7 +762,7 @@ DROP TABLE IF EXISTS `Observation`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Observation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `observationVariable` int(11) NOT NULL,
+  `observationVariableId` int(11) NOT NULL,
   `operator` int(11) NOT NULL,
   `uploadedBy` int(11) NOT NULL,
   `plantLevel` tinyint(1) NOT NULL,
@@ -768,17 +771,17 @@ CREATE TABLE `Observation` (
   `observationTimeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `value` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `Observation_fk0` (`observationVariable`),
+  KEY `Observation_fk0` (`observationVariableId`),
   KEY `Observation_fk1` (`operator`),
   KEY `Observation_fk2` (`uploadedBy`),
   KEY `Observation_fk3` (`studyPlotId`),
   KEY `Observation_fk4` (`studyPlantId`),
-  CONSTRAINT `Observation_fk0` FOREIGN KEY (`observationVariable`) REFERENCES `ObservationVariable` (`id`),
+  CONSTRAINT `Observation_fk0` FOREIGN KEY (`observationVariableId`) REFERENCES `ObservationVariable` (`id`),
   CONSTRAINT `Observation_fk1` FOREIGN KEY (`operator`) REFERENCES `Person` (`id`),
   CONSTRAINT `Observation_fk2` FOREIGN KEY (`uploadedBy`) REFERENCES `Person` (`id`),
   CONSTRAINT `Observation_fk3` FOREIGN KEY (`studyPlotId`) REFERENCES `StudyPlot` (`id`),
   CONSTRAINT `Observation_fk4` FOREIGN KEY (`studyPlantId`) REFERENCES `StudyPlant` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -787,6 +790,7 @@ CREATE TABLE `Observation` (
 
 LOCK TABLES `Observation` WRITE;
 /*!40000 ALTER TABLE `Observation` DISABLE KEYS */;
+INSERT INTO `Observation` VALUES (1,1,3,3,1,5,369,'2011-11-21 00:00:00','13.5'),(2,1,3,3,1,5,370,'2011-11-21 00:00:00','30.8'),(3,1,3,3,1,5,371,'2011-11-21 00:00:00','29.5'),(4,1,3,3,1,5,372,'2011-11-21 00:00:00','25'),(5,1,3,3,1,5,373,'2011-11-21 00:00:00','25.4');
 /*!40000 ALTER TABLE `Observation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -864,9 +868,9 @@ CREATE TABLE `ObservationVariable` (
   `date` date NOT NULL,
   `language` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL,
   `crop` int(11) NOT NULL,
-  `traitId` varchar(40) NOT NULL,
-  `methodId` varchar(40) NOT NULL,
-  `scaleId` varchar(40) NOT NULL,
+  `traitId` int(15) NOT NULL,
+  `methodId` int(15) NOT NULL,
+  `scaleId` int(15) NOT NULL,
   `defaultValue` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
@@ -884,7 +888,7 @@ CREATE TABLE `ObservationVariable` (
   CONSTRAINT `ObservationVariable_fk4` FOREIGN KEY (`traitId`) REFERENCES `Trait` (`id`),
   CONSTRAINT `ObservationVariable_fk5` FOREIGN KEY (`methodId`) REFERENCES `Method` (`id`),
   CONSTRAINT `ObservationVariable_fk6` FOREIGN KEY (`scaleId`) REFERENCES `Scale` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -893,6 +897,7 @@ CREATE TABLE `ObservationVariable` (
 
 LOCK TABLES `ObservationVariable` WRITE;
 /*!40000 ALTER TABLE `ObservationVariable` DISABLE KEYS */;
+INSERT INTO `ObservationVariable` VALUES (1,'RtL_Win_cm',1,'Vegetative [PO:0007134]','Standard GRISP Pheno','http://archive.gramene.org/db/ontology/search?id=P',0,2,'2016-03-09','EN',0,1,1,1,'NULL');
 /*!40000 ALTER TABLE `ObservationVariable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -966,7 +971,7 @@ CREATE TABLE `Person` (
   UNIQUE KEY `email` (`email`),
   KEY `Person_fk0` (`affiliation`),
   CONSTRAINT `Person_fk0` FOREIGN KEY (`affiliation`) REFERENCES `Institution` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -975,7 +980,7 @@ CREATE TABLE `Person` (
 
 LOCK TABLES `Person` WRITE;
 /*!40000 ALTER TABLE `Person` DISABLE KEYS */;
-INSERT INTO `Person` VALUES (1,'M. Margarida Oliveira','Dra.','Principal Investigator','mmolive@itqb.unl.pt','NULL',1);
+INSERT INTO `Person` VALUES (1,'M. Margarida Oliveira','Dra.','Principal Investigator','mmolive@itqb.unl.pt','0000-0002-0095-1952',1),(2,'Julie Pasuquin','Dr.','Manager, GRiSP','j.pasuquin@irri.org',NULL,0),(3,'Sónia Negrão','Dra.','Project Coordinator','snegrao@itqb.unl.pt','NULL',5);
 /*!40000 ALTER TABLE `Person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1053,7 +1058,8 @@ DROP TABLE IF EXISTS `Scale`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Scale` (
-  `id` varchar(40) NOT NULL,
+  `id` int(15) NOT NULL AUTO_INCREMENT,
+  `scaleId` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dataTypeId` int(11) NOT NULL,
   `decimalPlaces` int(11) NOT NULL,
@@ -1065,7 +1071,7 @@ CREATE TABLE `Scale` (
   UNIQUE KEY `id` (`name`),
   KEY `Scale_fk0` (`dataTypeId`),
   CONSTRAINT `Scale_fk0` FOREIGN KEY (`dataTypeId`) REFERENCES `DataType` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1074,34 +1080,8 @@ CREATE TABLE `Scale` (
 
 LOCK TABLES `Scale` WRITE;
 /*!40000 ALTER TABLE `Scale` DISABLE KEYS */;
+INSERT INTO `Scale` VALUES (1,'CO_320:0001359','centimeter',1,2,'UO:0000015',0,1e18);
 /*!40000 ALTER TABLE `Scale` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ScaleCategories`
---
-
-DROP TABLE IF EXISTS `ScaleCategories`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ScaleCategories` (
-  `int` int(11) NOT NULL AUTO_INCREMENT,
-  `scaleId` varchar(40) NOT NULL,
-  `value` float DEFAULT NULL,
-  `category` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`int`),
-  KEY `ScaleCategories_fk0` (`scaleId`),
-  CONSTRAINT `ScaleCategories_fk0` FOREIGN KEY (`scaleId`) REFERENCES `Scale` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ScaleCategories`
---
-
-LOCK TABLES `ScaleCategories` WRITE;
-/*!40000 ALTER TABLE `ScaleCategories` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ScaleCategories` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1493,7 +1473,8 @@ DROP TABLE IF EXISTS `Trait`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Trait` (
-  `id` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int(15) NOT NULL AUTO_INCREMENT,
+  `traitId` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `class` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1503,9 +1484,8 @@ CREATE TABLE `Trait` (
   `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `xref` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1514,6 +1494,7 @@ CREATE TABLE `Trait` (
 
 LOCK TABLES `Trait` WRITE;
 /*!40000 ALTER TABLE `Trait` DISABLE KEYS */;
+INSERT INTO `Trait` VALUES (1,'CO_320:0001110','Root length','Morphological','Total root length','RtL','Root','Length','NULL','TO:0000227');
 /*!40000 ALTER TABLE `Trait` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1526,7 +1507,7 @@ DROP TABLE IF EXISTS `TraitAlternativeAbbreviation`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `TraitAlternativeAbbreviation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `traitId` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `traitId` int(15) NOT NULL,
   `abbreviation` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `TraitAlternativeAbbreviation_fk0` (`traitId`),
@@ -1552,7 +1533,7 @@ DROP TABLE IF EXISTS `TraitSynonym`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `TraitSynonym` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `traitId` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `traitId` int(15) NOT NULL,
   `synonym` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `TraitSynonym_fk0` (`traitId`),
@@ -1661,4 +1642,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-06 17:31:38
+-- Dump completed on 2018-06-21 16:49:35
