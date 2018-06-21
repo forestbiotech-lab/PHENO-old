@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+## How to use:
+## In id place Total=INT
+## Then use #INT,INT{int..int} (range)
+## Then use #INT,INT{int,int,int} (explicit)
+
+
 table=$(head -1 tableValues.tsv)
 echo $table
 Total=$(grep "Total=" tableValues.tsv | awk -F "Total=" '{print $2}')
@@ -8,7 +14,7 @@ attributes=$(awk -F "\t" '{if( NR>2 ){printf $1","}}' tableValues.tsv | sed -r "
 values=$(
   awk -F "\t" '{
   	if( NR>2){
-  		match($2, "varchar|text|date");
+  		match($2, "varchar|text|date|timestamp");
 		if(RLENGTH>-1){
 			printf "\""$3"\","
 		}else{
