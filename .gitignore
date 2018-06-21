@@ -1,3 +1,6 @@
+#Used to fill tables
+SQL/InsertData/tableValues.tsv
+
 # Logs
 logs
 *.log
