@@ -11,7 +11,7 @@ var https = require('https');
 var lex = require('letsencrypt-express');
 
 var email='brunovasquescosta@gmail.com';
-var domains= [ 'brapi.biodata.pt'];
+var domains= [ 'brapi.ddns.net','www.brapi.ddns.net','brapi.biodata.pt'];
 
 function approveDomains(opts, certs, cb) {
   // This is where you check your database and associated
