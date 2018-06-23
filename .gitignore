@@ -1,5 +1,6 @@
 #Used to fill tables
 SQL/InsertData/tableValues.tsv
+SQL/DB_backup/*
 
 # Logs
 logs
