@@ -3,6 +3,7 @@ var router = express.Router();
 
 var marked = require('marked');
 var fs=require('fs');
+var getOptions=require('./../components/brapi/helpers/getOptions');
 
 ////------------ Call Declaration Galore ----------------------------------
 var germplasmCalls = require('./../components/brapi/germplasmCalls');
@@ -14,7 +15,7 @@ var studyGermplsmDetailsCall = require('./../components/brapi/studyGermplsmDetai
 var studiesSearchCall = require('./../components/brapi/studiesSearchCall');
 var studyDetailsCall = require('./../components/brapi/studyDetailsCall');
 var programsCall = require('./../components/brapi/programsCall');
-
+var observationVariablesCall = require('./../components/brapi/observationVariablesCall');
 //------------------- End  -------------------------------
 
 
@@ -287,5 +288,25 @@ router.post('/programs-search', function(req, res, next){
     res.status(statusCode).json(err);
   })
 });
+
+//ObservationVariablesCall
+router.get('/studies/:studyDbId/observationVariables', function(req, res, next){
+  options=getOptions(req);
+  observationVariablesCall(options).then(function(observationVariablesCallRes){
+    
+    res.status(200).json(observationVariablesCallRes);
+  }).catch(function(err){
+        console.trace("Router observationVariables Get")
+        var statusCode;
+    try{
+      statusCode=err.metadata.status[0].code;
+    }
+    catch(error){
+      statusCode=500;
+    }
+    res.status(statusCode).json(err);
+  })
+})
+
 
 module.exports = router;

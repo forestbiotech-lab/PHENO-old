@@ -309,6 +309,60 @@ function getPrograms(attributes) {
     });
 }
 
+function getObservationVariables(attributes){
+  return db.ObservationVariable
+  .findAndCountAll({
+      offset: parseInt(attributes.offset),
+      limit: parseInt(attributes.pageSize)+1,
+      attributes:{},
+      include: [{
+        model:db.StudyObservationVariable,
+        include: [{
+          model: db.Study,
+          where: attributes.where,
+          include: {
+            model: db.Trial,
+          }
+        }]
+      },{
+        model: db.Crop
+      },{
+        model: db.ContextOfUse
+      },{
+        model: db.Ontology
+      },{
+        model: db.Institution
+      },{
+        model: db.Person
+      },{
+        model: db.ObservationVariableSynonym
+      },{
+        model: db.Trait,
+        include: [{
+          model: db.TraitSynonym
+        },{
+          model: db.TraitAlternativeAbbreviation
+        }]
+      },{
+        model: db.Method
+      },{
+        model: db.Scale,
+        include: [{
+          model: db.DataType
+        },{
+          model: db.ScaleCategory
+        }]
+          
+      }],
+  }).then(function(res){
+        return res;
+  }).catch(function(err){
+        console.log("getObservationVariables - Err: "+ err);
+        return err;
+  })
+
+}
+
 module.exports = {
   //Add all query functions for export below
   //name a function to run one of the functions above
@@ -320,5 +374,6 @@ module.exports = {
     getStudyDetails: getStudyDetails,
     getStudyGermplasmDetails: getStudyGermplasmDetails,
     getPrograms: getPrograms,
+    getObservationVariables: getObservationVariables,
 }
 
