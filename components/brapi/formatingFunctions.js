@@ -23,7 +23,8 @@ function generatePagination(res,query){
 			  currentPage: parseInt(query.page),  //This might produce errors if query var changes after promise resolves. Not sure if this is an issue.
 			  totalCount: res.count,
 			  totalPages: Math.ceil(res.count/query.pageSize) //This must be calculated another call with the same attributes and no limit to count.
-			}		
+			}	
+	console.log();			
 	return result;
 }
 
@@ -50,7 +51,7 @@ function generateJSON(queryData,pagination,code,message){
 		queryData.data != null ? result=queryData : result=result
 		queryData.data == "metadataOnlyRemoveData" ? delete queryData.data : test=1
 	}catch(err){
-		console.log("No queryData");
+		console.trace("No queryData");
 	}
 	//pagination not null and Page requested bigger than total.
 	if(pagination != null && pagination.currentPage > pagination.totalPages ){
