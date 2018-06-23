@@ -897,7 +897,7 @@ CREATE TABLE `ObservationVariable` (
 
 LOCK TABLES `ObservationVariable` WRITE;
 /*!40000 ALTER TABLE `ObservationVariable` DISABLE KEYS */;
-INSERT INTO `ObservationVariable` VALUES (1,'RtL_Win_cm',1,'Vegetative [PO:0007134]','Standard GRISP Pheno','http://archive.gramene.org/db/ontology/search?id=P',0,2,'2016-03-09','EN',0,1,1,1,'NULL');
+INSERT INTO `ObservationVariable` VALUES (1,'RtL_Win_cm',1,'Vegetative [PO:0007134]','Standard GRISP Pheno','http://archive.gramene.org/db/ontology/search?id=P',4,2,'2016-03-09','EN',0,1,1,1,'NULL');
 /*!40000 ALTER TABLE `ObservationVariable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -915,7 +915,7 @@ CREATE TABLE `ObservationVariableSynonym` (
   PRIMARY KEY (`id`),
   KEY `ObservationVariableSynonym_fk0` (`observationVariableId`),
   CONSTRAINT `ObservationVariableSynonym_fk0` FOREIGN KEY (`observationVariableId`) REFERENCES `ObservationVariable` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -924,6 +924,7 @@ CREATE TABLE `ObservationVariableSynonym` (
 
 LOCK TABLES `ObservationVariableSynonym` WRITE;
 /*!40000 ALTER TABLE `ObservationVariableSynonym` DISABLE KEYS */;
+INSERT INTO `ObservationVariableSynonym` VALUES (1,1,'RT-LGth'),(2,1,'RT-LGth2'),(3,1,'RT-LGsssth3');
 /*!40000 ALTER TABLE `ObservationVariableSynonym` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -948,7 +949,7 @@ CREATE TABLE `Ontology` (
 
 LOCK TABLES `Ontology` WRITE;
 /*!40000 ALTER TABLE `Ontology` DISABLE KEYS */;
-INSERT INTO `Ontology` VALUES (1,'http://agr','Rice Ontology'),(2,'http://pur','Trait Ontology');
+INSERT INTO `Ontology` VALUES (1,'CO_320','Rice Ontology'),(2,'TO','Trait Ontology');
 /*!40000 ALTER TABLE `Ontology` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1082,6 +1083,34 @@ LOCK TABLES `Scale` WRITE;
 /*!40000 ALTER TABLE `Scale` DISABLE KEYS */;
 INSERT INTO `Scale` VALUES (1,'CO_320:0001359','centimeter',1,2,'UO:0000015',0,1e18);
 /*!40000 ALTER TABLE `Scale` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ScaleCategory`
+--
+
+DROP TABLE IF EXISTS `ScaleCategory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ScaleCategory` (
+  `id` int(15) NOT NULL AUTO_INCREMENT,
+  `scaleId` int(15) NOT NULL,
+  `value` float DEFAULT NULL,
+  `category` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ScaleCategory_fk0` (`scaleId`),
+  CONSTRAINT `ScaleCategory_fk0` FOREIGN KEY (`scaleId`) REFERENCES `Scale` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ScaleCategory`
+--
+
+LOCK TABLES `ScaleCategory` WRITE;
+/*!40000 ALTER TABLE `ScaleCategory` DISABLE KEYS */;
+INSERT INTO `ScaleCategory` VALUES (1,1,2.2,'min'),(2,1,6.2,'max');
+/*!40000 ALTER TABLE `ScaleCategory` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1306,7 +1335,7 @@ CREATE TABLE `StudyObservationVariable` (
   KEY `StudyObservationVariable_fk1` (`observationVariableId`),
   CONSTRAINT `StudyObservationVariable_fk0` FOREIGN KEY (`studyId`) REFERENCES `Study` (`id`),
   CONSTRAINT `StudyObservationVariable_fk1` FOREIGN KEY (`observationVariableId`) REFERENCES `ObservationVariable` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1315,6 +1344,7 @@ CREATE TABLE `StudyObservationVariable` (
 
 LOCK TABLES `StudyObservationVariable` WRITE;
 /*!40000 ALTER TABLE `StudyObservationVariable` DISABLE KEYS */;
+INSERT INTO `StudyObservationVariable` VALUES (1,1,1);
 /*!40000 ALTER TABLE `StudyObservationVariable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1538,7 +1568,7 @@ CREATE TABLE `TraitSynonym` (
   PRIMARY KEY (`id`),
   KEY `TraitSynonym_fk0` (`traitId`),
   CONSTRAINT `TraitSynonym_fk0` FOREIGN KEY (`traitId`) REFERENCES `Trait` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1547,6 +1577,7 @@ CREATE TABLE `TraitSynonym` (
 
 LOCK TABLES `TraitSynonym` WRITE;
 /*!40000 ALTER TABLE `TraitSynonym` DISABLE KEYS */;
+INSERT INTO `TraitSynonym` VALUES (1,1,'ROOT lenghth'),(2,1,'ROOT len'),(3,1,'len root');
 /*!40000 ALTER TABLE `TraitSynonym` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1642,4 +1673,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-21 16:49:35
+-- Dump completed on 2018-06-23 20:59:33
