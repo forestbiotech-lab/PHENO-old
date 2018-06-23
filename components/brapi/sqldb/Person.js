@@ -26,18 +26,18 @@ module.exports = function(sequelize, DataTypes) {
 
    classMethods: {
       associate: function associate(models) {    
-/*        Person.belongsTo(models.Observation, {
+        Person.belongsTo(models.Observation, {
           foreignKey: 'id',              //on Person
           targetKey: 'operator',  //foreign key  
         });
         Person.belongsTo(models.Observation, {
           foreignKey: 'id',              //on Person
           targetKey: 'uploadedBy',  //foreign key  
-        });*/
-/*        Person.belongsTo(models.ObservationVariable, {
+        });
+        Person.belongsTo(models.ObservationVariable, {
           foreignKey: 'id',              //on Person
           targetKey: 'scientist',  //foreign key  
-        });*/
+        });
         Person.belongsTo(models.Institution, {
           foreignKey: 'affiliation',              //on Person
           targetKey: 'id',  //foreign key  
@@ -46,10 +46,10 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'id',              //on Person
           targetKey: 'leadPerson',  //foreign key  
         });
-/*        Person.belongsTo(models.Sample, {
+        Person.belongsTo(models.Sample, {
           foreignKey: 'id',              //on Person
           targetKey: 'takenBy',  //foreign key  
-        });*/
+        });
         Person.belongsTo(models.StudyContact, {
           foreignKey: 'id',              //on Person
           targetKey: 'contact',  //foreign key  

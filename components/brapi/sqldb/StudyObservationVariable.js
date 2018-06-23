@@ -15,6 +15,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         studyId: DataTypes.INTEGER(11),
         observationVariableId: DataTypes.INTEGER(11),
+
     },{
         tableName: 'StudyObservationVariable',
         timestamps: false,
@@ -28,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
                     targetKey: 'id'
                 });
                 StudyObservationVariable.belongsTo(models.ObservationVariable, {
-                    foreignKey: 'observationVaribleId',  //on this table
+                    foreignKey: 'observationVariableId',  //on this table
                     targetKey: 'id'
                 });
             }
