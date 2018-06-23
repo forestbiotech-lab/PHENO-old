@@ -45,7 +45,7 @@ queryData Object
 - The squelize response Object
 
 pagination Object 
-- Object withh the pagination details Should have 4 keys pageSize,currentPage,totalCount, totalPages or the Object should be null 
+- Object with the pagination details Should have 4 keys pageSize,currentPage,totalCount, totalPages or the Object should be null 
 
 code Int 
 - The number of the http status response message Object containing the message associated with the error produced or null
@@ -66,3 +66,5 @@ Usage:
 	var pagination=fmtFunc.generatePagination(res,query);
 	generateJSON(databaseValues,pagination,200,null)
 
+Unit tests
+https://blog.risingstack.com/node-hero-node-js-unit-testing-tutorial/
