@@ -3,13 +3,17 @@
 ######################################
 # Created by "Bruno Costa"@INESC
 #    2018/02/02
-#
+#   for table in Annotacao Movimentos Mapa_pagamentos Condominios;do Utilities/./createTable.py $table > components/db/sqldb/${table}.js;done
 ######################################
 
 
+import sys
 import re
+
 from operator import itemgetter
-table="Institution"
+if len(sys.argv)==2:
+  table=sys.argv[1]
+
 sqlFile="/home/brunocosta/Downloads/git/BrAPI/SQL/LATEST_dump.sql"
 
 
@@ -62,7 +66,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: true,
     },\n""" %my_dict
 for attribute, datatype in tableAttributes[1::]:
-  attr={'attribute':attribute,'datatype':datatype.replace("int","INTEGER").replace("varchar","STRING").replace("date","DATE").replace("text","STRING")}
+  attr={'attribute':attribute,'datatype':datatype.replace("tinyint","BOOLEAN").replace("timestamp","DATE").replace("int","INTEGER").replace("varchar","STRING").replace("date","DATE").replace("text","STRING").replace("float","FLOAT")}
   result+="    %(attribute)s: DataTypes.%(datatype)s,\n" % attr
 
 result+="""  }, {
