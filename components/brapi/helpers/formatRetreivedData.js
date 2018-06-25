@@ -37,7 +37,6 @@ function getvalueFromNextTable(key,directions,path){
   if (path[table]==null){
     return null
   }
-  
   if(Object.keys(directions).length==2 ){
     if(typeof directions._attribute == "object"){
       return processMultipleAttributes(table,directions,path)
@@ -80,10 +79,12 @@ function determineActionForJSONArray(key,value,path,record){
       if( attributeArray.indexOf(tableValue) == -1 && tableValue!=null) 
         attributeArray.push(tableValue)
     }catch(err){
-      console.log(path)
       console.trace("Error while processing Array values from table ["+value[0]._table+"] - "+err)
     }
   }
+}
+function goToNextTable(table,path){
+  return path[table].dataValues;
 }
 
 function determineActionForJSONObject(key,value,path,record){
@@ -98,7 +99,16 @@ function determineActionForJSONObject(key,value,path,record){
     }
   }
   if(value._table != null && Object.keys(value).length>2){            
+    try{  
       var table=value._table
+      
+      if (typeof table == "object"){
+        for (var i=0; i<(table.length-1); i++){
+          path=goToNextTable(table[i],path)
+          var nextTable=table[i+1];
+        }
+        table=nextTable
+      }
       var record=value
       if (table.startsWith("./")){
         path=path;
@@ -108,8 +118,14 @@ function determineActionForJSONObject(key,value,path,record){
       for (i in Object.keys(value)){
           var _key=Object.keys(value)[i]
           var _value=value[_key]
+          if(_key=="_table"){
+            continue
+          }
           determineActionForKey(_key,_value,path,record)
-    }
+      }
+    }catch(err){
+      console.trace("Error while processing Object(2) values from table ["+value._table+"] - "+err);
+    }  
   }
 }
 
