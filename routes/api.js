@@ -16,6 +16,8 @@ var studiesSearchCall = require('./../components/brapi/studiesSearchCall');
 var studyDetailsCall = require('./../components/brapi/studyDetailsCall');
 var programsCall = require('./../components/brapi/programsCall');
 var observationVariablesCall = require('./../components/brapi/observationVariablesCall');
+var listOfTrailSummaries = require('./../components/brapi/listOfTrailSummaries');
+var locationDetails = require('./../components/brapi/locationDetails');
 //------------------- End  -------------------------------
 
 
@@ -44,14 +46,7 @@ router.get('/', function(req, res, next) {
       listImplementedCalls(req.query).then(function (callsResponse) {
         res.render('brapiV1', { title: 'BrAPI - PT node',host: req.headers.host, readme: marked(data), 'calls':callsResponse.result.data });
       }).catch(function (err) {
-        var statusCode;
-        try{
-          statusCode=err.metadata.status[0].code;
-        }
-        catch(error){
-          statusCode=500;
-        }
-        res.status(statusCode).json(err);
+        resolveError(err);
       })
     });
 });  
@@ -62,14 +57,7 @@ router.get('/germplasm-search', function(req, res, next){
   germplasmCalls(req.query).then(function(germplasmRes){
     res.status(200).json(germplasmRes);
   }).catch(function(err){
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);
+        resolveError(err);
   })
 });
 
@@ -80,14 +68,7 @@ router.get('/germplasm/:id', function(req, res, next){
   germplasmCalls(query).then(function(germplasmRes){
     res.status(200).json(germplasmRes);
   }).catch(function(err){
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);
+        resolveError(err);
   })
 });
 
@@ -98,14 +79,7 @@ router.get('/germplasm/:id/pedigree',function(req,res,next){
   germplasmPedigree(query).then(function(germPedigreeRes){
     res.status(200).json(germPedigreeRes);
   }).catch(function(err){
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);  
+        resolveError(err);
   })
 });
 
@@ -117,14 +91,7 @@ router.get('/crops', function(request, response, next){
     response.status(200).json(cropResponse);
 
   }).catch(function (error) {
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    response.status(statusCode).json(error);
+        resolveError(err);
   })
 
 });
@@ -135,14 +102,7 @@ router.post('/germplasm-search', function(req, res, next){
   germplasmCalls(req.body).then(function(germplasmRes){
     res.status(200).json(germplasmRes);
   }).catch(function(err){
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);
+        resolveError(err);
   })
 });
 
@@ -152,14 +112,8 @@ router.post('/phenotypes-search', function(req, res, next){
   germplasmCalls(req.body).then(function(phenotypesRes){
     res.status(200).json(phenotypesRes);
   }).catch(function(err){
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);
+    
+    resolveError(err);
   })
 });
 
@@ -171,16 +125,8 @@ router.get('/calls', function (req, res, next){
     listImplementedCalls(req.query).then(function (callsResponse) {
       res.status(200).json(callsResponse);
     }).catch(function (err) {
-      var statusCode;
-      try{
-        statusCode=err.metadata.status[0].code;
-      }
-      catch(error){
-        statusCode=500;
-      }
-      res.status(statusCode).json(err);
+        resolveError(err);
     })
-
 });
 
 
@@ -190,14 +136,7 @@ router.get('/studies-search',function(req,res,next){
   studiesSearchCall(query).then(function(studiesSearchCallRes){
     res.status(200).json(studiesSearchCallRes);
   }).catch(function(err){
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);
+      resolveError(err);
   })
 });
 
@@ -206,15 +145,8 @@ router.post('/studies-search',function(req,res,next){
   var query=req.body;
   studiesSearchCall(query).then(function(studiesSearchCallRes){
     res.status(200).json(studiesSearchCallRes);
-  }).catch(function(err){
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);
+  }).catch(function(err){  
+    resolveError(err);
   })
 });
 
@@ -225,14 +157,7 @@ router.get('/studies/:studyDbId', function(req, res, next){
   studyDetailsCall(req.query).then(function(studyDetailsCallRes){
     res.status(200).json(studyDetailsCallRes);
   }).catch(function(err){
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);
+    resolveError(err);
   })
 });
 
@@ -244,14 +169,8 @@ router.get('/studies/:studyDbId/germplasm', function(req, res, next){
   studyGermplsmDetailsCall(req.query).then(function(studyGermplasmDetailsCallRes){
     res.status(200).json(studyGermplasmDetailsCallRes);
   }).catch(function(err){
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);
+
+    resolveError(err);
   })
 });
 
@@ -261,14 +180,8 @@ router.get('/programs', function(req, res, next){
   programsCall(req.query).then(function(programsCallRes){
     res.status(200).json(programsCallRes);
   }).catch(function(err){
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);
+    
+    resolveError(err);
   })
 });
 
@@ -278,35 +191,52 @@ router.post('/programs-search', function(req, res, next){
   programsCall(req.query).then(function(programsCallRes){
     res.status(200).json(programsCallRes);
   }).catch(function(err){
-    var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);
+
+    resolveError(err);
   })
 });
 
-//ObservationVariablesCall
-router.get('/studies/:studyDbId/observationVariables', function(req, res, next){
-  options=getOptions(req);
-  observationVariablesCall(options).then(function(observationVariablesCallRes){
-    
-    res.status(200).json(observationVariablesCallRes);
-  }).catch(function(err){
-        console.trace("Router observationVariables Get")
-        var statusCode;
-    try{
-      statusCode=err.metadata.status[0].code;
-    }
-    catch(error){
-      statusCode=500;
-    }
-    res.status(statusCode).json(err);
-  })
+//listOfTrailSummaries
+router.get('/trials',function(req,res,next){
+  var errMsg="Router listOfTrailSummaries Get - "
+  var call=listOfTrailSummaries
+  console.log("llklk")
+  resolveCall(call,req,res,errMsg);
 })
 
+//ObservationVariablesCall
+router.get('/studies/:studyDbId/observationVariables', function(req, res, next){
+  var errMsg="Router observationVariables Get - "
+  var call=observationVariables
+  resolveCall(call,req,res,errMsg);
+})
+
+//locationDetails
+router.get('/locations/:locationDbId', function(req, res, next){
+  var errMsg="Router locationDetails Get - "
+  var call=locationDetails
+  resolveCall(call,req,res,errMsg);
+})
+
+
+function resolveCall(call,req,res,errMsg){
+  var options=getOptions(req);
+  call(options).then(function(callRes){
+    res.status(200).json(callRes);
+  }).catch(function(err){
+    console.trace(errMsg+err)
+    resolveError(err);
+  })
+}
+function resolveError(err){
+  var statusCode;
+  try{
+    statusCode=err.metadata.status[0].code;
+  }
+  catch(error){
+    statusCode=500;
+  }
+  res.status(statusCode).json(err);  
+}
 
 module.exports = router;
