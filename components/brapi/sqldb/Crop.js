@@ -32,6 +32,11 @@ module.exports = function(sequelize, DataTypes) {
           through: models.Species,
           foreignKey: 'cropId',  //on species
         });
+        Crop.belongsTo(models.ObservationVariable, {
+          foreignKey: 'id',              //on Crop
+          targetKey: 'crop',  //foreign key  
+        });
+
       }
     },
   });
