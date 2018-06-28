@@ -4,6 +4,8 @@
 ## In id place Total=INT
 ## Then use #INT,INT{int..int} (range)
 ## Then use #INT,INT{int,int,int} (explicit)
+## first INT(Repeat each element INT times)
+## second INT(repeat the sequence INT times)
 
 
 table=$(head -1 tableValues.tsv)
