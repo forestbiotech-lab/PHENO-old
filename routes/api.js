@@ -44,7 +44,7 @@ router.get('/', function(req, res, next) {
     //Get README data and render page.
     getReadme().then(function(data){ 
       listImplementedCalls(req.query).then(function (callsResponse) {
-        res.render('brapiV1', { title: 'BrAPI - PT node',host: req.headers.host, readme: marked(data), 'calls':callsResponse.result.data });
+        res.render('brapiV1', { title: 'BrAPI - PT node', protocol: req.protocol, host: req.headers.host, readme: marked(data), 'calls':callsResponse.result.data });
       }).catch(function (err) {
         resolveError(err);
       })
