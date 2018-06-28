@@ -140,22 +140,21 @@ function parseCallStructure(record,dataValues){
 function formatRetreivedData(arg,res){
     var metadata=arg.metadata
     var attribute=arg.attribute
-    var callStructure=arg.callStructure
+    const callStructure=arg.callStructure
     var data={}
-    
+    //console.log(res)    
     for (i in res.rows){
-      var dataValues = res.rows[i].dataValues
-      var uniqueId=dataValues[attribute]
-
+      dataValues = res.rows[i].dataValues
+      uniqueId=dataValues[attribute]
       //Used to secure duplicate rows because of arrays. 
       if(Object.keys(data).indexOf(String(uniqueId)) == -1){ 
-        data[uniqueId]=callStructure
+        data[uniqueId]=Object.assign({},callStructure) 
       }
-
       var record=data[uniqueId];
       parseCallStructure(record,dataValues)
     }
-    cleanUp(data)   
+
+    //cleanUp(data)   
     //Pack objects into array 
     var result=[]
     for(object in data){
@@ -187,7 +186,7 @@ function cleanUpKeys(key,value,record){
 
 function cleanUp(record){
   for (i in Object.keys(record)){
-    console.log(record)
+    //console.log(record)
     var key=Object.keys(record)[i]
     var value=record[key]
     cleanUpKeys(key,value,record)
