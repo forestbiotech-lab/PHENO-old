@@ -10,7 +10,7 @@ module.exports=
   	"longitude": "",
   	"altitude": "",
   	"instituteName": {_table:"Institution",_attributes:"name"},
-  	"instituteAdress": "",
+  	"instituteAdress": "??????",
 	"additionalInfo": 
 	{
 		_table:"LocationAdditionalInfo",

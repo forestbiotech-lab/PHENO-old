@@ -21,7 +21,7 @@ module.exports = function(options){
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   attribute=options.params.locationDbId
   options.where.id=fmtWhereAttr(attribute,"$in") 
-  delete options.params.programDbId;
+  delete options.params.locationDbIdId;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   return controller(options,call,callback)
