@@ -363,6 +363,77 @@ function getObservationVariables(attributes){
 
 }
 
+function listOfTrailSummaries(attributes){
+  return db.Trial
+  .findAndCountAll({
+      offset: parseInt(attributes.offset),
+      limit: parseInt(attributes.pageSize)+1,
+      attributes:{},
+      include: [{
+        model: db.Program
+      },{
+        model: db.Study,
+        include: [{
+          model: db.StudyAdditionalInfo
+        },{
+          model: db.Location
+        }]
+      }]
+  }).then(function(res){
+      return (res)
+  }).catch(function(err){
+      console.log("listOfTrailSummaries - Err: "+ err);
+      return err;
+  })
+}
+
+function locationDetails(attributes){
+  return db.Location
+  .findAndCountAll({
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+    include: [{
+      model: db.Institution
+    },{
+      model: db.LocationAdditionalInfo
+    },{
+      model: db.Country
+    }],
+    where: attributes.where
+  }).then(function(res){
+    return res;
+  }).catch(function(err){
+    console.log("locationDetails - Err: "+ err);
+    return err;
+  })
+}
+
+function listOfProgramsForSpecies(attributes){
+  return db.Species
+  .findAndCountAll({
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+    include: [{
+      model: db.Crop,
+      include: [{
+        model: db.ObservationVariable,
+        include: [{
+          model: db.StudyObservationVariable,
+          include: [{
+            model: db.Study,
+            include: [{
+              model: db.Trial,
+              include: [{
+                model: db.Program
+              }]
+            }]
+          }]
+        }]
+      }]
+    }]    
+  })
+}
+
 module.exports = {
   //Add all query functions for export below
   //name a function to run one of the functions above
@@ -375,5 +446,7 @@ module.exports = {
     getStudyGermplasmDetails: getStudyGermplasmDetails,
     getPrograms: getPrograms,
     getObservationVariables: getObservationVariables,
+    locationDetails: locationDetails,
+    listOfProgramsForSpecies: listOfProgramsForSpecies,
 }
 
