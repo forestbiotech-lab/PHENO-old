@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  p Welcome to #{title}
+  p Text about stuff (Celia Ines).
+  p List of crops:
+  each specie in species
+    p #{specie.genus} #{specie.species}
+    
+  .md !{overviewMD}
+
+
