@@ -7,11 +7,11 @@
 var db = require('./sqldb');
 
 //Break up this file into domains once it gets to big.
-
+var e={}
 
 //getGermplasm call attributes
 //DB call. "where" is used to set up lookup filters 
-function getGermplasm(attributes){
+e.getGermplasm=function(attributes){
   return db.Germplasm
   .findAndCountAll({ 
     offset: parseInt(attributes.offset),
@@ -68,7 +68,7 @@ function getGermplasm(attributes){
 
 //getGermplasm call attributes
 //DB call. "where" is used to set up lookup filters 
-function getGermPedigree(attributes){
+e.getGermPedigree=function(attributes){
   return db.Germplasm
   .findAndCountAll({ 
     offset: parseInt(attributes.offset),
@@ -99,7 +99,7 @@ function getGermPedigree(attributes){
 
 //getStudyGermplasmDetails call attributes
 //DB call. "where" is used to set up lookup filters 
-function getStudiesSearch(attributes){
+e.getStudiesSearch=function(attributes){
   return db.Study
   .findAndCountAll({ 
     offset: parseInt(attributes.offset),
@@ -146,7 +146,7 @@ function getStudiesSearch(attributes){
 
 //getStudyDetails call attributes
 //DB call. "where" is used to set up lookup filters 
-function getStudyDetails(attributes){
+e.getStudyDetails=function(attributes){
   return db.Study
   .findAndCountAll({ 
     offset: parseInt(attributes.offset),
@@ -203,7 +203,7 @@ function getStudyDetails(attributes){
 
 //getStudyGermplasmDetails call attributes
 //DB call. "where" is used to set up lookup filters 
-function getStudyGermplasmDetails(attributes){
+e.getStudyGermplasmDetails=function(attributes){
   return db.StudyGermplasm
   .findAndCountAll({ 
     offset: parseInt(attributes.offset),
@@ -240,7 +240,7 @@ function getStudyGermplasmDetails(attributes){
 
 /* Created by João Cardoso - 11/07/2017
  * Crop Call Implementation - Fetches data from the Crop Table */
-function getCrops(attributes) {
+e.getCrops=function(attributes) {
     return db.Crop
     .findAndCountAll({
         offset: parseInt(attributes.offset),
@@ -256,7 +256,7 @@ function getCrops(attributes) {
 
 /* Created by João Cardoso - 11/07/2017
  * List Implemented Calls Implementation - Fetches data from the Calls Table */
-function getImplementedCalls(attributes) {
+e.getImplementedCalls=function(attributes) {
     return db.Calls
     .findAndCountAll({
         offset: parseInt(attributes.offset),
@@ -286,7 +286,7 @@ function getImplementedCalls(attributes) {
 }
 
 //Get programs
-function getPrograms(attributes) {
+e.getPrograms=function(attributes) {
     return db.Program
     .findAndCountAll({
         offset: parseInt(attributes.offset),
@@ -309,7 +309,7 @@ function getPrograms(attributes) {
     });
 }
 
-function getObservationVariables(attributes){
+e.getObservationVariables=function(attributes){
   return db.ObservationVariable
   .findAndCountAll({
       offset: parseInt(attributes.offset),
@@ -363,7 +363,7 @@ function getObservationVariables(attributes){
 
 }
 
-function listOfTrailSummaries(attributes){
+e.listOfTrailSummaries=function(attributes){
   return db.Trial
   .findAndCountAll({
       offset: parseInt(attributes.offset),
@@ -387,7 +387,7 @@ function listOfTrailSummaries(attributes){
   })
 }
 
-function locationDetails(attributes){
+e.locationDetails=function(attributes){
   return db.Location
   .findAndCountAll({
     offset: parseInt(attributes.offset),
@@ -408,7 +408,7 @@ function locationDetails(attributes){
   })
 }
 
-function listOfProgramsForSpecies(attributes){
+e.listOfProgramsForSpecies=function(attributes){
   return db.Species
   .findAndCountAll({
     offset: parseInt(attributes.offset),
@@ -434,19 +434,4 @@ function listOfProgramsForSpecies(attributes){
   })
 }
 
-module.exports = {
-  //Add all query functions for export below
-  //name a function to run one of the functions above
-    getGermplasm: getGermplasm,
-    getCrops: getCrops,
-    getImplementedCalls: getImplementedCalls,
-    getGermPedigree: getGermplasm, //Is this on purpose? I guess it's not fully implemented yet
-    getStudiesSearch: getStudiesSearch,
-    getStudyDetails: getStudyDetails,
-    getStudyGermplasmDetails: getStudyGermplasmDetails,
-    getPrograms: getPrograms,
-    getObservationVariables: getObservationVariables,
-    locationDetails: locationDetails,
-    listOfProgramsForSpecies: listOfProgramsForSpecies,
-}
-
+module.exports=e
