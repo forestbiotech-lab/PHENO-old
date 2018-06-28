@@ -207,7 +207,7 @@ router.get('/trials',function(req,res,next){
 //ObservationVariablesCall
 router.get('/studies/:studyDbId/observationVariables', function(req, res, next){
   var errMsg="Router observationVariables Get - "
-  var call=observationVariables
+  var call=observationVariablesCall
   resolveCall(call,req,res,errMsg);
 })
 
