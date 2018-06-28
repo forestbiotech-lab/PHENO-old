@@ -14,7 +14,7 @@ block content
     |#{call.dataTypes} 
     strong Methods: 
     |#{call.methods}
-    - urlCall="https:\/\/"+host+"/brapi/v1/"+call.call
+    - urlCall=protocol+":\/\/"+host+"/brapi/v1/"+call.call
     p
     span(style='margin-left:10px;background-color:#ece7e7;color:#1e1e1f;font-size:larger;') url: 
         a(href=urlCall)
