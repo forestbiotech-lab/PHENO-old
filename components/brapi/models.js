@@ -424,7 +424,10 @@ e.listOfProgramsForSpecies=function(attributes){
             include: [{
               model: db.Trial,
               include: [{
-                model: db.Program
+                model: db.Program,
+                include: [{
+                  model: db.Person
+                }]
               }]
             }]
           }]
