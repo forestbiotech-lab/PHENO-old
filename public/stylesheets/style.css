@@ -23,21 +23,6 @@ a{
 	background-color: #EEEEEE;
 	border-bottom: 1px solid #e5e5e5;
 }
-.menu span.menuItem1{
-	position: absolute;
-    bottom: 0px;
-    padding: 10px;
-    font-weight: bold;
-    color: #8c8787;
-}
-.menu span.menuItem1.hover{
-	position: absolute;
-    bottom: 0px;
-    padding: 10px;
-    font-weight: bold;
-    color: white;
-    background-color: #FE9050;
-}
 .content {
 	margin: 40px;
     padding: 30px;
@@ -45,4 +30,44 @@ a{
     border-radius: 3px;
     background-color: white;
     box-shadow: 0px 4px 5px black;
+}
+
+.footer{
+  background: #505659;
+  color: white;
+  padding: 20px;
+  height: 500px;
+  border-top: 5px solid grey;
+}
+
+.footer .incd{
+  background-image: url(/images/INCDlogo.png);
+  background-size:100%;
+  width: 160px;
+  height: 80px;
+  float:left;
+}
+.footer .eu{
+  float:left;
+  width:330px;
+}
+
+.footer .eu .logo{
+  background-image: url(/images/EU_flag_footer.png);
+  width: 160px;
+  height: 60px;
+  float:left;
+  text-align: justify;
+  margin:10px;
+}
+.footer .eu p{
+  font-size: 10px;
+}
+.footer .biodata{
+    background-image: url(/images/biodata_toplogo_79h.png);
+    height: 60px;
+    width:350px;
+    margin:10px;
+    float:left;
+    background-position: center;
 }
