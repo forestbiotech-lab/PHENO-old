@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: true,
     },
+    name: DataTypes.STRING(254),
     name: DataTypes.STRING(50),
     ontologyId: DataTypes.INTEGER(11),
     growthStage: DataTypes.STRING(50),
