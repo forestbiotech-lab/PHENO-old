@@ -1,6 +1,6 @@
 module.exports=
 {
-	"observationVariable":"id",
+	"observationVariable":"observationVariableId",
 	"name":"",
 	"ontologyDbId":{_table:"Ontology",_attribute:"accession"},
 	"ontologyName":{_table:"Ontology",_attribute:"name"},
