@@ -434,6 +434,11 @@ e.listOfProgramsForSpecies=function(attributes){
         }]
       }]
     }]    
+  }).then(function(res){
+    return res;
+  }).catch(function(err){
+    console.log("listOfProgramsForSpecies - Err: "+ err);
+    return err;
   })
 }
 
