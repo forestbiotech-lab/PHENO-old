@@ -13,6 +13,9 @@ function getValueFromTable(key,value,path){
   var column="";
   value.length==0 ? column=key : column=value
   dbValue=path[column]
+  if(dbValue==null || typeof dbValue == "object" ){ // this avoid getting tables in next iteration when values are tables. 
+    return column
+  }
   return dbValue==null ? column : dbValue 
 }
 
@@ -228,8 +231,11 @@ function formatRetreivedData(arg,res){
       }
       parseCallStructure(data[uniqueId],dataValues)
     }
-  
-    //cleanUp(data)   
+    console.l
+    //console.log(data)   
+    cleanUp(data)
+    //console.log(data)   
+
     //Pack objects into array 
     var result=[]
     for(object in data){
@@ -254,7 +260,7 @@ function cleanUpKeys(key,value,record){
 	}
 	if (typeof value == "object"){
 		if(value instanceof Array){
-			cleanUpArray(value)
+			//cleanUpArray(value)
 		}
 		if(value instanceof Object){
 			cleanUp(value)
