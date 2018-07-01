@@ -14,7 +14,7 @@ module.exports = function(options){
 
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  call="getImplementedCalls"
+  call="listCalls"
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //Where logic
   //Do this for each where attribute needed.
