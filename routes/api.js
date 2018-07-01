@@ -19,6 +19,8 @@ var observationVariablesCall = require('./../components/brapi/observationVariabl
 var listOfTrailSummaries = require('./../components/brapi/listOfTrailSummaries');
 var locationDetails = require('./../components/brapi/locationDetails');
 var listAllTraits = require('./../components/brapi/listAllTraits');
+var calls = require('./../components/brapi/calls');
+var listCalls = require('./../components/brapi/listCalls');
 //------------------- End  -------------------------------
 
 
@@ -44,8 +46,15 @@ router.get('/', function(req, res, next) {
     }
     //Get README data and render page.
     getReadme().then(function(data){ 
-      listImplementedCalls(req.query).then(function (callsResponse) {
-        res.render('brapiV1', { title: 'BrAPI - PT node', protocol: req.protocol, host: req.headers.host, readme: marked(data), 'calls':callsResponse.result.data });
+      var options=getOptions(req);
+      calls(options).then(function (callsResponse) {
+        res.render('brapiV1', { 
+          title: 'BrAPI - PT node', 
+          protocol: req.protocol, 
+          host: req.headers.host, 
+          readme: marked(data), 
+          'calls': callsResponse.result.data 
+        });
       }).catch(function (err) {
         resolveError(err);
       })
@@ -122,12 +131,17 @@ router.post('/phenotypes-search', function(req, res, next){
 /*  João Cardoso  - 11/07/2017 
  *  List implemented calls 
 */
+//router.get('/calls', function (req, res, next){
+//    listImplementedCalls(req.query).then(function (callsResponse) {
+//      res.status(200).json(callsResponse);
+//    }).catch(function (err) {
+//        resolveError(err);
+//    })
+//});
 router.get('/calls', function (req, res, next){
-    listImplementedCalls(req.query).then(function (callsResponse) {
-      res.status(200).json(callsResponse);
-    }).catch(function (err) {
-        resolveError(err);
-    })
+  var errMsg="Router Calls Get - "
+  var call=listCalls
+  resolveCall(call,req,res,errMsg);
 });
 
 
@@ -201,7 +215,6 @@ router.post('/programs-search', function(req, res, next){
 router.get('/trials',function(req,res,next){
   var errMsg="Router listOfTrailSummaries Get - "
   var call=listOfTrailSummaries
-  console.log("llklk")
   resolveCall(call,req,res,errMsg);
 })
 

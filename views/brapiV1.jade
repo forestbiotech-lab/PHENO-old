@@ -8,13 +8,13 @@ block content
   p
   p
   each call in calls
-    h4 #{call.call} Call:
+    h4 #{call.name} Call:
     p 
     strong Data types: 
-    |#{call.dataTypes} 
+    |#{call.dataType} 
     strong Methods: 
-    |#{call.methods}
-    - urlCall=protocol+":\/\/"+host+"/brapi/v1/"+call.call
+    |#{call.method}
+    - urlCall=protocol+":\/\/"+host+"/brapi/v1/"+call.path
     p
     span(style='margin-left:10px;background-color:#ece7e7;color:#1e1e1f;font-size:larger;') url: 
         a(href=urlCall)

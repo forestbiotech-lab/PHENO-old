@@ -256,14 +256,11 @@ e.getCrops=function(attributes) {
 
 /* Created by João Cardoso - 11/07/2017
  * List Implemented Calls Implementation - Fetches data from the Calls Table */
-e.getImplementedCalls=function(attributes) {
+e.listCalls=function(attributes) {
     return db.Calls
     .findAndCountAll({
         offset: parseInt(attributes.offset),
         limit: parseInt(attributes.pageSize)+1,
-        attributes: {
-            exclude: ['id'],
-        },
         include: [{
             model: db.Methods,
             attributes: {
@@ -274,7 +271,6 @@ e.getImplementedCalls=function(attributes) {
             attributes: {
                 exclude: ['id',"callId"],
             },
-            where: attributes.where
         }],
 
     }).then(function(res){

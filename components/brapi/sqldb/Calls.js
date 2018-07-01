@@ -12,7 +12,8 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             unique: true
         },
-        callName: DataTypes.STRING(50),
+        name: DataTypes.STRING(254),
+        path: DataTypes.STRING(50),
     },{
         tableName: 'Calls',
         timestamps: false,
