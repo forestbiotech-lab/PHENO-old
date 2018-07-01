@@ -33,6 +33,7 @@ router.get('/', function(req, res, next) {
         species:response.result.data 
       });
       console.log(response.result.data)
+      console.log(response.result.data[1].listPrograms)
     }).catch(function(err){
       console.log(err);
       res.render('brapiOverview', { title: 'BrAPI - PT node',host: req.headers.host, overviewMD: marked(data),crops:crops });

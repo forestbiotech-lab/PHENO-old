@@ -20,7 +20,7 @@ module.exports={
     honorific:{_table:"Person"},
     leadPerson:{_table:"Person",_attribute:"name"}
   },
-  crops:[{
+  listPrograms:[{
     _table:["Crop","ObservationVariable","StudyObservationVariable","Study","Trial"],
     _model:{
       _table:"Trial",
