@@ -78,9 +78,10 @@ DROP TABLE IF EXISTS `Calls`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Calls` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `callName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `path` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +90,7 @@ CREATE TABLE `Calls` (
 
 LOCK TABLES `Calls` WRITE;
 /*!40000 ALTER TABLE `Calls` DISABLE KEYS */;
-INSERT INTO `Calls` VALUES (1,'germplasm-search'),(2,'crops'),(3,'calls'),(4,'germplasm/{id}'),(5,'germplasm/{id}/pedigree'),(6,'studies-search'),(7,'studies/{studyDbId}/germplasm'),(8,'studies/{studyDbId}'),(9,'programs'),(10,'programs-search'),(11,'studies/{studyDbId}/observationVariables');
+INSERT INTO `Calls` VALUES (1,'Germplasm Search','germplasm-search'),(2,'List Crops','crops'),(3,'Calls','calls'),(4,'Germplasm Details by germplasmDbId','germplasm/{id}'),(5,'Germplasm Pedigree','germplasm/{germplasmDbId}/pedigree'),(6,'Search Studies','studies-search'),(7,'Study Germplasm Details','studies/{studyDbId}/germplasm'),(8,'Study Details','studies/{studyDbId}'),(9,'Program List','programs'),(10,'Program Search','programs-search'),(11,'Study Observation variables','studies/{studyDbId}/observationVariables'),(12,'List all Traits','traits'),(13,'List Locations','locations/{locationDbId}');
 /*!40000 ALTER TABLE `Calls` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,7 +212,7 @@ CREATE TABLE `DataTypes` (
   `callId` int(11) NOT NULL,
   `dataType` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -220,7 +221,7 @@ CREATE TABLE `DataTypes` (
 
 LOCK TABLES `DataTypes` WRITE;
 /*!40000 ALTER TABLE `DataTypes` DISABLE KEYS */;
-INSERT INTO `DataTypes` VALUES (1,1,'JSON'),(2,2,'JSON'),(3,3,'JSON'),(4,4,'JSON'),(5,5,'JSON'),(6,6,'JSON'),(7,7,'JSON'),(8,8,'JSON'),(9,9,'JSON'),(10,10,'JSON'),(11,11,'JSON');
+INSERT INTO `DataTypes` VALUES (1,1,'JSON'),(2,2,'JSON'),(3,3,'JSON'),(4,4,'JSON'),(5,5,'JSON'),(6,6,'JSON'),(7,7,'JSON'),(8,8,'JSON'),(9,9,'JSON'),(10,10,'JSON'),(11,11,'JSON'),(12,12,'JSON'),(13,13,'JSON');
 /*!40000 ALTER TABLE `DataTypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -746,7 +747,7 @@ CREATE TABLE `Methods` (
   `callId` int(11) NOT NULL,
   `method` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -755,7 +756,7 @@ CREATE TABLE `Methods` (
 
 LOCK TABLES `Methods` WRITE;
 /*!40000 ALTER TABLE `Methods` DISABLE KEYS */;
-INSERT INTO `Methods` VALUES (1,1,'GET'),(2,2,'GET'),(3,3,'GET'),(4,1,'POST'),(5,4,'GET'),(6,5,'GET'),(7,6,'GET'),(8,6,'POST'),(9,7,'GET'),(10,8,'GET'),(11,9,'GET'),(12,10,'POST'),(13,11,'GET');
+INSERT INTO `Methods` VALUES (1,1,'GET'),(2,2,'GET'),(3,3,'GET'),(4,1,'POST'),(5,4,'GET'),(6,5,'GET'),(7,6,'GET'),(8,6,'POST'),(9,7,'GET'),(10,8,'GET'),(11,9,'GET'),(12,10,'POST'),(13,11,'GET'),(14,12,'GET'),(15,13,'GET');
 /*!40000 ALTER TABLE `Methods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1675,6 +1676,31 @@ LOCK TABLES `Trial` WRITE;
 INSERT INTO `Trial` VALUES (1,'Phenotyping in salt stress',1,'2011-11-01','2011-11-21'),(2,'Cork Quality - Grandola',2,'2015-06-01','2015-07-01'),(3,'Cork Quality - Benavente',2,'2015-06-01','2015-07-01'),(4,'Cork Quality - Montargil',2,'2015-06-01','2015-07-01');
 /*!40000 ALTER TABLE `Trial` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `Version`
+--
+
+DROP TABLE IF EXISTS `Version`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Version` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `callId` int(11) NOT NULL,
+  `version` float NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Version`
+--
+
+LOCK TABLES `Version` WRITE;
+/*!40000 ALTER TABLE `Version` DISABLE KEYS */;
+INSERT INTO `Version` VALUES (1,1,1),(2,2,1),(3,3,1),(4,4,1),(5,5,1),(6,6,1),(7,7,1),(8,8,1),(9,9,1),(10,10,1),(11,11,1),(12,12,1),(13,13,1);
+/*!40000 ALTER TABLE `Version` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1685,4 +1711,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-29 18:15:47
+-- Dump completed on 2018-07-01 22:16:30
