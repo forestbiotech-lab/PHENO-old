@@ -6,15 +6,15 @@ module.exports={
   "startDate": "",
   "endDate"  : "",
   "active" : {_table:"Study"}, 
-  "studies" : [
-      {_table:"Study",_attribute:"studies"},
-      {
-          _table:"Study",
-          "studyDbId" : "id",
-          "studyName" : "name",
-          "locationName" : {_table:"Location"}
-      }
-  ],
+  "studies" : [{
+    _table:"Study",
+    _model:{
+      _table:"Study",
+     "studyDbId" : "id",
+     "studyName" : "name",
+     "locationName" : {_table:"Location",_attribute:"name"}
+    }
+  }],
   "additionalInfo" : {
       _table:["Study","StudyAdditionalInfo"],
       "property1Name" : "propertyName",

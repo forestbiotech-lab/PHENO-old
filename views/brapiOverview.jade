@@ -3,10 +3,25 @@ extends layout
 block content
   p Welcome to #{title}
   p Text about stuff (Celia Ines).
-  p List of crops:
+  p List of Species:
+  - var count=0 
   each specie in species
-    p #{specie.genus} #{specie.species}
-    
+    - count++
+    .card
+      .card-block
+        h5.card-title #{specie.genus} #{specie.species} (#{specie.crop})
+      .card-text
+        div(id=accordion,role="tablist",aria-multiselectable="true")
+          .card
+            .card-header(role="tab",id="headingOne")
+              h5.mb-0 
+                a(data-toggle="collapse",data-parent="#accordion",href="#collapse"+count,arria-expanded="true", aria-controls="collapse"+count) #{specie.program.name}
+            .collapse.show(id="collapse"+count,role="tabpanel",aria-labelledby="heading"+count)    
+              .card-block
+                p Abbreviation: #{specie.program.abbreviation}
+                p Objective: #{specie.program.objective}
+                p LeadPerson: #{specie.program.honorific} #{specie.program.leadPerson}
+
   .md !{overviewMD}
 
 

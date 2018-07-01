@@ -13,6 +13,9 @@ function getValueFromTable(key,value,path){
   var column="";
   value.length==0 ? column=key : column=value
   dbValue=path[column]
+  if(dbValue==null || typeof dbValue == "object" ){ // this avoid getting tables in next iteration when values are tables. 
+    return column
+  }
   return dbValue==null ? column : dbValue 
 }
 
@@ -228,8 +231,8 @@ function formatRetreivedData(arg,res){
       }
       parseCallStructure(data[uniqueId],dataValues)
     }
-  
-    //cleanUp(data)   
+    cleanUp(data)
+
     //Pack objects into array 
     var result=[]
     for(object in data){
@@ -241,16 +244,31 @@ function formatRetreivedData(arg,res){
 ////// |||| END FUNCTION ///////////////
 
 /////!!!! Clean Up /////////////////////////////////////////////////
+function locateObjectsAndFixThem(record){
+  for (i in record){
+    let element=record[i]
+    if(typeof element == "object" && element instanceof Object){
+      let keys=Object.keys(element);
+      if(keys.length==1){
+        record[i]=element[keys[0]]       
+      }
+    }
+  }
+}
 function cleanUpArray(record){
 	if(typeof record[0] == "object")
-		record=record.shift()
+    locateObjectsAndFixThem(record)
+    record=record.shift()
 }
 
 function cleanUpKeys(key,value,record){
-	if( key == "_table" ){
+	if( key == "_table" || key=="_model" ){
 		if (typeof value == "string"){
 			delete record[key]
 		}
+    if (typeof value == "object" && value instanceof Array){
+      delete record[key]
+    }
 	}
 	if (typeof value == "object"){
 		if(value instanceof Array){

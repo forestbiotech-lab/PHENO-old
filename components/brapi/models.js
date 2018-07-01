@@ -434,6 +434,27 @@ e.listOfProgramsForSpecies=function(attributes){
         }]
       }]
     }]    
+  }).then(function(res){
+    return res;
+  }).catch(function(err){
+    console.log("listOfProgramsForSpecies - Err: "+ err);
+    return err;
+  })
+}
+
+e.listAllTraits=function(attributes){
+  return db.Trait
+  .findAndCountAll({
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+    include: [{
+      model: db.ObservationVariable,
+    }]    
+  }).then(function(res){
+    return res;
+  }).catch(function(err){
+    console.log("listAlltraits - Err: "+ err);
+    return err;
   })
 }
 

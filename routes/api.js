@@ -18,6 +18,7 @@ var programsCall = require('./../components/brapi/programsCall');
 var observationVariablesCall = require('./../components/brapi/observationVariablesCall');
 var listOfTrailSummaries = require('./../components/brapi/listOfTrailSummaries');
 var locationDetails = require('./../components/brapi/locationDetails');
+var listAllTraits = require('./../components/brapi/listAllTraits');
 //------------------- End  -------------------------------
 
 
@@ -215,6 +216,13 @@ router.get('/studies/:studyDbId/observationVariables', function(req, res, next){
 router.get('/locations/:locationDbId', function(req, res, next){
   var errMsg="Router locationDetails Get - "
   var call=locationDetails
+  resolveCall(call,req,res,errMsg);
+})
+
+//locationDetails
+router.get('/traits', function(req, res, next){
+  var errMsg="Router listAlltraits Get - "
+  var call=listAllTraits
   resolveCall(call,req,res,errMsg);
 })
 
