@@ -44,6 +44,17 @@ a{
   background-color: #ffffffc7;
 }
 
+.content .logo{
+  background-image: url(/images/pheno-logo.png);
+  width: 170px;
+  height: 150px;
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  float: right;
+  padding-bottom: 10px;
+}
+
 .footer{
   background: #505659;
   color: white;

@@ -1,10 +1,13 @@
 extends layout
 
 block content
+  .logo
   h5 Welcome to #{title}
-  p This is the implementation of the BrAPI endpoint provided by the Portuguese node. This endpoint is focused on woody plants but is open to plant data in general.  
+  .description
+    p This is the implementation of the BrAPI endpoint provided by the Portuguese node of ELIXIR. This endpoint is focused on woody plants but is open to plant data in general. 
+    p &nbsp;  
 
-  p The endpoint contains data on the following species:
+  p PHENO contains data on the following species:
   - var count=0 
   each specie in species
     - count++
