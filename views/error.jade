@@ -1,6 +1,8 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  .error
+    h1= message
+    h2= error.status
+    unless process.env.mode=='PRODUCTION'
+      pre #{error.stack}
