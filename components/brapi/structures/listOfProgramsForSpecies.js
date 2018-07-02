@@ -18,7 +18,8 @@ module.exports={
     abbreviation:"",
     objective: "",
     honorific:{_table:"Person"},
-    leadPerson:{_table:"Person",_attribute:"name"}
+    leadPerson:{_table:"Person",_attribute:"name"},
+    orcid:{_table:"Person"}
   },
   listPrograms:[{
     _table:["Crop","ObservationVariable","StudyObservationVariable","Study","Trial"],

@@ -1,9 +1,10 @@
 extends layout
 
 block content
-  p Welcome to #{title}
-  p Text about stuff (Celia Ines).
-  p List of Species:
+  h5 Welcome to #{title}
+  p This is the implementation of the BrAPI endpoint provided by the Portuguese node. This endpoint is focused on woody plants but is open to plant data in general.  
+
+  p The endpoint contains data on the following species:
   - var count=0 
   each specie in species
     - count++
@@ -20,8 +21,8 @@ block content
               .card-block
                 p Abbreviation: #{specie.program.abbreviation}
                 p Objective: #{specie.program.objective}
-                p LeadPerson: #{specie.program.honorific} #{specie.program.leadPerson}
-
+                p LeadPerson: 
+                  a(href="https://orcid.org/"+specie.program.orcid,target="_blank") #{specie.program.honorific} #{specie.program.leadPerson}
   .md !{overviewMD}
 
 

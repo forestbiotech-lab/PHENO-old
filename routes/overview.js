@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
   getReadme().then(function(data){ 
     programsForSpecies().then(function(response){
       res.render('brapiOverview', { 
-        title: 'BrAPI - PT node',
+        title: 'PHENO the BrAPI PT node endpoint',
         host: req.headers.host, 
         overviewMD: marked(data),
         species:response.result.data 
@@ -36,7 +36,12 @@ router.get('/', function(req, res, next) {
       console.log(response.result.data[1].listPrograms)
     }).catch(function(err){
       console.log(err);
-      res.render('brapiOverview', { title: 'BrAPI - PT node',host: req.headers.host, overviewMD: marked(data),crops:crops });
+      res.render('brapiOverview', { 
+        title: 'PHENO the BrAPI PT node endpoint',
+        host: req.headers.host, 
+        overviewMD: marked(data),
+        crops:crops 
+      });
     })
   });
 });  
