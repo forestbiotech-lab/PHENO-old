@@ -22,10 +22,23 @@ block content
                 a(data-toggle="collapse",data-parent="#accordion",href="#collapse"+count,arria-expanded="true", aria-controls="collapse"+count) #{specie.program.name}
             .collapse.show(id="collapse"+count,role="tabpanel",aria-labelledby="heading"+count)    
               .card-block
-                p Abbreviation: #{specie.program.abbreviation}
-                p Objective: #{specie.program.objective}
-                p LeadPerson: 
-                  a(href="https://orcid.org/"+specie.program.orcid,target="_blank") #{specie.program.honorific} #{specie.program.leadPerson}
+                .container-fluid
+                  .row
+                    .col-md-6
+                      p Abbreviation: 
+                        strong #{specie.program.abbreviation}
+                      p Objective: 
+                        strong #{specie.program.objective}
+                      p LeadPerson: 
+                        strong 
+                          a(href="https://orcid.org/"+specie.program.orcid,target="_blank") #{specie.program.honorific} #{specie.program.leadPerson}
+                    .col-md-6
+                      .trials
+                        h5 Trials:
+                        each trial in specie.listTrials
+                          p #{trial.name}
+                      .publication
+                        a.btn.btn-primary(href=specie.study.publication,target="_blank",tabindex="-1",role="button",aria-disabled="true") Associated Publication
   .md !{overviewMD}
 
 

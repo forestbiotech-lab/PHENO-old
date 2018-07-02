@@ -10,7 +10,8 @@ module.exports={
   study:{
     _table:["Crop","ObservationVariable","StudyObservationVariable","Study"],
     id:"",
-    name:""
+    name:"",
+    publication:{_table:"StudyAdditionalInfo",_attribute:"propertyValue"}
   },
   program:{
     _table:["Crop","ObservationVariable","StudyObservationVariable","Study","Trial","Program"],
@@ -21,6 +22,15 @@ module.exports={
     leadPerson:{_table:"Person",_attribute:"name"},
     orcid:{_table:"Person"}
   },
+  listTrials:[{
+    _table:["Crop","ObservationVariable","StudyObservationVariable","Study","Trial"],
+    _model:{
+      _table:"Trial",
+      name:"",
+      startDate:"",
+      endDate:""
+    }
+  }],
   listPrograms:[{
     _table:["Crop","ObservationVariable","StudyObservationVariable","Study","Trial"],
     _model:{

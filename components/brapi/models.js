@@ -425,6 +425,8 @@ e.listOfProgramsForSpecies=function(attributes){
                   model: db.Person
                 }]
               }]
+            },{
+              model: db.StudyAdditionalInfo
             }]
           }]
         }]
