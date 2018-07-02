@@ -30,7 +30,7 @@ app.set('view engine', 'jade');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 if (process.env.mode=="PRODUCTION") process.env.log="combined"
 
-app.use(logger(process.env.LOG || 'dev'));
+app.use(logger(process.env.log || 'dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
