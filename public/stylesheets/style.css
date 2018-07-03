@@ -53,6 +53,10 @@ a{
   background-repeat: no-repeat;
   float: right;
   padding-bottom: 10px;
+  margin-left: 10px;
+}
+.content .description{
+  text-align: justify;
 }
 
 .footer{
