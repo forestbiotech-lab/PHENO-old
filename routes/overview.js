@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var marked = require('marked');
 var fs=require('fs');
-var programsForSpecies=require('./../components/brapi/listOfProgramsForSpecies')
+var programsForSpecies=require('./../components/brapi/listOfProgramsForSpecies');
+var hash=require('./../SQL/DB');
 //var elixirAuth = require('./../components/oauth/elixir-oauth');
 
 
@@ -30,10 +31,10 @@ router.get('/', function(req, res, next) {
         title: 'PHENO the Portuguese BrAPI endpoint',
         host: req.headers.host, 
         overviewMD: marked(data),
-        species:response.result.data 
+        species:response.result.data,
+        hash:hash.hash 
       });
-      console.log(response.result.data)
-      console.log(response.result.data[1].listPrograms)
+      //console.log(response.result.data)
     }).catch(function(err){
       console.log(err);
       res.render('brapiOverview', { 

@@ -4,8 +4,8 @@ block content
   .logo
   h5 Welcome to #{title}
   .description
-    p This is the implementation of the BrAPI endpoint provided by the Portuguese node of ELIXIR. This endpoint is focused on woody plants but is open to plant data in general. 
-    p &nbsp;  
+    p This is the implementation of the BrAPI endpoint provided by the Portuguese node of ELIXIR. The Breeding API (BrAPI) provides an abstraction from the varying database implementations allowing researches to query plant phenotype/genotype data in a uniform manner. This also enables researches to find data related to their experiments, so they can push the boundaries of scientific knowledge. 
+    p Portugal's main contribution to the ELIXIR project is on the Woody Plants domain. Woody plants are a major natural resource in Europe, with a huge ecological and economical impact, supporting millions of jobs across diverse industries (e.g., wine, fruit, olive oil, coffee, paper, timber, cork) and strongly contributing to the European GDP. In Portugal, woody plants represent 10% of the exports, and are a central research domain in both academia and industry. Elixir Portugal aims to provide data, tools, standards, and training in this domain and thus contribute to build an ELIXIR framework that is of added-value to all woody plant based industries. Therefore this endpoint is focused on woody plants, but is also open to plant data in general.  
 
   p PHENO contains data on the following species:
   - var count=0 
@@ -34,11 +34,18 @@ block content
                           a(href="https://orcid.org/"+specie.program.orcid,target="_blank") #{specie.program.honorific} #{specie.program.leadPerson}
                     .col-md-6
                       .trials
-                        h5 Trials:
-                        each trial in specie.listTrials
-                          p #{trial.name}
+                        table.table.table-hover
+                          thead
+                            tr
+                              th Trials:
+                          tbody    
+                            each trial in specie.listTrials
+                              tr
+                                td #{trial.name}
                       .publication
                         a.btn.btn-primary(href=specie.study.publication,target="_blank",tabindex="-1",role="button",aria-disabled="true") Associated Publication
+  p The current version of the data in this database is #{hash}. Database dumps can be downloaded 
+    a(href="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/SQL/LATEST_dump.sql",target="_blank") here.
   .md !{overviewMD}
 
 
