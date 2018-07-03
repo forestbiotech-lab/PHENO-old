@@ -2,12 +2,15 @@ extends layout
 
 block content
   .logo
-  h5 Welcome to #{title}
+  h5 Welcome to #{title}, an implementation of the Breeding API (
+    a(href="https://brapi.org") BrAPI
+    ) provided by the 
+    a(href="https://biodata.pt/about_elixirpt") Portuguese node of ELIXIR.
   .description
-    p This is the implementation of the BrAPI endpoint provided by the Portuguese node of ELIXIR. The Breeding API (BrAPI) provides an abstraction from the varying database implementations allowing researches to query plant phenotype/genotype data in a uniform manner. This also enables researches to find data related to their experiments, so they can push the boundaries of scientific knowledge. 
-    p Portugal's main contribution to the ELIXIR project is on the Woody Plants domain. Woody plants are a major natural resource in Europe, with a huge ecological and economical impact, supporting millions of jobs across diverse industries (e.g., wine, fruit, olive oil, coffee, paper, timber, cork) and strongly contributing to the European GDP. In Portugal, woody plants represent 10% of the exports, and are a central research domain in both academia and industry. Elixir Portugal aims to provide data, tools, standards, and training in this domain and thus contribute to build an ELIXIR framework that is of added-value to all woody plant based industries. Therefore this endpoint is focused on woody plants, but is also open to plant data in general.  
-
-  p PHENO contains data on the following species:
+    p PHENO aims to provide access to plant phenotypic datasets, with a major focus on the woody plant domain.
+    p Plant phenotyping is central to plant research and breeding and is becoming increasingly throughput, with large amounts of data being generated from diverse experimental settings. Access to phenotypic datasets annotated according to widely accepted standards contributes for data interoperability, enabling powerful genotype-phenotype association studies. 
+    p Woody plants are a major natural resource in Europe, with a huge ecological and economic impact, supporting millions of jobs across diverse industries (e.g., wine, fruit, olive oil, coffee, paper, timber, cork) and strongly contributing to the European GDP. In Portugal, woody plants represent 10% of the exports, and are a central research domain in both academia and industry. The access to datasets provided by PHENO aims to support research and breeding of these species for traits of interest for researchers, producers and industry stakeholders.   
+  p PHENO currently contains data on the following species:
   - var count=0 
   each specie in species
     - count++

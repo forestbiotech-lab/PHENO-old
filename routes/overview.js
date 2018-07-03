@@ -28,17 +28,17 @@ router.get('/', function(req, res, next) {
   getReadme().then(function(data){ 
     programsForSpecies().then(function(response){
       res.render('brapiOverview', { 
-        title: 'PHENO the Portuguese BrAPI endpoint',
+        title: 'PHENO',
         host: req.headers.host, 
         overviewMD: marked(data),
         species:response.result.data,
         hash:hash.hash 
       });
-      //console.log(response.result.data)
+      console.log(response.result.data)
     }).catch(function(err){
       console.log(err);
       res.render('brapiOverview', { 
-        title: 'PHENO the BrAPI PT node endpoint',
+        title: 'PHENO',
         host: req.headers.host, 
         overviewMD: marked(data),
         crops:crops 
