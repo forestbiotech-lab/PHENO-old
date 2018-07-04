@@ -76,16 +76,18 @@ a{
 }
 .footer .eu{
   float:left;
-  width:330px;
+  width:257px;
 }
 
 .footer .eu .logo{
+  background-size: 100%;
   background-image: url(/images/EU_flag_footer.png);
-  width: 160px;
-  height: 60px;
-  float:left;
+  width: 100px;
+  height: 70px;
+  float: left;
   text-align: justify;
-  margin:10px;
+  background-position: center;
+  margin-right: 10px;
 }
 .footer .eu p{
   font-size: 10px;
@@ -97,4 +99,13 @@ a{
     margin:10px;
     float:left;
     background-position: center;
+}
+.footer .excelerate{
+  background-image: url(/images/excelerate-logo.png);
+  background-size: 100%;
+  width: 175px;
+  background-position: center;
+  height: 70px;
+  float: left;
+  background-repeat: no-repeat;
 }

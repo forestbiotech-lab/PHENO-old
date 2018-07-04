@@ -21,6 +21,7 @@ var locationDetails = require('./../components/brapi/locationDetails');
 var listAllTraits = require('./../components/brapi/listAllTraits');
 var calls = require('./../components/brapi/calls');
 var listCalls = require('./../components/brapi/listCalls');
+var phenotypesSearchV1_3 = require('./../components/brapi/v1.3/phenotypesSearch')
 //------------------- End  -------------------------------
 
 
@@ -236,6 +237,13 @@ router.get('/locations/:locationDbId', function(req, res, next){
 router.get('/traits', function(req, res, next){
   var errMsg="Router listAlltraits Get - "
   var call=listAllTraits
+  resolveCall(call,req,res,errMsg);
+})
+
+//phenotypes-search
+router.get('/phenotypes-search', function(req, res, next){
+  var errMsg="Router phenotypes-search Get - "
+  var call=phenotypesSearchV1_3
   resolveCall(call,req,res,errMsg);
 })
 

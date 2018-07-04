@@ -12,9 +12,8 @@ var fs = require('fs');
 var api = require('./routes/api');
 //var noauth = require('./routes/noauth');
 var index = require('./routes/index');
-var overview = require('./routes/overview');
-//var users = require('./routes/users');
-//var study = require('./routes/study');
+var brapi = require('./routes/brapi');
+
 
 // redirect stdout / stderr
 if (process.env.mode=="PRODUCTION") process.__defineGetter__('stdout', function() { return fs.createWriteStream('/var/log/brapiServer.log', {flags:'a'}) })
@@ -45,7 +44,7 @@ app.use(passport.session());
 
 //the default in use
 app.use('/brapi/v1', api);
-app.use('/brapi',  overview)
+app.use('/brapi',  brapi)
 ///---------------------Testing routes------------------------
 //Experiment for no auth
 //app.use('/noauth/brapi/v1', noauth);
