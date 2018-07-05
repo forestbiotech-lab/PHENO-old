@@ -45,15 +45,15 @@ a{
 }
 
 .content .logo{
-  background-image: url(/images/pheno-logo.png);
-  width: 170px;
-  height: 150px;
+  background-image: url(/images/pheno-portrait.png);
+  width: 450px;
+  height: 192px;
   background-position: center;
   background-size: 100%;
   background-repeat: no-repeat;
   float: right;
   padding-bottom: 10px;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 .content .description{
   text-align: justify;
