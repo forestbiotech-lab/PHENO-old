@@ -255,7 +255,7 @@ function formatRetreivedData(arg,res){
       }
       parseCallStructure(data[uniqueId],dataValues)
     }
-    //console.log(data)
+    console.log(data)
     cleanUp(data)
 
     //Pack objects into array 
@@ -270,20 +270,46 @@ function formatRetreivedData(arg,res){
 
 /////!!!! Clean Up /////////////////////////////////////////////////
 function locateObjectsAndFixThem(record){
+  var dynamicKeyOperation=false;
   for (i in record){
     let element=record[i]
     if(typeof element == "object" && element instanceof Object){
       let keys=Object.keys(element);
-      if(keys.length==1){
+      if(keys.length==1){  //check of key is the hash size that will rule out a lot
         record[i]=element[keys[0]]       
+      }
+      element=record[i]
+      keys=Object.keys(element);
+      if(keys.length==3 && element._key!=null && element._value!=null){
+        dynamicKeyOperation=true;
+        if(i==1){
+          let temp={}
+          temp[element._key]=element._value
+          record.push(temp)
+        }
+        if(i>2){
+          let temp=record.pop();
+          if (temp[element._key]==null){
+            temp[element._key]=element._value;
+          }else{
+            temp[element._key]=temp[element._key]+" , "+element._value
+          }
+          record.push(temp)
+        }
       }
     }
   }
+  return dynamicKeyOperation;
 }
 function cleanUpArray(record){
-	if(typeof record[0] == "object")
-    locateObjectsAndFixThem(record)
-    record=record.shift()
+	if(typeof record[0] == "object"){
+    if(locateObjectsAndFixThem(record)){
+      return record.pop()
+    }else{
+      record.shift()
+      return record
+    }
+  }
 }
 
 function cleanUpKeys(key,value,record){
@@ -297,7 +323,7 @@ function cleanUpKeys(key,value,record){
 	}
 	if (typeof value == "object"){
 		if(value instanceof Array){
-			cleanUpArray(value)
+      record[key]=cleanUpArray(value)
 		}
 		if(value instanceof Object){
 			cleanUp(value)
