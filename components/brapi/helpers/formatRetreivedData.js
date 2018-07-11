@@ -48,16 +48,6 @@ function getFilledModel(directions,path){
   return result;
 }
 
-//////////////////////////////////7
-//function transverseMultipleTables(table,path){
-//  for (var i=0; i<(table.length-1); i++){
-//    path=goToNextTable(table[i],path)
-//    var nextTable=table[i+1];
-//  }
-//  return {path:path,table:nextTable}
-//}
-/////////////////////////777
-
 function getvalueFromNextTable(key,directions,path,table){
   var column="";
   if(table==null & typeof directions._table == "object"){
@@ -163,9 +153,7 @@ function determineActionForJSONObject(key,value,path){
   if(value._table != null && Object.keys(value).length==2){ 
     if(value._attribute != null)
       return processSingleValueObject(key,value,path);
-    //if(value._model != null )
-    //  return processSingleValueObject(key,value,path);
-    if(value._attribute == null)// && value._model == null)
+    if(value._attribute == null)
       return processMultiValueObject(key,value,path);
   }
   if(value._table != null && Object.keys(value).length>2){            
@@ -255,9 +243,8 @@ function formatRetreivedData(arg,res){
       }
       parseCallStructure(data[uniqueId],dataValues)
     }
-    console.log(data)
+    //console.log(data)
     cleanUp(data)
-
     //Pack objects into array 
     var result=[]
     for(object in data){
@@ -287,7 +274,7 @@ function locateObjectsAndFixThem(record){
           temp[element._key]=element._value
           record.push(temp)
         }
-        if(i>2){
+        if(i>=2){
           let temp=record.pop();
           if (temp[element._key]==null){
             temp[element._key]=element._value;

@@ -403,6 +403,50 @@ e.locationDetails=function(attributes){
     return err;
   })
 }
+e.phenotypesSearch=function(attributes){
+  return db.Sample
+  .findAndCountAll({
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+    include: [{
+      model: db.StudyPlant,
+      include:[{
+        model: db.Observation,
+        include: [{
+          model: db.Person
+        },{
+          model: db.ObservationVariable,
+          include:[{
+            model: db.StudyObservationVariable,
+            include:[{
+              model: db.Study,
+              include:[{
+                model: db.Trial,
+                include: [{
+                  model: db.Program
+                }]
+              }]
+            }]
+          }]
+        },{
+          model: db.StudyPlot
+        }]
+      },{
+        model: db.StudyObservationUnit,
+        include:[{
+          model: db.ObservationUnit
+        }]        
+      }]
+    },{
+      model: db.Season
+    }]
+  }).then(function(res){
+    return res;
+  }).catch(function(err){
+    console.log("phenotypesSearch - Err: "+ err);
+    return err;
+  })
+}
 
 e.listOfProgramsForSpecies=function(attributes){
   return db.Species
@@ -424,6 +468,8 @@ e.listOfProgramsForSpecies=function(attributes){
                 include: [{
                   model: db.Person
                 }]
+              },{
+                model: db.TrialAdditionalInfo
               }]
             },{
               model: db.StudyAdditionalInfo

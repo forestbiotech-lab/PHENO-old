@@ -4,7 +4,7 @@ block content
   .logo
   h5 Welcome to #{title}, an implementation of the Breeding API (
     a(href="https://brapi.org") BrAPI
-    ) provided by the 
+    |) provided by the 
     a(href="https://biodata.pt/about_elixirpt") Portuguese node of ELIXIR.
   .description
     p PHENO aims to provide access to plant phenotypic datasets, with a major focus on the woody plant domain.
@@ -44,9 +44,10 @@ block content
                           tbody    
                             each trial in specie.listTrials
                               tr
-                                td #{trial.name}
+                                td #{trial.name}  
                       .publication
-                        a.btn.btn-primary(href=specie.study.publication,target="_blank",tabindex="-1",role="button",aria-disabled="true") Associated Publication
+                        a.btn.btn-primary(href=specie.study.trialAdditionalInfo.publication,target="_blank",tabindex="-1",role="button",aria-disabled="true") Associated Publication
+                        a.btn.btn-primary(href=specie.study.trialAdditionalInfo.datalink,target="_blank",tabindex="-1",role="button",aria-disabled="true") Source data
   p The current version of the data in this database is #{hash}. Database dumps can be downloaded 
     a(href="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/SQL/LATEST_dump.sql",target="_blank") here.
   .md !{overviewMD}

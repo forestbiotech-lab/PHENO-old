@@ -32,6 +32,10 @@ module.exports = function(sequelize, DataTypes) {
             foreignKey: 'id',
             targetKey: 'trialId',
         });
+        Trial.belongsTo(models.TrialAdditionalInfo, {
+            foreignKey: 'id',
+            targetKey: 'trialId',
+        });
       }
     },//*/
   });

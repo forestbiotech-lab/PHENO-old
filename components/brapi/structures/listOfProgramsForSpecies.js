@@ -11,7 +11,15 @@ module.exports={
     _table:["Crop","ObservationVariable","StudyObservationVariable","Study"],
     id:"",
     name:"",
-    publication:{_table:"StudyAdditionalInfo",_attribute:"propertyValue"}
+    publication:{_table:"StudyAdditionalInfo",_attribute:"propertyValue"},
+    trialAdditionalInfo: [{
+      _table:["Trial","TrialAdditionalInfo"],
+      _model:{
+        _table:"TrialAdditionalInfo",
+        _key: "propertyName",
+        _value: "propertyValue"
+      }
+    }],
   },
   program:{
     _table:["Crop","ObservationVariable","StudyObservationVariable","Study","Trial","Program"],
@@ -28,7 +36,15 @@ module.exports={
       _table:"Trial",
       name:"",
       startDate:"",
-      endDate:""
+      endDate:"",
+      trialAdditionalInfo: [{
+        _table:"TrialAdditionalInfo",
+        _model:{
+          _table:"TrialAdditionalInfo",
+          _key: "propertyName",
+          _value: "propertyValue"
+        }
+      }],
     }
   }],
   listPrograms:[{
@@ -37,10 +53,11 @@ module.exports={
       _table:"Trial",
       name:"",
       startDate:"",
-      endDate: "",
+      endDate: ""      
     }
   }],
   programs:[
     {_table:["Crop","ObservationVariable","StudyObservationVariable","Study","Trial","Program"],_attribute:"name"}
   ]
+
 }
