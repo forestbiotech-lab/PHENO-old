@@ -36,15 +36,7 @@ module.exports={
       _table:"Trial",
       name:"",
       startDate:"",
-      endDate:"",
-      trialAdditionalInfo: [{
-        _table:"TrialAdditionalInfo",
-        _model:{
-          _table:"TrialAdditionalInfo",
-          _key: "propertyName",
-          _value: "propertyValue"
-        }
-      }],
+      endDate:""
     }
   }],
   listPrograms:[{
