@@ -36,6 +36,10 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'id',              //on StudyPlot
           targetKey: 'studyPlotId',  //foreign key  
         }); 
+        StudyPlot.belongsTo(models.StudyObservationUnit, {
+          foreignKey: 'studyObservationUnitId',              //on StudyPlant
+          targetKey: 'id',  //foreign key  
+        }); 
       }
     },
   });

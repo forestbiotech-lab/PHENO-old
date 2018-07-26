@@ -121,7 +121,7 @@ Creating an object with a dynamic key
 
 This will produce the following 
 
-Intermediary Result (cleanUpArray)
+Intermediary Result (cleanUpArray)	
 ```
 {
 	key1:[

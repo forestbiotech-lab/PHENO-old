@@ -30,6 +30,14 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'observationUnit',              //on StudyObservationUnit
           targetKey: 'id',  //foreign key  
         }); 
+        StudyObservationUnit.belongsTo(models.StudyPlant, {
+          foreignKey: 'id',              //on StudyObservationUnit
+          targetKey: 'studyObservationUnitId',  //foreign key  
+        });
+        StudyObservationUnit.belongsTo(models.StudyPlot, {
+          foreignKey: 'id',              //on StudyObservationUnit
+          targetKey: 'studyObservationUnitId',  //foreign key  
+        });  
       }
     },
   });

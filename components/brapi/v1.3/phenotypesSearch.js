@@ -2,10 +2,10 @@
  * Created by Bruno Costa on 20-06-2018.
  */
 
-var fmtWhereAttr = require('./helpers/formatWhereAttribute');
-var controller = require('./controllers/callController');
+var fmtWhereAttr = require('./../helpers/formatWhereAttribute');
+var controller = require('./../controllers/callController');
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-var callStructure = require('./structures/listAllTraits');
+var callStructure = require('./../structures/phenotypeSearch');
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 module.exports = function(options){
@@ -14,12 +14,16 @@ module.exports = function(options){
 
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  call="listAllTraits"
+  call="phenotypesSearch"
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //Where logic
   //Do this for each where attribute needed.
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+  attribute=options.params.germplasmDbId
+  var value=fmtWhereAttr(attribute,"$in")
+  if ( value != null )
+    options.where.id=value 
+  delete options.params.germplasmDbId;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   return controller(options,call,callback)
@@ -36,5 +40,3 @@ function callback(res){
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   return {metadata:metadata,attribute:attribute,callStructure:callStructure};
 }
-
-

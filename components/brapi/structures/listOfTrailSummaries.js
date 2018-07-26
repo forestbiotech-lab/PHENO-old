@@ -15,10 +15,13 @@ module.exports={
      "locationName" : {_table:"Location",_attribute:"name"}
     }
   }],
-  "additionalInfo" : {
+  "additionalInfo" : [{
       _table:["Study","StudyAdditionalInfo"],
-      "property1Name" : "propertyName",
-      "property2Name" : "propertyName",
-      "property3Name" : "propertyValue"
-  }
+      _model:{
+        _table:"StudyAdditionalInfo",
+        _key: "propertyName",
+        _value : "propertyValue"
+      }
+    }
+  ]
 }
