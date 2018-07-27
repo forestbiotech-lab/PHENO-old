@@ -34,9 +34,9 @@ router.get('/', function(req, res, next) {
         species:response.result.data,
         hash:hash.hash 
       });
-      console.log(response.result.data)
+      //console.log(response.result.data)
     }).catch(function(err){
-      console.log(err);
+      console.log("/index: "+err);
       res.render('pheno', { 
         title: 'PHENO',
         host: req.headers.host, 
