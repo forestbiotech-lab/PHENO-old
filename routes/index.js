@@ -48,6 +48,9 @@ router.get('/', function(req, res, next) {
   });
 });  
 
+router.get('/areyouup', function(req, res, next) {
+  res.json('yes');
+});
 
 /*router.get('/login',function(req,res,next){
   res.render('login');
