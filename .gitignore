@@ -1,6 +1,8 @@
 #Used to fill tables
 SQL/InsertData/*.tsv
+
 SQL/DB_backup/
+
 SQL/TESTdata/brapiTS
 
 
