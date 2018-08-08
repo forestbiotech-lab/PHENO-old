@@ -38,7 +38,7 @@ module.exports={
       startDate:"",
       endDate:""
     }
-  }],
+  } ],
   listPrograms:[{
     _table:["Crop","ObservationVariable","StudyObservationVariable","Study","Trial"],
     _model:{
