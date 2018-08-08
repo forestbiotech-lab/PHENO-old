@@ -1,0 +1,130 @@
+.sidePanel{
+	position: absolute;
+	left: 0px;
+	background-color: green;
+	width: 25px;
+	border-top-right-radius: 20px;  
+	border-bottom-right-radius: 20px;
+	border-right: 2px solid #000000a1;
+    border-bottom: 2px solid #000000a1;
+    border-top: 2px solid #000000a1;
+    background-color: #c9d0c9;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden
+}
+
+.tableShortcut{
+	display: table;
+	vertical-align: middle;
+	table-layout: fixed;
+	overflow: hidden;
+	height: 50px;
+	width: 290px;
+    border-right: 2px solid #827979;
+    border-top: 2px solid #827979;
+    border-bottom: 2px solid #827979;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #fb816d;
+}
+.tableShortcut .text{
+	
+	display: table-cell; 
+	vertical-align: middle;
+	font-weight: bolder;
+	text-overflow: clip;
+	color: white;
+	text-decoration-color: black;
+	font-size: 22px;
+}
+
+.sidePanel:hover, .tableShortcut:hover{
+	width:300px;
+	text-align: center
+}
+
+.tableShortcut.institution{
+	display:grid;
+	grid-template-rows: repeat(4,20px); 
+	grid-template-columns: 290px 35px 95px; 
+}
+.tableShortcut.institution .sub{
+	display: table-cell; 
+	vertical-align: middle;
+	font-weight: bolder;
+	text-overflow: clip;
+	color: white;
+	text-decoration-color: black;
+	font-size: 22px;
+}
+.tableShortcut.institution  .sub-main{
+	grid-row: 1 / 4;
+	grid-column: 1;	
+	padding-top: 6px;
+}
+.tableShortcut.institution  .sub-as{
+	grid-row: 2 / 3;
+	grid-column: 2;
+	font-size: 20px;
+	text-align: left
+}
+.tableShortcut.institution  .sub-sub{
+	grid-column: 3;
+	font-size: 12px;
+	text-align: left;
+	border-bottom:1px dotted grey;
+}
+.tableShortcut.institution .sub-sub:nth(1){
+	grid-row:1;
+}
+.tableShortcut.institution:hover{
+	height:80px;
+	grid-template-columns: 140px 35px 115px; 
+}
+.tableShortcut.institution .sub-sub:hover{
+	color:black; 
+}
+
+
+.tableShortcut.person{
+	display:grid;
+	grid-template-rows: repeat(5,20px); 
+	grid-template-columns: 290px 35px 95px; 
+}
+.tableShortcut.person .sub{
+	display: table-cell; 
+	vertical-align: middle;
+	font-weight: bolder;
+	text-overflow: clip;
+	color: white;
+	text-decoration-color: black;
+	font-size: 22px;
+}
+.tableShortcut.person  .sub-main{
+	grid-row: 1 / 5;
+	grid-column: 1;	
+	padding-top: 6px;
+}
+.tableShortcut.person  .sub-as{
+	grid-row: 2 / 4;
+	grid-column: 2;
+	font-size: 20px;
+	text-align: left
+}
+.tableShortcut.person  .sub-sub{
+	grid-column: 3;
+	font-size: 12px;
+	text-align: left;
+	border-bottom:1px dotted grey;
+}
+.tableShortcut.person .sub-sub:nth(1){
+	grid-row:1;
+}
+.tableShortcut.person:hover{
+	height:100px;
+	grid-template-columns: 140px 35px 115px; 
+}
+.tableShortcut.person .sub-sub:hover{
+	color:black; 
+}

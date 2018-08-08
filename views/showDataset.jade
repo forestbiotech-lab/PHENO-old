@@ -1,0 +1,26 @@
+extends layout
+
+block content
+	include includes/leftsidePanel.jade
+	h4(style="text-align:center;font-weight:bold") Program
+	table.table.table-hover
+		thead
+			each item, index in result.data[0].headers
+				th=item
+		tbody
+			each program, i in result.data
+				tr
+					//each item, j in program
+					each header in program.headers
+						td=program[header]
+	h4(style="text-align:center;font-weight:bold") Trial
+	table.table.table-hover
+		thead
+			each item, index in result.data[0].Trial[0].headers
+				th=item
+		tbody
+			each trial, i in result.data[0].Trial
+				tr
+					//each item, j in program
+					each header in trial.headers
+						td=trial[header]	

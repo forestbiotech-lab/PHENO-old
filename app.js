@@ -13,6 +13,7 @@ var api = require('./routes/api');
 //var noauth = require('./routes/noauth');
 var index = require('./routes/index');
 var brapi = require('./routes/brapi');
+var datasets = require('./routes/datasets');
 
 
 // redirect stdout / stderr
@@ -44,13 +45,13 @@ app.use(passport.session());
 
 //the default in use
 app.use('/brapi/v1', api);
+app.use('/brapi/datasets',  datasets)
 app.use('/brapi',  brapi)
 ///---------------------Testing routes------------------------
 //Experiment for no auth
 //app.use('/noauth/brapi/v1', noauth);
 app.use('/', index);
-//app.use('/users', users);
-//app.use('/study', study);
+//app.use('/users', users)
 /// ------------------End testing routes----------------------
 
 
