@@ -3,7 +3,9 @@ var router = express.Router();
 
 var marked = require('marked');
 var fs=require('fs');
-var getOptions=require('./../components/brapi/helpers/getOptions');
+var resolveHelper = require('./../components/brapi/helpers/resolveHelper');
+var resolveCall=resolveHelper.resolveCall
+var getOptions = require('./../components/brapi/helpers/getOptions');
 
 ////------------ Call Declaration Galore ----------------------------------
 var germplasmCalls = require('./../components/brapi/germplasmCalls');
@@ -248,24 +250,6 @@ router.get('/phenotypes-search', function(req, res, next){
 })
 
 
-function resolveCall(call,req,res,errMsg){
-  var options=getOptions(req);
-  call(options).then(function(callRes){
-    res.status(200).json(callRes);
-  }).catch(function(err){
-    console.trace(errMsg+err)
-    resolveError(err);
-  })
-}
-function resolveError(err){
-  var statusCode;
-  try{
-    statusCode=err.metadata.status[0].code;
-  }
-  catch(error){
-    statusCode=500;
-  }
-  res.status(statusCode).json(err);  
-}
+
 
 module.exports = router;
