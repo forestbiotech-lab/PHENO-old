@@ -48,3 +48,4 @@ jspm_packages
 .env
 config.js
 config_res.js
+.config_db.js
