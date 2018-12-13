@@ -49,3 +49,7 @@ jspm_packages
 config.js
 config_res.js
 .config_db.js
+
+
+# Python Things to ignore
+Utilities/__pycache__/
