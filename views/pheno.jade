@@ -12,18 +12,17 @@ block content
     p Woody plants are a major natural resource in Europe, with a huge ecological and economic impact, supporting millions of jobs across diverse industries (e.g., wine, fruit, olive oil, coffee, paper, timber, cork) and strongly contributing to the European GDP. In Portugal, woody plants represent 10% of the exports, and are a central research domain in both academia and industry. The access to datasets provided by PHENO aims to support research and breeding of these species for traits of interest for researchers, producers and industry stakeholders.   
   p PHENO currently contains data on the following species:
   - var count=0 
-  each specie in species
-    - count++
+  each specie, count in species
     .card
-      .card-block
+      .card-body
         h5.card-title #{specie.genus} #{specie.species} (#{specie.crop})
       .card-text
-        div(id=accordion,role="tablist",aria-multiselectable="true")
+        div.accordion(id="accordionSpecies")
           .card
-            .card-header(role="tab",id="headingOne")
+            .card-header(id="heading"+count)
               h5.mb-0 
-                a(data-toggle="collapse",data-parent="#accordion",href="#collapse"+count,arria-expanded="true", aria-controls="collapse"+count) #{specie.program.name}
-            .collapse.show(id="collapse"+count,role="tabpanel",aria-labelledby="heading"+count)    
+                button.btn.btn-link(type="button",data-toggle="collapse",data-target="#collapse"+count,arria-expanded="true",aria-controls="collapse"+count) #{specie.program.name}
+            .collapse(id="collapse"+count,aria-labelledby="heading"+count,data-parent="#accordionSpecies")    
               .card-block
                 .container-fluid
                   .row
