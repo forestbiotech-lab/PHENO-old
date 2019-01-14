@@ -87,7 +87,7 @@ def generateTable(table,output):
         unique: true,
       },\n""" %my_dict
   for attribute, datatype in tableAttributes[1::]:
-    attr={'attribute':attribute,'datatype':datatype.replace("int","INTEGER").replace("varchar","STRING").replace("date","DATE").replace("text","STRING").replace("float","FLOAT")}
+    attr={'attribute':attribute,'datatype':datatype.replace("tinyint","BOOLEAN").replace("int","INTEGER").replace("varchar","STRING").replace("date","DATE").replace("text","STRING").replace("float","FLOAT").replace("timestamp","DATE")}
     result+="    %(attribute)s: DataTypes.%(datatype)s,\n" % attr
 
   result+="""  }, {
