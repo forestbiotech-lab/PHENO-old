@@ -9,7 +9,10 @@ var passport = require('passport');
 var fs = require('fs');
 
 // Declaring Route files
-var api = require('./routes/api');
+var api= {
+	v1:require('./routes/api'),
+	v1_3:require('./routes/api_v1.3'),
+}
 //var noauth = require('./routes/noauth');
 var index = require('./routes/index');
 var brapi = require('./routes/brapi');
@@ -44,7 +47,8 @@ app.use(passport.session());
 //Routing to specific route files depending on the incomming url.
 
 //the default in use
-app.use('/brapi/v1', api);
+app.use('/brapi/v1', api.v1);
+app.use('/brapi/v1.3', api.v1_3);
 app.use('/brapi/datasets',  datasets)
 app.use('/brapi',  brapi)
 ///---------------------Testing routes------------------------
