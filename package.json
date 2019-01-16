@@ -3,11 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "npm run test-unit",
+    "test-unit": "NODE_ENV=test mocha 'components/**/*.spec.js'"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
     "cookie-parser": "~1.4.3",
     "dateformat": "^2.0.0",
     "debug": "^4.1.1",
@@ -34,6 +37,10 @@
     "pug": "^2.0.0-beta6",
     "request": "^2.87.0",
     "sequelize": "^4.42.0",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "sinon": "^7.2.2"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
