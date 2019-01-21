@@ -4,8 +4,14 @@
 *
 * Used to format the values extracted from the database
 * 
+*  Path - is the datavalues from DB
+*  Record - Is the structure, basically what is stored.  
+*  key    - is the key of an element in the Record. In the simplest case the element will be an object with a key and a value.
+*  value  - is the value of the key that belongs to an element of the record.
 */
-var debug = require('debug')('brapi:server');
+var debug = require('debug')
+var debug_std = debug('brapi:server');
+var debug_full= debug('brapi:trace');
 var hash = require('object-hash');
 
 
@@ -48,8 +54,15 @@ function getFilledModel(directions,path){
   return result;
 }
 
+function specialTables(){
+
+} 
 function getvalueFromNextTable(key,directions,path,table){
   var column="";
+  specialTables=["ObservationUnit", "Sample", "Plot", "Plant"]
+  if(specialTables.includes(table)){
+
+  }
   if(table==null & typeof directions._table == "object"){
     let result=transverseMultipleTables(directions._table,path);
     path=result.path;
@@ -87,7 +100,7 @@ function determinActionForJSONinstance(key,value,path){
   if( value instanceof Array){
     return determineActionForJSONArray(key,value,path)    
   }
-  if( value instanceof Object){
+  if( value instanceof Object){ 
     return determineActionForJSONObject(key,value,path)
   }
 }
@@ -116,11 +129,12 @@ function determineActionForJSONArray(key,array,path){
       }
     }catch(err){
       if(err instanceof TypeError && err.message=="Cannot read property 'dataValues' of null"){
-        //Fix it Not working????
-        debug(err)
+        debug_std(err)
+        if (debug_full.enabled) debug_full(console.trace(err))
         return array
       }else{
-        console.trace("Error while processing Array values from table ["+value[0]._table+"] - "+err)
+        debug_std("Error while processing Array values from table ["+value[0]._table+"] - "+err)
+        if (debug_full.enabled) debug_full(console.trace("Error while processing Array values from table ["+value[0]._table+"] - "+err))
         return array
       }
     }
@@ -166,7 +180,8 @@ function processSingleValueObject(key,value,path){
     var directions=value
     return getvalueFromNextTable(key,directions,path)
   }catch(err){
-    console.trace("Error while processing Object values from table ["+value._table+"] - "+err);
+    debug_std("Error while processing Object values from table ["+value._table+"] - "+err);
+    if (debug_full.enabled) debug_full(console.trace("Error while processing Object values from table ["+value._table+"] - "+err));
     return null;
   }
 }
@@ -193,10 +208,12 @@ function processMultiValueObject(key,value,path){
   }catch(err){
     if(err instanceof TypeError && err.message=="Cannot read property 'dataValues' of null"){
       //Fix it Not working
-      debug(err)
+      debug_std(err)
+      debug_full(err)
       return value
     }else{
-      console.trace("Error while processing Object(2) values from table ["+value._table+"] - "+err);
+      debug_std("Error while processing Object(2) values from table ["+value._table+"] - "+err);
+      debug_full(console.trace("Error while processing Object(2) values from table ["+value._table+"] - "+err));
       return value
     }
   }  
@@ -233,7 +250,6 @@ function formatRetreivedData(arg,res){
     var attribute=arg.attribute
     const callStructure=arg.callStructure
     var data={}
-
     for (i in res.rows){
       var dataValues = res.rows[i].dataValues
       uniqueId=dataValues[attribute]
@@ -241,9 +257,10 @@ function formatRetreivedData(arg,res){
       if(Object.keys(data).indexOf(String(uniqueId)) == -1){ 
         data[uniqueId]=JSON.parse(JSON.stringify(callStructure)); //need a deep copy
       }
+
       parseCallStructure(data[uniqueId],dataValues)
     }
-    //console.log(data)
+    
     cleanUp(data)
     //Pack objects into array 
     var result=[]
