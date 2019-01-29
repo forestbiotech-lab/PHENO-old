@@ -18,6 +18,7 @@
     "express-myconnection": "^1.0.4",
     "express-session": "^1.15.6",
     "glob": "^7.1.2",
+    "graph-data-structure": "^1.8.0",
     "hoek": "^5.0.3",
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.4.0",
