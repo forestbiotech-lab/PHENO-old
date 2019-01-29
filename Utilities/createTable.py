@@ -5,6 +5,9 @@
 #    2018/02/02
 #  for table in Mature_miRNA HasStar Feature Pre_miRNA Gene Genome Protein Organism Target Transcript; do Utilities/./createTable.py $table > components/miRNADB/sqldb/${table}.js;done
 #
+# Usage: createTable.py [table]
+# Using with no table generates for all
+#
 ######################################
 
 
@@ -18,6 +21,7 @@ sqlFile=dir_path+"/../SQL/LATEST_dump.sql"
 
 #Change this based on your project
 variable_path="components/brapi"
+
 
 if len(sys.argv)==2:
   tables=[sys.argv[1]]
