@@ -5,7 +5,7 @@
   'use strict';
 
   module.exports = function(sequelize, DataTypes) {
-    const ContextOfUse = sequelize.define('ContextOfUse', {
+    const Marker = sequelize.define('Marker', {
       id: { 
         type: DataTypes.INTEGER(11),
         autoIncrement: true,
@@ -13,11 +13,12 @@
         allowNull: false,
         unique: true,
       },
-    observationVariableId: DataTypes.INTEGER(11),
-    studyTypeId: DataTypes.INTEGER(11),
-    description: DataTypes.STRING,
+    name: DataTypes.STRING(50),
+    linkageGroupId: DataTypes.INTEGER(11),
+    type: DataTypes.STRING(20),
+    location: DataTypes.INTEGER(11),
   }, {
-      tableName: 'ContextOfUse',
+      tableName: 'Marker',
       timestamps: false,
       underscored: false,
 
@@ -27,5 +28,5 @@
       },
     });
 
-    return ContextOfUse;
+    return Marker;
   };

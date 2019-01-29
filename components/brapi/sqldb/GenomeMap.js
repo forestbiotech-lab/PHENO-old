@@ -5,7 +5,7 @@
   'use strict';
 
   module.exports = function(sequelize, DataTypes) {
-    const ContextOfUse = sequelize.define('ContextOfUse', {
+    const GenomeMap = sequelize.define('GenomeMap', {
       id: { 
         type: DataTypes.INTEGER(11),
         autoIncrement: true,
@@ -13,11 +13,16 @@
         allowNull: false,
         unique: true,
       },
-    observationVariableId: DataTypes.INTEGER(11),
-    studyTypeId: DataTypes.INTEGER(11),
-    description: DataTypes.STRING,
+    name: DataTypes.STRING(50),
+    speciesId: DataTypes.INTEGER(11),
+    type: DataTypes.STRING(20),
+    unit: DataTypes.STRING(5),
+    publishedDate: DataTypes.DATE,
+    markerCount: DataTypes.INTEGER(11),
+    linkageGroupCount: DataTypes.INTEGER(11),
+    comments: DataTypes.STRING,
   }, {
-      tableName: 'ContextOfUse',
+      tableName: 'GenomeMap',
       timestamps: false,
       underscored: false,
 
@@ -27,5 +32,5 @@
       },
     });
 
-    return ContextOfUse;
+    return GenomeMap;
   };

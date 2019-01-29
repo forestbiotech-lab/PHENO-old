@@ -5,7 +5,7 @@
   'use strict';
 
   module.exports = function(sequelize, DataTypes) {
-    const ContextOfUse = sequelize.define('ContextOfUse', {
+    const Extract = sequelize.define('Extract', {
       id: { 
         type: DataTypes.INTEGER(11),
         autoIncrement: true,
@@ -13,11 +13,9 @@
         allowNull: false,
         unique: true,
       },
-    observationVariableId: DataTypes.INTEGER(11),
-    studyTypeId: DataTypes.INTEGER(11),
-    description: DataTypes.STRING,
+    germplasmId: DataTypes.INTEGER(11),
   }, {
-      tableName: 'ContextOfUse',
+      tableName: 'Extract',
       timestamps: false,
       underscored: false,
 
@@ -27,5 +25,5 @@
       },
     });
 
-    return ContextOfUse;
+    return Extract;
   };

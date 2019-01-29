@@ -5,7 +5,7 @@
   'use strict';
 
   module.exports = function(sequelize, DataTypes) {
-    const ContextOfUse = sequelize.define('ContextOfUse', {
+    const Authorship = sequelize.define('Authorship', {
       id: { 
         type: DataTypes.INTEGER(11),
         autoIncrement: true,
@@ -13,11 +13,10 @@
         allowNull: false,
         unique: true,
       },
-    observationVariableId: DataTypes.INTEGER(11),
-    studyTypeId: DataTypes.INTEGER(11),
-    description: DataTypes.STRING,
+    datasetPUI: DataTypes.STRING(254),
+    license: DataTypes.STRING(254),
   }, {
-      tableName: 'ContextOfUse',
+      tableName: 'Authorship',
       timestamps: false,
       underscored: false,
 
@@ -27,5 +26,5 @@
       },
     });
 
-    return ContextOfUse;
+    return Authorship;
   };

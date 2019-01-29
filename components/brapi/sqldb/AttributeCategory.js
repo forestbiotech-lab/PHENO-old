@@ -5,7 +5,7 @@
   'use strict';
 
   module.exports = function(sequelize, DataTypes) {
-    const ContextOfUse = sequelize.define('ContextOfUse', {
+    const AttributeCategory = sequelize.define('AttributeCategory', {
       id: { 
         type: DataTypes.INTEGER(11),
         autoIncrement: true,
@@ -13,11 +13,13 @@
         allowNull: false,
         unique: true,
       },
-    observationVariableId: DataTypes.INTEGER(11),
-    studyTypeId: DataTypes.INTEGER(11),
+    code: DataTypes.STRING(20),
+    uri: DataTypes.STRING(100),
+    name: DataTypes.STRING(50),
     description: DataTypes.STRING,
+    dataTypeId: DataTypes.INTEGER(11),
   }, {
-      tableName: 'ContextOfUse',
+      tableName: 'AttributeCategory',
       timestamps: false,
       underscored: false,
 
@@ -27,5 +29,5 @@
       },
     });
 
-    return ContextOfUse;
+    return AttributeCategory;
   };

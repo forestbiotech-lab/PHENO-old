@@ -64,10 +64,6 @@ module.exports = function(sequelize, DataTypes) {
 
     classMethods: {
       associate: function associate(models) {     
-        DonorGermplasm.belongsTo(models.DonorInstitute, {
-          foreignKey: 'id',
-          targetKey: 'donorGermplasmId',
-        });
       }
     },
   });
