@@ -4,30 +4,34 @@
 *
 * Used to format the values extracted from the database
 * 
-*  Path - is the datavalues from DB
+*  DB - is the datavalues from DB
 *  Record - Is the structure, basically what is stored.  
 *  key    - is the key of an element in the Record. In the simplest case the element will be an object with a key and a value.
 *  value  - is the value of the key that belongs to an element of the record.
 */
+
 var debug = require('debug')
 var debug_std = debug('brapi:server');
 var debug_full= debug('brapi:trace');
 var hash = require('object-hash');
+var ObsUnitGraph=require('./observationUnitGraph');
 
 
-function getValueFromTable(key,value,path){
+
+
+function getValueFromTable(key,value,db){
   var column="";
   value.length==0 ? column=key : column=value
-  dbValue=path[column]
+  dbValue=db.dataValues[column]
   if(dbValue==null || typeof dbValue == "object" ){ // this avoid getting tables in next iteration when values are tables. 
     return column
   }
   return dbValue==null ? column : dbValue 
 }
 
-function processMultipleAttributes(table,directions,path){
+function processMultipleAttributes(table,directions,db){
   if(directions._attribute==null && typeof directions._model== "object"){
-    return getFilledModel(directions,path)
+    return getFilledModel(directions,db)
   }else{
       var attributeMerge=""
       var joiner=directions._attribute._joiner
@@ -35,7 +39,7 @@ function processMultipleAttributes(table,directions,path){
 
       for(i in attributes){
         var attribute=attributes[i]
-        var attrValue=path[table].dataValues[attribute]
+        var attrValue=db.dataValues[table].dataValues[attribute]
       
         attributeMerge+=attrValue
         if(i<(attributes.length-1)) attributeMerge+=joiner
@@ -44,9 +48,9 @@ function processMultipleAttributes(table,directions,path){
   }
 }
 
-function getFilledModel(directions,path){
+function getFilledModel(directions,db){
   let emptyModel=JSON.parse(JSON.stringify(directions._model));
-  let filledModel = determineActionForJSONObject(null,emptyModel,path) //key isn't necessary check if it's used
+  let filledModel = determineActionForJSONObject(null,emptyModel,db) //key isn't necessary check if it's used
 
   var result={}
   var filledModelHash=hash(filledModel);
@@ -54,70 +58,209 @@ function getFilledModel(directions,path){
   return result;
 }
 
-function specialTables(){
 
-} 
-function getvalueFromNextTable(key,directions,path,table){
-  var column="";
-  specialTables=["ObservationUnit", "Sample", "Plot", "Plant"]
-  if(specialTables.includes(table)){
 
+function isObjectInArray(object,array){
+  var result=false;
+  if(Object.keys(object).length==1)
+    var hash=Object.keys(object)[0]
+  for (i in array){
+    let element=array[i]
+    if (typeof element == "object" && element instanceof Object )
+      if (Object.keys(element).length==1)
+        if(Object.keys(element)[0]==hash)
+          result = true
   }
+  return result
+}
+
+function goToNextTable(table,db){
+  return db.dataValues[table];
+}
+
+
+function processMultiValueObject(key,value,db){
+  try{  
+    var record=value
+    var table=value._table    
+  
+    if (typeof table == "object"){
+      let result = transverseMultipleTables(table,db)
+      db=result.db
+      table=result.table
+    }
+    var db = decideAndGetNewPath(table,db)
+    for (i in Object.keys(value)){
+        var _key=Object.keys(value)[i]
+        let _value=value[_key]
+        if(_key=="_table"){
+          continue
+        }
+        record[_key]=determineActionForKey(_key,_value,db)
+    }
+    return record
+  }catch(err){
+    if(err instanceof TypeError && err.message=="Cannot read property 'dataValues' of null"){
+      //Fix it Not working
+      debug_std(err)
+      debug_full(err)
+      return value
+    }else{
+      debug_std("Error while processing Object(2) values from table ["+value._table+"] - "+err);
+      if (debug_full.enabled) debug_full(console.trace("Error while processing Object(2) values from table ["+value._table+"] - "+err));
+      return value
+    }
+  }  
+}
+
+function decideAndGetNewPath(table,db){
+  if (table.startsWith("./")){ //used for new object in the same table
+    return db;
+  }else{
+    return db.dataValues[table]
+  }
+}
+
+function transverseMultipleTables(table,db){
+  for (var i=0; i<(table.length-1); i++){
+    db=goToNextTable(table[i],db)
+    var nextTable=table[i+1];
+  }
+  return {db:db,table:nextTable}
+}
+
+
+function goToTableFromObservationUnits(){
+  level = db.level.replace("Number","")
+  level = level[0].toUpperCase()+level.slice(1)
+  obsGraph.level = level
+  console.log("This function isn't complete "+obsGraph.shotestPath)
+}
+
+function goToTableFromOtherSpecialTables(key,directions,db,table,destinationTable){
+  levels=["Plot","Plant","Sample"]
+  this.db=db
+  let obsGraph = new ObsUnitGraph.graph()
+  obsGraph.origin = table
+  obsGraph.destination = destinationTable
+  for (i in levels){
+    level=levels[i]
+    obsGraph.level = level
+    path=(obsGraph.shortestPath).slice(1)  //Remove origin
+    if(path.length>0){
+      let result=transverseMultipleTables(path,this.db)
+      db=result.db
+      table=result.table
+    }else{
+      continue
+    }
+    try{
+      let result = getvalueFromNextTable(key,directions,db) //Not sending table so it will be recaculated for current state
+      if (result!=null){
+        return result
+      }
+    }catch(err){
+      debug_std("gotToTableFromOtherSpecialTables - Unable to transverse this path ["+level+"]: "+err)
+    }
+  }
+  debug_std("gotToTableFromOtherSpecialTables - Unable to transverse any of the paths")
+  return null
+}
+
+
+function specialTables(key,directions,db,table,destinationTable){
+  if ( table == "ObservationUnit" ){
+    //with this table the path is extracted from level
+    return goToTableFromObservationUnits() 
+  }else{
+    //with the other tables the path has to be discovered
+    return goToTableFromOtherSpecialTables(key,directions,db,table,destinationTable) 
+  }
+} 
+
+function doSpecialTableProcessing(key,directions,db,table){
+  if (table==null){
+    table=db._modelOptions.tableName
+  }
+  if(ObsUnitGraph.SPECIAL_TABLES.includes(table)){
+    destinationTable=directions._table
+    if (typeof destinationTable == "string"){
+      if(ObsUnitGraph.SPECIAL_TABLES.includes(destinationTable)){
+        return specialTables(key,directions,db,table,destinationTable)
+      }
+    }
+    if (typeof destinationTable == "object"){
+      let intersection= ObsUnitGraph.intersect(destinationTable)
+      if ( intersection.length == 1 )
+        indexOfIntersection = destinationTable.indexOf(intersection[0])
+        directions["_table"]=destinationTable.splice(indexOfIntersection)
+        return specialTables(key,directions,db,table,destinationTable=intersection)
+      if (  intersection.length > 1  ){
+        return console.log("Destination is an Object: But intersection if bigger then 1 this isn't allowed")
+      } 
+      if (  intersection.length < 1  ){
+        return console.log("Destination is an Object: But intersection was found")
+      }
+    } 
+  }
+}
+
+function processMultipleTables(directions,db,table){
   if(table==null & typeof directions._table == "object"){
-    let result=transverseMultipleTables(directions._table,path);
-    path=result.path;
+    return transverseMultipleTables(directions._table,db);
+  }
+}
+
+function getvalueFromNextTable(key,directions,db,table){
+  var column="";
+  let result=processMultipleTables(directions,db,table)
+  if( result != null){
+    db=result.db;
     table=result.table;
   }
-
   var table=table || directions._table.replace("./","")
-  if (path[table]==null){
+  if(db.dataValues[table]==null){
     return null
   }
   if(Object.keys(directions).length==2 ){
     if(typeof directions._attribute == "object" || typeof directions._model == "object" ){
-      return processMultipleAttributes(table,directions,path)
+      return processMultipleAttributes(table,directions,db)
     }else{
       column=directions._attribute
     }
   }else{
     column=key
   }
-
-  return path[table].dataValues[column] 
+  return db.dataValues[table].dataValues[column] 
 }
 
-
-function determineActionForKey(key,value,path){
-  if (typeof value == "string" || typeof value == "number"){
-    return String(getValueFromTable(key,value,path))
-  }
-  if (typeof value == "object"){
-    return determinActionForJSONinstance(key,value,path)
-  }
-}
-
-function determinActionForJSONinstance(key,value,path){
-  if( value instanceof Array){
-    return determineActionForJSONArray(key,value,path)    
-  }
-  if( value instanceof Object){ 
-    return determineActionForJSONObject(key,value,path)
+function processSingleValueObject(key,value,db){
+  try{
+    let directions=value
+    let special=doSpecialTableProcessing(key,directions,db)
+    if( special != null){
+      return special
+    }
+    return getvalueFromNextTable(key,directions,db)
+  }catch(err){
+    debug_std("Error while processing Object values from table ["+value._table+"] - "+err);
+    if (debug_full.enabled) debug_full(console.trace("Error while processing Object values from table ["+value._table+"] - "+err));
+    return null;
   }
 }
 
-
-function determineActionForJSONArray(key,array,path){
+function determineActionForJSONArray(key,array,db){
   if( array.length >0 ){
     try{
       var directions=array[0]
       var table=directions._table
 
       if (typeof table == "object"){
-        let result = transverseMultipleTables(table,path)
-        path=result.path
+        let result = transverseMultipleTables(table,db)
+        db=result.db
         table=result.table
       }
-      var tableValue=getvalueFromNextTable(key,directions,path,table)
+      var tableValue=getvalueFromNextTable(key,directions,db,table)
       if( typeof tableValue == "object" && tableValue instanceof Object ){
         if (! isObjectInArray(tableValue,array))
           array.push(tableValue)
@@ -141,105 +284,48 @@ function determineActionForJSONArray(key,array,path){
   }
 }
 
-function isObjectInArray(object,array){
-  var result=false;
-  if(Object.keys(object).length==1)
-    var hash=Object.keys(object)[0]
-  for (i in array){
-    let element=array[i]
-    if (typeof element == "object" && element instanceof Object )
-      if (Object.keys(element).length==1)
-        if(Object.keys(element)[0]==hash)
-          result = true
-  }
-  return result
-}
-
-function goToNextTable(table,path){
-  return path[table].dataValues;
-}
-
-function determineActionForJSONObject(key,value,path){
-  //if it has only to elements
-  if( value._table != null  && Object.keys(value).length<2 ){
-    return processSingleValueObject(key,value,path)
-  }
-  if(value._table != null && Object.keys(value).length==2){ 
-    if(value._attribute != null)
-      return processSingleValueObject(key,value,path);
-    if(value._attribute == null)
-      return processMultiValueObject(key,value,path);
-  }
-  if(value._table != null && Object.keys(value).length>2){            
-    return processMultiValueObject(key,value,path)
-  }
-}
-
-function processSingleValueObject(key,value,path){
-  try{
-    var directions=value
-    return getvalueFromNextTable(key,directions,path)
-  }catch(err){
-    debug_std("Error while processing Object values from table ["+value._table+"] - "+err);
-    if (debug_full.enabled) debug_full(console.trace("Error while processing Object values from table ["+value._table+"] - "+err));
-    return null;
-  }
-}
-function processMultiValueObject(key,value,path){
-  try{  
-    var record=value
-    var table=value._table    
-  
-    if (typeof table == "object"){
-      let result = transverseMultipleTables(table,path)
-      path=result.path
-      table=result.table
+function determineActionForJSONObject(key,value,db){
+  //if it has only two elements
+  if ( value._table != null ) {
+    if( Object.keys(value).length<2 ){
+      return processSingleValueObject(key,value,db)
     }
-    var path = decideAndGetNewPath(table,path)
-    for (i in Object.keys(value)){
-        var _key=Object.keys(value)[i]
-        let _value=value[_key]
-        if(_key=="_table"){
-          continue
-        }
-        record[_key]=determineActionForKey(_key,_value,path)
+    if( Object.keys(value).length==2){ 
+      if(value._attribute != null)
+        return processSingleValueObject(key,value,db);
+      if(value._attribute == null)
+        return processMultiValueObject(key,value,db);
     }
-    return record
-  }catch(err){
-    if(err instanceof TypeError && err.message=="Cannot read property 'dataValues' of null"){
-      //Fix it Not working
-      debug_std(err)
-      debug_full(err)
-      return value
-    }else{
-      debug_std("Error while processing Object(2) values from table ["+value._table+"] - "+err);
-      debug_full(console.trace("Error while processing Object(2) values from table ["+value._table+"] - "+err));
-      return value
+    if( Object.keys(value).length>2){            
+      return processMultiValueObject(key,value,db)
     }
-  }  
-}
-
-function decideAndGetNewPath(table,path){
-  if (table.startsWith("./")){ //used for new object in the same table
-    return path;
-  }else{
-    return path[table].dataValues
   }
 }
 
-function transverseMultipleTables(table,path){
-  for (var i=0; i<(table.length-1); i++){
-    path=goToNextTable(table[i],path)
-    var nextTable=table[i+1];
+function determinActionForJSONinstance(key,value,db){
+  if( value instanceof Array){
+    return determineActionForJSONArray(key,value,db)    
   }
-  return {path:path,table:nextTable}
+  if( value instanceof Object){ 
+    return determineActionForJSONObject(key,value,db)
+  }
 }
 
-function parseCallStructure(record,path){
+function determineActionForKey(key,value,db){
+  if (typeof value == "string" || typeof value == "number"){
+    return String(getValueFromTable(key,value,db))
+  }
+  if (typeof value == "object"){
+    return determinActionForJSONinstance(key,value,db)
+  }
+}
+
+
+function parseCallStructure(record,db){
   for (j in Object.keys(record)){
     key=Object.keys(record)[j]
     value=record[key]
-    record[key]=determineActionForKey(key,value,path)
+    record[key]=determineActionForKey(key,value,db)
   }
   return record
 }
@@ -251,14 +337,13 @@ function formatRetreivedData(arg,res){
     const callStructure=arg.callStructure
     var data={}
     for (i in res.rows){
-      var dataValues = res.rows[i].dataValues
-      uniqueId=dataValues[attribute]
+      var dbValues = res.rows[i]
+      uniqueId=dbValues.dataValues[attribute]
       //Used to secure duplicate rows because of arrays. 
       if(Object.keys(data).indexOf(String(uniqueId)) == -1){ 
-        data[uniqueId]=JSON.parse(JSON.stringify(callStructure)); //need a deep copy
+        data[uniqueId]=JSON.parse(JSON.stringify(callStructure)); //needs a deep copy
       }
-
-      parseCallStructure(data[uniqueId],dataValues)
+      parseCallStructure(data[uniqueId],dbValues)
     }
     
     cleanUp(data)
