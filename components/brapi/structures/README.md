@@ -81,7 +81,7 @@ Creating an array of strings from multiple attributes
 			_table:"table2",
 			_attribute:{
 				_joiner:"=",
-				attributes:["name","id"]
+				_attributes:["name","id"]
 			}
 		}]
 }
@@ -95,7 +95,7 @@ Creating an array of objects
 	key2:[{
 			_table:"table2",
 			_model:{
-				_table:"",
+				_table:"table2",
 				id:"",
 				name:'person',
 				formula:{_table:''}
@@ -155,3 +155,58 @@ IR 2
 ```
 How to signal agglutination (do it by default)
 How to signal transform to array (_key _value ?) Then transform in clean up?
+
+
+Exceptions
+----------
+
+This exception has been introduced due to the fact that the continuing foreign key is variable therefore to retrieve it variable placeholder must be used to get the following tables.
+
+The table in question here is the "ObservationUnit" table which has a variable foreign key depending on which one is filled out:
+
+ -  studyId
+ -	plantId
+ -	plotId
+ -	sampleId	
+
+The placeholder to get the FK attribute that is not null is the varFK. That attribute in structure will retrieve the table name from the attribute name that is not null. 
+
+Dealing with exceptions, if more than one attribute is not null, then an exception must be invoked, stating that more than one attribute, was found as not null.
+
+
+
+If the current table is	Sample, Plot or Plant and the next table is: 
+	ObservationUnit
+
+	Model must contain:
+		Sample, SamplePlant, Plant, Plot and ObservationUnit
+
+	Function will recursively retrieve the shortest path, by returning the level of the ObservationUnit.
+
+If the current table is ObservationUnit and the next table is:
+	Sample, Plot or Plant
+
+	Model must contain:
+		Sample, SamplePlant, Plant, Plot and ObservationUnit
+
+	Function will go trough the fk in level to get the shortest path to the required table.
+
+	Possible issues Mutiple plants for the same sample. 
+
+Example:
+```
+{
+	observationUnitDbId: {
+		_table:'ObservationUnit',
+		_attribute:'id'
+	}, //or
+ 	germplasmDbID: {
+ 		_table:["ObservationUnit","Study","StudyGermplasm"],
+ 		_attribute:'germplasmId'
+ 	},
+}
+```
+Don't state the tables in between the origin and destination.
+
+
+

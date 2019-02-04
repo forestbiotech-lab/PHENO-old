@@ -200,11 +200,12 @@ function doSpecialTableProcessing(key,directions,db,table){
         return specialTables(key,directions,db,table,destinationTable=intersection)
       }
       if (  intersection.length > 1  ){
-        console.log("Destination is an Object: But intersection if bigger then 1 this isn't allowed")
+        debug_std("Destination is an Object: But intersection if bigger then 1 this isn't allowed")
         return getvalueFromNextTable(key,directions,db)
       } 
       if (  intersection.length < 1  ){
-        return console.log("Destination is an Object: But intersection was found")
+        console.log("Destination is an Object: But intersection was found")
+        return null
       }
     } 
   }
