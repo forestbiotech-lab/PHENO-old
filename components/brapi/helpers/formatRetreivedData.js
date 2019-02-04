@@ -191,12 +191,17 @@ function doSpecialTableProcessing(key,directions,db,table){
     }
     if (typeof destinationTable == "object"){
       let intersection= ObsUnitGraph.intersect(destinationTable)
-      if ( intersection.length == 1 )
+      if ( intersection.length == 1 ){
         indexOfIntersection = destinationTable.indexOf(intersection[0])
         directions["_table"]=destinationTable.splice(indexOfIntersection)
+        if(directions._table.length==1){
+          directions._table=directions._table[0]
+        }
         return specialTables(key,directions,db,table,destinationTable=intersection)
+      }
       if (  intersection.length > 1  ){
-        return console.log("Destination is an Object: But intersection if bigger then 1 this isn't allowed")
+        console.log("Destination is an Object: But intersection if bigger then 1 this isn't allowed")
+        return getvalueFromNextTable(key,directions,db)
       } 
       if (  intersection.length < 1  ){
         return console.log("Destination is an Object: But intersection was found")
@@ -254,7 +259,6 @@ function determineActionForJSONArray(key,array,db){
     try{
       var directions=array[0]
       var table=directions._table
-
       if (typeof table == "object"){
         let result = transverseMultipleTables(table,db)
         db=result.db
