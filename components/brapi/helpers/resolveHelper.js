@@ -1,17 +1,29 @@
+var debug = require('debug')
+var debug_std = debug('brapi:server');
+var debug_full= debug('brapi:trace');
 var getOptions=require('./getOptions');
 
-function resolveCall(call,req,res,errMsg,view){
+function resolveCall(call,req,res,errMsg,view,frontendObj){
 
   var options=getOptions(req);
   call(options).then(function(callRes){
     if (view){
-      console.log(callRes.result.data[0].Trial)
-      res.render(view,callRes)
+      if (frontendObj){
+        if(typeof frontendObj == "function" ){
+          res.render(view,frontendObj(callRes)) 
+        }
+        if(typeof frontendObj == "object" ){
+          res.render(view,frontendObj)  
+        }
+      }else{
+        res.render(view,callRes)
+      }
     }else{
       res.status(200).json(callRes);
     }
   }).catch(function(err){
-    console.trace(errMsg+err)
+    debug_std(errMsg+" - "+err);
+    if (debug_full.enabled) debug_full(console.trace(errMsg+" - "+err));
     resolveError(res,err);
   })
 }
