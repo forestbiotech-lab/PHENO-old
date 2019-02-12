@@ -1,0 +1,76 @@
+extends layout
+
+block content
+  h1 #{germplasmData.defaultDisplayName}
+  p 
+    strong #{germplasmData.Specie.genus} #{germplasmData.Specie.species} (#{germplasmData.Specie.crop})
+  p Holding institution: 
+    strong #{germplasmData.holdingInstitution.name}, #{germplasmData.holdingInstitution.location}, #{germplasmData.holdingInstitution.country}
+    - germplasmData.donorInstitute ? donorInstitute=germplasmData.donorInstitute : donorInstitute="n/a"
+  .map !{map}
+  p Donor institution:  
+    strong #{donorInstitute}
+  p Accession number: 
+    strong #{germplasmData.accessionNumber}
+  p Germplasm PUI: 
+    strong #{germplasmData.germplasmPUI}
+  p Seed source: 
+    strong #{germplasmData.seedSource}
+  p Acquisition date: 
+    strong #{germplasmData.acquisitionDate}
+  p Biological status of accession code: 
+    strong #{germplasmData.biologicalStatusOfAccessionCode}
+  p Country of origin: 
+    strong #{germplasmData.country_of_origin.name} (#{germplasmData.country_of_origin.code}) 
+  // p #{germplasmData.}
+  table.table
+    thead
+      th Program name
+      th Study name
+      th Start date
+      th End date
+    tbody
+      each study, count in germplasmData.Studies
+        tr
+          td #{study.program} 
+          td
+            a(href="/brapi/datasets/studies/#{study.id}") #{study.name}
+            td #{study.startDate} 
+            td #{study.endDate}
+  - var count=0 
+//  each specie, count in species
+//    .card
+//      .card-body
+//        h5.card-title #{specie.genus} #{specie.species} (#{specie.crop})
+//      .card-text
+//        div.accordion(id="accordionSpecies")
+//          .card
+//            .card-header(id="heading"+count)
+//              h5.mb-0 
+//                button.btn.btn-link(type="button",data-toggle="collapse",data-target="#collapse"+count,arria-expanded="true",aria-controls="collapse"+count) #{specie.program.name}
+//            .collapse(id="collapse"+count,aria-labelledby="heading"+count,data-parent="#accordionSpecies")    
+//              .card-block
+//                .container-fluid
+//                  .row
+//                    .col-md-6
+//                      p Abbreviation: 
+//                        strong #{specie.program.abbreviation}
+//                      p Objective: 
+//                        strong #{specie.program.objective}
+//                      p LeadPerson: 
+//                        strong 
+//                          a(href="https://orcid.org/"+specie.program.orcid,target="_blank") #{specie.program.leadPerson}
+//                    .col-md-6
+//                      .trials
+//                        table.table.table-hover
+//                          thead
+//                            tr
+//                              th Trials:
+//                          tbody    
+//                            each trial in specie.listTrials
+//                              tr
+//                                td #{trial.name}  
+//                      .publication
+//                        a.btn.btn-primary(href=specie.study.trialAdditionalInfo.publication,target="_blank",tabindex="-1",role="button",aria-disabled="true") Associated Publication
+//                        a.btn.btn-primary(href=specie.study.trialAdditionalInfo.datalink,target="_blank",tabindex="-1",role="button",aria-disabled="true") Source data
+
