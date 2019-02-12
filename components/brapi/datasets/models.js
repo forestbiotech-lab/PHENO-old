@@ -61,7 +61,6 @@ m.germplasm=function(attributes){
 			model:db.Country
 		}],
 		where: attributes.where
-
 	}).then(function(res){
 		return res
 	}).catch(function(err){
@@ -69,5 +68,25 @@ m.germplasm=function(attributes){
 		return err;
 	})
 }
+
+m.study=function(attributes){
+	return db.Study
+	.findAndCountAll({
+		offset: parseInt(attributes.offset),
+		limit: parseInt(attributes.pageSize)+1,
+		include:[{
+			model:db.Trial,
+			include:[{
+				model:db.Program
+			}]
+		}],
+		where: attributes.where
+	}).then(function(res){
+		return res
+	}).catch(function(err){
+		console.log('Show dataset - Err: '+ err);
+		return err;
+	})
+}		
 
 module.exports=m
