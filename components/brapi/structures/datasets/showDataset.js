@@ -9,7 +9,7 @@ module.exports={
   	_table:'Trial',
   	_model:{
   		_table:"Trial",
-  		headers:["name","programId","startDate","endDate"],
+  		headers:[	"name","programId","startDate","endDate"],
   	  	name:'',
   		programId:'',
   		startDate:'',
