@@ -21,7 +21,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {
+          StudyGermplasm.belongsTo(models.Study, {
+            foreignKey: 'studyId',
+            targetKey: 'id',
+          });
         }
       },
     });

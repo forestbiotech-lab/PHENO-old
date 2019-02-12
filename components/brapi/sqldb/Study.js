@@ -33,9 +33,40 @@
             foreignKey: 'id',              //on ObservationUnit
             targetKey: 'studyId',  //foreign key  
           });
-        }
-      },
+          Study.belongsTo(models.Trial, {
+            foreignKey: 'trialId',              //on Study
+            targetKey: 'id',  //foreign key  
+          });
+          Study.belongsTo(models.Location, {
+            foreignKey: 'locationId',              //on Study
+            targetKey: 'id',  //foreign key  
+          });
+          Study.belongsTo(models.StudyType, {
+            foreignKey: 'studyTypeId',              //on Study
+            targetKey: 'id',  //foreign key  
+          });
+          Study.belongsTo(models.StudyAdditionalInfo, {
+            foreignKey: 'id',              //on Study
+            targetKey: 'studyId',  //foreign key  
+          });
+          Study.belongsTo(models.StudyGermplasm, {
+            foreignKey: 'id',              //on Study
+            targetKey: 'studyId',  //foreign key  
+          });
+         Study.belongsTo(models.StudyContact, {
+            foreignKey: 'id',              //on Study
+            targetKey: 'studyId',  //foreign key  
+          });
+          Study.belongsTo(models.StudyObservationVariable, {
+            foreignKey: 'id',              //on Study
+            targetKey: 'studyId',  //foreign key  
+          });
+          Study.belongsTo(models.StudySeason, {
+            foreignKey: 'id',              //on Study
+            targetKey: 'studyId',  //foreign key  
+          }); 
+        },
+      }  
     });
-
     return Study;
   };

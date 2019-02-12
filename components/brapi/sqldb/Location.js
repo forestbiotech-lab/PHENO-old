@@ -27,6 +27,15 @@
 
      classMethods: {
         associate: function associate(models) {     
+          Location.belongsTo(models.Institution, {
+            foreignKey: 'id',
+            targetKey: 'locationId',
+          });
+         Location.belongsTo(models.Country, {
+            foreignKey: 'country_id',
+            targetKey: 'id',
+          });
+
         }
       },
     });

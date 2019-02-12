@@ -29,7 +29,41 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          Germplasm.belongsTo(models.StudyGermplasm,{
+            foreignKey: 'id',
+            targetKey: 'germplasmId'
+          }) 
+          Germplasm.belongsTo(models.Species, {
+            foreignKey: 'speciesId',
+          });
+          Germplasm.belongsTo(models.GermplasmStorage, {
+            foreignKey: 'id',
+            targetKey: 'germplasmId',
+          });
+          Germplasm.belongsTo(models.Institution, {
+            foreignKey: 'holdingInstitution',
+          });
+          Germplasm.belongsTo(models.Country, {
+            foreignKey: 'countryOfOrigin',
+          });
+//          Germplasm.belongsToMany(models.Crop,{
+//            through: models.Species,
+//            foreignKey: 'id',     //on the species
+//          })
+          Germplasm.belongsTo(models.GermplasmSynonym,{
+            foreignKey: 'id',     //on Germplasm
+            targetKey: 'germplasmId',
+          })
+          Germplasm.belongsTo(models.GermplasmParents,{
+            foreignKey: 'id',     //on Germplasm
+            targetKey: 'childId',
+          })
+          Germplasm.belongsTo(models.DonorInstitute,{
+            foreignKey: 'id',
+            targetKey: 'germplasmId',
+          })
+
         }
       },
     });

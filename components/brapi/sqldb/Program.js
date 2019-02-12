@@ -24,6 +24,14 @@
 
      classMethods: {
         associate: function associate(models) {     
+          Program.belongsTo(models.Person, {
+            foreignKey: 'leadPerson',              //on Program
+            targetKey: 'id',  //foreign key  
+          });
+          Program.belongsTo(models.Trial, {
+            foreignKey: 'id',              //on Program
+            targetKey: 'programId',  //foreign key  
+          }); 
         }
       },
     });

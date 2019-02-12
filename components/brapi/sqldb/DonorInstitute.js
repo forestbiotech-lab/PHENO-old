@@ -23,6 +23,14 @@
 
      classMethods: {
         associate: function associate(models) {     
+          DonorInstitute.belongsTo(models.Institution,{
+            foreignKey: 'instituteId',
+            targetKey: 'id'
+          }),
+          DonorInstitute.belongsTo(models.Institution,{
+            foreignKey: 'donorGermplasmId',
+            targetKey: 'id'
+          }) 
         }
       },
     });

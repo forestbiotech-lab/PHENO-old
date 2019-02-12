@@ -22,7 +22,27 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {
+          Institution.belongsTo(models.DonorInstitute,{
+            foreignKey: 'id',
+            targetKey: 'instituteId'
+          })
+          Institution.belongsTo(models.Germplasm, {
+            foreignKey: 'id',              //on Institution
+            targetKey: 'holdingInstitution',  //foreign key  
+          });
+          Institution.belongsTo(models.ObservationVariable, {
+            foreignKey: 'id',              //on Institution
+            targetKey: 'institution',  //foreign key  
+          });
+          Institution.belongsTo(models.Person, {
+            foreignKey: 'id',              //on Institution
+            targetKey: 'affiliation',  //foreign key  
+          }); 
+          Institution.belongsTo(models.Location, {
+            foreignKey: 'locationId',              //on Institution
+            targetKey: 'id',  //foreign key  
+          });
         }
       },
     });
