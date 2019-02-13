@@ -26,6 +26,10 @@
             foreignKey: 'studyId',
             targetKey: 'id',
           });
+          StudyGermplasm.belongsTo(models.Germplasm, {
+            foreignKey: 'germplasmId',
+            targetKey: 'id',
+          });        
         }
       },
     });
