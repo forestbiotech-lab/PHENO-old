@@ -16,7 +16,6 @@ module.exports = function(options){
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   attribute=options.params.studyId
   options.where.studyId=fmtWhereAttr(attribute,"eq")
-  delete options.params.studyId;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
@@ -26,7 +25,7 @@ module.exports = function(options){
 function callback(res){
    
   //[The attribute in main table used as uniqueId]
-  var attribute="id"
+  var attribute="studyId"
     //Metadata
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

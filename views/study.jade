@@ -1,0 +1,129 @@
+extends layout
+
+block content
+  .card
+    .row.no-gutters
+      .col.bg-dark.text-white(style="max-width:50px")
+        h2.rotate(style="left:-40px") Program&nbsp;&nbsp;
+      .col
+        .card-header 
+          h3.card-title #{studyData.program.name}
+        .card-body.p-0
+          .p-2  
+            p Lead person: 
+              a(href="https://orcid.org/#{studyData.program.lead_person.orcid}",target="_blank") 
+                strong #{studyData.program.lead_person.name}
+            p Affiliated institution: 
+              if locationAdditionalInfo
+                if locationAdditionalInfo.URL 
+                  a(href=locationAdditionalInfo.URL,target="_blank" )
+                    strong #{studyData.program.lead_person.institution.name} 
+                if locationAdditionalInfo.EMAIL 
+                  span 
+                    a(href="mailto:"+locationAdditionalInfo.EMAIL) ✉ 
+                if locationAdditionalInfo.PHONE
+                  span #{locationAdditionalInfo.PHONE}
+              else
+                strong #{studyData.program.lead_person.institution.name} 
+            p Objective: 
+              strong #{studyData.program.objective}    
+          .card
+            .row.no-gutters
+              .col.bg-dark.text-white(style="max-width:50px")
+                h2.rotate &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Trial&nbsp;&nbsp;
+              .col
+                .card-header
+                  h3.card-title #{studyData.trial.name}
+                .card-body.p-0
+                  .p-2
+                    p From: 
+                      strong #{studyData.trial.startDate}   
+                      span until:  
+                      strong #{studyData.trial.startDate}
+                  .card
+                    .row.no-gutters  
+                      .col.bg-dark.text-white(style="max-width:50px")
+                        h2.rotate &nbsp;&nbsp;&nbsp;&nbsp;Study&nbsp;&nbsp;
+                      .col
+                        .card-header 
+                          h3.card-title #{studyData.name}  
+                        .card-body.p-0
+                          .p-2
+                            p Location: 
+                              strong #{studyData.location.name}, #{studyData.location.country}
+                            .map !{map}
+                            if studyAdditionalInfo
+                              h2.card-header Study additional details
+                              table.table
+                                tbody
+                                  each addInfo in Object.keys(studyAdditionalInfo)
+                                    if addInfo.toLowerCase().trim() != "publication" 
+                                      if studyAdditionalInfo[addInfo]
+                                        tr
+                                          th #{addInfo.trim().replace(/_/g," ")}
+                                          td #{studyAdditionalInfo[addInfo]}
+                                    else
+                                      -studyPublication=true
+                              if studyPublication
+                                p 
+                                a.btn.btn-light(href=studyAdditionalInfo[addInfo],role="button",aria-disabled="true",target="_blank") Associated Publication
+                                p
+  p
+  if observationVariables
+    .card
+      .card-header
+        h3.card-title Observation Variables
+      .card-body
+        table.table
+          thead
+            th Name
+            th Ontology
+            th Trait
+            th Method
+            th Scale
+          tbody
+            each obsVar in  observationVariables
+              tr
+                td #{obsVar.name}
+                td #{obsVar.ontology.name} (#{obsVar.ontology.accession})
+                td(title="#{obsVar.trait.traitId} #{obsVar.trait.description}") #{obsVar.trait.name}
+                td(title="#{obsVar.method.methodId} #{obsVar.method.description}") #{obsVar.method.name}
+                td(title="#{obsVar.scale.scaleId}") #{obsVar.scale.name}
+  p
+  if relatedStudies  
+    .card
+      .card-header
+        h3.card-title #{studyData.program.name} - Related Studies
+      .card-body
+        table.table
+          thead
+            th Trial
+            th Start date
+            th End data
+            th Study
+          tbody
+            each study in  relatedStudies            
+              tr
+                td #{study.trial.name}
+                td #{study.trial.startDate}
+                td #{study.trial.endDate}
+                td 
+                  a(href="#{study.id}") #{study.name}
+  p
+  if relatedGermplasms  
+    .card
+      .card-header
+        h3.card-title Germplasms used in this study
+      .card-body
+        table.table
+          thead
+            th Default display name
+            th Accession
+            th Seed source
+          tbody
+            each germplasm in relatedGermplasms            
+              tr
+                td 
+                  a(href="/brapi/datasets/germplasm/#{germplasm.id}") #{germplasm.defaultDisplayName}
+                td #{germplasm.accessionNumber}
+                td #{germplasm.seedSource}

@@ -1,7 +1,7 @@
 var fmtWhereAttr = require('./../helpers/formatWhereAttribute');
 var controller = require('./../controllers/callControllerDatasets');
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-var callStructure = require('./../structures/datasets/relatedStudies');
+var callStructure = require('./../structures/datasets/locationAdditionalInfo');
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 module.exports = function(options){
@@ -10,11 +10,11 @@ module.exports = function(options){
 
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  call="relatedStudies"
+  call="locationAdditionalInfo"
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  attribute=options.params.programId
+  attribute=options.params.locationId
   options.where.id=fmtWhereAttr(attribute,"eq")
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

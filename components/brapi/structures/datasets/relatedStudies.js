@@ -1,5 +1,5 @@
 module.exports={
-	studies:[{
+	relatedStudies:[{
 		_table:["Trial","Study"],
 		_model:{
 			_table:"Study",

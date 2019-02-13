@@ -1,5 +1,5 @@
 module.exports={
-	germplasms:[{
+	relatedGermplasms:[{
 		_table:"Germplasm",
 		_model:{
 			_table:"Germplasm",

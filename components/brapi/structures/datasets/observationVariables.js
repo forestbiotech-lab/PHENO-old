@@ -1,0 +1,30 @@
+module.exports={
+	observationVariables:[{
+		_table:"ObservationVariable",
+		_model:{
+			_table:"ObservationVariable",
+			name:"",
+			xref:"",
+			status:"",
+			ontology:{_table:"Ontology",
+				accession:"",
+				name:""
+			},
+			trait:{_table:"Trait",
+				name:"",
+				traitId:"",
+				description:""
+			},
+			method:{_table:"Method",
+				name:"",
+				methodId:"",
+				description:""
+			},  		
+			scale:{_table:"Scale",
+				name:"",
+				scaleId:"",
+			}
+		}
+
+	}]
+}
