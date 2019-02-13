@@ -102,7 +102,7 @@ function processMultiValueObject(key,value,db){
   }catch(err){
     if(err instanceof TypeError && err.message=="Cannot read property 'dataValues' of null"){
       //Fix it Not working
-      debug_std(err)
+      debug_std(err.message)
       debug_full(err)
       return value
     }else{
@@ -277,7 +277,7 @@ function determineActionForJSONArray(key,array,db){
       }
     }catch(err){
       if(err instanceof TypeError && err.message=="Cannot read property 'dataValues' of null"){
-        debug_std(err)
+        debug_std(err.message)
         if (debug_full.enabled) debug_full(console.trace(err))
         return array
       }else{
