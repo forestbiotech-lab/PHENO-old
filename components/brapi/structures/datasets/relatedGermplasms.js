@@ -1,0 +1,12 @@
+module.exports={
+	germplasms:[{
+		_table:"Germplasm",
+		_model:{
+			_table:"Germplasm",
+			id:"",
+			defaultDisplayName:"",
+			accessionNumber:"",
+			seedSource:""
+		}
+	}]
+}
