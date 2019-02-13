@@ -1,7 +1,9 @@
 /**
  * Created by Bruno Costa on 20-06-2018.
  */
-
+var debug = require('debug')
+var debug_std = debug('brapi:server');
+var debug_full= debug('brapi:trace');
 var dateFormat = require('dateformat');
 var models= require('./../datasets/models');
 var fmtFunc= require('./../formatingFunctions');
@@ -43,8 +45,10 @@ module.exports = function(options,call,callback){
       }//end else
       //end then
     }).catch(function(err){
+      errMsg="Controller | dataset - err: "
       //queryData,pagination,code,message
-      console.trace(err)
+      debug_std(errMsg+" - "+err);
+      if (debug_full.enabled) debug_full(console.trace(errMsg+" - "+err));
       reject( fmtFunc.generateJSON(null,null,500,err.name+" : "+err.message) );
 
     })
