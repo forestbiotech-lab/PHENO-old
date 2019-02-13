@@ -35,6 +35,10 @@
             foreignKey: 'country_id',
             targetKey: 'id',
           });
+         Location.belongsTo(models.LocationAdditionalInfo, {
+            foreignKey: 'id',
+            targetKey: 'location',
+          });
 
         }
       },
