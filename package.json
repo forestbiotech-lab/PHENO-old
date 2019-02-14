@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "npm run test-unit",
-    "test-unit": "NODE_ENV=test mocha 'components/**/*.spec.js'"
+    "test-unit": "NODE_ENV=test mocha --exit 'components/**/*.spec.js'",
+    "coverage": "nyc npm test;",
+    "html-report": "nyc --reporter=html npm test;google-chrome-stable coverage/index.html"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -45,6 +47,7 @@
   },
   "devDependencies": {
     "mocha": "^5.2.0",
+    "nyc": "^13.2.0",
     "sinon": "^7.2.2"
   }
 }
