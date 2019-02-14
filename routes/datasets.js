@@ -42,7 +42,6 @@ router.get('/germplasm/:germplasmId',function(req,res,next){
         	map:svg
       }
       Object.assign(data,callRes.result.data[0])
-      console.log(data)
       return data 
     }).catch(function(err){
       debug_std("Router | dataset | study | One of the promises failed - err: "+err)
