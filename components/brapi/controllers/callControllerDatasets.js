@@ -6,7 +6,7 @@ var debug_std = debug('brapi:server');
 var debug_full= debug('brapi:trace');
 var dateFormat = require('dateformat');
 var models= require('./../datasets/models');
-var fmtFunc= require('./../formatingFunctions');
+var fmtFunc= require('./../helpers/formatingFunctions');
 var fmtRetreivedData= require('./../helpers/formatRetreivedData')
 
 module.exports = function(options,call,callback){
