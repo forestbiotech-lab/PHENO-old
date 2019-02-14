@@ -5,7 +5,7 @@
 
 /* Imports */
 var models = require('./models');
-var fmtFunc= require('./formatingFunctions')
+var fmtFunc= require('./helpers/formatingFunctions')
 
 /* Methods connecting to the database */
 module.exports = function (query) {
