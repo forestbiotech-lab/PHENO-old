@@ -25,15 +25,29 @@ router.get('/germplasm/:germplasmId',function(req,res,next){
   var errMsg="Router dataset Get germplsm - "
   var call=germplasm;
   formatResponse=function(response){
+    germplasmData=response.result.data[0]
     location=response.result.data[0].holdingInstitution.coordinates[0]
     myMap=map(location.longitude,location.latitude)
     svg=toHTML(myMap)
- 	return {
-      	title: "PHENO - Germplasm info",
-      	host: req.headers.host,
-      	germplasmData:response.result.data[0],
-      	map:svg
-    }
+    let fakeReq=getOptions({
+      params:{
+        locationId:germplasmData.holdingInstitution.locationId
+      }
+    })
+    return locationAdditionalInfo(fakeReq).then(function(callRes){
+   	  data={
+        	title: "PHENO - Germplasm info",
+        	host: req.headers.host,
+        	germplasmData:germplasmData,
+        	map:svg
+      }
+      Object.assign(data,callRes.result.data[0])
+      console.log(data)
+      return data 
+    }).catch(function(err){
+      debug_std("Router | dataset | study | One of the promises failed - err: "+err)
+    })  
+
   }
   resolveCall(call,req,res,errMsg,"germplasm",formatResponse)
 })

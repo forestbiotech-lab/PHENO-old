@@ -3,6 +3,7 @@ module.exports={
   defaultDisplayName:"",
   holdingInstitution:{_table:"Institution",
   	name:"name",
+    locationId:"",
   	location: {_table:"Location",_attribute:"name"},
   	country: {_table:["Location","Country"],_attribute:"name"},
   	coordinates: [{

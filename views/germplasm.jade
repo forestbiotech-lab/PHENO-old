@@ -1,27 +1,58 @@
 extends layout
 
 block content
-  h1 #{germplasmData.defaultDisplayName}
-  p 
-    strong #{germplasmData.Specie.genus} #{germplasmData.Specie.species} (#{germplasmData.Specie.crop})
-  p Holding institution: 
-    strong #{germplasmData.holdingInstitution.name}, #{germplasmData.holdingInstitution.location}, #{germplasmData.holdingInstitution.country}
+  h1.card-header #{germplasmData.defaultDisplayName}
+  p
+  h4 #{germplasmData.Specie.genus} #{germplasmData.Specie.species} (#{germplasmData.Specie.crop})
+  if locationAdditionalInfo
+    table.table
+      theader
+        if locationAdditionalInfo.URL
+          tr
+            th Holding institution
+            td 
+              a(href=locationAdditionalInfo.URL,target="_blank") 
+                strong #{germplasmData.holdingInstitution.name}
+          tr 
+            th Address
+            td #{germplasmData.holdingInstitution.location}, #{germplasmData.holdingInstitution.country}
+          tr 
+            th Contacts
+            td 
+              span 
+                if locationAdditionalInfo.EMAIL
+                  a(href="mailto:"+locationAdditionalInfo.EMAIL) ✉ 
+                if locationAdditionalInfo.PHONE
+                  | #{locationAdditionalInfo.PHONE}
+  else
+    p Holding institution: 
+      strong #{germplasmData.holdingInstitution.name}, #{germplasmData.holdingInstitution.country}
     - germplasmData.donorInstitute ? donorInstitute=germplasmData.donorInstitute : donorInstitute="n/a"
   .map !{map}
-  p Donor institution:  
-    strong #{donorInstitute}
-  p Accession number: 
-    strong #{germplasmData.accessionNumber}
-  p Germplasm PUI: 
-    strong #{germplasmData.germplasmPUI}
-  p Seed source: 
-    strong #{germplasmData.seedSource}
-  p Acquisition date: 
-    strong #{germplasmData.acquisitionDate}
-  p Biological status of accession code: 
-    strong #{germplasmData.biologicalStatusOfAccessionCode}
-  p Country of origin: 
-    strong #{germplasmData.country_of_origin.name} (#{germplasmData.country_of_origin.code}) 
+  table.table
+    tbody
+      tr
+        th Donor institution:  
+        td #{donorInstitute}
+      tr
+        th Accession number: 
+        td #{germplasmData.accessionNumber}
+      tr
+        th Germplasm PUI: 
+        td #{germplasmData.germplasmPUI}
+      tr
+        th Seed source: 
+        td #{germplasmData.seedSource}
+      tr
+        th Acquisition date: 
+        td #{germplasmData.acquisitionDate}
+      tr
+        th Biological status of accession code: 
+        td #{germplasmData.biologicalStatusOfAccessionCode}
+      tr  
+        th Country of origin: 
+        td #{germplasmData.country_of_origin.name} (#{germplasmData.country_of_origin.code}) 
+  h3.card-header Studies
   table.table
     thead
       th Program name
