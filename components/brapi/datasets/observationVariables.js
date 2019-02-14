@@ -14,7 +14,6 @@ module.exports = function(options){
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  console.log(attribute)
   attribute=options.params.studyId
   options.where.studyId=fmtWhereAttr(attribute,"eq")
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
