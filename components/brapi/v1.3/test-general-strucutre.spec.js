@@ -3,9 +3,9 @@ const assert = require('chai').assert
 const glob = require('glob')
 const path = require('path')
 
-calls=glob.sync(__dirname+'/!(*example*|*.spec*).js')
-for (i in calls){
-  var callName=path.basename(calls[i],".js")
+callList=glob.sync(__dirname+'/!(*models*|*example*|*.spec*).js')
+callList.forEach(function(callName){
+  var callName=path.basename(callName,".js")
   var call=require("./"+callName);
   describe('Testing the '+callName+' Call - ', async function() {
     var fakeReq
@@ -30,4 +30,4 @@ for (i in calls){
       })
     });
   });
-}
+})
