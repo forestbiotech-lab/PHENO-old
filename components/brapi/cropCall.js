@@ -9,7 +9,6 @@ var fmtFunc= require('./helpers/formatingFunctions')
 
 /* Methods connecting to the database */
 module.exports = function (query) {
-
     /* Page definitions */
     query.pageSize = query.pageSize || 1000;    //The default in specs is 1000
     query.page = query.page || 0; // Default is 0
