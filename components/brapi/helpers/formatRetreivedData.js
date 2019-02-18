@@ -41,7 +41,9 @@ function processMultipleAttributes(table,directions,db){
         var attribute=attributes[i]
         var attrValue=db.dataValues[table].dataValues[attribute]
       
-        attributeMerge+=attrValue
+        if(attrValue!=null){
+          attributeMerge+=attrValue
+        }
         if(i<(attributes.length-1)) attributeMerge+=joiner
       }
       return attributeMerge
@@ -226,7 +228,11 @@ function getvalueFromNextTable(key,directions,db,table){
   }
   var table=table || directions._table.replace("./","")
   if(db.dataValues[table]==null){
-    return null
+    if(table == db._modelOptions.tableName){
+      db.dataValues[table]=db
+    }else{
+      return null
+    }
   }
   if(Object.keys(directions).length==2 ){
     if(typeof directions._attribute == "object" || typeof directions._model == "object" ){
