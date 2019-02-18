@@ -27,7 +27,7 @@
             foreignKey: 'instituteId',
             targetKey: 'id'
           }),
-          DonorInstitute.belongsTo(models.Institution,{
+          DonorInstitute.belongsTo(models.Germplasm,{
             foreignKey: 'donorGermplasmId',
             targetKey: 'id'
           }) 
