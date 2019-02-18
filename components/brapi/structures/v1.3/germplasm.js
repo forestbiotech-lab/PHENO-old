@@ -6,7 +6,13 @@ module.exports={
   commonCropName: {_table:["Species","Crop"]},
   countryOfOriginCode: {_table:"Country",_attribute:"code"},
   defaultDisplayName: "",
-  documentationURL: [{_table:"Germplasm",_joiner:"",_attributes:["id","id"]}],
+  documentationURL: {
+    _table:"Germplasm",
+    _attribute:{
+      _joiner:"https://brapi.biodata.pt/brapi/datasets/germplasm/",
+      _attributes:["","id"],
+    }
+  },
   donors: [{
     _table:["DonorInstitute","Institution"],
     _attribute:"name"
