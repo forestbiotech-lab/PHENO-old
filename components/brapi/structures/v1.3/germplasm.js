@@ -2,7 +2,7 @@ module.exports={
   accessionNumber: "",
   acquisitionDate: "",
   biologicalStatusOfAccessionCode: "",
-//  breedingMethodDbId: bm1
+  breedingMethodDbId: "",
   commonCropName: {_table:["Species","Crop"]},
   countryOfOriginCode: {_table:"Country",_attribute:"code"},
   defaultDisplayName: "",
@@ -14,10 +14,14 @@ module.exports={
     }
   },
   donors: [{
-    _table:["DonorInstitute","Institution"],
-    _attribute:"name"
+    _table:"DonorInstitute",
+      _model:{
+        _table:"DonorInstitute",
+        donorAccessionNumber: {_table:"Germplasm",_attribute:"accessionNumber"},
+        donorInstituteCode: {_table:"Institution",_attribute:"code"},
+        germplasmPUI:{_table:"Germplasm",_attribute:"germplasmPUI"}
+      }
   }],
-  genus: {_table:"Species"},
   germplasmDbId: "id",
   germplasmGenus: {_table:"Species",_attribute:"genus"},
   germplasmName: "defaultDisplayName",
@@ -27,7 +31,6 @@ module.exports={
   instituteName: {_table:"Institution",_attribute:"name"},
   pedigree: "",
   seedSource: "",
-//  species: novus,
   speciesAuthority: {_table:"Species",_attribute:""},
   subtaxa: {_table:"Species",_attribute:""},
   subtaxaAuthority: {_table:"Species",_attribute:""},
