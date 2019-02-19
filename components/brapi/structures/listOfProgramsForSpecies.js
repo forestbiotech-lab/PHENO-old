@@ -2,11 +2,11 @@ module.exports={
   genus:"",
   species:"",
   crop:{_table:"Crop",_attribute:"commonCropName"},
-  observationVariable:{
+/*  observationVariable:{
     _table:["Crop","ObservationVariable"],
     id:"",
     name:""
-  },
+  },*/
   study:{
     _table:["Crop","ObservationVariable","StudyObservationVariable","Study"],
     id:"",
@@ -39,7 +39,7 @@ module.exports={
       endDate:""
     }
   } ],
-  listPrograms:[{
+/*  listPrograms:[{
     _table:["Crop","ObservationVariable","StudyObservationVariable","Study","Trial"],
     _model:{
       _table:"Trial",
@@ -47,9 +47,9 @@ module.exports={
       startDate:"",
       endDate: ""      
     }
-  }],
-  programs:[
+  }],*/
+/*  programs:[
     {_table:["Crop","ObservationVariable","StudyObservationVariable","Study","Trial","Program"],_attribute:"name"}
   ]
-
+*/
 }
