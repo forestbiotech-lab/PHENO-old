@@ -21,7 +21,15 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {
+          StudyContact.belongsTo(models.Study, {
+            foreignKey: 'studyId',              //on StudyContact
+            targetKey: 'id',  //foreign key  
+          });
+          StudyContact.belongsTo(models.Person, {
+            foreignKey: 'contact',              //on StudyContact
+            targetKey: 'id',  //foreign key  
+          });      
         }
       },
     });
