@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "npm run test-unit",
-    "test-unit": "NODE_ENV=test mocha 'components/**/*.spec.js'"
+    "test-unit": "NODE_ENV=test mocha --exit 'components/**/*.spec.js'",
+    "coverage": "nyc npm test;",
+    "html-report": "nyc --reporter=html npm test;google-chrome-stable coverage/index.html"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -18,8 +20,10 @@
     "express-myconnection": "^1.0.4",
     "express-session": "^1.15.6",
     "glob": "^7.1.2",
+    "graph-data-structure": "^1.8.0",
     "hoek": "^5.0.3",
     "jade": "~1.11.0",
+    "jsdom": "^13.2.0",
     "jsonwebtoken": "^8.4.0",
     "jstransformer": "^1.0.0",
     "letsencrypt-express": "^2.0.5",
@@ -37,10 +41,13 @@
     "pug": "^2.0.0-beta6",
     "request": "^2.87.0",
     "sequelize": "^4.42.0",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "svg-world-map": "^1.0.0",
+    "vdom-to-html": "^2.3.1"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
+    "nyc": "^13.2.0",
     "sinon": "^7.2.2"
   }
 }

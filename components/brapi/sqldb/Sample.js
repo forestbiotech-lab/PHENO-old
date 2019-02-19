@@ -27,22 +27,22 @@
 
      classMethods: {
         associate: function associate(models) {
--        Sample.belongsTo(models.SamplePlant, {
--          foreignKey: 'id',              //on Sample
--          targetKey: 'sampleId',  //foreign key  
--        });
--        Sample.belongsTo(models.Person, {
--          foreignKey: 'takenBy',              //on Sample
--          targetKey: 'id',  //foreign key  
--        });
--        Sample.belongsTo(models.Season, {
--          foreignKey: 'seasonId',              //on Sample
--          targetKey: 'id',  //foreign key  
--        }); 
--        Sample.belongsTo(models.ObservationUnit, {
--          foreignKey: 'id',              //on Sample
--          targetKey: 'sampleId',  //foreign key  
--        });     
+          Sample.belongsTo(models.SamplePlant, {
+            foreignKey: 'id',              //on Sample
+            targetKey: 'sampleId',  //foreign key  
+          });
+          Sample.belongsTo(models.Person, {
+            foreignKey: 'takenBy',              //on Sample
+            targetKey: 'id',  //foreign key  
+          });
+          Sample.belongsTo(models.Season, {
+            foreignKey: 'seasonId',              //on Sample
+            targetKey: 'id',  //foreign key  
+          }); 
+          Sample.belongsTo(models.ObservationUnit, {
+            foreignKey: 'id',              //on Sample
+            targetKey: 'sampleId',  //foreign key  
+          });     
         }
       },
     });

@@ -20,19 +20,17 @@ module.exports = function(sequelize, DataTypes) {
         tableName: 'StudyObservationVariable',
         timestamps: false,
         underscored: false,
-
-
         classMethods: {
-            associate: function associate(models) {
-                StudyObservationVariable.belongsTo(models.Study, {
-                    foreignKey: 'studyId',  //on this table
-                    targetKey: 'id'
-                });
-                StudyObservationVariable.belongsTo(models.ObservationVariable, {
-                    foreignKey: 'observationVariableId',  //on this table
-                    targetKey: 'id'
-                });
-            }
+          associate: function associate(models) {
+            StudyObservationVariable.belongsTo(models.Study, {
+              foreignKey: 'studyId',  //on this table
+              targetKey: 'id'
+            });
+            StudyObservationVariable.belongsTo(models.ObservationVariable, {
+              foreignKey: 'observationVariableId',  //on this table
+              targetKey: 'id'
+            });
+          }
         }
     });
 

@@ -5,6 +5,8 @@
 /** https://github.com/dsquier/oauth2-server-php-mysql **/
 
 //This is the configuration file that has all the credentials
+
+
 var config_brapi = require('./../../../config_brapi');
 var Sequelize = require('sequelize');
 var glob = require('glob');
@@ -20,7 +22,7 @@ var db = {
 };
 
 
-//db tables  //Do this for all Keys in Object requeire(dir that start with capital letters)
+//db tables  //Do this for all Keys in Object require(dir that start with capital letters)
 
 //Get all file names in this directory that start with a capital letter and have a Java script extension.
 //This may be bad for performance 
@@ -30,10 +32,14 @@ for( index in tables){
 	db[table]=db.sequelize.import('./'+table);
 }
 
+//Foreign key association
 Object.keys(db).forEach(function(modelName) {
-  if ('associate' in db[modelName]) {
-    db[modelName].associate(db);
+  if ('classMethods' in db[modelName].options) {
+    db[modelName].options.classMethods.associate(db);
   }
 });
 
 module.exports = db;
+
+
+

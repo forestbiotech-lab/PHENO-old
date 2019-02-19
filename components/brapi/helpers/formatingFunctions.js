@@ -15,6 +15,11 @@
  * @args query Object - the query arguments in the http request
  *
  */
+
+var debug = require('debug')
+var debug_std = debug('brapi:server');
+var debug_full= debug('brapi:trace');
+
 function generatePagination(res,query){
 
 	//Run only if res isn't instance of Error.
@@ -23,8 +28,7 @@ function generatePagination(res,query){
 			  currentPage: parseInt(query.page),  //This might produce errors if query var changes after promise resolves. Not sure if this is an issue.
 			  totalCount: res.count,
 			  totalPages: Math.ceil(res.count/query.pageSize) //This must be calculated another call with the same attributes and no limit to count.
-			}	
-	console.log();			
+			}				
 	return result;
 }
 
@@ -51,7 +55,9 @@ function generateJSON(queryData,pagination,code,message){
 		queryData.data != null ? result=queryData : result=result
 		queryData.data == "metadataOnlyRemoveData" ? delete queryData.data : test=1
 	}catch(err){
-		console.trace("No queryData");
+		errMsg="No queryData";
+		debug_std(errMsg+" - "+err);
+    	if (debug_full.enabled) debug_full(console.trace(errMsg+" - "+err));
 	}
 	//pagination not null and Page requested bigger than total.
 	if(pagination != null && pagination.currentPage > pagination.totalPages ){

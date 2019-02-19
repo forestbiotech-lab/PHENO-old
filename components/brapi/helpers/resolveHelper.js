@@ -10,7 +10,18 @@ function resolveCall(call,req,res,errMsg,view,frontendObj){
     if (view){
       if (frontendObj){
         if(typeof frontendObj == "function" ){
-          res.render(view,frontendObj(callRes)) 
+          result=frontendObj(callRes)
+          if(result instanceof Promise){
+            result.then(function(promRes){
+              res.render(view,promRes) 
+            }).catch(function(err){
+              debug_std(errMsg+" - "+err);
+              if (debug_full.enabled) debug_full(console.trace(errMsg+" - "+err));
+              resolveError(res,err);              
+            })
+          }else{
+            res.render(view,result) 
+          }
         }
         if(typeof frontendObj == "object" ){
           res.render(view,frontendObj)  

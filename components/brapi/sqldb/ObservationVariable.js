@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     ontologyId: DataTypes.INTEGER(11),
     growthStage: DataTypes.STRING(50),
     status: DataTypes.STRING(20),
-    xref: DataTypes.STRING(50),
+    xref: DataTypes.STRING(100),
     institution: DataTypes.INTEGER(11),
     scientist: DataTypes.INTEGER(11),
     date: DataTypes.DATE,

@@ -47,8 +47,8 @@ app.use(passport.session());
 //Routing to specific route files depending on the incomming url.
 
 //the default in use
+app.use('/brapi/v1', api.v1_3);
 app.use('/brapi/v1', api.v1);
-app.use('/brapi/v1.3', api.v1_3);
 app.use('/brapi/datasets',  datasets)
 app.use('/brapi',  brapi)
 ///---------------------Testing routes------------------------

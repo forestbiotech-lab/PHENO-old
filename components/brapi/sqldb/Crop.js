@@ -28,10 +28,6 @@ module.exports = function(sequelize, DataTypes) {
         Crop.belongsTo(models.Species, {
           foreignKey: 'id',  //on Crop
         });
-        Crop.belongsToMany(models.Germplasm, {
-          through: models.Species,
-          foreignKey: 'cropId',  //on species
-        });
         Crop.belongsTo(models.ObservationVariable, {
           foreignKey: 'id',              //on Crop
           targetKey: 'crop',  //foreign key  

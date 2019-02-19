@@ -1,0 +1,15 @@
+module.exports={
+	relatedStudies:[{
+		_table:["Trial","Study"],
+		_model:{
+			_table:"Study",
+			name:"",
+			id:"",
+			trial:{_table:"Trial",
+				name:"",
+				startDate:"",
+				endDate:""
+			}
+		}
+	}]
+}

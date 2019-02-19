@@ -17,6 +17,24 @@ body {
 a{
   color: #00B7FF;
 }
+
+.rotate {
+  color:white;
+  position: absolute;
+  top:50px;
+  left:-40px;
+  /* Safari */
+  -webkit-transform: rotate(-90deg);
+  /* Firefox */
+  -moz-transform: rotate(-90deg);
+  /* IE */
+  -ms-transform: rotate(-90deg);
+  /* Opera */
+  -o-transform: rotate(-90deg);
+  /* Internet Explorer */
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
 .menu{
 	position: relative; 
 	height:38px;
