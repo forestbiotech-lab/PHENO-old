@@ -103,5 +103,58 @@ e.germplasm=function(attributes){
   });
 }
 
+e.studies=function(attributes){
+  return db.Study
+  .findAndCountAll({ 
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+    include:[{
+      model:db.StudyAdditionalInfo
+    },{
+      model:db.StudyGermplasm,
+      include:[{
+        model:db.Germplasm,
+        include:[{
+          model:db.Species,
+          include:[{
+            model:db.Crop
+          }]
+        }]
+      }]
+    },{
+      model:db.Trial
+    },{
+      model:db.Location
+    },{
+      model:db.StudySeason,
+      include:[{
+        model:db.Season
+      }]
+    },{
+      model:db.StudyType,
+    }
+    ],
+    where:attributes.where
+  }).then(function(res){
+    return res
+  }).catch(function(err){
+    debug_std("model v1.3 | Studies - Err:"+err)
+    return err
+  })
+}
+
+e.example=function(attributes){
+  return db.Example
+  .findAndCountAll({ 
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+    where:attributes.where
+  }).then(function(res){
+    return res
+  }).catch(function(err){
+    debug_std("model v1.3 | Example - Err:"+err)
+    return err
+  })
+}
 
 module.exports=e

@@ -6,6 +6,7 @@ var resolveCall=resolveHelper.resolveCall
 ////------------ Call Declaration Galore ----------------------------------
 var Samples_SamplesDbId_GET = require('./../components/brapi/v1.3/Samples_SampleDbId_GET');
 var germplasm = require('./../components/brapi/v1.3/germplasm_GET');
+var studies = require('./../components/brapi/v1.3/studies_GET');
 //var phenotypesSearchV1_3 = require('./../components/brapi/v1.3/phenotypesSearch')
 //------------------- End  -------------------------------
 
@@ -23,5 +24,10 @@ router.get('/germplasm',function(req,res,next){
   resolveCall(call,req,res,errMsg);
 })
 
+router.get('/studies',function(req,res,next){
+  var errMsg="Router studies Get - "
+  var call=studies
+  resolveCall(call,req,res,errMsg);
+})
 
 module.exports = router;
