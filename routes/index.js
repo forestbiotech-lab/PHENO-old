@@ -3,6 +3,7 @@ var router = express.Router();
 var marked = require('marked');
 var fs=require('fs');
 var programsForSpecies=require('./../components/brapi/listOfProgramsForSpecies');
+var listStudies=require('./../components/brapi/listStudies');
 var hash=require('./../SQL/DB');
 //var elixirAuth = require('./../components/oauth/elixir-oauth');
 
@@ -23,29 +24,39 @@ router.get('/', function(req, res, next) {
     )   
   }
 
-  
   //Get README data and render page.
   getReadme().then(function(data){ 
-    programsForSpecies().then(function(response){
+    Promise.all([programsForSpecies(),listStudies()]).then(function(response){
+      var species=response[0].result.data
+      var studies=response[1].result.data
+      var indexedPrograms={};
+      
+      studies.forEach(function(study){
+        studyList=indexedPrograms[study.programId]
+        if(studyList==null){
+          indexedPrograms[study.programId]=[]
+        }
+        indexedPrograms[study.programId].push(study)
+      })      
       res.render('pheno', { 
         title: 'PHENO',
         host: req.headers.host, 
         overviewMD: marked(data),
-        species:response.result.data,
+        species:species,
+        programs:indexedPrograms,
         hash:hash.hash 
       });
-      //console.log(response.result.data)
+
     }).catch(function(err){
       console.log("/index: "+err);
       res.render('pheno', { 
         title: 'PHENO',
         host: req.headers.host, 
         overviewMD: marked(data),
-        species:response.result.data,
         hash:hash.hash 
       });
     })
-  });
+  }).catch(function(err){console.log("Unable to read README: err"+err)});
 });  
 
 router.get('/areyouup', function(req, res, next) {

@@ -448,6 +448,22 @@ e.phenotypesSearch=function(attributes){
   })
 }
 
+e.listStudies=function(attributes){
+  return db.Study
+  .findAndCountAll({
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+    include:[{
+      model:db.Trial,
+      include:[{
+        model:db.Program
+      },{
+        model:db.TrialAdditionalInfo
+      }]
+    }]    
+  })
+}
+
 e.listOfProgramsForSpecies=function(attributes){
   return db.Species
   .findAndCountAll({
@@ -455,24 +471,19 @@ e.listOfProgramsForSpecies=function(attributes){
     limit: parseInt(attributes.pageSize)+1,
     include: [{
       model: db.Crop,
-      include: [{
-        model: db.ObservationVariable,
-        include: [{
-          model: db.StudyObservationVariable,
-          include: [{
-            model: db.Study,
-            include: [{
-              model: db.Trial,
-              include: [{
-                model: db.Program,
-                include: [{
-                  model: db.Person
-                }]
-              },{
-                model: db.TrialAdditionalInfo
+    },{
+      model:db.Germplasm,
+      include:[{
+        model:db.StudyGermplasm,
+        include:[{
+          model:db.Study,
+          include:[{
+            model:db.Trial,
+            include:[{
+              model:db.Program,
+              include:[{
+                model:db.Person
               }]
-            },{
-              model: db.StudyAdditionalInfo
             }]
           }]
         }]

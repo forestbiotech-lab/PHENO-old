@@ -132,8 +132,7 @@ e.studies=function(attributes){
       }]
     },{
       model:db.StudyType,
-    }
-    ],
+    }],
     where:attributes.where
   }).then(function(res){
     return res

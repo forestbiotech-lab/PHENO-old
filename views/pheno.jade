@@ -12,41 +12,54 @@ block content
     p Woody plants are a major natural resource in Europe, with a huge ecological and economic impact, supporting millions of jobs across diverse industries (e.g., wine, fruit, olive oil, coffee, paper, timber, cork) and strongly contributing to the European GDP. In Portugal, woody plants represent 10% of the exports, and are a central research domain in both academia and industry. The access to datasets provided by PHENO aims to support research and breeding of these species for traits of interest for researchers, producers and industry stakeholders.   
   p PHENO currently contains data on the following species:
   - var count=0 
-  each specie, count in species
+  each specie in species
+    - count++ 
     .card
       .card-body
         h5.card-title #{specie.genus} #{specie.species} (#{specie.crop})
       .card-text
-        div.accordion(id="accordionSpecies")
-          .card
-            .card-header(id="heading"+count)
-              h5.mb-0 
-                button.btn.btn-link(type="button",data-toggle="collapse",data-target="#collapse"+count,arria-expanded="true",aria-controls="collapse"+count) #{specie.program.name}
-            .collapse(id="collapse"+count,aria-labelledby="heading"+count,data-parent="#accordionSpecies")    
-              .card-block
-                .container-fluid
-                  .row
-                    .col-md-6
-                      p Abbreviation: 
-                        strong #{specie.program.abbreviation}
-                      p Objective: 
-                        strong #{specie.program.objective}
-                      p LeadPerson: 
-                        strong 
-                          a(href="https://orcid.org/"+specie.program.orcid,target="_blank") #{specie.program.leadPerson}
-                    .col-md-6
-                      .trials
-                        table.table.table-hover
-                          thead
+        each program in specie.programs
+          - count++
+          div.accordion(id="accordionSpecies")
+            .card
+              .card-header(id="heading"+count)
+                h5.mb-0 
+                  button.btn.btn-link(type="button",data-toggle="collapse",data-target="#collapse"+count,arria-expanded="true",aria-controls="collapse"+count) #{program.name}
+              .collapse(id="collapse"+count,aria-labelledby="heading"+count,data-parent="#accordionSpecies")    
+                .card-block
+                  .container-fluid
+                    .row
+                      .col-lg-4.col-md-12
+                        h4.card-header Program details
+                        table.table
+                          tbody
                             tr
-                              th Trials:
-                          tbody    
-                            each trial in specie.listTrials
+                              th Abbreviation: 
+                              td #{program.abbreviation}
+                            tr
+                              th Objective: 
+                              td #{program.objective}
+                            tr
+                              th LeadPerson: 
+                              td 
+                                a(href="https://orcid.org/"+program.orcid,target="_blank") #{program.leadPerson}
+                      .col-lg-8.col-md-12
+                          h4.card-header Trial list
+                          table.table.table-hover
+                            thead
                               tr
-                                td #{trial.name}  
-                      .publication
-                        a.btn.btn-primary(href=specie.study.trialAdditionalInfo.publication,target="_blank",tabindex="-1",role="button",aria-disabled="true") Associated Publication
-                        a.btn.btn-primary(href=specie.study.trialAdditionalInfo.datalink,target="_blank",tabindex="-1",role="button",aria-disabled="true") Source data
+                                th Trial 
+                                th Study 
+                              tbody
+                                each study in programs[program.id]  
+                                  tr.table-striped
+                                    td #{study.trialName}
+                                    td #{study.studyName}
+                                  tr.table-active  
+                                    td(colspan=2)
+                                      .publication
+                                        a.btn.btn-primary(href=study.trialAdditionalInfo.publication,target="_blank",tabindex="-1",role="button",aria-disabled="true") Associated Publication
+                                        a.btn.btn-primary(href=study.trialAdditionalInfo.datalink,target="_blank",tabindex="-1",role="button",aria-disabled="true") Source data
   p The current version of the data in this database is #{hash}. Database dumps can be downloaded 
     a(href="https://raw.githubusercontent.com/forestbiotech-lab/BrAPI/master/SQL/LATEST_dump.sql",target="_blank") here.
   .md !{overviewMD}
