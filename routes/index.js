@@ -38,14 +38,17 @@ router.get('/', function(req, res, next) {
         }
         indexedPrograms[study.programId].push(study)
       })      
-      res.render('pheno', { 
+      result={ 
         title: 'PHENO',
         host: req.headers.host, 
         overviewMD: marked(data),
         species:species,
         programs:indexedPrograms,
         hash:hash.hash 
-      });
+      }
+
+
+      res.render('pheno',result );
 
     }).catch(function(err){
       console.log("/index: "+err);
