@@ -42,6 +42,11 @@
             foreignKey: 'studyId',              //on ObservationUnit
             targetKey: 'id',  //foreign key  
           });
+          ObservationUnit.belongsTo(models.ObservationUnitXRef, {
+            foreignKey: 'id',              //on ObservationUnit
+            targetKey: 'observationUnitId',  //foreign key  
+          });
+
         }
       },
     });
