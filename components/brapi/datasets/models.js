@@ -202,7 +202,32 @@ m.locationAdditionalInfo=function(attributes){
 	})
 }
 
-m.relatedStudies4=function(attributes){
+m.trial=function(attributes){
+	return db.Trial
+	.findAndCountAll({
+		offset: parseInt(attributes.offset),
+		limit: parseInt(attributes.pageSize)+1,
+		include:[{		
+			model:db.Study
+		},{
+			model:db.Program,
+			include:[{
+				model:db.Person,
+				include:[{
+					model:db.Institution
+				}]
+			}]
+		}],
+		where: attributes.where
+	}).then(function(res){
+		return res
+	}).catch(function(err){
+		debug_std('Model | Dataset | trial - Err: '+ err);
+		return err;
+	})
+}
+
+m.example=function(attributes){
 	return db.Study
 	.findAndCountAll({
 		offset: parseInt(attributes.offset),
@@ -218,4 +243,5 @@ m.relatedStudies4=function(attributes){
 		return err;
 	})
 }
+
 module.exports=m
