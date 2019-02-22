@@ -142,6 +142,41 @@ e.studies=function(attributes){
   })
 }
 
+e.trials=function(attributes){
+  return db.Trial
+  .findAndCountAll({ 
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+    include:[{
+      model:db.TrialAdditionalInfo
+    },{
+      model:db.Program,
+    },{
+      model:db.Study,
+      include:[{
+        model:db.StudyGermplasm,
+        include:[{
+          model:db.Germplasm,
+          include:[{
+            model:db.Species,
+            include:[{
+              model:db.Crop
+            }]
+          }]
+        }]
+      },{
+        model:db.Location
+      }]
+    }],
+    where:attributes.where
+  }).then(function(res){
+    return res
+  }).catch(function(err){
+    debug_std("model v1.3 | Trials - Err:"+err)
+    return err
+  })
+}
+
 e.example=function(attributes){
   return db.Example
   .findAndCountAll({ 

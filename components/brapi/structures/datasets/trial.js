@@ -3,13 +3,6 @@ module.exports={
 	name:"",
 	startDate:"",
 	endDate:"",
-	active:"",
-//	trial:{
-//		_table:"Trial",
-//		name:"",
-//		startDate:"",
-//		endDate:""
-//	},
 	program:{
 		_table:"Program",
 		id:"",
