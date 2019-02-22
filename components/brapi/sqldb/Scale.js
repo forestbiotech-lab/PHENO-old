@@ -27,6 +27,14 @@
 
      classMethods: {
         associate: function associate(models) {     
+          Scale.belongsTo(models.DataType, {
+            foreignKey: 'dataTypeId',  //on this table
+            targetKey: 'id'
+          });  
+          Scale.belongsTo(models.ScaleCategory, {
+            foreignKey: 'id',  //on this table
+            targetKey: 'scaleId'
+          });  
         }
       },
     });

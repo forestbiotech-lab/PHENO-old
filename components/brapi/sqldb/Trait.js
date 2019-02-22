@@ -28,7 +28,19 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {   
+          Trait.belongsTo(models.TraitSynonym, {
+            foreignKey: 'id',  //on this table
+            targetKey: 'traitId'
+          });  
+          Trait.belongsTo(models.TraitAlternativeAbbreviation, {
+            foreignKey: 'id',  //on this table
+            targetKey: 'traitId'
+          });
+          Trait.belongsTo(models.ObservationVariable, {
+            foreignKey: 'id',  //on this table
+            targetKey: 'traitId'
+          });              
         }
       },
     });
