@@ -15,9 +15,10 @@ block content
     strong Methods: 
     |#{call.method}
     - urlCall=protocol+":\/\/"+host+"/brapi/v1/"+call.path
+    - urlCallSafe=protocol+":\/\/"+host+"/brapi/v1/"+call.path.replace(/({.*})/,1)
     p
     span(style='margin-left:10px;background-color:#ece7e7;color:#1e1e1f;font-size:larger;') url: 
-        a(href=urlCall)
+        a(href=urlCallSafe)
           strong #{urlCall}
     p
     p
