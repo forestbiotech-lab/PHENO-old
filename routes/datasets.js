@@ -99,9 +99,9 @@ router.get('/trial/:trialId',function(req,res,next){
   var errMsg="Router dataset Get trial - "
   var call=trial;
   formatResponse=function(response){
-    console.log(response)
+    //console.log(response)
     var trialData=response.result.data[0]
-    console.log(trialData)
+    //console.log(trialData)
     return {trialData:trialData}
 /*
     location=studyData.location
