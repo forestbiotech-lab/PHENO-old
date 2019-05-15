@@ -139,4 +139,4 @@ function localServer(server){
 
 
 //Start server
-process.env.mode == "PRODUCTION" ? productionServer(lex) : localServer(http_server);
+process.env.mode == "PRODUCTION" ? productionServer(http_server) : localServer(http_server);
