@@ -1,4 +1,4 @@
- #!/usr/bin/env node
+ //#!/usr/bin/env node
 
 /**
  * Module dependencies.
@@ -50,11 +50,9 @@ var port_https = normalizePort(process.env.PORT_HTTPS || '443');
 
 var http_server = process.env.mode=="PRODUCTION" ? lex.create(options) : http.createServer(app);
 
-function productionServer(http_server){
+function productionServer(lex){
   console.log("Running PRODUCTION mode")
-  lex.listen(port_http,port_https, function () {
-    console.log("Listening for ACME http-01 challenges on", this.address());
-  });
+  lex.listen(port_http,port_https);
 }
 
 /**
