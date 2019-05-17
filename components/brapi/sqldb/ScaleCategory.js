@@ -22,7 +22,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          ScaleCategory.belongsTo(models.Scale, {
+            foreignKey: 'scaleId',              //on ScaleCategory
+            targetKey: 'id',  //foreign key  
+          }); 
         }
       },
     });

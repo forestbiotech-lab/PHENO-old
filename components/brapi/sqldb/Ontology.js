@@ -21,7 +21,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          Ontology.belongsTo(models.ObservationVariable, {
+            foreignKey: 'id',              //on Ontology
+            targetKey: 'ontologyId',  //foreign key  
+          }); 
         }
       },
     });

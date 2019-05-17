@@ -21,7 +21,7 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
           TraitSynonym.belongsTo(models.Trait, {
             foreignKey: 'traitId',              //on TraitSynonym
             targetKey: 'id',  //foreign key  

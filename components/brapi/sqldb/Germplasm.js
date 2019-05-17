@@ -23,6 +23,7 @@
     biologicalStatusOfAccessionCode: DataTypes.STRING(50),
     acquisitionDate: DataTypes.DATE,
     countryOfOrigin: DataTypes.INTEGER(11),
+    breedingMethodId: DataTypes.INTEGER(11),
   }, {
       tableName: 'Germplasm',
       timestamps: false,
@@ -30,40 +31,42 @@
 
      classMethods: {
         associate: function associate(models) {    
-          Germplasm.belongsTo(models.StudyGermplasm,{
-            foreignKey: 'id',
-            targetKey: 'germplasmId'
-          }) 
-          Germplasm.belongsTo(models.Species, {
-            foreignKey: 'speciesId',
+          Germplasm.belongsTo(models.DonorInstitute, {
+            foreignKey: 'id',              //on Germplasm
+            targetKey: 'DonorGermplasmId',  //foreign key  
           });
-          Germplasm.belongsTo(models.GermplasmStorage, {
-            foreignKey: 'id',
-            targetKey: 'germplasmId',
+          Germplasm.belongsTo(models.Species, {
+            foreignKey: 'speciesId',              //on Germplasm
+            targetKey: 'id',  //foreign key  
           });
           Germplasm.belongsTo(models.Institution, {
-            foreignKey: 'holdingInstitution',
+            foreignKey: 'holdingInstitution',              //on Germplasm
+            targetKey: 'id',  //foreign key  
           });
           Germplasm.belongsTo(models.Country, {
-            foreignKey: 'countryOfOrigin',
+            foreignKey: 'countryOfOrigin',              //on Germplasm
+            targetKey: 'id',  //foreign key  
           });
-//          Germplasm.belongsToMany(models.Crop,{
-//            through: models.Species,
-//            foreignKey: 'id',     //on the species
-//          })
-          Germplasm.belongsTo(models.GermplasmSynonym,{
-            foreignKey: 'id',     //on Germplasm
-            targetKey: 'germplasmId',
-          })
-          Germplasm.belongsTo(models.GermplasmParents,{
-            foreignKey: 'id',     //on Germplasm
-            targetKey: 'childId',
-          })
-          Germplasm.belongsTo(models.DonorInstitute,{
-            foreignKey: 'id',
-            targetKey: 'germplasmId',
-          })
-
+          Germplasm.belongsTo(models.BreedingMethod, {
+            foreignKey: 'breedingMethodId',              //on Germplasm
+            targetKey: 'id',  //foreign key  
+          });
+          Germplasm.belongsTo(models.GermplasmParents, {
+            foreignKey: 'id',              //on Germplasm
+            targetKey: 'parent1Id',  //foreign key  
+          });
+          Germplasm.belongsTo(models.GermplasmParents, {
+            foreignKey: 'id',              //on Germplasm
+            targetKey: 'parent2Id',  //foreign key  
+          });
+          Germplasm.belongsTo(models.GermplasmParents, {
+            foreignKey: 'id',              //on Germplasm
+            targetKey: 'childId',  //foreign key  
+          });
+          Germplasm.belongsTo(models.StudyGermplasm, {
+            foreignKey: 'id',              //on Germplasm
+            targetKey: 'germplasmId',  //foreign key  
+          }); 
         }
       },
     });

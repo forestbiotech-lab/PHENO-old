@@ -23,7 +23,7 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
           Program.belongsTo(models.Person, {
             foreignKey: 'leadPerson',              //on Program
             targetKey: 'id',  //foreign key  

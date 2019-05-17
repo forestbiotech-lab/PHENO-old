@@ -21,7 +21,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          ObservationVariableSynonym.belongsTo(models.ObservationVariable, {
+            foreignKey: 'observationVariableId',              //on ObservationVariableSynonym
+            targetKey: 'id',  //foreign key  
+          }); 
         }
       },
     });

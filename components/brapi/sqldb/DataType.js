@@ -20,7 +20,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          DataType.belongsTo(models.Scale, {
+            foreignKey: 'id',              //on DataType
+            targetKey: 'dataTypeId',  //foreign key  
+          }); 
         }
       },
     });

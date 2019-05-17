@@ -21,7 +21,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          Authorship.belongsTo(models.TrialAuthorship, {
+            foreignKey: 'id',              //on Authorship
+            targetKey: 'authorshipId',  //foreign key  
+          }); 
         }
       },
     });

@@ -21,7 +21,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          TraitAlternativeAbbreviation.belongsTo(models.Trait, {
+            foreignKey: 'traitId',              //on TraitAlternativeAbbreviation
+            targetKey: 'id',  //foreign key  
+          }); 
         }
       },
     });

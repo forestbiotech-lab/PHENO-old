@@ -26,15 +26,19 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          Scale.belongsTo(models.ObservationVariable, {
+            foreignKey: 'id',              //on Scale
+            targetKey: 'scaleId',  //foreign key  
+          });
           Scale.belongsTo(models.DataType, {
-            foreignKey: 'dataTypeId',  //on this table
-            targetKey: 'id'
-          });  
+            foreignKey: 'dataTypeId',              //on Scale
+            targetKey: 'id',  //foreign key  
+          });
           Scale.belongsTo(models.ScaleCategory, {
-            foreignKey: 'id',  //on this table
-            targetKey: 'scaleId'
-          });  
+            foreignKey: 'id',              //on Scale
+            targetKey: 'scaleId',  //foreign key  
+          }); 
         }
       },
     });

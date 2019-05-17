@@ -26,8 +26,8 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {
-          Sample.belongsTo(models.SamplePlant, {
+        associate: function associate(models) {    
+          Sample.belongsTo(models.ExtractedFrom, {
             foreignKey: 'id',              //on Sample
             targetKey: 'sampleId',  //foreign key  
           });
@@ -39,10 +39,6 @@
             foreignKey: 'seasonId',              //on Sample
             targetKey: 'id',  //foreign key  
           }); 
-          Sample.belongsTo(models.ObservationUnit, {
-            foreignKey: 'id',              //on Sample
-            targetKey: 'sampleId',  //foreign key  
-          });     
         }
       },
     });

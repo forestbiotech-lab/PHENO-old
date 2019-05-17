@@ -22,7 +22,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          ObservationUnitXRef.belongsTo(models.ObservationUnit, {
+            foreignKey: 'observationUnitId',              //on ObservationUnitXRef
+            targetKey: 'id',  //foreign key  
+          }); 
         }
       },
     });

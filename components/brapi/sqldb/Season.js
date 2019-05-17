@@ -21,7 +21,15 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          Season.belongsTo(models.Sample, {
+            foreignKey: 'id',              //on Season
+            targetKey: 'seasonId',  //foreign key  
+          });
+          Season.belongsTo(models.StudySeason, {
+            foreignKey: 'id',              //on Season
+            targetKey: 'seasonId',  //foreign key  
+          }); 
         }
       },
     });

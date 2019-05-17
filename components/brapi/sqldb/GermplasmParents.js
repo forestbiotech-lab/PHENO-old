@@ -22,7 +22,19 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          GermplasmParents.belongsTo(models.Germplasm, {
+            foreignKey: 'parent1Id',              //on GermplasmParents
+            targetKey: 'id',  //foreign key  
+          });
+          GermplasmParents.belongsTo(models.Germplasm, {
+            foreignKey: 'parent2Id',              //on GermplasmParents
+            targetKey: 'id',  //foreign key  
+          });
+          GermplasmParents.belongsTo(models.Germplasm, {
+            foreignKey: 'childId',              //on GermplasmParents
+            targetKey: 'id',  //foreign key  
+          }); 
         }
       },
     });

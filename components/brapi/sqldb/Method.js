@@ -25,7 +25,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          Method.belongsTo(models.ObservationVariable, {
+            foreignKey: 'id',              //on Method
+            targetKey: 'methodId',  //foreign key  
+          }); 
         }
       },
     });

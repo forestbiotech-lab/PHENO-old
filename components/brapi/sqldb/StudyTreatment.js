@@ -13,7 +13,7 @@
         allowNull: false,
         unique: true,
       },
-    plotId: DataTypes.INTEGER(11),
+    studyPlotId: DataTypes.INTEGER(11),
     treatmentModalityId: DataTypes.INTEGER(11),
   }, {
       tableName: 'StudyTreatment',

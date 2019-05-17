@@ -22,7 +22,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          StudyAdditionalInfo.belongsTo(models.Study, {
+            foreignKey: 'studyId',              //on StudyAdditionalInfo
+            targetKey: 'id',  //foreign key  
+          }); 
         }
       },
     });

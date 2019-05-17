@@ -27,19 +27,7 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {
-          Plot.belongsTo(models.ObservationUnit, {
-            foreignKey: 'id',              //on Plant
-            targetKey: 'plotId',  //foreign key  
-          });
-          Plot.belongsTo(models.Plant, {
-            foreignKey: 'id',              //on Plant
-            targetKey: 'plotId',  //foreign key  
-          });
-          Plot.belongsTo(models.StudyTreatment, {
-            foreignKey: 'id',              //on Plant
-            targetKey: 'plotId',  //foreign key  
-          });                        
+        associate: function associate(models) {     
         }
       },
     });

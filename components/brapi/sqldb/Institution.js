@@ -22,11 +22,7 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {
-          Institution.belongsTo(models.DonorInstitute,{
-            foreignKey: 'id',
-            targetKey: 'instituteId'
-          })
+        associate: function associate(models) {    
           Institution.belongsTo(models.Germplasm, {
             foreignKey: 'id',              //on Institution
             targetKey: 'holdingInstitution',  //foreign key  
@@ -43,6 +39,11 @@
             foreignKey: 'locationId',              //on Institution
             targetKey: 'id',  //foreign key  
           });
+          Institution.belongsTo(models.DonorInstitute,{
+            foreignKey: 'id',
+            targetKey: 'instituteId'
+          })
+
         }
       },
     });

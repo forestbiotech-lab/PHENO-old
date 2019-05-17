@@ -21,7 +21,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          Country.belongsTo(models.Germplasm, {
+            foreignKey: 'id',              //on Country
+            targetKey: 'countryOfOrigin',  //foreign key  
+          }); 
         }
       },
     });

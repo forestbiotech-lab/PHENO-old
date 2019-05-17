@@ -21,7 +21,15 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          TreatmentModality.belongsTo(models.StudyTreatment, {
+            foreignKey: 'id',              //on TreatmentModality
+            targetKey: 'treatmentModalityId',  //foreign key  
+          });
+          TreatmentModality.belongsTo(models.TreatmentFactor, {
+            foreignKey: 'treatmentFactorId',              //on TreatmentModality
+            targetKey: 'id',  //foreign key  
+          }); 
         }
       },
     });

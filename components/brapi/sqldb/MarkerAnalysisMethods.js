@@ -21,7 +21,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          MarkerAnalysisMethods.belongsTo(models.Marker, {
+            foreignKey: 'markerId',              //on MarkerAnalysisMethods
+            targetKey: 'id',  //foreign key  
+          }); 
         }
       },
     });

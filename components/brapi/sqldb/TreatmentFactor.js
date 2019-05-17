@@ -20,7 +20,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          TreatmentFactor.belongsTo(models.TreatmentModality, {
+            foreignKey: 'id',              //on TreatmentFactor
+            targetKey: 'treatmentFactorId',  //foreign key  
+          }); 
         }
       },
     });

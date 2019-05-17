@@ -21,7 +21,15 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          TrialAuthorship.belongsTo(models.Trial, {
+            foreignKey: 'trialId',              //on TrialAuthorship
+            targetKey: 'id',  //foreign key  
+          });
+          TrialAuthorship.belongsTo(models.Authorship, {
+            foreignKey: 'authorshipId',              //on TrialAuthorship
+            targetKey: 'id',  //foreign key  
+          }); 
         }
       },
     });

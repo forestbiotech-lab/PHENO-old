@@ -26,20 +26,23 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          Location.belongsTo(models.LocationAdditionalInfo, {
+            foreignKey: 'id',              //on Location
+            targetKey: 'location',  //foreign key  
+          });
+          Location.belongsTo(models.Study, {
+            foreignKey: 'id',              //on Location
+            targetKey: 'locationId',  //foreign key  
+          });
           Location.belongsTo(models.Institution, {
             foreignKey: 'id',
             targetKey: 'locationId',
           });
-         Location.belongsTo(models.Country, {
+          Location.belongsTo(models.Country, {
             foreignKey: 'country_id',
             targetKey: 'id',
           });
-         Location.belongsTo(models.LocationAdditionalInfo, {
-            foreignKey: 'id',
-            targetKey: 'location',
-          });
-
         }
       },
     });

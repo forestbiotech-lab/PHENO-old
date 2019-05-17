@@ -21,7 +21,15 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          StudyType.belongsTo(models.ContextOfUse, {
+            foreignKey: 'id',              //on StudyType
+            targetKey: 'studyTypeId',  //foreign key  
+          });
+          StudyType.belongsTo(models.Study, {
+            foreignKey: 'id',              //on StudyType
+            targetKey: 'type',  //foreign key  
+          }); 
         }
       },
     });

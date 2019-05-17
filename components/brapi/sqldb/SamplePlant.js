@@ -21,15 +21,7 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {
-          SamplePlant.belongsTo(models.Plant, {
-            foreignKey: 'plantId',              //on SamplePlant
-            targetKey: 'id',  //foreign key  
-          });     
-          SamplePlant.belongsTo(models.Sample, {
-            foreignKey: 'sampleId',              //on SamplePlant
-            targetKey: 'id',  //foreign key  
-          });     
+        associate: function associate(models) {     
         }
       },
     });

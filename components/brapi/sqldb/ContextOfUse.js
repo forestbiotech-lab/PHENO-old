@@ -22,7 +22,15 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          ContextOfUse.belongsTo(models.ObservationVariable, {
+            foreignKey: 'observationVariableId',              //on ContextOfUse
+            targetKey: 'id',  //foreign key  
+          });
+          ContextOfUse.belongsTo(models.StudyType, {
+            foreignKey: 'studyTypeId',              //on ContextOfUse
+            targetKey: 'id',  //foreign key  
+          }); 
         }
       },
     });

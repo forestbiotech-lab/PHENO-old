@@ -25,7 +25,23 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          Observation.belongsTo(models.ObservationVariable, {
+            foreignKey: 'observationVariableId',              //on Observation
+            targetKey: 'id',  //foreign key  
+          });
+          Observation.belongsTo(models.Person, {
+            foreignKey: 'operator',              //on Observation
+            targetKey: 'id',  //foreign key  
+          });
+          Observation.belongsTo(models.Person, {
+            foreignKey: 'uploadedBy',              //on Observation
+            targetKey: 'id',  //foreign key  
+          });
+          Observation.belongsTo(models.ObservationUnit, {
+            foreignKey: 'observationUnitId',              //on Observation
+            targetKey: 'id',  //foreign key  
+          }); 
         }
       },
     });

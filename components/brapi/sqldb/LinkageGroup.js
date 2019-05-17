@@ -22,7 +22,11 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          LinkageGroup.belongsTo(models.GenomeMap, {
+            foreignKey: 'genomeMapId',              //on LinkageGroup
+            targetKey: 'id',  //foreign key  
+          }); 
         }
       },
     });

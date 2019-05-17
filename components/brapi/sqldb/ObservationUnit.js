@@ -14,39 +14,46 @@
         unique: true,
       },
     name: DataTypes.STRING(100),
-    level: DataTypes.STRING(12),
     studyId: DataTypes.INTEGER(11),
-    plantId: DataTypes.INTEGER(11),
-    plotId: DataTypes.INTEGER(11),
+    level: DataTypes.STRING(254),
+    levels: DataTypes.STRING(254),
+    blockNumber: DataTypes.STRING(11),
+    entryNumber: DataTypes.STRING(11),
+    entryType: DataTypes.STRING(50),
+    x: DataTypes.STRING(10),
+    y: DataTypes.STRING(10),
     sampleId: DataTypes.INTEGER(11),
+    germplasmId: DataTypes.INTEGER(11),
+    plantingDate: DataTypes.DATE,
+    harvestingDate: DataTypes.DATE,
+    replicate: DataTypes.STRING(11),
+    plantNumber: DataTypes.STRING(11),
+    plotNumber: DataTypes.STRING(11),
+    containedIn: DataTypes.INTEGER(11),
+    locationId: DataTypes.INTEGER(11),
   }, {
       tableName: 'ObservationUnit',
       timestamps: false,
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
-          ObservationUnit.belongsTo(models.Sample, {
-            foreignKey: 'sampleId',              //on ObservationUnit
-            targetKey: 'id',  //foreign key  
-          });   
-          ObservationUnit.belongsTo(models.Plant, {
-            foreignKey: 'plantId',              //on ObservationUnit
-            targetKey: 'id',  //foreign key  
+        associate: function associate(models) {    
+          ObservationUnit.belongsTo(models.Treatment, {
+            foreignKey: 'id',              //on ObservationUnit
+            targetKey: 'observationUnitId',  //foreign key  
           });
-          ObservationUnit.belongsTo(models.Plot, {
-            foreignKey: 'plotId',              //on ObservationUnit
-            targetKey: 'id',  //foreign key  
-          });
-          ObservationUnit.belongsTo(models.Study, {
-            foreignKey: 'studyId',              //on ObservationUnit
-            targetKey: 'id',  //foreign key  
+          ObservationUnit.belongsTo(models.Observation, {
+            foreignKey: 'id',              //on ObservationUnit
+            targetKey: 'observationUnitId',  //foreign key  
           });
           ObservationUnit.belongsTo(models.ObservationUnitXRef, {
             foreignKey: 'id',              //on ObservationUnit
             targetKey: 'observationUnitId',  //foreign key  
           });
-
+          ObservationUnit.belongsTo(models.Treatment, {
+            foreignKey: 'id',              //on ObservationUnit
+            targetKey: 'observationUnitId',  //foreign key  
+          }); 
         }
       },
     });

@@ -27,7 +27,15 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {    
+          GenomeMap.belongsTo(models.Species, {
+            foreignKey: 'speciesId',              //on GenomeMap
+            targetKey: 'id',  //foreign key  
+          });
+          GenomeMap.belongsTo(models.LinkageGroup, {
+            foreignKey: 'id',              //on GenomeMap
+            targetKey: 'genomeMapId',  //foreign key  
+          }); 
         }
       },
     });
