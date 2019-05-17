@@ -1,0 +1,10 @@
+# Main pages to index
+User-agent: *
+
+Allow: /brapi/v1
+Allow: /brapi/datasets/study/
+Allow: /brapi/datasets/trial/
+Allow: /brapi/datasets/germplasm/
+
+Disallow: /areyouup
+Disallow: /brapi/v1/
