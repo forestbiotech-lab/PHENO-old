@@ -1,12 +1,25 @@
 var express = require('express');
 var router = express.Router();
 var marked = require('marked');
+var debug = require('debug')
+var debug_std = debug('brapi:server');
+var debug_full= debug('brapi:trace');
 var fs=require('fs');
 var programsForSpecies=require('./../components/brapi/listOfProgramsForSpecies');
 var listStudies=require('./../components/brapi/listStudies');
 var hash=require('./../SQL/DB');
 //var elixirAuth = require('./../components/oauth/elixir-oauth');
 
+
+
+/* Web crawlers */
+router.get('/robots.txt', function(req, res, next){
+  fs.readFile('public/robots.txt',function(err,data){
+    if(err) res.json(err)
+    res.json(data.toString())
+  })
+
+})
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -30,7 +43,7 @@ router.get('/', function(req, res, next) {
       var species=response[0].result.data
       var studies=response[1].result.data
       var indexedPrograms={};
-      
+      console.log('ghfjhfgh'+response[0])
       studies.forEach(function(study){
         studyList=indexedPrograms[study.programId]
         if(studyList==null){
@@ -39,7 +52,7 @@ router.get('/', function(req, res, next) {
         indexedPrograms[study.programId].push(study)
       })      
       result={ 
-        title: 'PHENO',
+        title: 'PHENO - The [PT] BrAPI endpoint',
         host: req.headers.host, 
         overviewMD: marked(data),
         species:species,
@@ -51,20 +64,31 @@ router.get('/', function(req, res, next) {
       res.render('pheno',result );
 
     }).catch(function(err){
-      console.log("/index: "+err);
+      console.log("Error - /index: "+err[0]);
+      errMsg="Router index | '/'' - Error retrieving data for render: err"
+      debug_std(errMsg+" - "+err);
+      if (debug_full.enabled) debug_full(console.trace(errMsg+" - "+err));
+
       res.render('pheno', { 
-        title: 'PHENO',
+        title: 'PHENO - The [PT] BrAPI endpoint',
         host: req.headers.host, 
         overviewMD: marked(data),
         hash:hash.hash 
       });
     })
-  }).catch(function(err){console.log("Unable to read README: err"+err)});
+  }).catch(function(err){
+    /////////////////// REPLACE WITH /////////// DEBUG ////////
+    errMsg="Unable to read README: err"
+    debug_std(errMsg+" - "+err);
+    if (debug_full.enabled) debug_full(console.trace(errMsg+" - "+err));
+  });
 });  
 
 router.get('/areyouup', function(req, res, next) {
   res.json('yes');
 });
+
+
 
 /*router.get('/login',function(req,res,next){
   res.render('login');
