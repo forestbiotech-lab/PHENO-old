@@ -5,4 +5,4 @@ PATHDIR="/home/$USER/git/BrAPI"
 #Executable script for systemd
 cd $PATHDIR
 git log -1 --oneline SQL/LATEST_dump.sql | awk '{print "module.exports={hash:\""$1"\"}"}' > SQL/DB.js
-sudo user=$USER DEBUG=brapi:server mode=PRODUCTION nodemon start
+sudo user=$USER mode=PRODUCTION nodemon start
