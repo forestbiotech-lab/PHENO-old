@@ -21,7 +21,12 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {
+          Methods.belongsTo(models.Calls, {
+            foreignKey: 'callId',  //on Calls
+            targetKey: 'id'
+          });
+     
         }
       },
     });

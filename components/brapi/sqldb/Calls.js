@@ -26,6 +26,11 @@
             foreignKey: 'id',              //on Calls
             targetKey: 'callId',  //foreign key  
           }); 
+          Calls.belongsTo(models.Methods, {
+             foreignKey: 'id',  //on Methods
+             targetKey: 'callId',
+          });
+
         }
       },
     });
