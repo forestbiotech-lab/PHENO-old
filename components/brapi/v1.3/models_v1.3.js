@@ -1,6 +1,7 @@
 
 //Calls Index to load sql tables
 var db = require('./../sqldb');
+const Sequelize=require('sequelize');
 
 var debug = require('debug')
 var debug_std = debug('brapi:server');
@@ -76,14 +77,14 @@ e.germplasm=function(attributes){
       model:db.Country,
     },{
       model:db.GermplasmSynonym,
-    },/*{
-      model:db.GermplasmParents,
+    },{
+      model:db.GermplasmParents, //This might have been deprecated
       include:[{
-        model:db.GermplasmParent1,
+        model:db.GermplasmParent1, 
       },{
         model:db.GermplasmParent2,
       }]
-    },*/{
+    },{
         model:db.DonorInstitute,
         include:[{
           model:db.Institution,
@@ -95,6 +96,7 @@ e.germplasm=function(attributes){
     where: attributes.where,
   })
   .then(function(res){
+    console.log(res)
     return res;
   })
   .catch(function(err){
@@ -108,6 +110,7 @@ e.studies=function(attributes){
   .findAndCountAll({ 
     offset: parseInt(attributes.offset),
     limit: parseInt(attributes.pageSize)+1,
+    //order: [attributes.sortBy,attributes.sortOrder],
     include:[{
       model:db.StudyAdditionalInfo
     },{
@@ -173,6 +176,41 @@ e.trials=function(attributes){
     return res
   }).catch(function(err){
     debug_std("model v1.3 | Trials - Err:"+err)
+    return err
+  })
+}
+
+e.observationunits=function(attributes){
+  return db.ObservationUnit
+  .findAndCountAll({ 
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+    include:[{
+      model: db.Study,
+      include:[{
+        model: db.StudyObservationVariable,
+        include:[{
+          model: db.ObservationVariable,
+          include:[{
+            model: db.Observation
+          }]
+        }]
+      }],
+    },{
+      model: db.ObservationUnitXRef
+    },/*{
+      model:db.Plot,
+      include:[{
+        model:db.StudyTreatment
+      }]
+    },{
+      model:db.Plant
+    }*/],
+    where:attributes.where
+  }).then(function(res){
+    return res
+  }).catch(function(err){
+    debug_std("model v1.3 | observationunit - Err:"+err)
     return err
   })
 }

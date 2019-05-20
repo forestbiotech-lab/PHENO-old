@@ -33,7 +33,7 @@
         associate: function associate(models) {    
           Germplasm.belongsTo(models.DonorInstitute, {
             foreignKey: 'id',              //on Germplasm
-            targetKey: 'DonorGermplasmId',  //foreign key  
+            targetKey: 'germplasmId',  //foreign key  
           });
           Germplasm.belongsTo(models.Species, {
             foreignKey: 'speciesId',              //on Germplasm
@@ -64,6 +64,14 @@
             targetKey: 'childId',  //foreign key  
           });
           Germplasm.belongsTo(models.StudyGermplasm, {
+            foreignKey: 'id',              //on Germplasm
+            targetKey: 'germplasmId',  //foreign key  
+          }); 
+          Germplasm.belongsTo(models.GermplasmStorage, {
+            foreignKey: 'id',              //on Germplasm
+            targetKey: 'germplasmId',  //foreign key  
+          }); 
+          Germplasm.belongsTo(models.GermplasmSynonym, {
             foreignKey: 'id',              //on Germplasm
             targetKey: 'germplasmId',  //foreign key  
           }); 

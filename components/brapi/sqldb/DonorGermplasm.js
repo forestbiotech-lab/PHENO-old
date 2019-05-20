@@ -63,7 +63,8 @@ module.exports = function(sequelize, DataTypes) {
 // Not implementing all foreignKeys yet.
 
     classMethods: {
-      associate: function associate(models) {     
+      associate: function associate(models) {
+
       }
     },
   });

@@ -21,7 +21,8 @@
       underscored: false,
 
      classMethods: {
-        associate: function associate(models) {     
+        associate: function associate(models) {
+               
         }
       },
     });

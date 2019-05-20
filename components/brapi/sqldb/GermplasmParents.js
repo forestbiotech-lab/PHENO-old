@@ -23,11 +23,11 @@
 
      classMethods: {
         associate: function associate(models) {    
-          GermplasmParents.belongsTo(models.Germplasm, {
+          GermplasmParents.belongsTo(models.GermplasmParent1, {
             foreignKey: 'parent1Id',              //on GermplasmParents
             targetKey: 'id',  //foreign key  
           });
-          GermplasmParents.belongsTo(models.Germplasm, {
+          GermplasmParents.belongsTo(models.GermplasmParent2, {
             foreignKey: 'parent2Id',              //on GermplasmParents
             targetKey: 'id',  //foreign key  
           });
