@@ -40,6 +40,7 @@ module.exports = function(options,call,callback){
           var callSpecificData=callback(res)
           var data=fmtRetreivedData(callSpecificData,res)
           var pagination=fmtFunc.generatePagination(res,attributes);
+          console.log(pagination)
           resolve(fmtFunc.generateJSON(data,pagination,200,null));
 
       }//end else

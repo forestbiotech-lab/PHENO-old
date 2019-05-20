@@ -44,10 +44,11 @@ function generatePagination(res,query){
  *  
  */
 
-function generateJSON(queryData,pagination,code,message){
+function generateJSON(queryData,pagination,code,message,messageType){
 
 	//null message
 	var message = message || "OK";
+	var messageType = messageType || "INFO";
 	var result='';
 	queryData==null ? result=null : result={data:queryData};
 	//Allows extra parameters before data to be set in the call processing
@@ -66,11 +67,12 @@ function generateJSON(queryData,pagination,code,message){
 		result=null;
 	}
     //Return the structured JSON 
-	return {
+	return{
 		metadata: {
 			status: [{
 				message:(String (message)),
 				code:(String (code)),
+				messageType: messageType 	
 			}],
 			datafiles: [],
 			pagination: pagination,

@@ -19,6 +19,8 @@ module.exports = function(options,call,callback){
   attributes.page = query.page || 0 
   //Set the page to show
   attributes.offset = attributes.page * attributes.pageSize;
+  //attributes.order =  options.params.sortOrder ||"DESC"; 
+  //attributes.order =  options.params.sortBy ||"id"; 
   attributes.where = options.where;
 
 
@@ -33,7 +35,7 @@ module.exports = function(options,call,callback){
       if(res instanceof Error){
           //Send the error in the status send rejection to promise
           //Args:queryData,pagination,code,message
-          reject( fmtFunc.generateJSON(null,null,400,res.name+" : "+res.message) );
+          reject( fmtFunc.generateJSON(null,null,400,res.name+" : "+res.message,"ERROR") );
    
       }else{
           //Send res back to get the metadata, uniqueId Attribute and the callStructure
