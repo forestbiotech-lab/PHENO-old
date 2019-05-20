@@ -51,5 +51,6 @@ function resolveError(res,err){
 
 
 module.exports={
-	resolveCall:resolveCall
+	resolveCall:resolveCall,
+  resolveError: resolveError
 }

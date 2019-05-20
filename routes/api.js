@@ -5,6 +5,7 @@ var marked = require('marked');
 var fs=require('fs');
 var resolveHelper = require('./../components/brapi/helpers/resolveHelper');
 var resolveCall=resolveHelper.resolveCall
+var resolveError=resolveHelper.resolveError
 var getOptions = require('./../components/brapi/helpers/getOptions');
 
 ////------------ Call Declaration Galore ----------------------------------
@@ -59,7 +60,7 @@ router.get('/', function(req, res, next) {
           'calls': callsResponse.result.data 
         });
       }).catch(function (err) {
-        resolveError(err);
+        resolveError(res,err);
       })
     });
 });  
@@ -70,7 +71,8 @@ router.get('/germplasm-search', function(req, res, next){
   germplasmCalls(req.query).then(function(germplasmRes){
     res.status(200).json(germplasmRes);
   }).catch(function(err){
-        resolveError(err);
+    console.log("This call with error!")  
+    resolveError(res,err);
   })
 });
 
@@ -81,7 +83,7 @@ router.get('/germplasm/:id', function(req, res, next){
   germplasmCalls(query).then(function(germplasmRes){
     res.status(200).json(germplasmRes);
   }).catch(function(err){
-        resolveError(err);
+    resolveError(res,err);
   })
 });
 
@@ -92,7 +94,7 @@ router.get('/germplasm/:id/pedigree',function(req,res,next){
   germplasmPedigree(query).then(function(germPedigreeRes){
     res.status(200).json(germPedigreeRes);
   }).catch(function(err){
-        resolveError(err);
+    resolveError(res,err);
   })
 });
 
@@ -104,7 +106,7 @@ router.get('/crops', function(request, response, next){
     response.status(200).json(cropResponse);
 
   }).catch(function (error) {
-        resolveError(err);
+    resolveError(res,err);
   })
 
 });
@@ -115,7 +117,7 @@ router.post('/germplasm-search', function(req, res, next){
   germplasmCalls(req.body).then(function(germplasmRes){
     res.status(200).json(germplasmRes);
   }).catch(function(err){
-        resolveError(err);
+    resolveError(res,err);
   })
 });
 
@@ -125,28 +127,15 @@ router.post('/phenotypes-search', function(req, res, next){
   germplasmCalls(req.body).then(function(phenotypesRes){
     res.status(200).json(phenotypesRes);
   }).catch(function(err){
-    
-    resolveError(err);
+    resolveError(res,err);
   })
 });
 
-
-/*  João Cardoso  - 11/07/2017 
- *  List implemented calls 
-*/
-//router.get('/calls', function (req, res, next){
-//    listImplementedCalls(req.query).then(function (callsResponse) {
-//      res.status(200).json(callsResponse);
-//    }).catch(function (err) {
-//        resolveError(err);
-//    })
-//});
 router.get('/calls', function (req, res, next){
   var errMsg="Router Calls Get - "
   var call=listCalls
   resolveCall(call,req,res,errMsg);
 });
-
 
 //study-search
 router.get('/studies-search',function(req,res,next){
@@ -154,7 +143,7 @@ router.get('/studies-search',function(req,res,next){
   studiesSearchCall(query).then(function(studiesSearchCallRes){
     res.status(200).json(studiesSearchCallRes);
   }).catch(function(err){
-      resolveError(err);
+      resolveError(res,err);
   })
 });
 
@@ -164,7 +153,7 @@ router.post('/studies-search',function(req,res,next){
   studiesSearchCall(query).then(function(studiesSearchCallRes){
     res.status(200).json(studiesSearchCallRes);
   }).catch(function(err){  
-    resolveError(err);
+    resolveError(res,err);
   })
 });
 
@@ -175,7 +164,7 @@ router.get('/studies/:studyDbId', function(req, res, next){
   studyDetailsCall(req.query).then(function(studyDetailsCallRes){
     res.status(200).json(studyDetailsCallRes);
   }).catch(function(err){
-    resolveError(err);
+    resolveError(res,err);
   })
 });
 
@@ -188,7 +177,7 @@ router.get('/studies/:studyDbId/germplasm', function(req, res, next){
     res.status(200).json(studyGermplasmDetailsCallRes);
   }).catch(function(err){
 
-    resolveError(err);
+    resolveError(res,err);
   })
 });
 
@@ -199,7 +188,7 @@ router.get('/programs', function(req, res, next){
     res.status(200).json(programsCallRes);
   }).catch(function(err){
     
-    resolveError(err);
+    resolveError(res,err);
   })
 });
 
@@ -210,7 +199,7 @@ router.post('/programs-search', function(req, res, next){
     res.status(200).json(programsCallRes);
   }).catch(function(err){
 
-    resolveError(err);
+    resolveError(res,err);
   })
 });
 
