@@ -14,7 +14,6 @@ var debug = require('debug')
 var debug_std = debug('brapi:server');
 var debug_full= debug('brapi:trace');
 var hash = require('object-hash');
-var ObsUnitGraph=require('./observationUnitGraph');
 
 
 
@@ -132,87 +131,6 @@ function transverseMultipleTables(table,db){
 }
 
 
-function goToTableFromObservationUnits(){
-  level = db.level.replace("Number","")
-  level = level[0].toUpperCase()+level.slice(1)
-  obsGraph.level = level
-  console.log("This function isn't complete "+obsGraph.shotestPath)
-}
-
-function goToTableFromOtherSpecialTables(key,directions,db,table,destinationTable){
-  levels=["Plot","Plant","Sample"]
-  this.db=db
-  let obsGraph = new ObsUnitGraph.graph()
-  obsGraph.origin = table
-  obsGraph.destination = destinationTable
-  for (i in levels){
-    level=levels[i]
-    obsGraph.level = level
-    path=(obsGraph.shortestPath).slice(1)  //Remove origin
-    if(path.length>0){
-      let result=transverseMultipleTables(path,this.db)
-      db=result.db
-      table=result.table
-    }else{
-      continue
-    }
-    try{
-      let result = getvalueFromNextTable(key,directions,db) //Not sending table so it will be recaculated for current state
-      if (result!=null){
-        return result
-      }
-    }catch(err){
-      debug_std("gotToTableFromOtherSpecialTables - Unable to transverse this path ["+level+"]: "+err)
-    }
-  }
-  debug_std("gotToTableFromOtherSpecialTables - Unable to transverse any of the paths")
-  return null
-}
-
-
-function specialTables(key,directions,db,table,destinationTable){
-  if ( table == "ObservationUnit" ){
-    //with this table the path is extracted from level
-    return goToTableFromObservationUnits(key,directions,db,table,destinationTable) 
-  }else{
-    //with the other tables the path has to be discovered
-    return goToTableFromOtherSpecialTables(key,directions,db,table,destinationTable) 
-  }
-} 
-
-function doSpecialTableProcessing(key,directions,db,table){
-  if (table==null){
-    table=db._modelOptions.tableName
-  }
-  if(ObsUnitGraph.SPECIAL_TABLES.includes(table)){
-    destinationTable=directions._table
-    if (typeof destinationTable == "string"){
-      if(ObsUnitGraph.SPECIAL_TABLES.includes(destinationTable)){
-        return specialTables(key,directions,db,table,destinationTable)
-      }
-    }
-    if (typeof destinationTable == "object"){
-      let intersection= ObsUnitGraph.intersect(destinationTable)
-      if ( intersection.length == 1 ){
-        indexOfIntersection = destinationTable.indexOf(intersection[0])
-        directions["_table"]=destinationTable.splice(indexOfIntersection)
-        if(directions._table.length==1){
-          directions._table=directions._table[0]
-        }
-        return specialTables(key,directions,db,table,destinationTable=intersection)
-      }
-      if (  intersection.length > 1  ){
-        debug_std("Destination is an Object: But intersection if bigger then 1 this isn't allowed")
-        return getvalueFromNextTable(key,directions,db)
-      } 
-      if (  intersection.length < 1  ){
-        console.log("Destination is an Object: But intersection was found")
-        return null
-      }
-    } 
-  }
-}
-
 function processMultipleTables(directions,db,table){
   if(table==null & typeof directions._table == "object"){
     return transverseMultipleTables(directions._table,db);
@@ -255,12 +173,6 @@ function getvalueFromNextTable(key,directions,db,table){
 function processSingleValueObject(key,value,db){
   try{
     let directions=value
-    //////REMOVEE!!!!!!!!!!!!!!!!!!!!!!!
-    let special=doSpecialTableProcessing(key,directions,db)
-    if( special != null){
-      return special
-    }
-    /////REMOVEE!!!!!!!!!!!!!!!!!!!!!!!!!
     return getvalueFromNextTable(key,directions,db)
   }catch(err){
     debug_std("Error while processing Object values from table ["+value._table+"] - "+err);
