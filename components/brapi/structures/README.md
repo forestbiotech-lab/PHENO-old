@@ -41,7 +41,18 @@ Single attribute from table with distance >1
 	key: {_table:['table2','table3'],_attrubute:'name'}
 }
 ```
-Key will be filled with the value of the attribute "name" in table "table3". The array of table in _table must be sequentially traversed throughout the foreign key coupling the tables. For now the _attribute is necessary always in this case. 
+Key will be filled with the value of the attribute "name" in table "table3". The array of table in \_table must be sequentially traversed throughout the foreign key coupling the tables. For now the \_attribute is necessary always in this case.
+
+Conversion to a different type
+------------------------------
+```
+{
+	key: {_table:'table3',_attrubute:'name',_parse:"int|str"}
+}
+```
+Conversion to string or integer based on the value in the key \_parse".
+
+
 
 Creating a new object
 ---------------------
