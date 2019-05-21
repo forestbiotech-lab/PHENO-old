@@ -20,10 +20,10 @@ module.exports={
         }
     },
     "endDate": {_table:"Trial",_attribute:"endDate"},  //Should be in study not trial?
-    "locationDbId": "locationId",
+    "locationDbId": {_table:"Trial",_attribute:"locationId",_parse:"str"},
     "locationName": {_table:"Location",_attribute:"name"},
 //    "name": "",  //Deprecated I think
-    "programDbId": {_table:"Trial",_attribute:"programId"},
+    "programDbId": {_table:"Trial",_attribute:"programId",_parse:"str"},
     "programName": {_table:["Trial","Program"],_attribute:"name"},
     "seasons": [{
         _table:["StudySeason","Season"],
@@ -35,11 +35,11 @@ module.exports={
         }
     }],
     "startDate": {_table:"Trial",_attribute:"startDate"},  //Should be in study not trial?
-    "studyDbId": "id",
+    "studyDbId": {_table:"Study",_attribute:"id",_parse:"str"},
     "studyName": "name",
 //    "studyType": {}, //deprecated
     "studyTypeDbId": "studyTypeId",
     "studyTypeName": {_table:"StudyType",_attribute:"name"}, //name or description????
-    "trialDbId": {_table:"Trial",_attribute:"id"},
+    "trialDbId": {_table:"Trial",_attribute:"id",_parse:"str"},
     "trialName": {_table:"Trial",_attribute:"name"}
 }

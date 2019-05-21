@@ -17,7 +17,7 @@ module.exports={
     }
   },  //Add trial card
   "endDate": "",
-  "programDbId": "programId",
+  "programDbId": {_table:"Trial",_attribute:"programId",_parse:"str"},
   "programName": {_table:"Program",_attribute:"name"},
   "startDate": "",
   "studies": [{
