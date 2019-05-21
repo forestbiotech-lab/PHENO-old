@@ -43,7 +43,7 @@ module.exports={
     _model:{
       _table:"Species",
       sourceName: "ncbiTaxon",
-      taxonId: 'NCBItaxonId'
+      taxonId: {_table:"Species",_attribute:'NCBItaxonId',_parse:"str"}
     }
   }],
   typeOfGermplasmStorageCode:[{
