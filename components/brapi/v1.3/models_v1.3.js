@@ -96,7 +96,6 @@ e.germplasm=function(attributes){
     where: attributes.where,
   })
   .then(function(res){
-    console.log(res)
     return res;
   })
   .catch(function(err){

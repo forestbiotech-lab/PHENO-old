@@ -316,7 +316,6 @@ function determineActionForJSONObject(key,value,db){
         return processMultiValueObject(key,value,db);
     }
     if( Object.keys(value).length>2){
-      if(value._attribute != null && value._parse != null) console.log("THHHHHHHEEEEE BONGGGG")          
       if(value._attribute != null && value._parse != null) return processSingleValueObject(key,value,db);
       return processMultiValueObject(key,value,db)
     }
