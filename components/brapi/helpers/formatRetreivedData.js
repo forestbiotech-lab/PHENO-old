@@ -23,7 +23,7 @@ function getValueFromTable(key,value,db){
   var column="";
   value.length==0 ? column=key : column=value
   dbValue=db.dataValues[column]
-  if(dbValue==null || typeof dbValue == "object" ){ // this avoid getting tables in next iteration when values are tables. 
+  if(dbValue==null || typeof dbValue == "object" ){ // this avoids getting tables in next iteration when values are tables. 
     return column
   }
   return dbValue==null ? column : dbValue 
@@ -173,7 +173,7 @@ function goToTableFromOtherSpecialTables(key,directions,db,table,destinationTabl
 function specialTables(key,directions,db,table,destinationTable){
   if ( table == "ObservationUnit" ){
     //with this table the path is extracted from level
-    return goToTableFromObservationUnits() 
+    return goToTableFromObservationUnits(key,directions,db,table,destinationTable) 
   }else{
     //with the other tables the path has to be discovered
     return goToTableFromOtherSpecialTables(key,directions,db,table,destinationTable) 
@@ -221,6 +221,8 @@ function processMultipleTables(directions,db,table){
 
 function getvalueFromNextTable(key,directions,db,table){
   var column="";
+  let parseint=false
+  let parsestr=false
   let result=processMultipleTables(directions,db,table)
   if( result != null){
     db=result.db;
@@ -234,25 +236,31 @@ function getvalueFromNextTable(key,directions,db,table){
       return null
     }
   }
-  if(Object.keys(directions).length==2 ){
+  if(Object.keys(directions).length>=2 ){
     if(typeof directions._attribute == "object" || typeof directions._model == "object" ){
       return processMultipleAttributes(table,directions,db)
     }else{
+      if (directions._parse=="int") parseint=true
+      if (directions._parse=="str") parsestr=true
       column=directions._attribute
     }
   }else{
     column=key
   }
+  if (parseint) return parseInt(db.dataValues[table].dataValues[column])
+  if (parsestr) return String(db.dataValues[table].dataValues[column])
   return db.dataValues[table].dataValues[column] 
 }
 
 function processSingleValueObject(key,value,db){
   try{
     let directions=value
+    //////REMOVEE!!!!!!!!!!!!!!!!!!!!!!!
     let special=doSpecialTableProcessing(key,directions,db)
     if( special != null){
       return special
     }
+    /////REMOVEE!!!!!!!!!!!!!!!!!!!!!!!!!
     return getvalueFromNextTable(key,directions,db)
   }catch(err){
     debug_std("Error while processing Object values from table ["+value._table+"] - "+err);
@@ -307,7 +315,9 @@ function determineActionForJSONObject(key,value,db){
       if(value._attribute == null)
         return processMultiValueObject(key,value,db);
     }
-    if( Object.keys(value).length>2){            
+    if( Object.keys(value).length>2){
+      if(value._attribute != null && value._parse != null) console.log("THHHHHHHEEEEE BONGGGG")          
+      if(value._attribute != null && value._parse != null) return processSingleValueObject(key,value,db);
       return processMultiValueObject(key,value,db)
     }
   }
@@ -324,7 +334,7 @@ function determinActionForJSONinstance(key,value,db){
 
 function determineActionForKey(key,value,db){
   if (typeof value == "string" || typeof value == "number"){
-    return String(getValueFromTable(key,value,db))
+    return getValueFromTable(key,value,db)
   }
   if (typeof value == "object"){
     return determinActionForJSONinstance(key,value,db)
