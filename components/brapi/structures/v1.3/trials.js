@@ -24,12 +24,12 @@ module.exports={
     _table:"Study",
     _model:{
       _table:"Study",
-      "locationDbId": "locationId",
+      "locationDbId": {_table:"Study",_attribute:"locationId",_parse:"str"},
       "locationName": {_table:"Location",_attribute:"name"},
-      "studyDbId": "id",
+      "studyDbId": {_table:"Study",_attribute:"id",_parse:"str"},
       "studyName": "name"      
     }
   }],
-  "trialDbId": "id",
+  "trialDbId": {_table:"Trial",_attribute:"id",_parse:"str"},
   "trialName": "name"
 }

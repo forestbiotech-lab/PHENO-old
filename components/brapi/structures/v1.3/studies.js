@@ -31,7 +31,7 @@ module.exports={
             _table:"Season",
             id:"",
             season:"",
-            year:""
+            year:{_table:"Season",_attribute:"year",_parse:"str"},
         }
     }],
     "startDate": {_table:"Trial",_attribute:"startDate"},  //Should be in study not trial?
