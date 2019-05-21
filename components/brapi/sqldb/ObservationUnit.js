@@ -53,7 +53,15 @@
           ObservationUnit.belongsTo(models.Treatment, {
             foreignKey: 'id',              //on ObservationUnit
             targetKey: 'observationUnitId',  //foreign key  
-          }); 
+          });
+          ObservationUnit.belongsTo(models.Study,{
+            foreignKey: 'studyId', //on ObsUnit
+            targetKey: 'id'
+          });
+          ObservationUnit.belongsTo(models.Germplasm,{
+            foreignKey: 'germplasmId', //on ObsUnit
+            targetKey: 'id'
+          });          
         }
       },
     });

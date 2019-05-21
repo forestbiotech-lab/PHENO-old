@@ -34,7 +34,7 @@
             foreignKey: 'operator',              //on Observation
             targetKey: 'id',  //foreign key  
           });
-          Observation.belongsTo(models.Person, {
+          Observation.belongsTo(models.PersonUploader, {
             foreignKey: 'uploadedBy',              //on Observation
             targetKey: 'id',  //foreign key  
           });

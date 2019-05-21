@@ -187,24 +187,33 @@ e.observationunits=function(attributes){
     include:[{
       model: db.Study,
       include:[{
-        model: db.StudyObservationVariable,
+        model: db.Trial,
         include:[{
-          model: db.ObservationVariable,
-          include:[{
-            model: db.Observation
-          }]
+          model: db.Program,
         }]
+      },{
+        model: db.Location,
       }],
     },{
       model: db.ObservationUnitXRef
-    },/*{
-      model:db.Plot,
-      include:[{
-        model:db.StudyTreatment
+    },{
+      model: db.Germplasm
+    },{
+      model: db.Observation,
+      include: [{
+        model: db.ObservationVariable
+      },{
+        model: db.Person
       }]
     },{
-      model:db.Plant
-    }*/],
+      model: db.Treatment,
+      include:[{
+        model: db.TreatmentModality,
+        include:[{
+          model:db.TreatmentFactor,
+        }]
+      }]
+    }],
     where:attributes.where
   }).then(function(res){
     return res

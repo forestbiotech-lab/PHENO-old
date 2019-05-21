@@ -55,6 +55,10 @@
             foreignKey: 'id',              //on Study
             targetKey: 'studyId',  //foreign key  
           }); 
+          Study.belongsTo(models.StudyObservationVariable, {
+            foreignKey: 'id',              //on Study
+            targetKey: 'studyId',  //foreign key  
+          }); 
         }
       },
     });

@@ -8,6 +8,7 @@ var Samples_SamplesDbId_GET = require('./../components/brapi/v1.3/Samples_Sample
 var germplasm = require('./../components/brapi/v1.3/germplasm_GET');
 var studies = require('./../components/brapi/v1.3/studies_GET');
 var trials = require('./../components/brapi/v1.3/trials_GET');
+var observationunits = require('./../components/brapi/v1.3/observationunits_GET');
 //var phenotypesSearchV1_3 = require('./../components/brapi/v1.3/phenotypesSearch')
 //------------------- End  -------------------------------
 
@@ -36,5 +37,12 @@ router.get('/trials',function(req,res,next){
   var call=trials
   resolveCall(call,req,res,errMsg);
 })
+
+router.get('/observationunits',function(req,res,next){
+  var errMsg="Router observationunits Get - "
+  var call=observationunits
+  resolveCall(call,req,res,errMsg);
+})
+
 
 module.exports = router;
