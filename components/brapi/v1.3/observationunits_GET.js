@@ -19,49 +19,49 @@ module.exports = function(options){
   attribute=options.query.studyDbId
   var value=fmtWhereAttr(attribute,"in")
   if ( value != null )
-    options.where.id=value 
+    options.where.studyId=value 
   delete options.query.studyDbId;
 //|||||||||||||||||commonCropName||||||||||||||
   attribute=options.query.commonCropName
   var value=fmtWhereAttr(attribute,"eq")
   if ( value != null )
-    options.where["$StudyGermplasm.Germplasm.Species.Crop.commonCropName$"]=value 
+    options.where["$Germplasm.Species.Crop.commonCropName$"]=value 
   delete options.query.commonCropName;
 //|||||||||||||||||studyTypeDbId||||||||||||||
   attribute=options.query.studyTypeDbId
   var value=fmtWhereAttr(attribute,"eq")
   if ( value != null )
-    options.where.studyTypeId=value 
+    options.where["$Study.type$"]=value 
   delete options.query.studyTypeDbId;
 //|||||||||||||||||programDbId||||||||||||||
   attribute=options.query.programDbId;
   var value=fmtWhereAttr(attribute,"eq")
   if ( value != null )
-    options.where["$Trial.programId$"]=value 
+    options.where["$Study.Trial.programId$"]=value 
   delete options.query.programDbId;
 //|||||||||||||||||locationDbId||||||||||||||
   attribute=options.query.locationDbId
   var value=fmtWhereAttr(attribute,"eq")
   if ( value != null )
-    options.where.locationId=value 
+    options.where["$Study.locationId$"]=value 
   delete options.query.locationDbId;
-//|||||||||||||||||seasonDbId||||||||||||||
+//|||||||||||||||||seasonDbId||||||||||||||   MISSING
   attribute=options.query.seasonDbId;
   var value=fmtWhereAttr(attribute,"eq")
   if ( value != null )
-    options.where["$StudySeason.seasonId$"]=value 
+    options.where["$Study.StudySeason.seasonId$"]=value 
   delete options.query.seasonDbId;
 //|||||||||||||||||trialDbId||||||||||||||
   attribute=options.query.trialDbId
   var value=fmtWhereAttr(attribute,"eq")
   if ( value != null )
-    options.where.trialId=value 
+    options.where["$Study.trialId$"]=value 
   delete options.query.trialDbId;
 //|||||||||||||||||active||||||||||||||
   attribute=options.query.active
   var value=fmtWhereAttr(attribute,"eq")
   if ( value != null )
-    options.where.active=value 
+    options.where["$Study.active$"]=value 
   delete options.query.active;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
