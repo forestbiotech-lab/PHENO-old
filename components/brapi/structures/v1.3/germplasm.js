@@ -1,7 +1,7 @@
 module.exports={
   accessionNumber: "",
   acquisitionDate: "",
-  biologicalStatusOfAccessionCode: "",
+  biologicalStatusOfAccessionCode: {_table:"Germplasm",_attribute:"biologicalStatusOfAccessionCode",_parse:"int"},
   breedingMethodDbId: "",
   commonCropName: {_table:["Species","Crop"]},
   countryOfOriginCode: {_table:"Country",_attribute:"code"},
@@ -22,7 +22,7 @@ module.exports={
         germplasmPUI:{_table:"Germplasm",_attribute:"germplasmPUI"}
       }
   }],
-  germplasmDbId: "id",
+  germplasmDbId: {_table:"Germplasm",_attribute:"id",_parse:"str"},
   germplasmGenus: {_table:"Species",_attribute:"genus"},
   germplasmName: "defaultDisplayName",
   germplasmPUI: "",//http://pui.per/accession/A000003
