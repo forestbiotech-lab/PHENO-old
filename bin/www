@@ -38,11 +38,12 @@ function approveDomains(opts, certs, cb) {
 
 
 function checkDomains(certDomains, cb){
+  console.log(certDomains)
   var officialDomains = domains  //reinforcing that it's the user defined ones or DB list
   var userEmail=email 
   var userAgrees=true;
   var passCheck = certDomains.every(function (domain){
-    retrun -1 !== officialDomains.indexOf(certDomains);
+    return -1 !== officialDomains.indexOf(domain);
   })
 
   if (passCheck){
