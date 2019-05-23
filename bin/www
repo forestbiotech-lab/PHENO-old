@@ -17,18 +17,40 @@ function approveDomains(opts, certs, cb) {
   // email addresses with domains and agreements and such
 
 
+
   // The domains being approved for the first time are listed in opts.domains
   // Certs being renewed are listed in certs.altnames
   if (certs) {
     opts.domains = certs.altnames;
   }
-  else {
+
+  checkDomains(opts.domains, function(err,agree, email){
+    if (err) { 
+      cb(err) 
+      return
+    }    
     opts.email = email;
-    opts.agreeTos = true;
-    opts.approveDomains= domains;
+    opts.agreeTos = agree;
+
+    cb(null, {options:opts, certs:certs})
+  })
+}
+
+
+function checkDomains(certDomains, cb){
+  var officialDomains = domains  //reinforcing that it's the user defined ones or DB list
+  var userEmail=email 
+  var userAgrees=true;
+  var passCheck = certDomains.every(function (domain){
+    retrun -1 !== officialDomains.indexOf(certDomains);
+  })
+
+  if (passCheck){
+    cb(null, userAgrees, userEmail)
+  }else{
+    cb(new Error('domain not allowed'))
   }
 
-  cb(null, { options: opts, certs: certs });
 }
 
 
@@ -49,6 +71,9 @@ var port_http = normalizePort(process.env.PORT_HTTP || '80');
 var port_https = normalizePort(process.env.PORT_HTTPS || '443');
 
 var server = process.env.mode=="PRODUCTION" ? lex.create(options) : http.createServer(app);
+
+console.log(server)
+
 
 function productionServer(lex){
   console.log("Running PRODUCTION mode")
