@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  .card
+    .card-head
+      h3 This is the the Observation unit tableview
+    .card-body
+      .container
+        .row
+          .col-md-12.col-lg-12(style="scroll-behavior: auto;overflow-x: scroll;")
+            table.table-bordered.table-striped
+              thead
+                each header in data[0]
+                  td=header
+              - data.shift(1)
+              tbody
+                each row in data
+                  tr
+                    each cell in row
+                      td=cell
+
