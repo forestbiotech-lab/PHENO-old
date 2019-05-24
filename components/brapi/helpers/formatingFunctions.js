@@ -54,7 +54,8 @@ function generateJSON(queryData,pagination,code,message,messageType){
 	//Allows extra parameters before data to be set in the call processing
 	try{
 		queryData.data != null ? result=queryData : result=result
-		queryData.data == "metadataOnlyRemoveData" ? delete queryData.data : test=1
+		queryData.data == "metadataOnlyRemoveData" ? result=queryData : test=1
+		queryData.data == "metadataOnlyRemoveData" ? delete result.data : test=1
 	}catch(err){
 		errMsg="No queryData";
 		debug_std(errMsg+" - "+err);
