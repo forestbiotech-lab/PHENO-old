@@ -22,7 +22,7 @@ module.exports = function(options,call,callback){
   //attributes.order =  options.params.sortOrder ||"DESC"; 
   //attributes.order =  options.params.sortBy ||"id"; 
   attributes.where = options.where;
-
+  attributes.inserts= options.inserts
 
 
   //Runs a model function with options if they exist
