@@ -33,7 +33,7 @@ module.exports = function(options,call,callback){
       if(res instanceof Error){
           //Send the error in the status send rejection to promise
           //Args:queryData,pagination,code,message
-          reject( fmtFunc.generateJSON(null,null,400,res.name+" : "+res.message) );
+          reject( fmtFunc.generateJSON(null,null,400,res.name+" : "+res.message,"ERROR") );
    
       }else{
           //Send res back to get the metadata, uniqueId Attribute and the callStructure
@@ -50,7 +50,7 @@ module.exports = function(options,call,callback){
       errMsg="Controller | root - err: "
       debug_std(errMsg+" - "+err);
       if (debug_full.enabled) debug_full(console.trace(errMsg+" - "+err));
-      reject( fmtFunc.generateJSON(null,null,500,err.name+" : "+err.message) );
+      reject( fmtFunc.generateJSON(null,null,500,err.name+" : "+err.message,"ERROR") );
 
     })
 
