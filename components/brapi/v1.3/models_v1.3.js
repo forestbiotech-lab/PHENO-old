@@ -59,6 +59,20 @@ e.Samples_SampleDbId=function(attributes){
   })
 }
 
+e.observationtables_post=function(attributes){
+  console.log(attributes)
+  return db.Search
+  .create(
+    attributes.inserts
+  ).then(function(res){
+  //  console.log(res)
+    return res
+  }).catch(function(err){
+    debug_std("model v1.3 | observationtables_post | (create search id ) - Err: "+ err);
+    return err
+  })
+}
+
 e.germplasm=function(attributes){
   return db.Germplasm
   .findAndCountAll({ 
