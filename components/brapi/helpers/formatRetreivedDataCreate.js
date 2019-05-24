@@ -274,7 +274,6 @@ function formatRetreivedData(arg,res){
     if(Object.keys(data).indexOf(String(uniqueId)) == -1){ 
       data[uniqueId]=JSON.parse(JSON.stringify(callStructure)); //needs a deep copy
     }
-    console.log(data)
     parseCallStructure(data[uniqueId],dbValues)
     
     

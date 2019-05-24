@@ -60,7 +60,6 @@ e.Samples_SampleDbId=function(attributes){
 }
 
 e.observationtables_post=function(attributes){
-  console.log(attributes)
   return db.Search
   .create(
     attributes.inserts

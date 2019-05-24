@@ -82,8 +82,31 @@ function generateJSON(queryData,pagination,code,message,messageType){
 		}
 }
 
+function sanitizeArray(inString){ //Sanitize the array that is being inserted into table
+	let array=""
+	try{
+	  array=JSON.parse(inString)
+	}catch{
+		return []
+	}
+	if (array instanceof Array){
+	  function isInt(item){
+	    return typeof item == 'number'
+	  }
+	  if(array.every(isInt)){
+	    return array
+	  }else{
+	    return []
+	  }
+	}else{
+	  return []
+	}
+}
+
+
 module.exports = {
 	//name a function to export
     generateJSON: generateJSON,
     generatePagination: generatePagination,
+    sanitizeArray: sanitizeArray,
 }

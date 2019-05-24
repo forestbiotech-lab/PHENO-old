@@ -44,7 +44,6 @@ module.exports = function(options,call,callback){
           var pagination=fmtFunc.generatePagination(res,attributes);
           data=data.data[0]
           data.data="metadataOnlyRemoveData"
-          console.log(data)
           resolve(fmtFunc.generateJSON(data,pagination,200,null));
 
       }//end else
