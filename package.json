@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "npm run test-unit",
+    "test-v1_3": "npm run test-unit-v1_3",
     "test-unit": "NODE_ENV=test mocha --exit 'components/**/*.spec.js'",
+    "test-unit": "NODE_ENV=test mocha --exit 'components/**/v1.3/*.spec.js'",
     "coverage": "nyc npm test;",
     "html-report": "nyc --reporter=html npm test;google-chrome-stable coverage/index.html"
   },
@@ -26,6 +28,7 @@
     "hoek": "^5.0.3",
     "jade": "~1.11.0",
     "jsdom": "^13.2.0",
+    "json-to-table": "^4.1.0",
     "jsonwebtoken": "^8.4.0",
     "jstransformer": "^1.0.0",
     "marked": "^0.3.19",
