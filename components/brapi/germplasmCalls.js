@@ -36,7 +36,7 @@ module.exports = function(query,options){
     query.germplasmDbId=query.germplasmDbId || ""
   }
   if(query.germplasmDbId){
-    query.where.id={'$in':query.germplasmDbId}
+    query.where.germplasmId={'$in':query.germplasmDbId}
   }
   //germplasmPUI
   if(typeof query.germplasmPUI == "string"){
@@ -49,6 +49,7 @@ module.exports = function(query,options){
     query.where.germplasmPUI={'$in':query.germplasmPUI}
   }
 
+  console.log(query.where)
 
   var options = options || {};
   //Runs a model function with options if they exist
