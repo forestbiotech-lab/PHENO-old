@@ -14,9 +14,10 @@ log=function(arg){
 module.exports = {
   sql: {
     database: 'brapi_dan',
-    username: 'testing',
-    password: 'test',
+    username: 'test',
+    password: 'tesT12345$',
     dialect: 'mysql', // PostgreSQL, MySQL, MariaDB, SQLite and MSSQL See more: http://docs.sequelizejs.com/en/latest/
+
     operatorsAliases: false,
     logging: log, 
     timezone: '+05:30',
