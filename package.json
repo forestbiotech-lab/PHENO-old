@@ -6,7 +6,6 @@
     "start": "node ./bin/www",
     "test": "npm run test-unit",
     "test-v1_3": "npm run test-unit-v1_3",
-    "test-unit": "NODE_ENV=test mocha --exit 'components/**/*.spec.js'",
     "test-unit": "NODE_ENV=test mocha --exit 'components/**/v1.3/*.spec.js'",
     "coverage": "nyc npm test;",
     "html-report": "nyc --reporter=html npm test;google-chrome-stable coverage/index.html"
@@ -34,8 +33,8 @@
     "marked": "^0.3.19",
     "moment": "^2.22.2",
     "morgan": "^1.9.1",
-    "mysql": "^2.16.0",
-    "mysql2": "^1.6.4",
+    "mysql": "^2.17.1",
+    "mysql2": "^1.6.5",
     "npm": "^6.5.0",
     "oauth2-server": "^3.0.1",
     "object-hash": "^1.3.0",

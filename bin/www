@@ -73,7 +73,6 @@ var port_https = normalizePort(process.env.PORT_HTTPS || '443');
 
 var server = process.env.mode=="PRODUCTION" ? lex.create(options) : http.createServer(app);
 
-console.log(server)
 
 
 function productionServer(lex){
