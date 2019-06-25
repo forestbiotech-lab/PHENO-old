@@ -76,16 +76,6 @@ router.get('/germplasm-search', function(req, res, next){
   })
 });
 
-//germplasm
-router.get('/germplasm/:id', function(req, res, next){
-  var query=req.query;
-  query.germplasmDbId=req.params.id;
-  germplasmCalls(query).then(function(germplasmRes){
-    res.status(200).json(germplasmRes);
-  }).catch(function(err){
-    resolveError(res,err);
-  })
-});
 
 //GermplasmPedigree
 router.get('/germplasm/:id/pedigree',function(req,res,next){
