@@ -9,7 +9,6 @@ var resolveError=resolveHelper.resolveError
 var getOptions = require('./../components/brapi/helpers/getOptions');
 
 ////------------ Call Declaration Galore ----------------------------------
-var germplasmCalls = require('./../components/brapi/germplasmCalls');
 var cropCall = require('./../components/brapi/cropCall');
 var listImplementedCalls = require('./../components/brapi/listImplementedCalls');
 var germplasmPedigree = require('./../components/brapi/getGermplasmPedigree');
@@ -29,10 +28,10 @@ var phenotypesSearchV1_3 = require('./../components/brapi/v1.3/phenotypesSearch'
 
 
 //Test iterating through this  NOT IMPLEMENTED YET
-getCalls=[{
-uri:"/germplasm-search",
-makeCall: germplasmCalls,
-}]
+//getCalls=[{
+//uri:"/germplasm-search",
+//makeCall: germplasmCalls,
+//}]
 
 
 /* GET home page. Set it to the list of implemented calls README*/
@@ -67,14 +66,14 @@ router.get('/', function(req, res, next) {
 
 
 //germplasm-search
-router.get('/germplasm-search', function(req, res, next){
-  germplasmCalls(req.query).then(function(germplasmRes){
-    res.status(200).json(germplasmRes);
-  }).catch(function(err){
-    console.log("This call with error!")  
-    resolveError(res,err);
-  })
-});
+//router.get('/germplasm-search', function(req, res, next){
+//  germplasmCalls(req.query).then(function(germplasmRes){
+//    res.status(200).json(germplasmRes);
+//  }).catch(function(err){
+//    console.log("This call with error!")  
+//    resolveError(res,err);
+//  })
+//});
 
 
 //GermplasmPedigree
@@ -103,23 +102,23 @@ router.get('/crops', function(request, response, next){
 
 
 //germplasm-search POST
-router.post('/germplasm-search', function(req, res, next){
-  germplasmCalls(req.body).then(function(germplasmRes){
-    res.status(200).json(germplasmRes);
-  }).catch(function(err){
-    resolveError(res,err);
-  })
-});
+//router.post('/germplasm-search', function(req, res, next){
+//  germplasmCalls(req.body).then(function(germplasmRes){
+//    res.status(200).json(germplasmRes);
+//  }).catch(function(err){
+//    resolveError(res,err);
+//  })
+//});
 
 
 //phenotypes-search POST
-router.post('/phenotypes-search', function(req, res, next){
-  germplasmCalls(req.body).then(function(phenotypesRes){
-    res.status(200).json(phenotypesRes);
-  }).catch(function(err){
-    resolveError(res,err);
-  })
-});
+//router.post('/phenotypes-search', function(req, res, next){
+//  germplasmCalls(req.body).then(function(phenotypesRes){
+//    res.status(200).json(phenotypesRes);
+//  }).catch(function(err){
+//    resolveError(res,err);
+//  })
+//});
 
 router.get('/calls', function (req, res, next){
   var errMsg="Router Calls Get - "
