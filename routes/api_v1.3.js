@@ -28,6 +28,12 @@ router.get('/germplasm',function(req,res,next){
   resolveCall(call,req,res,errMsg);
 })
 
+router.get('/germplasm/:id',function(req,res,next){
+  var errMsg="Router germplasm Get - "
+  var call=germplasm
+  resolveCall(call,req,res,errMsg);
+})
+
 router.get('/studies',function(req,res,next){
   var errMsg="Router studies Get - "
   var call=studies

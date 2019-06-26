@@ -23,8 +23,8 @@ module.exports = function(options){
   if ( value != null )
     options.where.germplasmPUI=value 
   delete options.query.germplasmPUI;
-//|||||||||||||||||germplasmDbId||||||||||||||  
-  attribute=options.query.germplasmDbId
+//|||||||||||||||||germplasmDbId||||||||||||||  Is this a valid approach?
+  attribute=options.params.id || options.query.germplasmDbId
   var value=fmtWhereAttr(attribute,"in")
   if ( value != null )
     options.where.id=value 
