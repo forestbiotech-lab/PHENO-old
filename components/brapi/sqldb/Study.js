@@ -59,6 +59,10 @@
             foreignKey: 'id',              //on Study
             targetKey: 'studyId',  //foreign key  
           }); 
+          Study.belongsTo(models.DataLink, {
+            foreignKey: 'id',              //on Study
+            targetKey: 'studyId',  //foreign key  
+          });
         }
       },
     });
