@@ -137,7 +137,13 @@ e.studies=function(attributes){
         }]
       }]
     },{
-      model:db.Trial
+      model:db.Trial,
+      include:[{
+        model:db.TrialAuthorship,
+        include:[{
+          model:db.Authorship
+        }]
+      }]
     },{
       model:db.Location
     },{
@@ -145,6 +151,16 @@ e.studies=function(attributes){
       include:[{
         model:db.Season
       }]
+    },{
+      model:db.StudyContact,
+      include:[{
+        model:db.Person,
+        include:[{
+          model: db.Institution
+        }]
+      }]
+    },{
+     model:db.DataLink 
     },{
       model:db.StudyType,
     }],

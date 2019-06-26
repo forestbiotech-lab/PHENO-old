@@ -16,7 +16,7 @@ module.exports = function(options){
 
   //missing sort and sortBy
 //|||||||||||||||||studyDbId||||||||||||||  
-  attribute=options.query.studyDbId
+  attribute=options.params.studyDbId || options.query.studyDbId
   var value=fmtWhereAttr(attribute,"in")
   if ( value != null )
     options.where.id=value 

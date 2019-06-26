@@ -12,6 +12,28 @@ module.exports={
         _table:["StudyGermplasm","Germplasm","Species","Crop"],
         _attribute:"commonCropName"
     },
+    "contacts":[{
+        _table:"StudyContact",
+        _model:{
+            _table:["StudyContact","Person"],
+            contactDbId:"id",
+            email:"",
+            instituteName: {_table:"Institution",_attribute:"name"},
+            name: "",
+            orcid: "",
+            type:"role"
+        }
+
+    }],
+    "dataLinks":[{
+        _table: "DataLink",
+        _model:{
+            _table: "DataLink",
+            name:"",
+            type:"",
+            url:"",
+        }
+    }],
     "documentationURL": {
         _table:"Study",
         _attribute:{
@@ -20,6 +42,15 @@ module.exports={
         }
     },
     "endDate": {_table:"Trial",_attribute:"endDate"},  //Should be in study not trial?
+    "lastUpdate":{
+        _table:"",
+        timestamp:"",
+        version:""
+    },
+    "license": {
+        _table:["Trial","TrialAuthorship","Authorship"],
+        _attribute:"license"
+    },
     "locationDbId": {_table:"Trial",_attribute:"locationId",_parse:"str"},
     "locationName": {_table:"Location",_attribute:"name"},
 //    "name": "",  //Deprecated I think
