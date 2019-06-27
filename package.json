@@ -1,5 +1,6 @@
 {
   "name": "brapi",
+  "main": "lib/index.js",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -8,7 +9,10 @@
     "test-v1_3": "npm run test-unit-v1_3",
     "test-unit": "NODE_ENV=test mocha --exit 'components/**/v1.3/*.spec.js'",
     "coverage": "nyc npm test;",
-    "html-report": "nyc --reporter=html npm test;google-chrome-stable coverage/index.html"
+    "html-report": "nyc --reporter=html npm test;google-chrome-stable coverage/index.html",
+    "build": "babel src/ -d lib/",
+    "prepublish": "npm run build",
+    "flow": "flow"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -49,6 +53,9 @@
     "vdom-to-html": "^2.3.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.102.0",
     "mocha": "^5.2.0",
     "nyc": "^13.2.0",
     "sinon": "^7.2.2"
