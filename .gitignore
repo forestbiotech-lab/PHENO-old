@@ -53,3 +53,6 @@ config_res.js
 
 # Python Things to ignore
 Utilities/__pycache__/
+
+#Flow things
+.je-project-settings/

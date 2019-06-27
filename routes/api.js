@@ -17,7 +17,6 @@ var studyGermplsmDetailsCall = require('./../components/brapi/studyGermplsmDetai
 var studiesSearchCall = require('./../components/brapi/studiesSearchCall');
 var studyDetailsCall = require('./../components/brapi/studyDetailsCall');
 var programsCall = require('./../components/brapi/programsCall');
-var observationVariablesCall = require('./../components/brapi/observationVariablesCall');
 var listOfTrailSummaries = require('./../components/brapi/listOfTrailSummaries');
 var locationDetails = require('./../components/brapi/locationDetails');
 var listAllTraits = require('./../components/brapi/listAllTraits');
@@ -146,17 +145,6 @@ router.post('/studies-search',function(req,res,next){
   })
 });
 
-//studyDetails
-router.get('/studies/:studyDbId', function(req, res, next){
-  var query=req.query;
-  query.studyDbId=req.params.studyDbId
-  studyDetailsCall(req.query).then(function(studyDetailsCallRes){
-    res.status(200).json(studyDetailsCallRes);
-  }).catch(function(err){
-    resolveError(res,err);
-  })
-});
-
 
 //studyGermplasmDetails
 router.get('/studies/:studyDbId/germplasm', function(req, res, next){
@@ -199,12 +187,6 @@ router.get('/trials',function(req,res,next){
   resolveCall(call,req,res,errMsg);
 })
 
-//ObservationVariablesCall
-router.get('/studies/:studyDbId/observationVariables', function(req, res, next){
-  var errMsg="Router observationVariables Get - "
-  var call=observationVariablesCall
-  resolveCall(call,req,res,errMsg);
-})
 
 //locationDetails
 router.get('/locations/:locationDbId', function(req, res, next){

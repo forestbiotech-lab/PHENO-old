@@ -251,6 +251,53 @@ e.observationunits=function(attributes){
     return err
   })
 }
+e.studyObservationvariables=function(attributes){
+  return db.ObservationVarible
+  .findAndCountAll({ 
+    offset: parseInt(attributes.offset),
+    limit: parseInt(attributes.pageSize)+1,
+    include:[{
+      model:db.StudyObservationVariable,
+      include:[{
+        model:db.Study,
+        where: attribute.where
+      }],
+    },{
+      model: db.Crop
+    },{
+      model: db.ContextOfUse
+    },{
+      model: db.Ontology
+    },{
+      model: db.Institution
+    },{
+      model: db.Person
+    },{
+      model: db.ObservationVariableSynonym
+    },{
+      model: db.Trait,
+      include: [{
+        model: db.TraitSynonym
+      },{
+        model: db.TraitAlternativeAbbreviation
+      }]
+    },{
+      model: db.Method
+    },{
+      model: db.Scale,
+      include: [{
+        model: db.DataType
+      },{
+        model: db.ScaleCategory
+      }]        
+    }]
+  }).then(function(res){
+    return res
+  }).catch(function(err){
+    debug_std("model v1.3 | studyObservationvariables - Err:"+err)
+    return err
+  })
+}
 
 e.example=function(attributes){
   return db.Example
