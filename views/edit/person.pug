@@ -2,6 +2,26 @@ extends ../layout
 
 block content
 	form
+		.form-group.row
+			label.col-2.col-form-label(for="id") ID
+			.col-10
+				input.form-control-plaintext(readonly,type="text",id="id",placeholder="id")
+		.form-group.row
+			label.col-2.col-form-label(for="name") Name
+			.col-10
+				input.form-control(type="text",id="name",placeholder="Marie Curie")
 		.form-group
-			label(for="InstitutionLookup") Instition
+			label(for="InstitutionLookup") Honorific
+			input.form-control(type="text",id="InstitutionLookup",placeholder="Dr.")
+		.form-group
+			label(for="InstitutionLookup") Role
+			input.form-control(type="text",id="InstitutionLookup",placeholder="Principal Investigator")
+		.form-group
+			label(for="InstitutionLookup") email
+			input.form-control(type="email",id="InstitutionLookup",placeholder="marie.curie@brapi.org")
+		.form-group
+			label(for="InstitutionLookup") orcid
+			input.form-control(type="text",id="InstitutionLookup",placeholder="0000-0000-0000-0000")
+		.form-group
+			label(for="InstitutionLookup") Affiliation (Instition)
 			input.form-control(type="text",id="InstitutionLookup",placeholder="Write your institution")
