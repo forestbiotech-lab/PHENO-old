@@ -84,6 +84,25 @@ router.get('/', function(req, res, next) {
   });
 });  
 
+
+router.get('/edit/person',function(req,res,next){
+  let mode=process.env.mode 
+  let host=req.headers.host
+  let server = ""
+  let port = 80
+  if ( host.includes(":") ){
+    let hostArray=host.split(":")
+    server=hostArray[0]
+    port=hostArray[1]
+  }else{
+    server=host
+  }
+
+  if( (host.startsWith("10.") || host.startsWith("192.168.") ) && mode != "PRODUCTION" && port==3000 ){
+   res.render('edit/person')
+  }
+})
+
 router.get('/areyouup', function(req, res, next) {
   res.json('yes');
 });
