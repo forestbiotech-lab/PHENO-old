@@ -26,6 +26,22 @@
             foreignKey: 'id',              //on Ontology
             targetKey: 'ontologyId',  //foreign key  
           }); 
+          Ontology.belongsTo(models.OntologyReference, {
+            foreignKey: 'id',              //on Ontology
+            targetKey: 'ontologyId',  //foreign key  
+          });          
+          Ontology.belongsTo(models.Trait, {
+            foreignKey: 'id',              //on Ontology
+            targetKey: 'ontologyId',  //foreign key  
+          });          
+          Ontology.belongsTo(models.Method, {
+            foreignKey: 'id',              //on Ontology
+            targetKey: 'ontologyId',  //foreign key  
+          });
+          Ontology.belongsTo(models.Scale, {
+            foreignKey: 'id',              //on Ontology
+            targetKey: 'ontologyId',  //foreign key  
+          });    
         }
       },
     });

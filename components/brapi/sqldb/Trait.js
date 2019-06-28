@@ -22,6 +22,7 @@
     attribute: DataTypes.STRING(50),
     status: DataTypes.STRING(20),
     xref: DataTypes.STRING(50),
+    ontologyId: DataTypes.INTEGER(11),
   }, {
       tableName: 'Trait',
       timestamps: false,
@@ -29,18 +30,22 @@
 
      classMethods: {
         associate: function associate(models) {    
+          Trait.belongsTo(models.Ontology, {
+            foreignKey: 'ontologyId',              //on Trait
+            targetKey: 'id',  //foreign key  
+          });
           Trait.belongsTo(models.ObservationVariable, {
             foreignKey: 'id',              //on Trait
-            targetKey: 'traitId',  //foreign key  
+            targetKey: 'traitId',  //foreign key
           });
           Trait.belongsTo(models.TraitAlternativeAbbreviation, {
             foreignKey: 'id',              //on Trait
-            targetKey: 'traitId',  //foreign key  
+            targetKey: 'traitId',  //foreign key
           });
           Trait.belongsTo(models.TraitSynonym, {
             foreignKey: 'id',              //on Trait
-            targetKey: 'traitId',  //foreign key  
-          }); 
+            targetKey: 'traitId',  //foreign key 
+          });
         }
       },
     });

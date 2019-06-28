@@ -20,6 +20,7 @@
     xref: DataTypes.STRING(50),
     min: DataTypes.FLOAT,
     max: DataTypes.FLOAT,
+    ontologyId: DataTypes.INTEGER(11),
   }, {
       tableName: 'Scale',
       timestamps: false,
@@ -27,18 +28,22 @@
 
      classMethods: {
         associate: function associate(models) {    
-          Scale.belongsTo(models.ObservationVariable, {
-            foreignKey: 'id',              //on Scale
-            targetKey: 'scaleId',  //foreign key  
-          });
           Scale.belongsTo(models.DataType, {
             foreignKey: 'dataTypeId',              //on Scale
+            targetKey: 'id',  //foreign key  
+          });
+          Scale.belongsTo(models.Ontology, {
+            foreignKey: 'ontologyId',              //on Scale
             targetKey: 'id',  //foreign key  
           });
           Scale.belongsTo(models.ScaleCategory, {
             foreignKey: 'id',              //on Scale
             targetKey: 'scaleId',  //foreign key  
-          }); 
+          });
+          Scale.belongsTo(models.ObservationVariable, {
+            foreignKey: 'id',              //on Scale
+            targetKey: 'scaleId',  //foreign key  
+          });   
         }
       },
     });
