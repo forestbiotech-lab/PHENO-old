@@ -41,7 +41,7 @@ Object.keys(db).forEach(function(modelName) {
     try {
       db[modelName].options.classMethods.associate(db);
     } catch(e) {
-      debug_std(`Occured while trying to associate ${modelName}\nerror: ${e}`);
+      debug_std(`Occured while trying to associate ${modelName}\n${e}`);
     }
   }
 });
