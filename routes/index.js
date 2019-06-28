@@ -100,6 +100,8 @@ router.get('/edit/person',function(req,res,next){
 
   if( (host.startsWith("10.") || host.startsWith("192.168.") ) && mode != "PRODUCTION" && port==3000 ){
    res.render('edit/person')
+  }else{
+    res.redirect("/")
   }
 })
 
