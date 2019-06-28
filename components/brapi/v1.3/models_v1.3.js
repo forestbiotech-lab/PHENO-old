@@ -251,8 +251,8 @@ e.observationunits=function(attributes){
     return err
   })
 }
-e.studyObservationvariables=function(attributes){
-  return db.ObservationVarible
+e.studiesObservationvariables=function(attributes){
+  return db.ObservationVariable
   .findAndCountAll({ 
     offset: parseInt(attributes.offset),
     limit: parseInt(attributes.pageSize)+1,
@@ -260,14 +260,16 @@ e.studyObservationvariables=function(attributes){
       model:db.StudyObservationVariable,
       include:[{
         model:db.Study,
-        where: attribute.where
       }],
     },{
       model: db.Crop
     },{
       model: db.ContextOfUse
     },{
-      model: db.Ontology
+      model: db.Ontology,
+      include:[{
+        model:db.OntologyReference
+      }]
     },{
       model: db.Institution
     },{
@@ -280,17 +282,34 @@ e.studyObservationvariables=function(attributes){
         model: db.TraitSynonym
       },{
         model: db.TraitAlternativeAbbreviation
+      },{
+      model: db.Ontology,
+      include:[{
+        model:db.OntologyReference
       }]
+    }]
     },{
-      model: db.Method
+      model: db.Method,
+      include:[{
+        model: db.Ontology,
+        include:[{
+          model:db.OntologyReference
+        }]
+      }]
     },{
       model: db.Scale,
       include: [{
         model: db.DataType
       },{
         model: db.ScaleCategory
-      }]        
-    }]
+      },{
+      model: db.Ontology,
+      include:[{
+        model:db.OntologyReference
+      }]
+    }]        
+    }],
+    where:attributes.where
   }).then(function(res){
     return res
   }).catch(function(err){

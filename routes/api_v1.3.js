@@ -7,7 +7,7 @@ var resolveCall=resolveHelper.resolveCall
 var Samples_SamplesDbId_GET = require('./../components/brapi/v1.3/Samples_SampleDbId_GET');
 var germplasm = require('./../components/brapi/v1.3/germplasm_GET');
 var studies = require('./../components/brapi/v1.3/studies_GET');
-var studiesObservationvariables = require('./../components/brapi/v1.3/studies_observationvariables');
+var studiesObservationvariables = require('./../components/brapi/v1.3/studiesObservationvariables');
 var trials = require('./../components/brapi/v1.3/trials_GET');
 var observationunits = require('./../components/brapi/v1.3/observationunits_GET');
 var observationtables_GET = require('./../components/brapi/v1.3/observationtables_GET')
@@ -47,7 +47,7 @@ router.get('/studies',function(req,res,next){
   resolveCall(call,req,res,errMsg);
 })
 
-router.get('/studies/:studyDbId/observationVariables', function(req, res, next){
+router.get('/studies/:studyDbId/observationvariables', function(req, res, next){
   var errMsg="Router studies observationVariables Get - "
   var call=studiesObservationvariables
   resolveCall(call,req,res,errMsg);

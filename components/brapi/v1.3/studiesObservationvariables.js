@@ -1,28 +1,26 @@
-/**
- * Created by Bruno Costa on 20-06-2018.
- */
-
-var fmtWhereAttr = require('./helpers/formatWhereAttribute');
-var controller = require('./controllers/callController');
+var fmtWhereAttr = require('./../helpers/formatWhereAttribute');
+var controller = require('./../controllers/callController_v1.3');
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-var callStructure = require('./structures/studyObservationVariables');
+var callStructure = require('./../structures/v1.3/studiesObservationvariables');
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 module.exports = function(options){
   var options= options || {body:{},params:{},query:{}};  
   options.where={}
 
-
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  call="getObservationVariables"
+  call="studiesObservationvariables"
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //Where logic
   //Do this for each where attribute needed.
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  //missing sort and sortBy
+//|||||||||||||||||studyDbId||||||||||||||  
   attribute=options.params.studyDbId
-  options.where.id=fmtWhereAttr(attribute,"$in") 
-  delete options.params.studyDbId;
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  var value=fmtWhereAttr(attribute,"in")
+  if ( value != null )
+    options.where["$StudyObservationVariable.studyId$"]=value 
+  delete options.query.studyDbId;
 
   return controller(options,call,callback)
   
@@ -33,11 +31,8 @@ function callback(res){
   var attribute="id"
     //Metadata
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    var studyDbId=res.rows[0].dataValues.StudyObservationVariable.dataValues.studyId;
-    var trialName=res.rows[0].dataValues.StudyObservationVariable.dataValues.Study.dataValues.Trial.dataValues.name;
-    var metadata={studyDbId:(String (studyDbId)),trialName:trialName,data:{}}
+
+    var metadata={}
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   return {metadata:metadata,attribute:attribute,callStructure:callStructure};
 }
-
-
