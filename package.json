@@ -1,6 +1,6 @@
 {
   "name": "brapi",
-  "main": "lib/index.js",
+  "main": "bin/www",
   "version": "0.0.0",
   "private": true,
   "scripts": {
