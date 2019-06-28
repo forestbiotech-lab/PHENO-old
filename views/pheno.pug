@@ -54,9 +54,9 @@ block content
                                 each study in programs[program.id]  
                                   tr.table-striped
                                     td 
-                                      a(href="/brapi/datasets/trial/#{study.trialId}",target="_blank") #{study.trialName}
+                                      a(href="/brapi/datasets/trial/"+study.trialId,target="_blank") #{study.trialName}
                                     td 
-                                      a(href="/brapi/datasets/study/#{study.studyId}",target="_blank") #{study.studyName}
+                                      a(href="/brapi/datasets/study/"+study.studyId,target="_blank") #{study.studyName}
                                   tr.table-active  
                                     td(colspan=2)
                                       .publication

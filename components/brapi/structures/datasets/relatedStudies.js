@@ -6,6 +6,7 @@ module.exports={
 			name:"",
 			id:"",
 			trial:{_table:"Trial",
+				id:"",
 				name:"",
 				startDate:"",
 				endDate:""
