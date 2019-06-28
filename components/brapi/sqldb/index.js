@@ -11,6 +11,9 @@ var config_brapi = require('./../../../config_brapi');
 var Sequelize = require('sequelize');
 var glob = require('glob');
 var path = require('path');
+
+var debug = require('debug')
+var debug_std = debug('brapi:server');
 //DB credentials
 var db = {
   sequelize: new Sequelize(
@@ -35,7 +38,11 @@ for( index in tables){
 //Foreign key association
 Object.keys(db).forEach(function(modelName) {
   if ('classMethods' in db[modelName].options) {
-    db[modelName].options.classMethods.associate(db);
+    try {
+      db[modelName].options.classMethods.associate(db);
+    } catch(e) {
+      debug_std(`Occured while trying to associate ${modelName}\nerror: ${e}`);
+    }
   }
 });
 
