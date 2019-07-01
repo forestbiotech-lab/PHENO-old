@@ -15,6 +15,7 @@
       },
     accession: DataTypes.STRING(10),
     name: DataTypes.STRING(50),
+    version: DataTypes.STRING(254),
   }, {
       tableName: 'Ontology',
       timestamps: false,

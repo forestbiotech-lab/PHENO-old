@@ -26,7 +26,6 @@ router.get('/sitemaps.xml', function(req, res, next){
     if(err) res.json(err)
     res.send(data.toString())
   })
-
 })
 
 /* GET home page. */
