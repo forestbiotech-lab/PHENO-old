@@ -11,6 +11,10 @@ var relatedStudies = require('./../components/brapi/datasets/relatedStudies')
 var observationVariables = require('./../components/brapi/datasets/observationVariables')
 var studyAdditionalInfo = require('./../components/brapi/datasets/studyAdditionalInfo')
 var locationAdditionalInfo = require('./../components/brapi/datasets/locationAdditionalInfo')
+var listGermplasms = require('./../components/brapi/v1.3/germplasm_GET')
+var listTrials = require('./../components/brapi/v1.3/trials_GET')
+var listStudies = require('./../components/brapi/v1.3/studies_GET')
+var list={trial:listTrials,study:listStudies}
 
 var resolveCall=resolveHelper.resolveCall
 
@@ -21,6 +25,65 @@ var debug_full= debug('brapi:trace');
 const map=require("svg-world-map")
 const toHTML=require('vdom-to-html')
 
+router.get('/germplasm',function(req,res,next){
+  var errMsg="Router dataset List germplasms"
+  var call=listGermplasms
+  formatResponse=function(response){
+    let data=[]
+    response.result.data.forEach(function(germplasm){
+      data.push(germplasm.germplasmDbId)
+      //Object.assign(data,germplasm.result.data)
+    })
+    console.log({data})
+    return {type:"germplasm",data}
+  }
+//  relatedGermplasms().then(function(callRes){
+      resolveCall(call,req,res,errMsg,"listDatasetLinks",formatResponse)
+//  })
+
+})
+
+type="trial"
+router.get(`/${type}`,function(req,res,next){
+  let type="trial"
+  var errMsg=`Router dataset List ${type}`
+  var call=list[type]
+  formatResponse=function(response){
+    let data=[]
+    console.log(response.result.data)
+    response.result.data.forEach(function(item){
+      data.push(item[`${type}DbId`])
+      //Object.assign(data,germplasm.result.data)
+    })
+    console.log({data})
+    return {type:type,data}
+  }
+//  relatedGermplasms().then(function(callRes){
+      resolveCall(call,req,res,errMsg,"listDatasetLinks",formatResponse)
+//  })
+
+})
+
+type="study"
+router.get(`/${type}`,function(req,res,next){
+  let type="study"
+  var errMsg=`Router dataset List ${type}`
+  var call=list[type]
+  formatResponse=function(response){
+    let data=[]
+    console.log(response.result.data)
+    response.result.data.forEach(function(item){
+      data.push(item[`${type}DbId`])
+      //Object.assign(data,germplasm.result.data)
+    })
+    console.log({data})
+    return {type:type,data}
+  }
+//  relatedGermplasms().then(function(callRes){
+      resolveCall(call,req,res,errMsg,"listDatasetLinks",formatResponse)
+//  })
+
+})
 
 router.get('/germplasm/:germplasmId',function(req,res,next){
   var errMsg="Router dataset Get germplsm - "

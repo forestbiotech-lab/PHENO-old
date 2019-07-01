@@ -20,6 +20,14 @@ router.get('/robots.txt', function(req, res, next){
   })
 
 })
+/* Web crawlers */
+router.get('/sitemaps.xml', function(req, res, next){
+  fs.readFile('public/sitemaps.xml',function(err,data){
+    if(err) res.json(err)
+    res.send(data.toString())
+  })
+
+})
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
