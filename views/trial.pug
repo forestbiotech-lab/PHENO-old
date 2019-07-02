@@ -11,7 +11,7 @@ block content
         .card-body.p-0
           .p-2  
             p Lead person: 
-              a(href="https://orcid.org/#{trialData.program.lead_person.orcid}",target="_blank") 
+              a(href=`https://orcid.org/${trialData.program.lead_person.orcid}`,target="_blank") 
                 strong #{trialData.program.lead_person.name}
             p Affiliated institution: 
               if locationAdditionalInfo
