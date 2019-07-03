@@ -3,6 +3,14 @@ var router = express.Router();
 var marked = require('marked');
 var fs=require('fs');
 //var elixirAuth = require('./../components/oauth/elixir-oauth');
+var getOptions = require('./../components/brapi/helpers/getOptions');
+
+var resolveHelper = require('./../components/brapi/helpers/resolveHelper');
+var resolveError=resolveHelper.resolveError
+var resolveCall=resolveHelper.resolveCall
+
+var calls = require('./../components/brapi/v1.3/calls');
+
 
 
 /* GET home page. */
@@ -23,5 +31,41 @@ router.get('/', function(req, res, next) {
       res.render('brapi', { title: 'BrAPI - PT node',host: req.headers.host, readme: marked(data) });
     });
 });  
+
+/* GET home page. Set it to the list of implemented calls README*/
+router.get('/:version', function(req, res, next) {
+  let version=req.params.version
+  if (version.startsWith("v")){
+    req.params.version=version.replace("v","")
+    //Promissify function
+    function getReadme(){
+      return new Promise(
+        function(resolve,reject){
+        fs.readFile('routes/README.md' , function(err,data){
+          if(err) reject(Error(err)); 
+          resolve(data.toString());
+          })
+        }
+      )   
+    }
+    //Get README data and render page.
+    getReadme().then(function(data){ 
+      var options=getOptions(req);
+      calls(options).then(function (callsResponse) {
+        res.render('brapiV1', { 
+          title: 'BrAPI - PT node', 
+          protocol: req.protocol, 
+          host: req.headers.host, 
+          readme: marked(data), 
+          'calls': callsResponse.result.data 
+        });
+      }).catch(function (err) {
+        resolveError(res,err);
+      })
+    });
+  }
+});  
+
+
 
 module.exports = router;

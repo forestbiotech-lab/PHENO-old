@@ -21,7 +21,7 @@ module.exports = function(options){
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   attribute=options.params.version
   if (attribute != null){
-    options.where["$Versions.version$"]=fmtWhereAttr(attribute,"$in") 
+    options.where["$Version.version$"]=fmtWhereAttr(attribute,"eq") 
     delete options.params.version;
   }
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

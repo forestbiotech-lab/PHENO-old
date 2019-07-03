@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-var marked = require('marked');
-var fs=require('fs');
+
+
 var resolveHelper = require('./../components/brapi/helpers/resolveHelper');
 var resolveCall=resolveHelper.resolveCall
 var resolveError=resolveHelper.resolveError
-var getOptions = require('./../components/brapi/helpers/getOptions');
+
 
 ////------------ Call Declaration Galore ----------------------------------
 var cropCall = require('./../components/brapi/cropCall');
@@ -28,35 +28,7 @@ var phenotypesSearchV1_3 = require('./../components/brapi/v1.3/phenotypesSearch'
 //}]
 
 
-/* GET home page. Set it to the list of implemented calls README*/
-router.get('/', function(req, res, next) {
-  //Promissify function
-  function getReadme(){
-      return new Promise(
-          function(resolve,reject){
-          fs.readFile('routes/README.md' , function(err,data){
-            if(err) reject(Error(err)); 
-            resolve(data.toString());
-            })
-          }
-        )   
-    }
-    //Get README data and render page.
-    getReadme().then(function(data){ 
-      var options=getOptions(req);
-      calls(options).then(function (callsResponse) {
-        res.render('brapiV1', { 
-          title: 'BrAPI - PT node', 
-          protocol: req.protocol, 
-          host: req.headers.host, 
-          readme: marked(data), 
-          'calls': callsResponse.result.data 
-        });
-      }).catch(function (err) {
-        resolveError(res,err);
-      })
-    });
-});  
+
 
 
 //germplasm-search
