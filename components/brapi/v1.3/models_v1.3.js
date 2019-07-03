@@ -181,6 +181,11 @@ e.trials=function(attributes){
     include:[{
       model:db.TrialAdditionalInfo
     },{
+      model:db.TrialAuthorship,
+      include:[{
+        model:db.Authorship
+      }]
+    },{
       model:db.Program,
     },{
       model:db.Study,
@@ -192,12 +197,20 @@ e.trials=function(attributes){
             model:db.Species,
             include:[{
               model:db.Crop
-            }]
-          }]
-        }]
+            }],
+          }],
+        }],
       },{
         model:db.Location
-      }]
+      },{
+        model:db.StudyContact,
+        include:[{
+          model:db.Person,
+          include:[{
+            model:db.Institution
+          }],
+        }],
+      }],
     }],
     where:attributes.where
   }).then(function(res){

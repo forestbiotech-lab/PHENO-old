@@ -35,18 +35,17 @@ router.get('/germplasm/:id',function(req,res,next){
   resolveCall(call,req,res,errMsg);
 })
 
+
 router.get('/studies/:studyDbId',function(req,res,next){
   var errMsg="Router studies Get - "
   var call=studies
   resolveCall(call,req,res,errMsg);
 })
-
 router.get('/studies',function(req,res,next){
   var errMsg="Router studies Get - "
   var call=studies
   resolveCall(call,req,res,errMsg);
 })
-
 router.get('/studies/:studyDbId/observationvariables', function(req, res, next){
   var errMsg="Router studies observationVariables Get - "
   var call=studiesObservationvariables
@@ -54,6 +53,11 @@ router.get('/studies/:studyDbId/observationvariables', function(req, res, next){
 })
 
 router.get('/trials',function(req,res,next){
+  var errMsg="Router trials Get - "
+  var call=trials
+  resolveCall(call,req,res,errMsg);
+})
+router.get('/trials/:trialDbId',function(req,res,next){
   var errMsg="Router trials Get - "
   var call=trials
   resolveCall(call,req,res,errMsg);

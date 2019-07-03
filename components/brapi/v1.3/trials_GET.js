@@ -18,13 +18,19 @@ module.exports = function(options){
 //sortBy (Optional, ) ... Sort order. Name of the field to sorty by.
 //sortOrder (Optional, ) ... Sort order direction: asc/desc
 
-//|||||||||||||||||commonCropName||||||||||||||
+//|||||||||||||||TrialId|||||||||||||||||||||||
+  attribute=options.params.trialDbId || options.query.trialDbId;
+  var value=fmtWhereAttr(attribute,"eq")
+  if ( value != null )
+    options.where.id=value 
+  delete options.query.id;
+//||||||||||||||commonCropName|||||||||||||||||
   attribute=options.query.commonCropName
   var value=fmtWhereAttr(attribute,"eq")
   if ( value != null )
     options.where["$Study.StudyGermplasm.Germplasm.Species.Crop.commonCropName$"]=value 
   delete options.query.commonCropName;
-//|||||||||||||||||programDbId||||||||||||||
+//||||||||||||||programDbId|||||||||||||||||||
   attribute=options.query.programDbId;
   var value=fmtWhereAttr(attribute,"eq")
   if ( value != null )
@@ -37,11 +43,11 @@ module.exports = function(options){
     options.where["$Study.locationId$"]=value 
   delete options.query.locationDbId;
 //|||||||||||||||||active||||||||||||||
-//  attribute=options.query.active
-//  var value=fmtWhereAttr(attribute,"eq")
-//  if ( value != null )
-//    options.where.active=value 
-//  delete options.query.active;
+  attribute=options.query.active
+  var value=fmtWhereAttr(attribute,"eq")
+  if ( value != null )
+    options.where.active=value 
+  delete options.query.active;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   return controller(options,call,callback)
