@@ -104,6 +104,8 @@ e.germplasm=function(attributes){
         },{
           model:db.Germplasm,
         }]
+    },{
+      model:db.StudyGermplasm
     }],
     //defaultDisplayName might not be the same as germplasmName in the future. !!!Possible code breaking  
     where: attributes.where,

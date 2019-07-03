@@ -17,6 +17,12 @@ module.exports = function(options){
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //Where logic
   //Do this for each where attribute needed.
+//!!!!!!!!!for studies/{studyDbId}!!studyId!!!!!!!!!!!!!!!!!!!!!!!!
+  attribute=options.params.studyDbId
+  var value=fmtWhereAttr(attribute,"in")
+  if ( value != null )
+    options.where["$StudyGermplasm.studyId$"]=value 
+  delete options.query.germplasmPUI;
 //!!!!!!!!!!!!!!!!!!!!!!!germplasmPUI!!!!!!!!!!!!!!!!!!!!!!!!
   attribute=options.query.germplasmPUI
   var value=fmtWhereAttr(attribute,"in")

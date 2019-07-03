@@ -51,6 +51,12 @@ router.get('/studies/:studyDbId/observationvariables', function(req, res, next){
   var call=studiesObservationvariables
   resolveCall(call,req,res,errMsg);
 })
+router.get('/studies/:studyDbId/germplasm', function(req, res, next){
+  var errMsg="Router studies observationVariables Get - "
+  var call=germplasm
+  resolveCall(call,req,res,errMsg);
+})
+
 
 router.get('/trials',function(req,res,next){
   var errMsg="Router trials Get - "
