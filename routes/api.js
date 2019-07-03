@@ -10,18 +10,13 @@ var getOptions = require('./../components/brapi/helpers/getOptions');
 
 ////------------ Call Declaration Galore ----------------------------------
 var cropCall = require('./../components/brapi/cropCall');
-var listImplementedCalls = require('./../components/brapi/listImplementedCalls');
 var germplasmPedigree = require('./../components/brapi/getGermplasmPedigree');
 var phenotypesCall = require('./../components/brapi/phenotypesCall');
-var studyGermplsmDetailsCall = require('./../components/brapi/studyGermplsmDetailsCall');
 var studiesSearchCall = require('./../components/brapi/studiesSearchCall');
-var studyDetailsCall = require('./../components/brapi/studyDetailsCall');
 var programsCall = require('./../components/brapi/programsCall');
 var listOfTrailSummaries = require('./../components/brapi/listOfTrailSummaries');
 var locationDetails = require('./../components/brapi/locationDetails');
 var listAllTraits = require('./../components/brapi/listAllTraits');
-var calls = require('./../components/brapi/calls');
-var listCalls = require('./../components/brapi/listCalls');
 var phenotypesSearchV1_3 = require('./../components/brapi/v1.3/phenotypesSearch')
 //------------------- End  -------------------------------
 
@@ -119,12 +114,6 @@ router.get('/crops', function(request, response, next){
 //  })
 //});
 
-router.get('/calls', function (req, res, next){
-  var errMsg="Router Calls Get - "
-  var call=listCalls
-  resolveCall(call,req,res,errMsg);
-});
-
 //study-search
 router.get('/studies-search',function(req,res,next){
   var query=req.query;
@@ -141,19 +130,6 @@ router.post('/studies-search',function(req,res,next){
   studiesSearchCall(query).then(function(studiesSearchCallRes){
     res.status(200).json(studiesSearchCallRes);
   }).catch(function(err){  
-    resolveError(res,err);
-  })
-});
-
-
-//studyGermplasmDetails
-router.get('/studies/:studyDbId/germplasm', function(req, res, next){
-  var query=req.query;
-  query.studyDbId=req.params.studyDbId
-  studyGermplsmDetailsCall(req.query).then(function(studyGermplasmDetailsCallRes){
-    res.status(200).json(studyGermplasmDetailsCallRes);
-  }).catch(function(err){
-
     resolveError(res,err);
   })
 });

@@ -27,7 +27,15 @@ module.exports={
             "observationTimeStamp": "",
             "observationVariableDbId": {_table:"ObservationVariable",_attribute:"id",_parse:"str"},
             "observationVariableName": {_table:"ObservationVariable",_attribute:"name"},
-            "season": "",  ///Needs Verification
+            "season": [{
+                _table:"",
+                _model:[{
+                    _table:"",
+                    season:"",
+                    year:"",
+                    seasonDbId:"seasonId"
+                }]
+            }],  ///Needs Verification
             "value": ""
   		}
   	}],    

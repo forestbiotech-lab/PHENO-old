@@ -30,7 +30,10 @@
              foreignKey: 'id',  //on Methods
              targetKey: 'callId',
           });
-
+          Calls.belongsTo(models.Versions, {
+            foreignKey: 'id',              //on Calls
+            targetKey: 'callId',  //foreign key  
+          }); 
         }
       },
     });

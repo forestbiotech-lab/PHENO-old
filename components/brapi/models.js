@@ -256,30 +256,7 @@ e.getCrops=function(attributes) {
 
 /* Created by João Cardoso - 11/07/2017
  * List Implemented Calls Implementation - Fetches data from the Calls Table */
-e.listCalls=function(attributes) {
-    return db.Calls
-    .findAndCountAll({
-        offset: parseInt(attributes.offset),
-        limit: parseInt(attributes.pageSize)+1,
-        include: [{
-            model: db.Methods,
-            attributes: {
-                exclude: ['id','callId'],
-            }
-        },{
-            model: db.DataTypes,
-            attributes: {
-                exclude: ['id',"callId"],
-            },
-        }],
 
-    }).then(function(res){
-        return res;
-    }).catch(function(err){
-        console.log("getImplementedCalls - Err: "+ err);
-        return err;
-    });
-}
 
 //Get programs
 e.getPrograms=function(attributes) {

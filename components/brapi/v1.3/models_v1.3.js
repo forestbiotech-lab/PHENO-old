@@ -9,6 +9,28 @@ var debug_full= debug('brapi:trace');
 //Break up this file into domains once it gets to big.
 var e={}
 
+e.calls=function(attributes) {
+    return db.Calls
+    .findAndCountAll({
+        offset: parseInt(attributes.offset),
+        limit: parseInt(attributes.pageSize)+1,
+        include: [{
+          model: db.Methods,
+        },{
+          model: db.DataTypes,
+        },{
+          model:db.Versions
+        }],
+        where: attributes.where
+    }).then(function(res){
+        console.log(res.rows[0])
+        return res;
+    }).catch(function(err){
+        console.log("model v1.3 | Implemented Calls - Err: "+ err);
+        return err;
+    });
+}
+
 e.Samples_SampleDbId=function(attributes){
   return db.Sample
   .findAndCountAll({ 
@@ -328,7 +350,7 @@ e.studiesObservationvariables=function(attributes){
   }).then(function(res){
     return res
   }).catch(function(err){
-    debug_std("model v1.3 | studyObservationvariables - Err:"+err)
+    debug_std("model v1.3 | studiesObservationvariables - Err:"+err)
     return err
   })
 }

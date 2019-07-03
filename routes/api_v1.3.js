@@ -4,10 +4,12 @@ var resolveHelper = require('./../components/brapi/helpers/resolveHelper');
 var resolveCall=resolveHelper.resolveCall
 
 ////------------ Call Declaration Galore ----------------------------------
+var calls = require('./../components/brapi/v1.3/calls');
 var Samples_SamplesDbId_GET = require('./../components/brapi/v1.3/Samples_SampleDbId_GET');
 var germplasm = require('./../components/brapi/v1.3/germplasm_GET');
 var studies = require('./../components/brapi/v1.3/studies_GET');
 var studiesObservationvariables = require('./../components/brapi/v1.3/studiesObservationvariables');
+var studiesObservationunits = require('./../components/brapi/v1.3/studiesObservationunits');
 var trials = require('./../components/brapi/v1.3/trials_GET');
 var observationunits = require('./../components/brapi/v1.3/observationunits_GET');
 var observationtables_GET = require('./../components/brapi/v1.3/observationtables_GET')
@@ -15,6 +17,12 @@ var observationtables_POST = require('./../components/brapi/v1.3/observationtabl
 //var phenotypesSearchV1_3 = require('./../components/brapi/v1.3/phenotypesSearch')
 //------------------- End  -------------------------------
 
+
+router.get('/calls', function (req, res, next){
+  var errMsg="Router Calls Get - "
+  var call=calls
+  resolveCall(call,req,res,errMsg);
+});
 
 //phenotypes-search
 router.get('/samples/:sampleDbId', function(req, res, next){
@@ -52,11 +60,15 @@ router.get('/studies/:studyDbId/observationvariables', function(req, res, next){
   resolveCall(call,req,res,errMsg);
 })
 router.get('/studies/:studyDbId/germplasm', function(req, res, next){
-  var errMsg="Router studies observationVariables Get - "
+  var errMsg="Router studies germplasm Get - "
   var call=germplasm
   resolveCall(call,req,res,errMsg);
 })
-
+router.get('/studies/:studyDbId/observationunits', function(req, res, next){
+  var errMsg="Router studies observationunits Get - "
+  var call=studiesObservationunits;
+  resolveCall(call,req,res,errMsg);
+})
 
 router.get('/trials',function(req,res,next){
   var errMsg="Router trials Get - "
