@@ -23,7 +23,6 @@ e.calls=function(attributes) {
         }],
         where: attributes.where
     }).then(function(res){
-        console.log(res.rows[0])
         return res;
     }).catch(function(err){
         console.log("model v1.3 | Implemented Calls - Err: "+ err);
