@@ -35,7 +35,8 @@ router.get('/', function(req, res, next) {
 /* GET home page. Set it to the list of implemented calls README*/
 router.get('/:version', function(req, res, next) {
   let version=req.params.version
-  if (version.startsWith("v")){
+  let re=new RegExp("v[0-9]\.{0,1}[0-9]{0,1}$") 
+  if ( re.test(version) && version.length < 5 ){
     req.params.version=version.replace("v","")
     //Promissify function
     function getReadme(){
@@ -57,12 +58,20 @@ router.get('/:version', function(req, res, next) {
           protocol: req.protocol, 
           host: req.headers.host, 
           readme: marked(data), 
-          'calls': callsResponse.result.data 
+          'calls': callsResponse.result.data,
+          version 
         });
       }).catch(function (err) {
         resolveError(res,err);
       })
     });
+  }else{
+    let err={
+      message:"Not found",
+      error:{status:500}
+    }
+    res.status( 500);
+    res.render('error',err);
   }
 });  
 

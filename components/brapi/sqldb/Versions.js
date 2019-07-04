@@ -14,7 +14,7 @@
         unique: true,
       },
     callId: DataTypes.INTEGER(11),
-    version: DataTypes.FLOAT,
+    version: DataTypes.STRING(5),
   }, {
       tableName: 'Versions',
       timestamps: false,
