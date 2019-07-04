@@ -1,6 +1,7 @@
 module.exports={
 	name:"",
 	path:"",
+	call:"path",
 	methods: [{
 		_table:"Method",
 		_attribute:"method",
