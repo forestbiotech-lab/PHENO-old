@@ -10,6 +10,10 @@ module.exports={
 		_table:"DataType",
 		_attribute:"dataType"
 	}],
+	dataTypes: [{
+		_table:"DataType",
+		_attribute:"dataType"
+	}],	
 	versions: [{
 		_table:"Version",
 		_attribute:"version"
