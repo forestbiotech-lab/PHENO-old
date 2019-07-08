@@ -1,5 +1,11 @@
 /**
  * Created by Bruno Costa on 20-06-2018.
+ *
+ *
+ *
+ *   ! Attention is this still required for creating the tables? This file will become deprecated!! 
+ *    an removed soon!
+ *
  */
 var debug = require('debug')
 var debug_std = debug('brapi:server');
