@@ -13,7 +13,7 @@ module.exports={
     _table: ["Study","StudyContact","Person"],
     _model:{
         _table:"Person",
-        contactDbId:"id",
+        contactDbId:{_table:"Person",_attribute:"id",_parse:"str"},
         email:"",
         instituteName: {_table:"Institution",_attribute:"name"},
         name: "",
