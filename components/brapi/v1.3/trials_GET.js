@@ -3,6 +3,7 @@ var controller = require('./../controllers/callController_v1.3');
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 var callStructure = require('./../structures/v1.3/trials');
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+var metadata
 
 module.exports = function(options){
   var options= options || {body:{},params:{},query:{}};  
@@ -19,6 +20,7 @@ module.exports = function(options){
 //sortOrder (Optional, ) ... Sort order direction: asc/desc
 
 //|||||||||||||||TrialId|||||||||||||||||||||||
+  options.params.trialDbId ? metadata={ metadataOnlyRemoveData:true } : metadata={}
   attribute=options.params.trialDbId || options.query.trialDbId;
   var value=fmtWhereAttr(attribute,"eq")
   if ( value != null )
@@ -57,10 +59,5 @@ module.exports = function(options){
 function callback(res){
   //[The attribute in main table used as uniqueId]
   var attribute="id"
-    //Metadata
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    var metadata={ metadataOnlyRemoveData:true }
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  return {metadata:metadata,attribute:attribute,callStructure:callStructure};
+  return {metadata,attribute,callStructure};
 }

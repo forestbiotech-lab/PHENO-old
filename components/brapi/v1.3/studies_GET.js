@@ -3,6 +3,7 @@ var controller = require('./../controllers/callController_v1.3');
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 var callStructure = require('./../structures/v1.3/studies');
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+var metadata
 
 module.exports = function(options){
   var options= options || {body:{},params:{},query:{}};  
@@ -15,7 +16,8 @@ module.exports = function(options){
   //Do this for each where attribute needed.
 
   //missing sort and sortBy
-//|||||||||||||||||studyDbId||||||||||||||  
+//|||||||||||||||||studyDbId|||||||||||||| 
+  options.params.studyDbId ? metadata={ metadataOnlyRemoveData:true } : metadata={}
   attribute=options.params.studyDbId || options.query.studyDbId
   var value=fmtWhereAttr(attribute,"in")
   if ( value != null )
@@ -72,10 +74,5 @@ module.exports = function(options){
 function callback(res){
   //[The attribute in main table used as uniqueId]
   var attribute="id"
-    //Metadata
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    var metadata={}
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  return {metadata:metadata,attribute:attribute,callStructure:callStructure};
+  return {metadata,attribute,callStructure};
 }
