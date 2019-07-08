@@ -3,7 +3,7 @@
 var db = require('./../sqldb');
 const Sequelize=require('sequelize');
 
-var debug = require('debug')
+var debug = require('debug');
 var debug_std = debug('brapi:server');
 var debug_full= debug('brapi:trace');
 //Break up this file into domains once it gets to big.

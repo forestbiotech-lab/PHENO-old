@@ -33,7 +33,7 @@ module.exports={
         "reference": ""
     },
     "name": "",
-    "observationVariableDbId": "id",
+    "observationVariableDbId": {_table:"ObservationVariable",_attribute:"id",_parse:"str"},
     "observationVariableName": "name", //deprecated??
 	"ontologyDbId":{_table:"Ontology",_attribute:"accession"},   //LEGACY - This must be compatibility
 	"ontologyName":{_table:"Ontology",_attribute:"name"},        //LEGACY - This must be compatibility 
@@ -87,14 +87,14 @@ module.exports={
         },
         "xref": ""
     },
-    "scientist": "",
+    "scientist": {_table:"Person",_attribute:"name"},
     "status": "",
     "submissionTimestamp": "",                                 //Not implemented
     "synonyms": [{_table:"ObservationVariableSynonym",_attribute:"synonym"}],
     "trait": {
     	_table:"Trait",
-	    "alternativeAbbreviations": [{_table:"TraitAlternativeAbbreviation",_attribute:"abbreviation"}],
         "attribute": "",
+	    "alternativeAbbreviations": [{_table:"TraitAlternativeAbbreviation",_attribute:"abbreviation"}],
         "class": "",
         "description": "",
         "entity": "",

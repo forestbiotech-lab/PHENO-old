@@ -60,7 +60,7 @@ function callback(res){
     //Metadata
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    var metadata={}
+    var metadata={ metadataOnlyRemoveData:true }
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   return {metadata:metadata,attribute:attribute,callStructure:callStructure};
 }
