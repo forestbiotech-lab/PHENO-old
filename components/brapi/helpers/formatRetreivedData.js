@@ -264,6 +264,8 @@ function parseCallStructure(record,db){
 
 //// !!!! MAIN FUNCTION /////////////////
 function formatRetreivedData(arg,res){
+    console.log({Type:"Test 0",arg})  
+
     var metadata=arg.metadata
     var attribute=arg.attribute
     const callStructure=arg.callStructure

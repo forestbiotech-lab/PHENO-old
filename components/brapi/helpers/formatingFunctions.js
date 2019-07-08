@@ -45,7 +45,7 @@ function generatePagination(res,query){
  */
 
 function generateJSON(queryData,pagination,code,message,messageType){
-
+	console.log(queryData)
 	//null message
 	var message = message || "OK";
 	var messageType = messageType || "INFO";
@@ -54,8 +54,9 @@ function generateJSON(queryData,pagination,code,message,messageType){
 	//Allows extra parameters before data to be set in the call processing
 	try{
 		queryData.data != null ? result=queryData : result=result
-		queryData.data == "metadataOnlyRemoveData" ? result=queryData : test=1
-		queryData.data == "metadataOnlyRemoveData" ? delete result.data : test=1
+		queryData.metadataOnlyRemoveData == true ? result=queryData.data[0] : test=1.  //These call only have one result Conversion from array to Object
+		queryData.metadataOnlyRemoveData == true ? delete result.data : test=1
+		queryData.metadataOnlyRemoveData == true ? delete result.metadataOnlyRemoveData : test=1
 	}catch(err){
 		errMsg="No queryData";
 		debug_std(errMsg+" - "+err);
