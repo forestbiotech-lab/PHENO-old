@@ -71,7 +71,6 @@ router.get('/', function(req, res, next) {
       res.render('pheno',result );
 
     }).catch(function(err){
-      console.log("Error - /index: "+err[0]);
       errMsg="Router index | '/'' - Error retrieving data for render: err"
       debug_std(errMsg+" - "+err);
       if (debug_full.enabled) debug_full(console.trace(errMsg+" - "+err));

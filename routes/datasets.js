@@ -34,7 +34,7 @@ router.get('/germplasm',function(req,res,next){
       data.push(germplasm.germplasmDbId)
       //Object.assign(data,germplasm.result.data)
     })
-    console.log({data})
+    //console.log({data})
     return {type:"germplasm",data}
   }
 //  relatedGermplasms().then(function(callRes){
@@ -50,12 +50,12 @@ router.get(`/${type}`,function(req,res,next){
   var call=list[type]
   formatResponse=function(response){
     let data=[]
-    console.log(response.result.data)
+    //console.log(response.result.data)
     response.result.data.forEach(function(item){
       data.push(item[`${type}DbId`])
       //Object.assign(data,germplasm.result.data)
     })
-    console.log({data})
+    //console.log({data})
     return {type:type,data}
   }
 //  relatedGermplasms().then(function(callRes){
@@ -71,12 +71,12 @@ router.get(`/${type}`,function(req,res,next){
   var call=list[type]
   formatResponse=function(response){
     let data=[]
-    console.log(response.result.data)
+    //console.log(response.result.data)
     response.result.data.forEach(function(item){
       data.push(item[`${type}DbId`])
       //Object.assign(data,germplasm.result.data)
     })
-    console.log({data})
+    //console.log({data})
     return {type:type,data}
   }
 //  relatedGermplasms().then(function(callRes){
