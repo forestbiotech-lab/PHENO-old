@@ -88,7 +88,6 @@ router.get('/observationunits',function(req,res,next){
 })
 
 router.post('/search/observationtables',function(req,res){
-  console.log(req.body)
   var errMsg="Router search/observationtables POST - "
   var call=observationtables_POST
   resolveCall(call,req,res,errMsg);
