@@ -25,6 +25,8 @@ function getValueFromTable(key,value,db){
   if(dbValue==null || typeof dbValue == "object" ){ // this avoids getting tables in next iteration when values are tables. 
     return column
   }
+  typeof dbValue == "boolean" ? dbValue=String(dbValue) : null
+  typeof dbValue == "string" && dbValue!=null && dbValue.length>0 ? dbValue=dbValue.replace(/^@*/,"@") : dbValue 
   return dbValue==null ? column : dbValue 
 }
 
@@ -45,7 +47,7 @@ function processMultipleAttributes(table,directions,db){
         }
         if(i<(attributes.length-1)) attributeMerge+=joiner
       }
-      return attributeMerge
+      return attributeMerge.replace(/^@*/,"@")
   }
 }
 
@@ -147,13 +149,14 @@ function getvalueFromNextTable(key,directions,db,table){
     table=result.table;
   }
   var table=table || directions._table.replace("./","")
-  if(db.dataValues[table]==null){
+  if(db.dataValues[table]==null){ // Allows refrence to a table its already in. 
     if(table == db._modelOptions.tableName){
       db.dataValues[table]=db
     }else{
       return null
     }
   }
+  //Decide where to get the column value
   if(Object.keys(directions).length>=2 ){
     if(typeof directions._attribute == "object" || typeof directions._model == "object" ){
       return processMultipleAttributes(table,directions,db)
@@ -165,9 +168,12 @@ function getvalueFromNextTable(key,directions,db,table){
   }else{
     column=key
   }
-  if (parseint) return parseInt(db.dataValues[table].dataValues[column])
-  if (parsestr) return String(db.dataValues[table].dataValues[column])
-  return db.dataValues[table].dataValues[column] 
+  if (parseint) return parseInt(db.dataValues[table].dataValues[column]) //is number no need to replace tables are never numbers
+  if (parsestr) return String(db.dataValues[table].dataValues[column]).replace(/^@*/,"@")
+  let res=db.dataValues[table].dataValues[column]
+  typeof res=="boolean" ? res=String(res) : null
+  typeof res=="string" ? res=res.replace(/^@*/,"@") : null 
+  return res
 }
 
 function processSingleValueObject(key,value,db){
@@ -264,8 +270,6 @@ function parseCallStructure(record,db){
 
 //// !!!! MAIN FUNCTION /////////////////
 function formatRetreivedData(arg,res){
-    console.log({Type:"Test 0",arg})  
-
     var metadata=arg.metadata
     var attribute=arg.attribute
     const callStructure=arg.callStructure
@@ -279,7 +283,6 @@ function formatRetreivedData(arg,res){
       }
       parseCallStructure(data[uniqueId],dbValues)
     }
-    
     cleanUp(data)
     //Pack objects into array 
     var result=[]
@@ -307,15 +310,15 @@ function locateObjectsAndFixThem(record){
         dynamicKeyOperation=true;
         if(i==1){
           let temp={}
-          temp[element._key]=element._value
+          temp[element._key.replace(/^@/,"")]=element._value.replace(/^@/,"")
           record.push(temp)
         }
         if(i>=2){
           let temp=record.pop();
           if (temp[element._key]==null){
-            temp[element._key]=element._value;
+            temp[element._key.replace(/^@/,"")]=element._value.replace(/^@/,"");
           }else{
-            temp[element._key]=temp[element._key]+" , "+element._value
+            temp[element._key.replace(/^@/,"")]=temp[element._key.replace(/^@/,"")]+" , "+element._value.replace(/^@/,"")
           }
           record.push(temp)
         }
@@ -329,21 +332,31 @@ function cleanUpArray(record){
     if(locateObjectsAndFixThem(record)){
       return record.pop()
     }else{
-      record.shift()
+      record.shift() //For models
       return record
     }
   }
 }
 
 function cleanUpKeys(key,value,record){
+  if (typeof value == "undefined"){
+    record[key]=null
+  }
 	if( key == "_table" || key=="_model" ){
-		if (typeof value == "string"){
+		if (typeof value == "string" || value==null){
 			delete record[key]
 		}
     if (typeof value == "object" && value instanceof Array){
       delete record[key]
     }
 	}
+  if (typeof value == "string" && key!="_table"){
+    if(value.startsWith("@")){
+      record[key]=value.replace(/^@/,"")
+    }else{
+      record[key]=null
+    }
+  }
 	if (typeof value == "object"){
 		if(value instanceof Array){
       record[key]=cleanUpArray(value)
@@ -355,12 +368,10 @@ function cleanUpKeys(key,value,record){
 }
 
 function cleanUp(record){
-  for (i in Object.keys(record)){
-    //console.log(record)
-    var key=Object.keys(record)[i]
+  Object.keys(record).forEach(function(key){
     var value=record[key]
     cleanUpKeys(key,value,record)
-  }
+  })
 }
 /////!!!end Clean Up //////////////////////////////////////////////
 module.exports=formatRetreivedData 
