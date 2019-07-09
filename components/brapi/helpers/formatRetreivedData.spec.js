@@ -11,6 +11,24 @@ describe('Main Function - formatRetreivedData', function() {
       processedData=test(this.arg,this.res)
       expect(processedData).to.be.a('object')
     });
+    it('sets value to null when all values are are null in db',function(){
+      assert.isNull(processedData.data[0].plantsArrayObj[0].testNull)
+      assert.isNull(processedData.data[0].plantsArrayObj[0].testNullOnDiffAttribute)
+      assert.isNull(processedData.data[0].plantsArrayObj[0].testNoColumn)
+      assert.isNull(processedData.data[0].plantsArrayObj[0].testNoColumnDiffAttribute)
+      //test on object value with attribute 
+
+    });
+    it('sets value to null when all values are are null in db in the 2nd copy',function(){
+      assert.isNull(processedData.data[0].testNull)
+      assert.isNull(processedData.data[0].testNullObject)
+      assert.isNull(processedData.data[0].testNullOnDiffAttribute)
+      assert.isNull(processedData.data[0].testNoColumn)
+      assert.isNull(processedData.data[0].testNoColumnDiffAttribute)
+      assert.isNull(processedData.data[0].testNoColumnDiffAttributeObject)
+      //test on object value with attribute 
+
+    });
     it('does multi table traversing work?', function() {
       assert.equal(processedData.data[0].plotDbId,"15")
       assert.equal(processedData.data[1].plotDbId,"18")
@@ -34,5 +52,29 @@ describe('Main Function - formatRetreivedData', function() {
       expect(dynamicObject).to.be.a('object')
       assert.equal(dynamicObject["Dr."],"Inês Chaves");
     });    
+    it('will it parse value as a string',function(){
+    //Test parse string
+      assert.isString(processedData.data[0].observationUnitDbId)
+    });
+    it('will it parse value as a number',function(){
+    //Test parse number
+      assert.isNumber(processedData.data[0].observationUnitDbIdINT)
+    }); 
+    it("Does it get a value that wasn't found in first record",function(){
+    //Value exists in on result but not in the other  FAILS
+      assert.isNotNull(processedData.data[0].onlyInSecond)
+      assert.equal(processedData.data[0].onlyInSecond,"Yes it can")
+      assert.isNotNull(processedData.data[0].observationUnitName)
+      assert.equal(processedData.data[0].observationUnitName,"Tree sample X")
+    })   
+    it("Does it get empty values",function(){
+      assert.isNull(processedData.data[0].emptyValue)
+    })
+    it("Does it processed Boolean value well?",function(){
+      assert.equal(processedData.data[0].booleanTest,"true")
+      assert.equal(processedData.data[0].booleanTest2,"false")
+    })
+
+    //check how nulls and empty strings are extracted from db. "" in db will give a "" in result
   });
 });

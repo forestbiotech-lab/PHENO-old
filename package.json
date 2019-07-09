@@ -8,6 +8,7 @@
     "test": "npm run test-unit",
     "test-v1_3": "npm run test-unit-v1_3",
     "test-unit": "NODE_ENV=test mocha --exit 'components/**/v1.3/*.spec.js'",
+    "test-basic": "NODE_ENV=test mocha --exit 'components/**/helpers/*.spec.js'",
     "coverage": "nyc npm test;",
     "html-report": "nyc --reporter=html npm test;google-chrome-stable coverage/index.html",
     "build": "babel src/ -d lib/",
