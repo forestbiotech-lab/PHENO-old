@@ -45,7 +45,6 @@ function generatePagination(res,query){
  */
 
 function generateJSON(queryData,pagination,code,message,messageType){
-	console.log(queryData)
 	//null message
 	var message = message || "OK";
 	var messageType = messageType || "INFO";
