@@ -25,7 +25,7 @@ e.calls=function(attributes) {
     }).then(function(res){
         return res;
     }).catch(function(err){
-        console.log("model v1.3 | Implemented Calls - Err: "+ err);
+        debug_std("model v1.3 | Implemented Calls - Err: "+ err);
         return err;
     });
 }
