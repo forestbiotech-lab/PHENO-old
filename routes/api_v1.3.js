@@ -14,6 +14,7 @@ var trials = require('./../components/brapi/v1.3/trials_GET');
 var observationunits = require('./../components/brapi/v1.3/observationunits_GET');
 var observationtables_GET = require('./../components/brapi/v1.3/observationtables_GET')
 var observationtables_POST = require('./../components/brapi/v1.3/observationtables_POST')
+var studiesStudyID = require('./../components/brapi/v1.3/studies_id_GET');
 //var phenotypesSearchV1_3 = require('./../components/brapi/v1.3/phenotypesSearch')
 //------------------- End  -------------------------------
 
@@ -46,7 +47,7 @@ router.get('/germplasm/:id',function(req,res,next){
 
 router.get('/studies/:studyDbId',function(req,res,next){
   var errMsg="Router studies Get - "
-  var call=studies
+  var call=studiesStudyID
   resolveCall(call,req,res,errMsg);
 })
 router.get('/studies',function(req,res,next){

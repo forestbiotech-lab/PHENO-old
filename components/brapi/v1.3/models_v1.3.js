@@ -168,7 +168,14 @@ e.studies=function(attributes){
         }]
       }]
     },{
-      model:db.Location
+      model:db.Location,
+      include:[{
+        model:db.Country
+      },{
+        model:db.LocationAdditionalInfo
+      },{
+        model:db.Institution
+      }]
     },{
       model:db.StudySeason,
       include:[{
