@@ -12,20 +12,20 @@ describe('Main Function - formatRetreivedData', function() {
       expect(processedData).to.be.a('object')
     });
     it('sets value to null when all values are are null in db',function(){
-      assert.isNull(processedData.data[0].plantsArrayObj[0].testNull)
-      assert.isNull(processedData.data[0].plantsArrayObj[0].testNullOnDiffAttribute)
-      assert.isNull(processedData.data[0].plantsArrayObj[0].testNoColumn)
-      assert.isNull(processedData.data[0].plantsArrayObj[0].testNoColumnDiffAttribute)
+      assert.equal(processedData.data[0].plantsArrayObj[0].testNull,"null")
+      assert.equal(processedData.data[0].plantsArrayObj[0].testNullOnDiffAttribute,"null")
+      assert.equal(processedData.data[0].plantsArrayObj[0].testNoColumn,"null")
+      assert.equal(processedData.data[0].plantsArrayObj[0].testNoColumnDiffAttribute,"null")
       //test on object value with attribute 
 
     });
     it('sets value to null when all values are are null in db in the 2nd copy',function(){
-      assert.isNull(processedData.data[0].testNull)
-      assert.isNull(processedData.data[0].testNullObject)
-      assert.isNull(processedData.data[0].testNullOnDiffAttribute)
-      assert.isNull(processedData.data[0].testNoColumn)
-      assert.isNull(processedData.data[0].testNoColumnDiffAttribute)
-      assert.isNull(processedData.data[0].testNoColumnDiffAttributeObject)
+      assert.equal(processedData.data[0].testNull,"null")
+      assert.equal(processedData.data[0].testNullObject,"null")
+      assert.equal(processedData.data[0].testNullOnDiffAttribute,"null")
+      assert.equal(processedData.data[0].testNoColumn,"null")
+      assert.equal(processedData.data[0].testNoColumnDiffAttribute,"null")
+      assert.equal(processedData.data[0].testNoColumnDiffAttributeObject,"null")
       //test on object value with attribute 
 
     });
@@ -68,7 +68,7 @@ describe('Main Function - formatRetreivedData', function() {
       assert.equal(processedData.data[0].observationUnitName,"Tree sample X")
     })   
     it("Does it get empty values",function(){
-      assert.isNull(processedData.data[0].emptyValue)
+      assert.equal(processedData.data[0].emptyValue,"null")
     })
     it("Does it processed Boolean value well?",function(){
       assert.equal(processedData.data[0].booleanTest,"true")
