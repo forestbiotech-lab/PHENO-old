@@ -1,5 +1,5 @@
 module.exports={
-    "active": "true",
+    "active": "",
     "additionalInfo": [{
         _table:"StudyAdditionalInfo",
         _model:{
@@ -60,7 +60,7 @@ module.exports={
         _table:["StudySeason","Season"],
         _model:{
             _table:"Season",
-            id:"",
+            id:{_table:"Season",_attribute:"id",_parse:"str"},
             season:"",
             year:{_table:"Season",_attribute:"year",_parse:"str"},
         }

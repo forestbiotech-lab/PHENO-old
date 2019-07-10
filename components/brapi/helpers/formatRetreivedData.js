@@ -353,6 +353,8 @@ function cleanUpKeys(key,value,record){
   if (typeof value == "string" && key!="_table"){
     if(value.startsWith("@")){
       record[key]=value.replace(/^@/,"")
+      record[key] == "true" ? record[key] = true : null
+      record[key] == "false" ? record[key] = false : null
     }else{
       record[key]=null
     }

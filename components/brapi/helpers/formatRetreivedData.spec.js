@@ -71,8 +71,8 @@ describe('Main Function - formatRetreivedData', function() {
       assert.isNull(processedData.data[0].emptyValue)
     })
     it("Does it processed Boolean value well?",function(){
-      assert.equal(processedData.data[0].booleanTest,"true")
-      assert.equal(processedData.data[0].booleanTest2,"false")
+      assert.isTrue(processedData.data[0].booleanTest)
+      assert.isFalse(processedData.data[0].booleanTest2)
     })
 
     //check how nulls and empty strings are extracted from db. "" in db will give a "" in result

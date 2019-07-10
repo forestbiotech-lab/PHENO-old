@@ -1,5 +1,5 @@
 module.exports={
-    "active": "true",
+    "active": "",
     "additionalInfo": [{
         _table:"StudyAdditionalInfo",
         _model:{
