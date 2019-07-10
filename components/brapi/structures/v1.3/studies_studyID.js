@@ -71,7 +71,7 @@ module.exports={
         "instituteAdress": "",                                                      //Deprecated
         "instituteName": {_table:"Institution",_attribute:"name"},
         "latitude": {_table:"Location",_attribute:"longitude",_parse:"int"},
-        "locationDbId": "id",
+        "locationDbId": {_table:"Location",_attribute:"id",_parse:"str"},
         "locationName": "name",                                                     //Deprecated
         "locationType": "",          
         "longitude": {_table:"Location",_attribute:"longitude",_parse:"int"},
