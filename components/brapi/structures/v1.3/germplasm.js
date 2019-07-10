@@ -45,7 +45,7 @@ module.exports={
     _table:"Species",
     _model:{
       _table:"Species",
-      sourceName: "ncbiTaxon",
+      sourceName: "@ncbiTaxon",      //This is not long term
       taxonId: {_table:"Species",_attribute:'NCBItaxonId',_parse:"str"}
     }
   }],
