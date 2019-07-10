@@ -340,7 +340,7 @@ function cleanUpArray(record){
 
 function cleanUpKeys(key,value,record){
   if (typeof value == "undefined"){
-    record[key]="null"
+    record[key]=null
   }
 	if( key == "_table" || key=="_model" ){
 		if (typeof value == "string" || value==null){
@@ -354,7 +354,7 @@ function cleanUpKeys(key,value,record){
     if(value.startsWith("@")){
       record[key]=value.replace(/^@/,"")
     }else{
-      record[key]="null"
+      record[key]=null
     }
   }
 	if (typeof value == "object"){
