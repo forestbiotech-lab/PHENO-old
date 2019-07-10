@@ -7,6 +7,7 @@ var controller = require('./../controllers/callController_v1.3');
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 var callStructure = require('./../structures/v1.3/germplasm');
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+var metadata
 
 module.exports = function(options){
   var options= options || {body:{},params:{},query:{}};  
@@ -30,6 +31,7 @@ module.exports = function(options){
     options.where.germplasmPUI=value 
   delete options.query.germplasmPUI;
 //|||||||||||||||||germplasmDbId||||||||||||||  Is this a valid approach?
+  options.params.id ? metadata={ metadataOnlyRemoveData:true} : metadata={}
   attribute=options.params.id || options.query.germplasmDbId
   var value=fmtWhereAttr(attribute,"in")
   if ( value != null )
@@ -57,9 +59,5 @@ function callback(res){
   //[The attribute in main table used as uniqueId]
   var attribute="id"
     //Metadata
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    var metadata={}
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  return {metadata:metadata,attribute:attribute,callStructure:callStructure};
+  return {metadata,attribute,callStructure};
 }

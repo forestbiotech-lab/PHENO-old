@@ -8,6 +8,7 @@ module.exports={
     "germplasmName": {_table:"Germplasm",_attribute:"defaultDisplayName"},
     "observationUnitDbId": {_table:"ObservationUnit",_attribute:"id",_parse:"str"},
     "observationUnitName": "name",
+    "observationLevel":"level",
     "observationUnitXref": [{
         _table:"ObservationUnitXRef",
         _model: {
