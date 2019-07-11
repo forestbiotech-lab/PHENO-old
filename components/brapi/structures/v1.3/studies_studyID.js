@@ -67,8 +67,8 @@ module.exports={
         "countryCode": {_table:"Country",_attribute:"code"},
         "countryName": {_table:"Country",_attribute:"name"},
         "documentationURL": "https://brapi.org",  //not implemented
-        "instituteAddress": "",              //{_table:"LocationAdditionalInfo"},    //Will create new column in institution
-        "instituteAdress": "",                                                      //Deprecated
+        "instituteAddress": "streetName",             
+        "instituteAdress": "streetName",                                               //Deprecated
         "instituteName": {_table:"Institution",_attribute:"name"},
         "latitude": {_table:"Location",_attribute:"longitude",_parse:"int"},
         "locationDbId": {_table:"Location",_attribute:"id",_parse:"str"},

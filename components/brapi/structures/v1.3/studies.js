@@ -68,7 +68,7 @@ module.exports={
     "startDate": {_table:"Trial",_attribute:"startDate"},  //Should be in study not trial?
     "studyDbId": {_table:"Study",_attribute:"id",_parse:"str"},
     "studyName": "name",
-//    "studyType": {}, //deprecated
+    "studyType": {}, //deprecated
     "studyTypeDbId": "studyTypeId",
     "studyTypeName": {_table:"StudyType",_attribute:"name"}, //name or description????
     "trialDbId": {_table:"Trial",_attribute:"id",_parse:"str"},
