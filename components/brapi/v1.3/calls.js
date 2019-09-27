@@ -20,6 +20,7 @@ module.exports = function(options){
   //Do this for each where attribute needed.
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   attribute=options.params.version
+  attribute==1 ? attribute=null : null
   if (attribute != null){
     options.where["$Version.version$"]=fmtWhereAttr(attribute,"eq") 
     delete options.params.version;

@@ -38,6 +38,7 @@ router.get('/:version', function(req, res, next) {
   let re=new RegExp("v[0-9]\.{0,1}[0-9]{0,1}$") 
   if ( re.test(version) && version.length < 5 ){
     req.params.version=version.replace("v","")
+
     //Promissify function
     function getReadme(){
       return new Promise(
@@ -54,7 +55,8 @@ router.get('/:version', function(req, res, next) {
       var options=getOptions(req);
       calls(options).then(function (callsResponse) {
         res.render('brapiV1', { 
-          title: 'BrAPI - PT node', 
+          title: `BrAPI version ${version} call list - PT node`, 
+          content: `List of calls for version ${version}, these calls can be used to query this endpoint based on the version specification.`, 
           protocol: req.protocol, 
           host: req.headers.host, 
           readme: marked(data), 

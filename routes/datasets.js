@@ -35,7 +35,8 @@ router.get('/germplasm',function(req,res,next){
       //Object.assign(data,germplasm.result.data)
     })
     //console.log({data})
-    return {type:"germplasm",data}
+    let content=`Germplasm list`
+    return {type:"germplasm",data,title:"Germplasm list",content:content}
   }
 //  relatedGermplasms().then(function(callRes){
       resolveCall(call,req,res,errMsg,"listDatasetLinks",formatResponse)
@@ -50,13 +51,14 @@ router.get(`/${type}`,function(req,res,next){
   var call=list[type]
   formatResponse=function(response){
     let data=[]
-    //console.log(response.result.data)
+    console.log(response.result.data)
     response.result.data.forEach(function(item){
       data.push(item[`${type}DbId`])
       //Object.assign(data,germplasm.result.data)
     })
     //console.log({data})
-    return {type:type,data}
+    let content=`Trial list. Trials comprise of multiple studies. The trial concept in BrAPI corresponds to the "investigation" concept in MIAPPE (Minimal Information about a Plant Phenotyping Experiment`
+    return {type:type,data,title:"Trial List",content:content}
   }
 //  relatedGermplasms().then(function(callRes){
       resolveCall(call,req,res,errMsg,"listDatasetLinks",formatResponse)
@@ -77,7 +79,8 @@ router.get(`/${type}`,function(req,res,next){
       //Object.assign(data,germplasm.result.data)
     })
     //console.log({data})
-    return {type:type,data}
+    let content=`Study list`
+    return {type:type,data,title:"Study list",content:content}
   }
 //  relatedGermplasms().then(function(callRes){
       resolveCall(call,req,res,errMsg,"listDatasetLinks",formatResponse)
@@ -101,6 +104,7 @@ router.get('/germplasm/:germplasmId',function(req,res,next){
     return locationAdditionalInfo(fakeReq).then(function(callRes){
    	  data={
         	title: "PHENO - Germplasm info",
+          content: `Germplasm description page. Germplasm are living genetic resources such as seeds or tissues that are maintained for the purpose of animal and plant breeding, preservation, and other research uses. These resources may take the form of seed collections stored in seed banks, trees growing in nurseries, animal breeding lines maintained in animal breeding programs or gene banks, etc.`,
         	host: req.headers.host,
         	germplasmData:germplasmData,
         	map:svg
@@ -141,6 +145,7 @@ router.get('/study/:studyId',function(req,res,next){
   	return Promise.all(addonCalls).then(function(callRes){
   		data={
 	      	title: "PHENO - Study info",
+          content:`Study description page. Study is defined as a phenotyping experiment conducted at a single geographic location. One Trial can have multiple studies conducted (e.g. multi location international trials).`,   
 	      	host: req.headers.host,
 	      	studyData:studyData,
 	      	map:svg,
@@ -164,8 +169,9 @@ router.get('/trial/:trialId',function(req,res,next){
   formatResponse=function(response){
     //console.log(response)
     var trialData=response.result.data[0]
-    //console.log(trialData)
-    return {trialData:trialData}
+    console.log(trialData)
+    let content=`Trial description page. Trials comprise of multiple studies. The trial concept in BrAPI corresponds to the "investigation" concept in MIAPPE (Minimal Information about a Plant Phenotyping Experiment`
+    return {trialData:trialData,title:trialData.name,content:content}
 /*
     location=studyData.location
     myMap=map(location.longitude,location.latitude)
