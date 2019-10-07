@@ -7,4 +7,3 @@ Allow: /brapi/datasets/trial/
 Allow: /brapi/datasets/germplasm/
 
 Disallow: /areyouup
-Disallow: /brapi/v1/
