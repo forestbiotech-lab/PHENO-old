@@ -1,0 +1,13 @@
+[Unit]
+Description=BrAPI web server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+#User=brunocosta
+Type=simple
+ExecStart=/home/brunocosta/.git/PHENO/bin/BrAPI
+
+[Install]
+WantedBy=multi-user.target
+~
