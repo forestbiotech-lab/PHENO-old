@@ -63,24 +63,28 @@ block content
     .form-check.form-check-inline
       label.form-check-label(for='plot') Plot:
       select#plot.form-control
+        option !{plot}
         option 1
         option 2
         option 3
     .form-check.form-check-inline
       label.form-check-label(for='block') Block:
       select#block.form-control
+        option !{block}
         option 1
         option 2
         option 3
     .form-check.form-check-inline
       label.form-check-label(for='row') Row:
       select#row.form-control
+        option !{row}
         option 1
         option 2
         option 3
     .form-check.form-check-inline
-      label.form-check-label(for='plot') Pot:
+      label.form-check-label(for='plot',value=pot) Pot:
       select#pot.form-control
+        option !{pot}
         option 1
         option 2
         option 3
@@ -111,16 +115,16 @@ block content
       .row
         .col-sm-4
         .col-sm-4
-          button.w-100.p-3b.btn.btn-primary(type="button") Up (Submit)
+          button.w-100.p-3b.btn.btn-primary(type="button",row="-1",pot="0") Up (Submit)
         .col-sm-4
       .row
         .col-sm-2
         .col-sm-4
-          button.w-100.p-3b.btn.btn-primary(type="button") Left (Submit)
+          button.w-100.p-3b.btn.btn-primary(type="button",row="0",pot="-1") Left (Submit)
         .col-sm-4
-          button.w-100.p-3b.btn.btn-primary(type="button") Right (Submit)
+          button.w-100.p-3b.btn.btn-primary(type="button",row="1",pot="1") Right (Submit)
         .col-sm-2
       .row
         .col-sm-4
         .col-sm-4
-          button.w-100.p-3b.tn.btn-primary(type="button") Down (Submit)
+          button.w-100.p-3b.tn.btn.btn-primary(type="button",row="1",pot="0") Down (Submit)
