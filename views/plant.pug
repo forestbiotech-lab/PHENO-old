@@ -1,25 +1,117 @@
 extends layoutPhenotyping
 
 block content
-  form
-  .form-group
-    label(for='exampleFormControlInput1') Location
-    input#exampleFormControlInput1.form-control(type='text', placeholder='Plot x;Block x; Row 1; Pot 2')
-  .form-group
-    label(for='exampleFormControlSelect1') Example select
-    select#exampleFormControlSelect1.form-control
-      option leaf length CO:123121
-      option leaf color CO:34242
-      option plant state CO:023489
-      option height CO:589389
-      option root derivation CO:98989
-  .form-group
-    label(for='exampleFormControlInput2') Value
-    input#exampleFormControlInput2.form-control(type='text', placeholder='3.2')
-  .form-group
-    label(for='exampleFormControlTextarea1') Example textarea
-    textarea#exampleFormControlTextarea1.form-control(rows='3')
-  button.btn.primary(role="button") Go Left (Submit)
-  button.btn.primary(role="button") Go Right (Submit)
-  button.btn.primary(role="button") Go Up (Submit)
-  button.btn.primary(role="button") Go Down (Submit)
+  .container.min-vw-100.vw-100
+    .container
+      p Location grid Plot 1 - Block 2 - Row 3 - Pot 5
+      .row
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .          
+        .col-sm-1
+          p .          
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .                                        
+      .row
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .          
+        .col-sm-1
+          p .          
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .
+      .row
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .          
+        .col-sm-1
+          p .          
+        .col-sm-1
+          p 0
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .
+        .col-sm-1
+          p .          
+
+    form
+    .form-group
+      label(for='exampleFormControlInput1') Location
+      input#exampleFormControlInput1.form-control(type='text', placeholder='Plot x;Block x; Row 1; Pot 2')
+    .form-check.form-check-inline
+      label.form-check-label(for='plot') Plot:
+      select#plot.form-control
+        option 1
+        option 2
+        option 3
+    .form-check.form-check-inline
+      label.form-check-label(for='block') Block:
+      select#block.form-control
+        option 1
+        option 2
+        option 3
+    .form-check.form-check-inline
+      label.form-check-label(for='row') Row:
+      select#row.form-control
+        option 1
+        option 2
+        option 3
+    .form-check.form-check-inline
+      label.form-check-label(for='plot') Pot:
+      select#pot.form-control
+        option 1
+        option 2
+        option 3
+    .form-group
+      label(for='trait') Select trait
+      select#trait.form-control
+        option leaf length CO:123121
+        option leaf color CO:34242
+        option plant state CO:023489
+        option height CO:589389
+        option root derivation CO:98989
+    .form-group
+      label(for='exampleFormControlInput2') Value
+      input#exampleFormControlInput2.form-control(type='number', placeholder='3.2')
+    .form-group
+      label(for='exampleFormControlTextarea1') Example textarea
+      textarea#exampleFormControlTextarea1.form-control(rows='3')
+    .container-fluid
+      .row
+        .col-sm-4
+        .col-sm-4
+          button.w-100.p-3b.btn.btn-primary(type="button") Up (Submit)
+        .col-sm-4
+      .row
+        .col-sm-2
+        .col-sm-4
+          button.w-100.p-3b.btn.btn-primary(type="button") Left (Submit)
+        .col-sm-4
+          button.w-100.p-3b.btn.btn-primary(type="button") Right (Submit)
+        .col-sm-2
+      .row
+        .col-sm-4
+        .col-sm-4
+          button.w-100.p-3b.tn.btn-primary(type="button") Down (Submit)
