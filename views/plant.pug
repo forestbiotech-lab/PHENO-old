@@ -1,0 +1,22 @@
+extends layoutPhenotyping
+
+block content
+  form
+  .form-group
+    label(for='exampleFormControlInput1') Location
+    input#exampleFormControlInput1.form-control(type='text', placeholder='Plot x;Block x; Row 1; Pot 2')
+  .form-group
+    label(for='exampleFormControlSelect1') Example select
+    select#exampleFormControlSelect1.form-control
+      option leaf length CO:123121
+      option leaf color CO:34242
+      option plant state CO:023489
+      option height CO:589389
+      option root derivation CO:98989
+  .form-group
+    label(for='exampleFormControlInput2') Value
+    input#exampleFormControlInput2.form-control(type='text', placeholder='3.2')
+  .form-group
+    label(for='exampleFormControlTextarea1') Example textarea
+    textarea#exampleFormControlTextarea1.form-control(rows='3')
+  button.btn.primary(role="button") Submit

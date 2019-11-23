@@ -18,6 +18,7 @@ var index = require('./routes/index');
 var brapi = require('./routes/brapi');
 var datasets = require('./routes/datasets');
 var tableview = require('./routes/tableview');
+var phenotyping = require('./routes/phenotyping')
 
 
 // redirect stdout / stderr
@@ -53,6 +54,7 @@ app.use('/brapi/v1', api.v1);
 app.use('/brapi/datasets',  datasets)
 app.use('/brapi',  brapi)
 app.use('/tableview/brapi/v1',  tableview)
+app.use('/phenotyping',  phenotyping)
 ///---------------------Testing routes------------------------
 //Experiment for no auth   
 //app.use('/noauth/brapi/v1', noauth);
