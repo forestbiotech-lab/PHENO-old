@@ -6,7 +6,7 @@ var debug_full= debug('brapi:trace');
 
 
 router.get('/plant/set/:block/:row/:pot',function(req,res,next){
-   res.render('phenotyping')
+   res.render('plant')
 })
 
 module.exports = router;
