@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var debug = require('debug')
 var debug_std = debug('brapi:server');
 var debug_full= debug('brapi:trace');
 
