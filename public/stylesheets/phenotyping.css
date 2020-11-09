@@ -1,5 +1,8 @@
 .block .plot{
-  width: 14.9rem;
-  height: 15rem;
-  background-color: yellow;
+  width: 6.9rem;
+  height: 7rem;
+}
+
+.block .plot p{
+  text-align: center;
 }

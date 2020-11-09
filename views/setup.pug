@@ -11,6 +11,15 @@ block content
       a.btn.btn-primary(role="button",href="/phenotyping/plant/set/1/1/1/1/1") Enter data
   .card
     .card-header  
+      | Mapping
+    .card-body
+      .form-group
+        .pocket-progress
+        label.sr-only(for="augment-file") Upload file
+        input(hidden,type="file",id="augment-file",placeholder="tsv file",required="",autofocus="",autocomplete="off",name="uploads[]", accept="mime/*,.tsv",study-id=study_id)
+      button.btn.btn-success.btn-block.upload-augment-file(type="button") Upload Mapping
+  .card
+    .card-header  
       | Study design
     .card-body
       .d-flex    
@@ -22,7 +31,7 @@ block content
           input#rows(type="number",min=0,value=0) 
         .form-group.p-2
           label(for='cols') Number of columns per block: 
-          input#cols(type="number",min=0,value=0) 
+          input#cols(type="number",min=0,value=0)
     .card-body.bg-secondary
       .study-design
 
