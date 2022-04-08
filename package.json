@@ -35,7 +35,7 @@
     "jsonwebtoken": "^8.4.0",
     "jstransformer": "^1.0.0",
     "marked": "^0.3.19",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "morgan": "^1.9.1",
     "mysql": "^2.17.1",
     "mysql2": "^1.6.5",
