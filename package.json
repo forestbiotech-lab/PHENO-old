@@ -32,7 +32,7 @@
     "hoek": "^5.0.3",
     "jsdom": "^13.2.0",
     "json-to-table": "^4.1.0",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^9.0.0",
     "jstransformer": "^1.0.0",
     "marked": "^0.3.19",
     "moment": "^2.22.2",
